@@ -1,0 +1,38 @@
+{
+  "name": "@wld/ui",
+  "version": "1.0.0",
+  "description": "WLD.com ui components",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/welovedevs/wld-design-system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/welovedevs/wld-design-system/issues"
+  },
+  "homepage": "https://github.com/welovedevs/wld-design-system#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.6.0",
+    "@material-ui/icons": "^4.5.1",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.15",
+    "react": "^16.11.0",
+    "react-autosuggest": "^9.4.3",
+    "react-dom": "^16.11.0",
+    "react-jss": "^10.0.0",
+    "react-measure": "^2.3.0",
+    "react-spring": "^8.0.27"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+  }
+}
