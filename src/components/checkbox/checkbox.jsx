@@ -4,9 +4,8 @@ import cn from 'classnames';
 import injectSheet from 'react-jss';
 import { animated, config, useSpring } from 'react-spring';
 
-import { getComponentColor } from '../../styles/utils/color_utils';
-
-import {dark} from '../../styles/palettes';
+import { getComponentColor } from '../../styles/utils/styles_utils';
+import { dark } from '../../styles/palettes';
 
 import styles from './checkbox_styles';
 

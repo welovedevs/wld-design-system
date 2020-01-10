@@ -7,7 +7,7 @@ import { animated, config, useSpring } from 'react-spring';
 import { Popper, ClickAwayListener } from '@material-ui/core';
 import { Card } from '../card/card';
 
-import SpeechBubbleArrow from '../../../assets/images/assets/icons/speech_bubble_arrow.svg';
+import { ReactComponent as SpeechBubbleArrow} from '../../assets/icons/speech_bubble_arrow.svg';
 
 import styles from './popper_card_styles';
 

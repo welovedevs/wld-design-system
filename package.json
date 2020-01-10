@@ -4,7 +4,9 @@
   "description": "WLD.com ui components",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d dist"
+    "build": "babel src -d dist",
+    "storybook": "start-storybook -p 6006 --ci",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -19,13 +21,18 @@
   "dependencies": {
     "@material-ui/core": "^4.6.0",
     "@material-ui/icons": "^4.5.1",
+    "@storybook/addon-knobs": "^5.2.8",
+    "@storybook/theming": "^5.2.8",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "react": "^16.11.0",
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.11.0",
+    "react-instantsearch-dom": "^6.1.0",
+    "react-intl": "^3.11.0",
     "react-jss": "^10.0.0",
     "react-measure": "^2.3.0",
+    "react-scripts": "^3.3.0",
     "react-spring": "^8.0.27"
   },
   "devDependencies": {
@@ -33,6 +40,11 @@
     "@babel/core": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
+    "@storybook/addon-actions": "^5.2.6",
+    "@storybook/addon-links": "^5.2.6",
+    "@storybook/addons": "^5.2.6",
+    "@storybook/react": "^5.2.6",
+    "babel-loader": "^8.0.6",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
   }
 }

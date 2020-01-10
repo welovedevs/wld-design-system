@@ -1,4 +1,4 @@
-import { flexUtils } from '../../../style/js';
+import { flexUtils } from '../../styles/utils/styles_utils';
 
 const { center } = flexUtils;
 
@@ -11,6 +11,7 @@ export default {
         margin: 10,
         padding: 3,
         cursor: 'pointer',
+        overflow: 'hidden',
         ...center
     },
     raised: {

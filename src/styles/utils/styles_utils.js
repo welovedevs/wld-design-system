@@ -1,5 +1,4 @@
 // Material Design's box-shadows (see: https://codepen.io/sdthornton/pen/wBZdXq)
-
 import palettes, { dark } from '../palettes';
 
 export const card2 = {
@@ -16,7 +15,6 @@ export const flexUtils = {
 };
 
 // Background utils
-
 export const createBackground = (size = 'cover') => ({
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -31,11 +29,9 @@ export const generateGradient = (palette, deg = 'to right top') => {
 };
 
 // Borders
-
 export const getDefaultBorder = (width = 1, color = 'lightgray') => [width, 'solid', color];
 
-// TRANSFORMATIONS
-
+// Transformations
 export const pixelsToRem = pixels => `${pixels / 16}rem`;
 
 const arrayToString = (array, transform = something => something) => {

@@ -3,8 +3,7 @@ import React from 'react';
 import cn from 'classnames';
 import { createUseStyles } from 'react-jss';
 
-import { getComponentColor } from '../../styles/utils/color_utils';
-
+import { getComponentColor } from '../../styles/utils/styles_utils';
 
 import { styles } from './typography_styles';
 

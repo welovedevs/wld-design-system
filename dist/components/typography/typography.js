@@ -15,7 +15,7 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _reactJss = require("react-jss");
 
-var _color_utils = require("../../styles/utils/color_utils");
+var _styles_utils = require("../../styles/utils/styles_utils");
 
 var _typography_styles = require("./typography_styles");
 
@@ -45,7 +45,7 @@ var TypographyComponent = function TypographyComponent(_ref) {
   var style = null;
 
   if (color) {
-    var hex = (0, _color_utils.getComponentColor)(true, color, false, 500);
+    var hex = (0, _styles_utils.getComponentColor)(true, color, false, 500);
 
     if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some(function (key) {
       return variant === key;
@@ -57,12 +57,12 @@ var TypographyComponent = function TypographyComponent(_ref) {
         };
       } else if (color === 'thirdary') {
         style = {
-          color: (0, _color_utils.getComponentColor)(true, 'primary', false, 500),
+          color: (0, _styles_utils.getComponentColor)(true, 'primary', false, 500),
           backgroundColor: hex
         };
       } else {
         style = {
-          color: (0, _color_utils.getComponentColor)(true, 'primary', false, 500)
+          color: (0, _styles_utils.getComponentColor)(true, 'primary', false, 500)
         };
       }
     } else {

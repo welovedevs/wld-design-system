@@ -16,14 +16,14 @@ Object.keys(_palettes).forEach(function (key) {
   });
 });
 
-var _color_utils = require("./utils/color_utils");
+var _styles_utils = require("./utils/styles_utils");
 
-Object.keys(_color_utils).forEach(function (key) {
+Object.keys(_styles_utils).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function get() {
-      return _color_utils[key];
+      return _styles_utils[key];
     }
   });
 });

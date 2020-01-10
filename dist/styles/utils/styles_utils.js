@@ -48,7 +48,7 @@ var getDefaultBorder = exports.getDefaultBorder = function getDefaultBorder() {
   var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
   var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'lightgray';
   return [width, 'solid', color];
-}; // TRANSFORMATIONS
+}; // Transformations
 
 
 var pixelsToRem = exports.pixelsToRem = function pixelsToRem(pixels) {

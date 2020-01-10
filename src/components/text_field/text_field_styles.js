@@ -1,4 +1,4 @@
-import { dark } from '../../styles/palettes';
+import { primary } from '../../styles/palettes';
 
 export default {
     container: {

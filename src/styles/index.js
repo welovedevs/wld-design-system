@@ -1,2 +1,2 @@
 export * from './palettes'
-export * from './utils/color_utils'
+export * from './utils/styles_utils'

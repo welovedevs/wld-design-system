@@ -21,7 +21,7 @@ var _reactSpring = require("react-spring");
 
 var _typography = require("../typography/typography");
 
-var _color_utils = require("../../styles/utils/color_utils");
+var _styles_utils = require("../../styles/utils/styles_utils");
 
 var _palettes = require("../../styles/palettes");
 
@@ -89,7 +89,7 @@ var ButtonComponent = function ButtonComponent(_ref) {
       setBrightLayerSpringProps = _useSpring2[1];
 
   var colorSpring = (0, _reactSpring.useSpring)({
-    color: (0, _color_utils.getComponentColor)(true, color, disabled),
+    color: (0, _styles_utils.getComponentColor)(true, color, disabled),
     config: _reactSpring.config.stiff
   });
   var showBrightLayer = (0, _react.useCallback)(function () {
@@ -165,7 +165,7 @@ var ContainedButton = function ContainedButton(props) {
       disabled = props.disabled,
       style = props.style;
   var springProps = (0, _reactSpring.useSpring)({
-    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _color_utils.getComponentColor)(Boolean(color), color, disabled, 200, '#d6d6d6')),
+    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(color), color, disabled, 200, '#d6d6d6')),
     config: _reactSpring.config.stiff
   });
   return _react2["default"].createElement(ButtonComponent, _extends({}, props, !disabled && {
