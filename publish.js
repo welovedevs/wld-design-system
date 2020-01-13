@@ -49,7 +49,7 @@ const run = async () => {
     await exec('npm run build');
     console.log(`Creating new commit`);
     await exec('git add --all');
-    await exec(`git commit -am "New version build v${version}"`);
+    await exec(`git commit --allow-empty -am  "New version build v${version}"`);
     console.log(`Creating new tag`);
     await exec(`git tag v${version}`);
     await exec(`git push origin build`);
