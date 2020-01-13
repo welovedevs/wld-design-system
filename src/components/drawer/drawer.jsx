@@ -21,11 +21,20 @@ const getDirectAnimatableChildrenFromDrawer = drawerNode => {
     );
 };
 
-const DrawerComponent = ({ anchor = 'left', open, onClose, classes, location, children, listenToClickAway, customClasses = {} }) => {
+const DrawerComponent = ({
+                             anchor = 'left',
+                             open,
+                             onClose,
+                             classes,
+                             location,
+                             children,
+                             listenToClickAway,
+                             customClasses = {}
+                         }) => {
     const drawerReference = useRef();
     const overflowTimeout = useRef();
     useEffect(() => {
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = 'unset';
     }, []);
 
     useEffect(() => {
@@ -33,7 +42,7 @@ const DrawerComponent = ({ anchor = 'left', open, onClose, classes, location, ch
             clearTimeout(overflowTimeout.current);
         }
         overflowTimeout.current = setTimeout(() => {
-            document.body.style.overflow = open ? 'hidden' : 'auto';
+            document.body.style.overflow = open ? 'hidden' : 'unset';
         }, 500);
     }, [open]);
 

@@ -12,39 +12,41 @@ const DEFAULT_SPRING_PROPS = {
 
 // Variant should be one of the following : ['raised', 'flat', 'underlined'].
 const TextFieldComponent = ({
-    containerElement: ContainerElement = 'div',
-    containerProps,
-    className,
-    inputClassName,
-    fullWidth,
-    inputRef,
-    containerRef,
-    beforeChildren = null,
-    multiline,
-    rows,
-    children,
-    variant = 'raised',
-    type = 'text',
-    disabled,
-    classes,
-    ...other
-}) => {
+                                containerElement: ContainerElement = 'div',
+                                containerProps,
+                                className,
+                                inputClassName,
+                                fullWidth,
+                                inputRef,
+                                containerRef,
+                                beforeChildren = null,
+                                multiline,
+                                rows,
+                                children,
+                                variant = 'raised',
+                                type = 'text',
+                                disabled,
+                                customClasses = {},
+                                classes,
+                                ...other
+                            }) => {
     const InputComponent = multiline ? 'textarea' : 'input';
     return (
         <ContainerElement
             ref={containerRef}
             className={cn(
                 className,
+                customClasses.container,
                 classes.container,
                 fullWidth && classes.fullWidth,
                 multiline && classes.multilineContainer,
                 classes[variant],
                 disabled && classes[`${variant}Disabled`]
             )}
-            {...containerProps
+            {...(containerProps
                 && containerProps.style && {
                     style: containerProps.style
-                }}
+                })}
             {...containerProps}
         >
             {beforeChildren}

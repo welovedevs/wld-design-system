@@ -1,4 +1,4 @@
-import { flexUtils } from '../../../style/js';
+import { flexUtils } from '../../styles/utils/styles_utils';
 
 const { center } = flexUtils;
 

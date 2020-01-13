@@ -6,22 +6,22 @@ import Measure from 'react-measure';
 
 import { animated, useSpring } from 'react-spring';
 
-import { getComponentColor } from '../../styles/utils/color_utils';
+import { getComponentColor } from '../../styles/utils/styles_utils';
 
 import styles from './slider_styles';
 
 const SliderComponent = ({
-    color,
-    disabled,
-    value = 0,
-    min = 0,
-    max = 100,
-    thumbChildren,
-    thumbReference,
-    thumbProps,
-    classes,
-    ...other
-}) => {
+                             color,
+                             disabled,
+                             value = 0,
+                             min = 0,
+                             max = 100,
+                             thumbChildren,
+                             thumbReference,
+                             thumbProps,
+                             classes,
+                             ...other
+                         }) => {
     const [containerWidth, setContainerWidth] = useState(0);
     const { translation, ...otherRailThumbSpringProps } = useSpring({
         translation: containerWidth * (((value - min) * 100) / (max - min) / 100),
@@ -45,7 +45,7 @@ const SliderComponent = ({
                         <animated.div
                             className={classes.rail}
                             style={{
-                                transform: translation.to(
+                                transform: translation.interpolate(
                                     translationValue => `translate3d(${-containerWidth + translationValue}px, 0, 0)`
                                 ),
                                 ...otherRailThumbSpringProps
@@ -56,7 +56,7 @@ const SliderComponent = ({
                         {...{ thumbChildren, classes }}
                         ref={thumbReference}
                         style={{
-                            transform: translation.to(translationValue => `translate3d(${translationValue}px, 0, 0)`),
+                            transform: translation.interpolate(translationValue => `translate3d(${translationValue}px, 0, 0)`),
                             ...otherRailThumbSpringProps
                         }}
                         {...thumbProps}
@@ -70,7 +70,7 @@ const SliderComponent = ({
 
 const Thumb = forwardRef(({ style, thumbChildren, classes, ...other }, ref) => (
     <animated.div className={classes.thumb} {...other} {...{ style }}>
-        <div className={classes.thumbchildrenContainer} {...{ ref }}>
+        <div className={classes.thumbChildrenContainer} {...{ ref }}>
             {thumbChildren}
         </div>
     </animated.div>

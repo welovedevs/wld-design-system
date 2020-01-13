@@ -10,14 +10,15 @@ import { styles } from './typography_styles';
 const useStyles = createUseStyles(styles);
 
 const TypographyComponent = ({
-    containerRef,
-    className,
-    color,
-    component: Component = 'span',
-    variant = 'body1',
-    customClasses = {},
-    ...other
-}) => {
+                                 containerRef,
+                                 className,
+                                 color,
+                                 component: Component = 'span',
+                                 variant = 'body1',
+                                 style: receivedStyle,
+                                 customClasses = {},
+                                 ...other
+                             }) => {
     const classes = useStyles();
     let style = null;
     if (color) {
@@ -28,7 +29,7 @@ const TypographyComponent = ({
                     backgroundColor: hex,
                     color: '#fff'
                 };
-            } else if (color === 'thirdary') {
+            } else if (color === 'tertiary') {
                 style = {
                     color: getComponentColor(true, 'primary', false, 500),
                     backgroundColor: hex
@@ -48,7 +49,10 @@ const TypographyComponent = ({
         <Component
             ref={containerRef}
             className={cn(classes.container, classes[color], classes[variant], className, customClasses.container)}
-            {...{ style }}
+            style={{
+                ...receivedStyle,
+                ...style
+            }}
             {...other}
         />
     );

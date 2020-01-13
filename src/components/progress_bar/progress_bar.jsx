@@ -4,18 +4,18 @@ import cn from 'classnames';
 import injectSheet from 'react-jss';
 import { animated, useSpring } from 'react-spring';
 
-import { getComponentColor } from '../../styles/utils/color_utils';
+import { getComponentColor } from '../../styles/';
 
 import styles from './progress_bar_styles';
 
 const ProgressBarComponent = ({
-    value: progressValue = 0,
-    color = 'primary',
-    className,
-    barClassName,
-    customClasses = {},
-    classes
-}) => {
+                                  value: progressValue = 0,
+                                  color = 'primary',
+                                  className,
+                                  barClassName,
+                                  customClasses = {},
+                                  classes
+                              }) => {
     const { translation } = useSpring({
         from: {
             translation: -100

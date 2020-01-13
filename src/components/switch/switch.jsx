@@ -3,10 +3,10 @@ import React, { useCallback, useState } from 'react';
 import cn from 'classnames';
 import injectSheet from 'react-jss';
 import { animated, config, useSpring } from 'react-spring';
-import { get } from 'lodash';
+import get from 'lodash/get';
 import Measure from 'react-measure';
 
-import { getComponentColor } from '../../styles/utils/color_utils';
+import { getComponentColor } from '../../styles/utils/styles_utils';
 import { dark } from '../../styles/palettes';
 
 import styles from './switch_styles';
@@ -17,22 +17,23 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 };
 
 const SwitchComponent = ({
-    classes,
-    containerRef,
-    checked = false,
-    disabled,
-    color,
-    className,
-    inputClassName,
-    containerProps,
-    onChange,
-    onFocus,
-    onBlur,
-    onMouseEnter,
-    onMouseLeave,
-    size,
-    ...other
-}) => {
+                             classes,
+                             containerRef,
+                             checked = false,
+                             disabled,
+                             color,
+                             className,
+                             inputClassName,
+                             containerProps,
+                             onChange,
+                             onFocus,
+                             onBlur,
+                             onMouseEnter,
+                             onMouseLeave,
+                             size,
+                             customClasses = {},
+                             ...other
+                         }) => {
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const containerSpringProps = useSpring({
         color: getComponentColor(true, color, disabled, 500, dark[50])
@@ -56,9 +57,9 @@ const SwitchComponent = ({
     const showBrightLayer = useCallback(() =>
         setBrightLayerSpringProps(() => ({
             opacity: 0.3
-        })));
+        })), []);
 
-    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS));
+    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
 
     const handleMouseEnter = useCallback(
         (...parameters) => {
@@ -112,7 +113,13 @@ const SwitchComponent = ({
     return (
         <animated.div
             ref={containerRef}
-            className={cn(className, classes.container, disabled && classes.disabled, classes[`size_${size}`])}
+            className={cn(
+                className,
+                customClasses.container,
+                classes.container,
+                disabled && classes.disabled,
+                classes[`size_${size}`]
+            )}
             style={{
                 ...get(containerProps, 'style'),
                 ...containerSpringProps

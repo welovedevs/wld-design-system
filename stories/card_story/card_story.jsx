@@ -20,6 +20,7 @@ const CardStory = ({ classes }) => {
         }, {}),
         Object.keys(ELEVATION_SPRING_PROPS)[0]
     );
+    console.log({ elevation })
     return <Card className={classes.container} {...{ elevation }} />;
 };
 

@@ -2,9 +2,6 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 import {configure, addDecorator, addParameters} from '@storybook/react';
-import { withKnobs } from '@storybook/addon-knobs';
-
-
 import StoryContainer from "./story_container/story_container";
 
 import { DesignSystemProvider } from '../src/components/design_system_context/design_system_context';
@@ -20,7 +17,7 @@ addParameters({
 });
 
 addDecorator(story => <StoryContainer>{story()}</StoryContainer>);
-addDecorator(withKnobs);
+addDecorator(story => <DesignSystemProvider>{story()}</DesignSystemProvider>);
 
 // Automatically import all files ending in *.stories.js
 configure(require.context('../stories', true, /\.stories\.jsx$/), module);

@@ -11,5 +11,5 @@ export default create({
 
     brandTitle: "WeLoveDevs' Storybook",
     brandUrl: 'https://welovedevs.com',
-    brandImage: 'https://welovedevs.com/recruteurs/wp-content/uploads/2019/02/logo-menu-welovedevs-220bad.svg'
+    brandImage: 'https://welovedevs.com/wp-content/uploads/2019/12/logo-menu-welovedevs-220bad.svg'
 });

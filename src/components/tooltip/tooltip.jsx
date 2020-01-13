@@ -1,11 +1,11 @@
 import React, { cloneElement, useCallback, useRef } from 'react';
 
 import { createUseStyles } from 'react-jss';
-import { get } from 'lodash';
+import get from 'lodash/get';
 import { config } from 'react-spring';
 
 import { PopperCard } from '../popper_card/popper_card';
-import { useOpenerState } from '../../../utils/hooks/use_opener_state';
+import { useOpenerState } from '../../hooks/use_opener_state';
 
 import { styles } from './tooltip_styles';
 
@@ -71,7 +71,7 @@ const TooltipComponent = ({ title, placement, children }) => {
     return cloneElement(children, generateChildProps(children), generateChildChildren(children));
 };
 
-const TooltipPopper = ({ title, open, anchorElement, classes }) => (
+const TooltipPopper = ({ title, open, anchorElement, placement = 'top', classes }) => (
     <PopperCard
         dismissArrow
         {...{ open, anchorElement }}
@@ -83,7 +83,7 @@ const TooltipPopper = ({ title, open, anchorElement, classes }) => (
             container: classes.container
         }}
         popperProps={{
-            placement: 'top',
+            placement,
             modifiers: {
                 preventOverflow: {
                     boundariesElement: 'viewport'

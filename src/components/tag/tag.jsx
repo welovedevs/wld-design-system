@@ -4,23 +4,23 @@ import cn from 'classnames';
 import injectSheet from 'react-jss';
 import { animated, config, useSpring } from 'react-spring';
 
-import { getComponentColor } from '../../styles/utils/color_utils';
+import { getComponentColor } from '../../styles/utils/styles_utils';
 
 import { Typography } from '../typography/typography';
 
 import styles from './tag_styles';
 
 const TagComponent = ({
-    component: Component = animated.div,
-    containerRef,
-    className,
-    color = 'default',
-    children,
-    typographyProps,
-    customClasses = {},
-    classes,
-    ...other
-}) => {
+                          component: Component = animated.div,
+                          containerRef,
+                          className,
+                          color = 'default',
+                          children,
+                          typographyProps,
+                          customClasses = {},
+                          classes,
+                          ...other
+                      }) => {
     const springProps = useSpring({
         color: getComponentColor(true, color),
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(

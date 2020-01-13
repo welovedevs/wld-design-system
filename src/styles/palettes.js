@@ -47,7 +47,7 @@ export const yellow = {
     900: '#F3D709'
 };
 
-export const thirdary = yellow;
+export const tertiary = yellow;
 
 export const jcudPrimary = {
     50: '#e8f3f9',
@@ -161,7 +161,7 @@ export const otherColors = {
 export default {
     primary,
     secondary,
-    thirdary,
+    tertiary,
     dark,
     danger,
     safe,
