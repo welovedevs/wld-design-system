@@ -56,6 +56,10 @@ var styles = exports.styles = {
     fontSize: 14,
     lineHeight: '18px'
   },
+  body3: {
+    fontSize: 12,
+    lineHeight: '16px'
+  },
   tag: {
     fontSize: 12,
     textTransform: 'uppercase',

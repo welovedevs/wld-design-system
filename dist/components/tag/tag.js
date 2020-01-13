@@ -19,7 +19,7 @@ var _reactJss2 = _interopRequireDefault(_reactJss);
 
 var _reactSpring = require("react-spring");
 
-var _color_utils = require("../../styles/utils/color_utils");
+var _styles_utils = require("../../styles/utils/styles_utils");
 
 var _typography = require("../typography/typography");
 
@@ -50,8 +50,8 @@ var TagComponent = function TagComponent(_ref) {
       other = _objectWithoutProperties(_ref, ["component", "containerRef", "className", "color", "children", "typographyProps", "customClasses", "classes"]);
 
   var springProps = (0, _reactSpring.useSpring)({
-    color: (0, _color_utils.getComponentColor)(true, color),
-    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _color_utils.getComponentColor)(Boolean(color), color, false, 200, '#d6d6d6')),
+    color: (0, _styles_utils.getComponentColor)(true, color),
+    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(color), color, false, 200, '#d6d6d6')),
     config: _reactSpring.config.stiff
   });
   var withColor = color && color !== 'default';

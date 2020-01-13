@@ -19,7 +19,7 @@ var _reactJss2 = _interopRequireDefault(_reactJss);
 
 var _reactSpring = require("react-spring");
 
-var _color_utils = require("../../styles/utils/color_utils");
+var _styles = require("../../styles/");
 
 var _progress_bar_styles = require("./progress_bar_styles");
 
@@ -53,7 +53,7 @@ var ProgressBarComponent = function ProgressBarComponent(_ref) {
   }, _react2["default"].createElement(_reactSpring.animated.div, {
     className: (0, _classnames2["default"])(classes.bar, barClassName, customClasses.bar),
     style: {
-      color: (0, _color_utils.getComponentColor)(true, color, false, 300),
+      color: (0, _styles.getComponentColor)(true, color, false, 300),
       transform: translation.interpolate(function (value) {
         return "translate3d(".concat(value, "%, 0, 0)");
       })

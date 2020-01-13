@@ -48,7 +48,8 @@ function getValueFromChildren(children, value) {
 }
 
 var SelectComponent = function SelectComponent(_ref) {
-  var fullWidth = _ref.fullWidth,
+  var disabled = _ref.disabled,
+      fullWidth = _ref.fullWidth,
       className = _ref.className,
       value = _ref.value,
       onChange = _ref.onChange,
@@ -73,8 +74,8 @@ var SelectComponent = function SelectComponent(_ref) {
     return setAnchorElement(null);
   }, []);
   var setAnchorElementCallback = (0, _react.useCallback)(function (e) {
-    return setAnchorElement(e.currentTarget);
-  }, []);
+    return !disabled && setAnchorElement(e.currentTarget);
+  }, [disabled]);
   var selectedChildValue = getValueFromChildren(children, value);
   return _react2["default"].createElement(_react2["default"].Fragment, null, _react2["default"].createElement(_core.Menu, {
     anchorEl: anchorElement,
@@ -111,7 +112,8 @@ var SelectComponent = function SelectComponent(_ref) {
   }, {
     id: id,
     textFieldIconProps: textFieldIconProps,
-    fullWidth: fullWidth
+    fullWidth: fullWidth,
+    disabled: disabled
   }, textFieldProps)));
 };
 

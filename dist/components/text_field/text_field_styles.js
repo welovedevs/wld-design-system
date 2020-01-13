@@ -46,7 +46,7 @@ exports["default"] = {
       width: 4
     },
     '&::-webkit-scrollbar-thumb': {
-      backgroundColor: primary[300],
+      backgroundColor: _palettes.primary[300],
       borderRadius: 100
     }
   },

@@ -19,13 +19,15 @@ var _reactJss2 = _interopRequireDefault(_reactJss);
 
 var _reactSpring = require("react-spring");
 
-var _lodash = require("lodash");
+var _get = require("lodash/get");
+
+var _get2 = _interopRequireDefault(_get);
 
 var _reactMeasure = require("react-measure");
 
 var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
 
-var _color_utils = require("../../styles/utils/color_utils");
+var _styles_utils = require("../../styles/utils/styles_utils");
 
 var _palettes = require("../../styles/palettes");
 
@@ -39,7 +41,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -76,7 +78,9 @@ var SwitchComponent = function SwitchComponent(_ref) {
       onMouseEnter = _ref.onMouseEnter,
       onMouseLeave = _ref.onMouseLeave,
       size = _ref.size,
-      other = _objectWithoutProperties(_ref, ["classes", "containerRef", "checked", "disabled", "color", "className", "inputClassName", "containerProps", "onChange", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave", "size"]);
+      _ref$customClasses = _ref.customClasses,
+      customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
+      other = _objectWithoutProperties(_ref, ["classes", "containerRef", "checked", "disabled", "color", "className", "inputClassName", "containerProps", "onChange", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave", "size", "customClasses"]);
 
   var _useSpring = (0, _reactSpring.useSpring)(function () {
     return DEFAULT_BRIGHT_LAYER_SPRING_PROPS;
@@ -86,7 +90,7 @@ var SwitchComponent = function SwitchComponent(_ref) {
       setBrightLayerSpringProps = _useSpring2[1];
 
   var containerSpringProps = (0, _reactSpring.useSpring)({
-    color: (0, _color_utils.getComponentColor)(true, color, disabled, 500, _palettes.dark[50])
+    color: (0, _styles_utils.getComponentColor)(true, color, disabled, 500, _palettes.dark[50])
   });
 
   var _useState = (0, _react.useState)(null),
@@ -112,12 +116,12 @@ var SwitchComponent = function SwitchComponent(_ref) {
         opacity: 0.3
       };
     });
-  });
+  }, []);
   var dismissBrightLayer = (0, _react.useCallback)(function () {
     return setBrightLayerSpringProps(function () {
       return DEFAULT_BRIGHT_LAYER_SPRING_PROPS;
     });
-  });
+  }, []);
   var handleMouseEnter = (0, _react.useCallback)(function () {
     if (typeof onMouseEnter === 'function') {
       onMouseEnter.apply(void 0, arguments);
@@ -155,8 +159,8 @@ var SwitchComponent = function SwitchComponent(_ref) {
   }, [thumbWidth]);
   return _react2["default"].createElement(_reactSpring.animated.div, _extends({
     ref: containerRef,
-    className: (0, _classnames2["default"])(className, classes.container, disabled && classes.disabled, classes["size_".concat(size)]),
-    style: _objectSpread({}, (0, _lodash.get)(containerProps, 'style'), {}, containerSpringProps)
+    className: (0, _classnames2["default"])(className, customClasses.container, classes.container, disabled && classes.disabled, classes["size_".concat(size)]),
+    style: _objectSpread({}, (0, _get2["default"])(containerProps, 'style'), {}, containerSpringProps)
   }, containerProps), _react2["default"].createElement(_reactSpring.animated.div, {
     className: classes.thumbContainer,
     style: {

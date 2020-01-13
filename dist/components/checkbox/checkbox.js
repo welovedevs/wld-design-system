@@ -19,7 +19,7 @@ var _reactJss2 = _interopRequireDefault(_reactJss);
 
 var _reactSpring = require("react-spring");
 
-var _color_utils = require("../../styles/utils/color_utils");
+var _styles_utils = require("../../styles/utils/styles_utils");
 
 var _palettes = require("../../styles/palettes");
 
@@ -33,7 +33,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -132,7 +132,7 @@ var CheckboxComponent = (0, _react.forwardRef)(function (_ref, ref) {
   }, [onBlur]);
 
   var _useSpring3 = (0, _reactSpring.useSpring)({
-    color: (0, _color_utils.getComponentColor)(checked, color, disabled, 500, defaultColor),
+    color: (0, _styles_utils.getComponentColor)(checked, color, disabled, 500, defaultColor),
     config: _reactSpring.config.stiff
   }),
       colorSpring = _useSpring3.color;
@@ -208,7 +208,7 @@ var RaisedCheckbox = function RaisedCheckbox(props) {
       color = props.color,
       disabled = props.disabled;
   var springProps = (0, _reactSpring.useSpring)({
-    boxShadow: "0 ".concat(checked ? 5 : 10, "px ").concat(checked ? 15 : 20, "px 0 ").concat((0, _color_utils.getComponentColor)(checked, color, disabled, 200, '#d6d6d6')),
+    boxShadow: "0 ".concat(checked ? 5 : 10, "px ").concat(checked ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(checked, color, disabled, 200, '#d6d6d6')),
     config: _reactSpring.config.stiff
   });
   return _react2["default"].createElement(CheckboxComponent, _extends({

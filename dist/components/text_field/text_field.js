@@ -27,7 +27,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -68,13 +68,15 @@ var TextFieldComponent = function TextFieldComponent(_ref) {
       _ref$type = _ref.type,
       type = _ref$type === void 0 ? 'text' : _ref$type,
       disabled = _ref.disabled,
+      _ref$customClasses = _ref.customClasses,
+      customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
       classes = _ref.classes,
-      other = _objectWithoutProperties(_ref, ["containerElement", "containerProps", "className", "inputClassName", "fullWidth", "inputRef", "containerRef", "beforeChildren", "multiline", "rows", "children", "variant", "type", "disabled", "classes"]);
+      other = _objectWithoutProperties(_ref, ["containerElement", "containerProps", "className", "inputClassName", "fullWidth", "inputRef", "containerRef", "beforeChildren", "multiline", "rows", "children", "variant", "type", "disabled", "customClasses", "classes"]);
 
   var InputComponent = multiline ? 'textarea' : 'input';
   return _react2["default"].createElement(ContainerElement, _extends({
     ref: containerRef,
-    className: (0, _classnames2["default"])(className, classes.container, fullWidth && classes.fullWidth, multiline && classes.multilineContainer, classes[variant], disabled && classes["".concat(variant, "Disabled")])
+    className: (0, _classnames2["default"])(className, customClasses.container, classes.container, fullWidth && classes.fullWidth, multiline && classes.multilineContainer, classes[variant], disabled && classes["".concat(variant, "Disabled")])
   }, containerProps && containerProps.style && {
     style: containerProps.style
   }, containerProps), beforeChildren, _react2["default"].createElement(InputComponent, _extends({

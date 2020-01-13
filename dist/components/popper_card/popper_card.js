@@ -23,9 +23,7 @@ var _core = require("@material-ui/core");
 
 var _card = require("../card/card");
 
-var _speech_bubble_arrow = require("../../../assets/images/assets/icons/speech_bubble_arrow.svg");
-
-var _speech_bubble_arrow2 = _interopRequireDefault(_speech_bubble_arrow);
+var _speech_bubble_arrow = require("../../assets/icons/speech_bubble_arrow.svg");
 
 var _popper_card_styles = require("./popper_card_styles");
 
@@ -37,7 +35,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -77,29 +75,8 @@ var PopperCardComponent = function PopperCardComponent(_ref) {
       arrowReference = _useState2[0],
       setArrowReference = _useState2[1];
 
-  var _useSpring = (0, _reactSpring.useSpring)(_objectSpread({
-    opacity: open ? 1 : 0,
-    pointerEvents: open ? 'all' : 'none',
-    translation: open ? 0 : 20,
-    config: _reactSpring.config["default"]
-  }, springOptions)),
-      opacity = _useSpring.opacity,
-      pointerEvents = _useSpring.pointerEvents,
-      translation = _useSpring.translation;
-
-  var getTranslationInterpolationFromPlacement = (0, _react.useCallback)(function (value) {
-    var placement = popperProps && popperProps.placement || 'bottom';
-
-    if (['top', 'bottom'].some(function (key) {
-      return placement === key;
-    })) {
-      return "translate3d(0, ".concat(value, "px, 0)");
-    }
-
-    return "translate3d(-".concat(value, "px, 0, 0)");
-  });
   return _react2["default"].createElement(_core.Popper, _extends({
-    open: true
+    open: open
   }, containerProps, {
     className: (0, _classnames2["default"])(classes.popper, !open && classes.closedPopper, customClasses.popper, containerProps.className),
     anchorEl: anchorElement
@@ -116,35 +93,85 @@ var PopperCardComponent = function PopperCardComponent(_ref) {
         enabled: !dismissArrow,
         element: arrowReference
       }
-    }, popperProps && popperProps.modifiers)
-  }), _react2["default"].createElement(Content, _objectSpread({
-    className: className,
-    opacity: opacity,
-    pointerEvents: pointerEvents,
-    getTranslationInterpolationFromPlacement: getTranslationInterpolationFromPlacement,
-    translation: translation,
-    setArrowReference: setArrowReference,
-    structured: structured,
-    dismissArrow: dismissArrow,
-    onClickAway: onClickAway,
-    classes: classes,
-    customClasses: customClasses
-  }, other)));
+    }, popperProps && popperProps.modifiers),
+    transition: true
+  }), function (_ref2) {
+    var TransitionProps = _ref2.TransitionProps;
+    return _react2["default"].createElement(Fade, _extends({}, TransitionProps, {
+      springOptions: springOptions,
+      popperProps: popperProps
+    }), _react2["default"].createElement(Content, _objectSpread({
+      className: className,
+      setArrowReference: setArrowReference,
+      structured: structured,
+      dismissArrow: dismissArrow,
+      onClickAway: onClickAway,
+      classes: classes,
+      customClasses: customClasses
+    }, other)));
+  });
 };
 
-var Content = function Content(_ref2) {
-  var className = _ref2.className,
-      opacity = _ref2.opacity,
-      pointerEvents = _ref2.pointerEvents,
-      getTranslationInterpolationFromPlacement = _ref2.getTranslationInterpolationFromPlacement,
-      dismissArrow = _ref2.dismissArrow,
-      translation = _ref2.translation,
-      setArrowReference = _ref2.setArrowReference,
-      onClickAway = _ref2.onClickAway,
-      structured = _ref2.structured,
-      classes = _ref2.classes,
-      customClasses = _ref2.customClasses,
-      other = _objectWithoutProperties(_ref2, ["className", "opacity", "pointerEvents", "getTranslationInterpolationFromPlacement", "dismissArrow", "translation", "setArrowReference", "onClickAway", "structured", "classes", "customClasses"]);
+var Fade = _react2["default"].forwardRef(function (props, ref) {
+  var open = props["in"],
+      children = props.children,
+      onEnter = props.onEnter,
+      onExited = props.onExited,
+      springOptions = props.springOptions,
+      popperProps = props.popperProps,
+      other = _objectWithoutProperties(props, ["in", "children", "onEnter", "onExited", "springOptions", "popperProps"]);
+
+  var getTranslationFromPlacement = (0, _react.useCallback)(function (value) {
+    var placement = popperProps && popperProps.placement || 'bottom';
+
+    if (['top', 'bottom'].some(function (key) {
+      return placement === key;
+    })) {
+      return "translate3d(0, ".concat(value, "px, 0)");
+    }
+
+    return "translate3d(-".concat(value, "px, 0, 0)");
+  }, []);
+  var style = (0, _reactSpring.useSpring)(_objectSpread({
+    from: {
+      opacity: 0,
+      pointerEvents: 'none',
+      transform: getTranslationFromPlacement(20)
+    },
+    to: {
+      opacity: open ? 1 : 0,
+      pointerEvents: open ? 'all' : 'none',
+      transform: getTranslationFromPlacement(open ? 0 : 20)
+    },
+    config: _reactSpring.config["default"]
+  }, springOptions, {
+    onStart: function onStart() {
+      if (open && onEnter) {
+        onEnter();
+      }
+    },
+    onRest: function onRest() {
+      if (!open && onExited) {
+        onExited();
+      }
+    }
+  }));
+  return _react2["default"].createElement(_reactSpring.animated.div, _extends({
+    ref: ref,
+    style: style
+  }, other), children);
+});
+
+var Content = function Content(_ref3) {
+  var className = _ref3.className,
+      dismissArrow = _ref3.dismissArrow,
+      translation = _ref3.translation,
+      setArrowReference = _ref3.setArrowReference,
+      onClickAway = _ref3.onClickAway,
+      structured = _ref3.structured,
+      classes = _ref3.classes,
+      customClasses = _ref3.customClasses,
+      other = _objectWithoutProperties(_ref3, ["className", "dismissArrow", "translation", "setArrowReference", "onClickAway", "structured", "classes", "customClasses"]);
 
   var handleClickAway = (0, _react.useCallback)(function () {
     if (typeof onClickAway === 'function') {
@@ -152,17 +179,12 @@ var Content = function Content(_ref2) {
     }
   }, [onClickAway]);
 
-  var content = _react2["default"].createElement(_reactSpring.animated.div, {
-    className: classes.wrapper,
-    style: {
-      opacity: opacity,
-      pointerEvents: pointerEvents,
-      transform: translation.interpolate(getTranslationInterpolationFromPlacement)
-    }
+  var content = _react2["default"].createElement("div", {
+    className: classes.wrapper
   }, !dismissArrow && _react2["default"].createElement("div", {
     className: classes.arrowContainer,
     ref: setArrowReference
-  }, _react2["default"].createElement(_speech_bubble_arrow2["default"], null)), _react2["default"].createElement(_card.Card, _extends({
+  }, _react2["default"].createElement(_speech_bubble_arrow.ReactComponent, null)), _react2["default"].createElement(_card.Card, _extends({
     className: (0, _classnames2["default"])(className, classes.container, customClasses.container, structured && classes.structured)
   }, other)));
 

@@ -3,15 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DesignSystemProvider = exports.DesignSystemContext = undefined;
+exports.useOpenerState = undefined;
 
 var _react = require("react");
 
-var _react2 = _interopRequireDefault(_react);
-
-var _design_system_provider_context_state = require("./design_system_provider_context_state");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _core = require("@material-ui/core");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -27,26 +23,41 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-/*
-  Hello there!
-  This is the Design system's context.
-  It contains quite a bit of important informations for our components to works
-  as expected together.
-*/
-// TODO: SPLIT IT. https://github.com/facebook/react/issues/15156#issuecomment-474590693
-var DesignSystemContext = exports.DesignSystemContext = (0, _react.createContext)({});
+var useOpenerState = exports.useOpenerState = function useOpenerState() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref$mobileWidth = _ref.mobileWidth,
+      mobileWidth = _ref$mobileWidth === void 0 ? 560 : _ref$mobileWidth;
 
-var DesignSystemProvider = exports.DesignSystemProvider = function DesignSystemProvider(_ref) {
-  var children = _ref.children;
-
-  var _useState = (0, _react.useState)(_design_system_provider_context_state.initialState),
+  var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
+      open = _useState2[0],
+      setOpen = _useState2[1];
 
-  return _react2["default"].createElement(DesignSystemContext.Provider, {
-    value: _objectSpread({}, state, {
-      setState: setState
-    })
-  }, children);
+  var setOpened = (0, _react.useCallback)(function () {
+    return setOpen(true);
+  }, []);
+  var setClosed = (0, _react.useCallback)(function () {
+    return setOpen(false);
+  }, []);
+  var toggle = (0, _react.useCallback)(function () {
+    return setOpen(!open);
+  }, [open]);
+  var isMobile = (0, _core.useMediaQuery)("(max-width: ".concat(mobileWidth, "px)"), {
+    defaultMatches: true
+  });
+  var eventsHandlerElementProps = (0, _react.useMemo)(function () {
+    return _objectSpread({}, isMobile && {
+      onClick: toggle
+    }, {}, !isMobile && {
+      onMouseEnter: setOpened,
+      onMouseLeave: setClosed,
+      onFocus: setOpened,
+      onBlur: setClosed
+    });
+  }, [isMobile, setOpened, setClosed, toggle]);
+  return [open, eventsHandlerElementProps, {
+    setOpened: setOpened,
+    setClosed: setClosed,
+    toggle: toggle
+  }];
 };

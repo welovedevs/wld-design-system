@@ -47,7 +47,7 @@ var yellow = exports.yellow = {
   800: '#F5DD11',
   900: '#F3D709'
 };
-var thirdary = exports.thirdary = yellow;
+var tertiary = exports.tertiary = yellow;
 var jcudPrimary = exports.jcudPrimary = {
   50: '#e8f3f9',
   100: '#c6e0f1',
@@ -116,6 +116,18 @@ var warn = exports.warn = {
   A700: '#ff6d00',
   contrastDefaultColor: 'light'
 };
+var orange = exports.orange = {
+  50: '#FFF0E9',
+  100: '#FFD8C8',
+  200: '#FFBFA3',
+  300: '#FFA57E',
+  400: '#FF9163',
+  500: '#FF7E47',
+  600: '#FF7640',
+  700: '#FF6B37',
+  800: '#FF612F',
+  900: '#FF4E20'
+};
 var dark = exports.dark = {
   50: '#E6E6E6',
   100: '#C1C1C1',
@@ -142,9 +154,10 @@ var otherColors = exports.otherColors = {
 exports["default"] = {
   primary: primary,
   secondary: secondary,
-  thirdary: thirdary,
+  tertiary: tertiary,
   dark: dark,
   danger: danger,
   safe: safe,
-  warn: warn
+  warn: warn,
+  orange: orange
 };

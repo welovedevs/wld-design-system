@@ -11,13 +11,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactJss = require("react-jss");
 
-var _lodash = require("lodash");
+var _get = require("lodash/get");
+
+var _get2 = _interopRequireDefault(_get);
 
 var _reactSpring = require("react-spring");
 
 var _popper_card = require("../popper_card/popper_card");
 
-var _use_opener_state = require("../../../utils/hooks/use_opener_state");
+var _use_opener_state = require("../../hooks/use_opener_state");
 
 var _tooltip_styles = require("./tooltip_styles");
 
@@ -27,7 +29,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -98,7 +100,7 @@ var TooltipComponent = function TooltipComponent(_ref) {
     }, props || {}));
   }, [eventsHandlerElementProps, anchorReference]);
   var generateChildChildren = (0, _react.useCallback)(function (child) {
-    var childChildren = (0, _lodash.get)(child, 'props.children');
+    var childChildren = (0, _get2["default"])(child, 'props.children');
     return _react2["default"].createElement(_react2["default"].Fragment, null, childChildren, _react2["default"].createElement(TooltipPopper, _extends({
       anchorElement: anchorReference.current
     }, {
@@ -115,6 +117,8 @@ var TooltipPopper = function TooltipPopper(_ref4) {
   var title = _ref4.title,
       open = _ref4.open,
       anchorElement = _ref4.anchorElement,
+      _ref4$placement = _ref4.placement,
+      placement = _ref4$placement === void 0 ? 'top' : _ref4$placement,
       classes = _ref4.classes;
   return _react2["default"].createElement(_popper_card.PopperCard, _extends({
     dismissArrow: true
@@ -130,7 +134,7 @@ var TooltipPopper = function TooltipPopper(_ref4) {
       container: classes.container
     },
     popperProps: {
-      placement: 'top',
+      placement: placement,
       modifiers: {
         preventOverflow: {
           boundariesElement: 'viewport'

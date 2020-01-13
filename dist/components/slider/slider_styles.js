@@ -37,7 +37,7 @@ exports["default"] = {
     left: 0,
     top: 'calc(100% / 2 - (12px / 2))'
   },
-  thumbchildrenContainer: {
+  thumbChildrenContainer: {
     height: '100%',
     width: '100%',
     paddingTop: 10
