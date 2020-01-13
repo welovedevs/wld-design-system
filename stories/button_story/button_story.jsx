@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 
 import injectSheet from 'react-jss';
 
-import { Button } from '../../src/components/button/button';
-import { Typography } from '../../src/components/typography/typography';
+import { Button } from '../../src/button/button';
+import { Typography } from '../../src/typography/typography';
 
 import styles from './button_story_styles';
 

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { select, text } from '@storybook/addon-knobs';
 
-import { Tooltip } from '../../src/components/tooltip/tooltip';
+import { Tooltip } from '../../src/tooltip/tooltip';
 
 const POSSIBLE_PLACEMENT = Object.freeze({
     Top: 'top',

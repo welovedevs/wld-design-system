@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
-import { Checkbox } from '../../src/components/checkbox/checkbox';
+import { Checkbox } from '../../src/checkbox/checkbox';
 
 import styles from './checkbox_story_styles';
 

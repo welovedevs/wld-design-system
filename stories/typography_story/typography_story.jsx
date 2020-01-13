@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { Twemoji } from 'react-emoji-render';
 import { text } from '@storybook/addon-knobs';
 
-import { Typography } from '../../src/components/typography/typography';
+import { Typography } from '../../src/typography/typography';
 
 import styles from './typography_story_styles';
 

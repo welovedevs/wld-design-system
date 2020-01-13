@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
-import { TextField } from '../../src/components/text_field/text_field';
+import { TextField } from '../../src/text_field/text_field';
 
 import styles from './text_field_story_styles';
 

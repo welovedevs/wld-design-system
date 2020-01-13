@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
-import { Switch } from '../../src/components/switch/switch';
+import { Switch } from '../../src/switch/switch';
 
 import styles from './switch_story_styles';
 

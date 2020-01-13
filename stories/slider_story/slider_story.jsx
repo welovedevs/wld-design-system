@@ -3,8 +3,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import injectSheet from 'react-jss';
 import { select, number } from '@storybook/addon-knobs';
 
-import { Slider } from '../../src/components/slider/slider';
-import { PopperCard } from '../../src/components/popper_card/popper_card';
+import { Slider } from '../../src/slider/slider';
+import { PopperCard } from '../../src/popper_card/popper_card';
 
 import styles from './slider_story_styles';
 

@@ -3,8 +3,8 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
-import { Card } from '../../src/components/card/card';
-import { ELEVATION_SPRING_PROPS } from '../../src/components/card/card_elevation_spring_props';
+import { Card } from '../../src/card/card';
+import { ELEVATION_SPRING_PROPS } from '../../src/card/card_elevation_spring_props';
 
 import styles from './card_story_styles';
 

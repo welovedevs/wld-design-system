@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 
 import injectSheet from 'react-jss';
 
-import { Typography } from '../../src/components/typography/typography';
-import { AutoComplete } from '../../src/components/autocomplete/autocomplete';
+import { Typography } from '../../src/typography/typography';
+import { AutoComplete } from '../../src/autocomplete/autocomplete';
 
 import styles from './autocomplete_story_styles';
 

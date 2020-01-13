@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import {configure, addDecorator, addParameters} from '@storybook/react';
 import StoryContainer from "./story_container/story_container";
 
-import { DesignSystemProvider } from '../src/components/design_system_context/design_system_context';
+import { DesignSystemProvider } from '../src/design_system_context/design_system_context';
 
 import wldTheme from './wld-theme';
 

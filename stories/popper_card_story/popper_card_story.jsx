@@ -3,8 +3,8 @@ import React, { useCallback, useState } from 'react';
 import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
-import { Button } from '../../src/components/button/button';
-import { PopperCard } from '../../src/components/popper_card/popper_card';
+import { Button } from '../../src/button/button';
+import { PopperCard } from '../../src/popper_card/popper_card';
 
 import styles from './popper_card_story_styles';
 

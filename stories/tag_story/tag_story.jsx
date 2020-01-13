@@ -2,8 +2,8 @@ import React from 'react';
 
 import injectSheet from 'react-jss';
 
-import { Tag } from '../../src/components/tag/tag';
-import { Typography } from '../../src/components/typography/typography';
+import { Tag } from '../../src/tag/tag';
+import { Typography } from '../../src/typography/typography';
 
 import styles from './tag_story_styles';
 

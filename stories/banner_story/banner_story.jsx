@@ -2,8 +2,8 @@ import React from 'react';
 
 import { createUseStyles } from 'react-jss';
 
-import { Banner } from '../../src/components/banner/banner';
-import { BANNER_DATA } from '../../src/components/banner/banner_data';
+import { Banner } from '../../src/banner/banner';
+import { BANNER_DATA } from '../../src/banner/banner_data';
 
 import { styles } from './banner_story_styles';
 
