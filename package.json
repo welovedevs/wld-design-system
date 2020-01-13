@@ -1,6 +1,6 @@
 {
   "name": "@wld/ui",
-  "version": "1.0.2",
+  "version": "0.0.1",
   "description": "WeLoveDevs.com UI components",
   "main": "dist/index.js",
   "scripts": {
