@@ -1,3 +1,15 @@
+.storybook/
+dist/
+src/
+stories/
+.babelrc
+.eslintrc
+.prettierrc
+index.js
+publish.js
+yarn.lock
+
+
 # Logs
 logs
 *.log
