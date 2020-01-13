@@ -55,12 +55,11 @@ const run = async () => {
     await exec(`git push origin build`);
     try {
         await exec(`git push origin :latest`);
-        await exec(`git push tag latest`);
     }
     catch (e) {
         console.debug("Something went wrong while creating 'latest' tag",e )
     }
-
+    await exec(`git tag latest`);
     await exec(`git push --tags`);
     console.log(`Published new version ${version}`);
     await exec(`git checkout master`);
