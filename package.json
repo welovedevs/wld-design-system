@@ -52,7 +52,8 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "husky": "^4.0.7",
     "prettier": "^1.19.1",
-    "react-emoji-render": "^1.2.1"
+    "react-emoji-render": "^1.2.1",
+    "yargs": "^15.1.0"
   },
   "eslintConfig": {
     "extends": "react-app"
