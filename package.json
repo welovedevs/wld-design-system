@@ -1,10 +1,10 @@
 {
   "name": "@wld/ui",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "WeLoveDevs.com UI components",
-  "main": "dist/components/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d dist",
+    "build": "babel src/components -d .",
     "storybook": "start-storybook -p 6006 --ci",
     "build-storybook": "build-storybook"
   },
@@ -36,10 +36,10 @@
     "@babel/preset-env": "^7.8.2",
     "@babel/preset-react": "^7.8.0",
     "@storybook/addon-actions": "^5.3.1",
+    "@storybook/addon-knobs": "^5.3.1",
     "@storybook/addon-links": "^5.3.1",
     "@storybook/addons": "^5.3.1",
     "@storybook/react": "^5.3.1",
-    "@storybook/addon-knobs": "^5.3.1",
     "@storybook/theming": "^5.3.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
@@ -50,7 +50,10 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
-    "react-emoji-render": "^1.2.1"
+    "husky": "^4.0.7",
+    "prettier": "^1.19.1",
+    "react-emoji-render": "^1.2.1",
+    "yargs": "^15.1.0"
   },
   "eslintConfig": {
     "extends": "react-app"
