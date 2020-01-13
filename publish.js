@@ -37,7 +37,7 @@ const run = async () => {
     }
 
     console.log(`Merging master to build new version`);
-    await exec(`git merge master --no-ff -m "Merging master for version`);
+    await exec(`git merge master --no-ff -m "Merging master for version"`);
     await exec(`npm version ${semver} --no-git-tag-version`);
     const packageFile = fs.readFileSync('package.json');
     const {version} = JSON.parse(packageFile);
