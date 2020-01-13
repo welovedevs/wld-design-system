@@ -18,10 +18,14 @@ const run = async () => {
         console.error('Cannot create version with modified files');
         process.exit(-1);
     }
+    const packageFile = fs.readFileSync('package.json');
+    const {version} = JSON.parse(packageFile);
+    await exec(`git commit -am 'up to version ${version}'`);
+    console.log(`Created new version `);
+
     try {
         await exec('git branch build');
         await exec('git checkout build');
-
         console.info("Created branch build");
         await exec('git push origin build');
         console.info("pushed branch build");
@@ -37,11 +41,10 @@ const run = async () => {
     }
 
     console.log(`Merging master to build new version`);
-    await exec(`git merge master --no-ff -m "Merging master for version"`);
+    await exec(`git merge master --no-ff -m "Merging master for version ${version}"`);
     await exec(`npm version ${semver} --no-git-tag-version`);
-    const packageFile = fs.readFileSync('package.json');
-    const {version} = JSON.parse(packageFile);
-    console.log(`Building new version ${version}`);
+
+    console.log(`Building new package for version ${version}`);
     await exec('npm run build');
     console.log(`Creating new commit`);
     await exec('git add --all');
@@ -60,6 +63,7 @@ const run = async () => {
     await exec(`git push --tags`);
     console.log(`Published new version ${version}`);
     await exec(`git checkout master`);
+    await exec(`git push origin master`);
 
 }
 
