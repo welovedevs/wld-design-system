@@ -4,7 +4,7 @@
   "description": "WeLoveDevs.com UI components",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d components",
+    "build": "babel src/components -d .",
     "storybook": "start-storybook -p 6006 --ci",
     "build-storybook": "build-storybook"
   },
