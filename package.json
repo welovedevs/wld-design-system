@@ -1,8 +1,8 @@
 {
   "name": "@wld/ui",
   "version": "1.0.0",
-  "description": "WLD.com ui components",
-  "main": "dist/index.js",
+  "description": "WeLoveDevs.com UI components",
+  "main": "dist/components/index.js",
   "scripts": {
     "build": "babel src -d dist",
     "storybook": "start-storybook -p 6006 --ci",
