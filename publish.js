@@ -10,7 +10,7 @@ let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
-const TO_PRESERVE_IN_BUILD = ['node_modules', '.gitignore', 'package.json', 'yarn.lock', '.git', '.npm', '.eslintcache', '.node_repl_history', '.env', '.next'];
+const TO_PRESERVE_IN_BUILD = ['node_modules', 'package.json', 'yarn.lock'];
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
@@ -79,7 +79,7 @@ const run = async () => {
         process.exit(-1);
     }
     checkingOutBuildBranchSpinner.succeed('Checked out build branch.');
-    const pullingBuildBranchSpinner = ora('Pulling remote branch and fetching latest veçrsion.').start();
+    const pullingBuildBranchSpinner = ora('Pulling remote branch and fetching latest version.').start();
     try {
         await exec('git pull origin build');
         pullingBuildBranchSpinner.succeed('Pulled remote branch.');
@@ -91,7 +91,7 @@ const run = async () => {
     let rootFiles = fs.readdirSync(__dirname);
     if (rootFiles && rootFiles.length) {
         removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
-        rootFiles = rootFiles.filter(name => !TO_PRESERVE_IN_BUILD.includes(name));
+        rootFiles = rootFiles.filter(name => !TO_PRESERVE_IN_BUILD.includes(name) && !name.startsWith('.'));
         rootFiles.forEach((name, index) => {
             removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
             fs.unlinkSync(__dirname + `/${name}`);
