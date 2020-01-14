@@ -105,7 +105,7 @@ const run = async () => {
         checkingForRemovableFilesSpinner.succeed(`Found ${removableFiles.length} removable file${removableFiles.length > 1 ? 's' : ''}. (${removableFiles.map((name) => name.yellow).join(', ')}).`);
 
         const removingFilesSpinner = ora('Removing files...').start();
-        removableFiles.forEach((file) => fs.unlinkSync(__dirname + file));
+        removableFiles.forEach((file) => fs.unlinkSync(__dirname + `/${file}`));
         removingFilesSpinner.succeed('Removed files.');
 
         const committingMergeConflictsSpinner = ora('Committing resolved merge conflicts...').start();
