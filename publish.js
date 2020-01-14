@@ -102,7 +102,11 @@ const run = async () => {
             checkingForRemovableFilesSpinner.fail('Did not find any removable files. Merging master cannot be done.');
             process.exit(0);
         }
-        checkingForRemovableFilesSpinner.succeed(`Found ${removableFiles} removable file${removableFiles.length > 1 ? 's' : ''}. (${removableFiles.map((name) => name.yellow).join(', ')}).`);
+        checkingForRemovableFilesSpinner.succeed(`Found ${removableFiles.length} removable file${removableFiles.length > 1 ? 's' : ''}. (${removableFiles.map((name) => name.yellow).join(', ')}).`);
+
+        const removingFilesSpinner = ora('Removing files...').start();
+        removableFiles.forEach((file) => fs.unlinkSync(__dirname + file));
+        removingFilesSpinner.succeed('Removed files.');
 
         const committingMergeConflictsSpinner = ora('Committing resolved merge conflicts...').start();
         try {
