@@ -110,6 +110,7 @@ const run = async () => {
 
         const committingMergeConflictsSpinner = ora('Committing resolved merge conflicts...').start();
         try {
+            await exec(`git add -A`);
             await exec(`git commit -m "Merging master for version ${version}. (Removed some files)."`);
         } catch (error) {
             committingMergeConflictsSpinner.fail('Could not merge master in current build branch.');
