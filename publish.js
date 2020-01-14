@@ -122,6 +122,7 @@ const run = async () => {
     }
     mergingMasterToBuildSpinner.succeed('Merged master in current build branch.');
 
+    console.log(fs.readdirSync(__dirname));
     const srcFiles = fs.readdirSync(__dirname + '/src');
     console.log({ srcFiles });
     if (srcFiles) {
