@@ -128,7 +128,7 @@ const run = async () => {
 
     if (fs.existsSync(srcPath)) {
         const removingMasterSourcesInBuildSpinner = ora('Removing previously added sources...').start();
-        rimraf.sync(srcPath);
+        rimraf.sync(srcPath, {}, () => {});
         removingMasterSourcesInBuildSpinner.succeed('Removed previously added sources.');
     }
 
