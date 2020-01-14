@@ -9,7 +9,7 @@ import { Portal } from '@material-ui/core';
 import {
     SnackbarsContext,
     SnackbarsProvider
-} from '../../design_system_utils/design_system_context/components_contexts/snackbars_context';
+} from '../utils/design_system_context/components_contexts/snackbars_context';
 
 import styles from './snackbar_styles';
 
