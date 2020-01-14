@@ -91,7 +91,7 @@ const run = async () => {
     let rootFiles = fs.readdirSync(__dirname);
     if (rootFiles && rootFiles.length) {
         removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
-        rootFiles = rootFiles.filter(name => TO_PRESERVE_IN_BUILD.includes(name));
+        rootFiles = rootFiles.filter(name => !TO_PRESERVE_IN_BUILD.includes(name));
         rootFiles.forEach((name, index) => {
             removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
             fs.unlinkSync(__dirname + `/${name}`);
