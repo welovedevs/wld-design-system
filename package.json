@@ -63,7 +63,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test-build && rimraf ./test_build"
+      "pre-commit": "npm run test-build && rimraf ./test_build && git clean -f"
     }
   }
 }
