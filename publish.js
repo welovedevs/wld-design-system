@@ -34,10 +34,7 @@ const run = async () => {
         question = 'Did not find any version, please specify one:'
     }
 
-    rl.question(question, result => {
-        version = result;
-        rl.close();
-    });
+    version = rl.question(question, { defaultinput: inPackageVersion });
 
     await exec(`git commit -am 'up to version ${version}'`);
     console.log(`Created new version `);
