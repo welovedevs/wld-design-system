@@ -111,7 +111,7 @@ const run = async () => {
     }
     mergingMasterSourcesSpinner.succeed('Merged master sources.');
 
-    const srcPath = __dirname, '/src';
+    const srcPath = __dirname + '/src';
     const srcFiles = fs.readdirSync(srcPath);
     if (srcFiles) {
         const removingAllPreviouslyBuildedElementsSpinner = ora('Removing previously builded elements...').start();
