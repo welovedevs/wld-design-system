@@ -2,26 +2,48 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const fs = require('fs');
 const yargs = require('yargs').argv;
+const readline = require("readline");
+
+const ERROR_PREFIX = '[❌]';
+const SUCCESS_PREFIX = '[✓]';
+const WARNING_PREFIX = '[⚠]';
 
 const semver = yargs.version || 'patch';
 const cleanInput = ({stdout, stderr}) => ({stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '')});
 
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 const run = async () => {
     const checkMaster = await exec('git rev-parse --abbrev-ref HEAD').then(cleanInput);
-    console.log(checkMaster)
     if (checkMaster.stdout !== 'master') {
-        console.error('Cannot create version when not on master');
+        console.error(ERROR_PREFIX, 'Cannot create version when not on master.');
         process.exit(-1);
     }
     const lsFilesResult = await exec('git ls-files -m');
     if (lsFilesResult.stdout) {
-        console.error('Cannot create version with modified files');
+        console.error(ERROR_PREFIX, 'Cannot create version with modified files. Commit or stash them.');
         process.exit(-1);
     }
     await exec(`npm version ${semver} --no-git-tag-version`);
 
     const packageFile = fs.readFileSync('package.json');
-    const {version} = JSON.parse(packageFile);
+    const { version: inPackageVersion } = JSON.parse(packageFile);
+    let version = null;
+    let question = null;
+    if (inPackageVersion) {
+        question = 'package.json already contains a version entry, is it correct?'
+    } else {
+        question = 'Did not find any version, please specify one:'
+    }
+
+    rl.question(question, result => {
+        version = result;
+        rl.close();
+    });
+
     await exec(`git commit -am 'up to version ${version}'`);
     console.log(`Created new version `);
 
@@ -33,13 +55,11 @@ const run = async () => {
         console.info("pushed branch build");
 
     } catch (e) {
-        console.debug(e);
         console.info("Branch build already exists");
         console.info("Checking out branch and fetching latest version");
         await exec('git checkout build');
         const pullExec = await exec('git pull origin build');
         console.info("pulling branch and fetching latest version");
-
     }
 
     console.log(`Merging master to build new version`);
