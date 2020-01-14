@@ -2,7 +2,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const fs = require('fs');
 const yargs = require('yargs').argv;
-const readline = require("readline");
+var rl = require('readline-sync');
 
 const ERROR_PREFIX = '[❌]';
 const SUCCESS_PREFIX = '[✓]';
@@ -10,11 +10,6 @@ const WARNING_PREFIX = '[⚠]';
 
 const semver = yargs.version || 'patch';
 const cleanInput = ({stdout, stderr}) => ({stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '')});
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
 
 const run = async () => {
     const checkMaster = await exec('git rev-parse --abbrev-ref HEAD').then(cleanInput);

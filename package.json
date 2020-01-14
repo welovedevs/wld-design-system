@@ -53,6 +53,7 @@
     "husky": "^4.0.7",
     "prettier": "^1.19.1",
     "react-emoji-render": "^1.2.1",
+    "readline-sync": "^1.4.10",
     "yargs": "^15.1.0"
   },
   "eslintConfig": {
