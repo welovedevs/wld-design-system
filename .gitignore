@@ -1,6 +1,5 @@
 .storybook/
 dist/
-src/
 stories/
 .babelrc
 .eslintrc
