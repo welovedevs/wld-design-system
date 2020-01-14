@@ -90,8 +90,8 @@ const run = async () => {
     const removingLegacyElementsSpinner = ora('Removing legacy elements...').start();
     let rootFiles = fs.readdirSync(__dirname);
     if (rootFiles && rootFiles.length) {
-        rootFiles = rootFiles.filter(TO_PRESERVE_IN_BUILD.includes);
         removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
+        rootFiles = rootFiles.filter(name => TO_PRESERVE_IN_BUILD.includes(name));
         rootFiles.forEach((name, index) => {
             removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
             fs.unlinkSync(__dirname + `/${name}`);
