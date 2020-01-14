@@ -9,10 +9,11 @@ const ERROR_PREFIX = '[❌]';
 const SUCCESS_PREFIX = '[✓]';
 const WARNING_PREFIX = '[⚠]';
 
-const semver = yargs.version || 'patch';
+let semver = yargs.version || 'patch';
 const cleanInput = ({stdout, stderr}) => ({stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '')});
 
 const run = async () => {
+    const semver = rl.question('What kind of build is it?', { defaultInput: semver });
     const checkMasterSpinner = ora('Checking current branch...').start();
     const checkMaster = await exec('git rev-parse --abbrev-ref HEAD').then(cleanInput);
     if (checkMaster.stdout !== 'master') {
@@ -29,18 +30,7 @@ const run = async () => {
     filesResultSpinner.succeed('No modified files found.');
     await exec(`npm version ${semver} --no-git-tag-version`);
     const packageFile = fs.readFileSync('package.json');
-    const { version: inPackageVersion } = JSON.parse(packageFile);
-    let version = null;
-    let question = null;
-    if (inPackageVersion) {
-        question = '️ℹ package.json already contains a version entry, is it correct?'
-    } else {
-        question = 'ℹ Did not find any version, please specify one:'
-    }
-
-    console.log({ inPackageVersion })
-    version = rl.question(question, { defaultInput: inPackageVersion });
-
+    const { version } = JSON.parse(packageFile);
     await exec(`git commit -am 'Up to version ${version}'.`);
     console.log(SUCCESS_PREFIX, `Created new version commit.`);
     try {
