@@ -4,6 +4,7 @@ const fs = require('fs');
 const yargs = require('yargs').argv;
 const rl = require('readline-sync');
 const ora = require('ora');
+const rimraf = require('rimraf');
 require('colors');
 
 let semver = yargs.version || 'patch';
@@ -92,9 +93,9 @@ const run = async () => {
     if (rootFiles && rootFiles.length) {
         removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
         rootFiles = rootFiles.filter(name => !TO_PRESERVE_IN_BUILD.includes(name) && !name.startsWith('.'));
-        rootFiles.forEach((name, index) => {
+        rootFiles.forEach(async (name, index) => {
             removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
-            fs.unlinkSync(__dirname + `/${name}`);
+            await rimraf(__dirname + `/${name}`);
         });
     }
     removingLegacyElementsSpinner.succeed('Removed legacy elements.');
@@ -111,20 +112,6 @@ const run = async () => {
     }
     mergingMasterSourcesSpinner.succeed('Merged master sources.');
 
-    const srcPath = __dirname + '/src';
-    const srcFiles = fs.readdirSync(srcPath);
-    if (srcFiles) {
-        const removingAllPreviouslyBuildedElementsSpinner = ora('Removing previously builded elements...').start();
-        srcFiles.forEach((fileName, index) => {
-            const path = __dirname + `${fileName}`;
-            if (fs.existsSync(path)) {
-                fs.unlinkSync(path);
-            }
-            removingAllPreviouslyBuildedElementsSpinner.text = `Removing previously builded elements (${index + 1} / ${srcFiles.length})...`
-        });
-        removingAllPreviouslyBuildedElementsSpinner.succeed('Removed previously builded elements...');
-    }
-
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
         await exec('npm run build');
@@ -137,9 +124,11 @@ const run = async () => {
     }
     buildingPackageSpinner.succeed('Package built.');
 
+    const srcPath = __dirname + '/src';
+
     if (fs.existsSync(srcPath)) {
         const removingMasterSourcesInBuildSpinner = ora('Removing previously added sources...').start();
-        fs.unlinkSync(srcPath);
+        rimraf(srcPath);
         removingMasterSourcesInBuildSpinner.succeed('Removed previously added sources.');
     }
 
