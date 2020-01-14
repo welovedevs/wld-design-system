@@ -13,7 +13,7 @@ let semver = yargs.version || 'patch';
 const cleanInput = ({stdout, stderr}) => ({stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '')});
 
 const run = async () => {
-    const semver = rl.question('What kind of build is it?', { defaultInput: semver });
+    semver = rl.question('What kind of build is it?', { defaultInput: semver });
     const checkMasterSpinner = ora('Checking current branch...').start();
     const checkMaster = await exec('git rev-parse --abbrev-ref HEAD').then(cleanInput);
     if (checkMaster.stdout !== 'master') {
