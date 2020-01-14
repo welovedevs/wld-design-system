@@ -77,7 +77,7 @@ const run = async () => {
         process.exit(-1);
     }
     checkingOutBuildBranchSpinner.succeed('Checked out build branch.');
-    const pullingBuildBranchSpinner = ora('Pulling remote branch and fetching latest version.').start();
+    const pullingBuildBranchSpinner = ora('Pulling remote branch and fetching latest veçrsion.').start();
     try {
         await exec('git pull origin build');
         pullingBuildBranchSpinner.succeed('Pulled remote branch.');
@@ -121,6 +121,20 @@ const run = async () => {
         }
     }
     mergingMasterToBuildSpinner.succeed('Merged master in current build branch.');
+
+    const srcFiles = fs.readdirSync(__dirname + '/src');
+    if (srcFiles) {
+        const removingAllPreviouslyBuildedElementsSpinner = ora('Removing previously builded elements...').start();
+        srcFiles.forEach((fileName, index) => {
+            const path = __dirname + `${fileName}`;
+            if (fs.existsSync(path)) {
+                fs.unlinkSync(path);
+            }
+            removingAllPreviouslyBuildedElementsSpinner.text = `Removing previously builded elements (${index + 1} / ${srcFiles.length})...`
+        });
+        removingAllPreviouslyBuildedElementsSpinner.succeed('Removed previously builded elements...');
+    }
+
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
         await exec('npm run build');
