@@ -1,6 +1,7 @@
 .storybook/
 dist/
 stories/
+storybook-static/
 .babelrc
 .eslintrc
 .prettierrc
