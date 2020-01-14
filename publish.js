@@ -19,14 +19,14 @@ const run = async () => {
         checkMasterSpinner.error('Cannot create version when not on master.');
         process.exit(-1);
     }
-    checkMasterSpinner.success('Current branch is master.');
+    checkMasterSpinner.succeed('Current branch is master.');
     const filesResultSpinner = ora('Checking for modified files...');
     const lsFilesResult = await exec('git ls-files -m');
     if (lsFilesResult.stdout) {
         filesResultSpinner.error('Cannot create version with modified files. Commit or stash them.');
         process.exit(-1);
     }
-    filesResultSpinner.success('No modified files found.');
+    filesResultSpinner.succeed('No modified files found.');
     await exec(`npm version ${semver} --no-git-tag-version`);
     const packageFile = fs.readFileSync('package.json');
     const { version: inPackageVersion } = JSON.parse(packageFile);
