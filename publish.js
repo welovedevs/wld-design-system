@@ -123,6 +123,7 @@ const run = async () => {
     mergingMasterToBuildSpinner.succeed('Merged master in current build branch.');
 
     const srcFiles = fs.readdirSync(__dirname + '/src');
+    console.log({ srcFiles });
     if (srcFiles) {
         const removingAllPreviouslyBuildedElementsSpinner = ora('Removing previously builded elements...').start();
         srcFiles.forEach((fileName, index) => {
