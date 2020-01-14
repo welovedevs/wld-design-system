@@ -4,6 +4,7 @@ const fs = require('fs');
 const yargs = require('yargs').argv;
 const rl = require('readline-sync');
 const ora = require('ora');
+require('colors');
 
 let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
@@ -87,12 +88,32 @@ const run = async () => {
     const mergingMasterToBuildSpinner = ora('Merging master in current build branch...').start();
     try {
         await exec(`git merge master --no-ff -m "Merging master for version ${version}".`);
-    } catch (error) {
-        mergingMasterToBuildSpinner.fail('Could not merge master in current build branch.');
-        if (isVerbose) {
-            console.error(error);
+    } catch {
+        mergingMasterToBuildSpinner.info('Could not merge master in current build branch. Some files might need to be deleted.');
+
+        const checkingForRemovableFilesSpinner = ora('Checking for removable files...').start();
+        const { stdout } = await exec(`git status --porcelain`);
+        const removableFiles = stdout
+            .split('\n')
+            .filter(file => file.startsWith('DU'))
+            .map(file => file.split(' ')[1]);
+
+        if (!removableFiles || !removableFiles.length) {
+            checkingForRemovableFilesSpinner.fail('Did not find any removable files. Merging master cannot be done.');
+            process.exit(0);
         }
-        process.exit(-1);
+        checkingForRemovableFilesSpinner.succeed(`Found ${removableFiles} removable file${removableFiles.length > 1 ? 's' : ''}. (${removableFiles.map((name) => name.yellow).join(', ')}).`);
+
+        const committingMergeConflictsSpinner = ora('Committing resolved merge conflicts...').start();
+        try {
+            await exec(`git commit -m "Merging master for version ${version}. (Removed some files)."`);
+        } catch (error) {
+            committingMergeConflictsSpinner.fail('Could not merge master in current build branch.');
+            if (isVerbose) {
+                console.error(error);
+            }
+            process.exit(-1);
+        }
     }
     mergingMasterToBuildSpinner.succeed('Merged master in current build branch.');
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
