@@ -93,9 +93,9 @@ const run = async () => {
     if (rootFiles && rootFiles.length) {
         removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
         rootFiles = rootFiles.filter(name => !TO_PRESERVE_IN_BUILD.includes(name) && !name.startsWith('.'));
-        rootFiles.forEach(async (name, index) => {
+        rootFiles.forEach((name, index) => {
             removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
-            await rimraf(__dirname + `/${name}`);
+            rimraf.sync(__dirname + `/${name}`, {}, () => {});
         });
     }
     removingLegacyElementsSpinner.succeed('Removed legacy elements.');
@@ -128,7 +128,7 @@ const run = async () => {
 
     if (fs.existsSync(srcPath)) {
         const removingMasterSourcesInBuildSpinner = ora('Removing previously added sources...').start();
-        rimraf(srcPath);
+        rimraf.sync(srcPath);
         removingMasterSourcesInBuildSpinner.succeed('Removed previously added sources.');
     }
 
