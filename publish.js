@@ -10,7 +10,7 @@ let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
-const TO_PRESERVE_IN_BUILD = ['node_modules', '.gitignore', 'package.json', 'yarn.lock'];
+const TO_PRESERVE_IN_BUILD = ['node_modules', '.gitignore', 'package.json', 'yarn.lock', '.git', '.npm', '.eslintcache', '.node_repl_history', '.env', '.next'];
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
