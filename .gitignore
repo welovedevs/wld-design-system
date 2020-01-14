@@ -1,5 +1,6 @@
 .storybook/
 dist/
+src/
 stories/
 storybook-static/
 .babelrc
