@@ -15,10 +15,11 @@ const run = async () => {
     if (isVerbose) {
         console.log('ℹ Starting publishing package in verbose mode.');
     }
-    semver = rl.keyInSelect(VALID_SEMVER, 'ℹ What kind of build is it?');
-    if (semver === -1) {
+    semverIndex = rl.keyInSelect(VALID_SEMVER, 'ℹ What kind of build is it?');
+    if (semverIndex === -1) {
         process.exit(-1);
     }
+    semver = VALID_SEMVER[semverIndex];
     const checkMasterSpinner = ora('Checking current branch...').start();
     const checkMaster = await exec('git rev-parse --abbrev-ref HEAD').then(cleanInput);
     if (checkMaster.stdout !== 'master') {
