@@ -10,6 +10,8 @@ let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
+const TO_PRESERVE_IN_BUILD = ['node_modules', '.gitignore', 'package.json', 'yarn.lock'];
+
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
 const run = async () => {
@@ -85,46 +87,32 @@ const run = async () => {
         pullingBuildBranchSpinner.info('Could not pull remote branch, might not have been pushed yet.');
     }
 
-    const mergingMasterToBuildSpinner = ora('Merging master in current build branch...').start();
-    try {
-        await exec(`git merge master --no-ff -m "Merging master for version ${version}".`);
-    } catch {
-        mergingMasterToBuildSpinner.info('Could not merge master in current build branch. Some files might need to be deleted.');
-
-        const checkingForRemovableFilesSpinner = ora('Checking for removable files...').start();
-        const { stdout } = await exec(`git status --porcelain`);
-        const removableFiles = stdout
-            .split('\n')
-            .filter(file => file.startsWith('DU'))
-            .map(file => file.split(' ')[1]);
-
-        if (!removableFiles || !removableFiles.length) {
-            checkingForRemovableFilesSpinner.fail('Did not find any removable files. Merging master cannot be done.');
-            process.exit(0);
-        }
-        checkingForRemovableFilesSpinner.succeed(`Found ${removableFiles.length} removable file${removableFiles.length > 1 ? 's' : ''}. (${removableFiles.map((name) => name.yellow).join(', ')}).`);
-
-        const removingFilesSpinner = ora('Removing files...').start();
-        removableFiles.forEach((file) => fs.unlinkSync(__dirname + `/${file}`));
-        removingFilesSpinner.succeed('Removed files.');
-
-        const committingMergeConflictsSpinner = ora('Committing resolved merge conflicts...').start();
-        try {
-            await exec(`git add -A`);
-            await exec(`git commit -m "Merging master for version ${version}. (Removed some files)."`);
-        } catch (error) {
-            committingMergeConflictsSpinner.fail('Could not merge master in current build branch.');
-            if (isVerbose) {
-                console.error(error);
-            }
-            process.exit(-1);
-        }
+    const removingLegacyElementsSpinner = ora('Removing legacy elements...').start();
+    let rootFiles = fs.readdirSync(__dirname);
+    if (rootFiles && rootFiles.length) {
+        rootFiles = rootFiles.filter(TO_PRESERVE_IN_BUILD.includes);
+        removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
+        rootFiles.forEach((name, index) => {
+            removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
+            fs.unlinkSync(__dirname + `/${name}`);
+        });
     }
-    mergingMasterToBuildSpinner.succeed('Merged master in current build branch.');
+    removingLegacyElementsSpinner.succeed('Removed legacy elements.');
 
-    console.log(fs.readdirSync(__dirname));
-    const srcFiles = fs.readdirSync(__dirname + '/src');
-    console.log({ srcFiles });
+    const mergingMasterSourcesSpinner = ora('Merging master sources...').start();
+    try {
+        await exec('git checkout master src');
+    } catch (error) {
+        mergingMasterSourcesSpinner.fail('Could not merge master sources.');
+        if (isVerbose) {
+            console.error(error);
+        }
+        process.exit(-1);
+    }
+    mergingMasterSourcesSpinner.succeed('Merged master sources.');
+
+    const srcPath = __dirname, '/src';
+    const srcFiles = fs.readdirSync(srcPath);
     if (srcFiles) {
         const removingAllPreviouslyBuildedElementsSpinner = ora('Removing previously builded elements...').start();
         srcFiles.forEach((fileName, index) => {
@@ -148,6 +136,12 @@ const run = async () => {
         process.exit(-1);
     }
     buildingPackageSpinner.succeed('Package built.');
+
+    if (fs.existsSync(srcPath)) {
+        const removingMasterSourcesInBuildSpinner = ora('Removing previously added sources...').start();
+        fs.unlinkSync(srcPath);
+        removingMasterSourcesInBuildSpinner.succeed('Removed previously added sources.');
+    }
 
     const committingNewBuildSpinner = ora('Committing freshly made package build...').start();
     try {
