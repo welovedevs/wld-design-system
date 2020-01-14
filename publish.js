@@ -87,8 +87,11 @@ const run = async () => {
     const mergingMasterToBuildSpinner = ora('Merging master in current build branch...').start();
     try {
         await exec(`git merge master --no-ff -m "Merging master for version ${version}".`);
-    } catch {
+    } catch (error) {
         mergingMasterToBuildSpinner.fail('Could not merge master in current build branch.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     mergingMasterToBuildSpinner.succeed('Merged master in current build branch.');
