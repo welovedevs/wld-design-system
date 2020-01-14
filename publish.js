@@ -12,8 +12,10 @@ const WARNING_PREFIX = '[⚠]';
 let semver = yargs.version || 'patch';
 const cleanInput = ({stdout, stderr}) => ({stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '')});
 
+const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
+
 const run = async () => {
-    semver = rl.question('What kind of build is it?', { defaultInput: semver });
+    semver = rl.keyInSelect(VALID_SEMVER, 'ℹ What kind of build is it?');
     const checkMasterSpinner = ora('Checking current branch...').start();
     const checkMaster = await exec('git rev-parse --abbrev-ref HEAD').then(cleanInput);
     if (checkMaster.stdout !== 'master') {
