@@ -6,11 +6,15 @@ const rl = require('readline-sync');
 const ora = require('ora');
 
 let semver = yargs.version || 'patch';
+const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
 const run = async () => {
+    if (isVerbose) {
+        console.log('ℹ Starting publishing package in verbose mode.');
+    }
     semver = rl.keyInSelect(VALID_SEMVER, 'ℹ What kind of build is it?');
     if (semver === -1) {
         process.exit(-1);
@@ -32,8 +36,11 @@ const run = async () => {
     const upgradingVersionSpinner = ora('Bumping package version...').start();
     try {
         await exec(`npm version ${semver} --no-git-tag-version`);
-    } catch {
+    } catch (error) {
         upgradingVersionSpinner.fail('Could not bump version.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     const packageFile = fs.readFileSync('package.json');
@@ -42,8 +49,11 @@ const run = async () => {
     const commitMasterNewVersionSpinner = ora('Committing new version on local master branch...').start();
     try {
         await exec(`git commit -am 'Bump version to ${version}'.`);
-    } catch {
+    } catch (error) {
         commitMasterNewVersionSpinner.fail('Could not commit new version on local master branch.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     commitMasterNewVersionSpinner.succeed('Created new version commit on local master branch.');
@@ -57,8 +67,11 @@ const run = async () => {
     const checkingOutBuildBranchSpinner = ora('Checking out build branch...').start();
     try {
         await exec('git checkout build');
-    } catch {
+    } catch (error) {
         checkingOutBuildBranchSpinner.fail('Could not checkout build branch.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     checkingOutBuildBranchSpinner.succeed('Checked out build branch.');
@@ -81,8 +94,11 @@ const run = async () => {
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
         await exec('npm run build');
-    } catch {
+    } catch (error) {
         buildingPackageSpinner.fail('Package build failed.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     buildingPackageSpinner.succeed('Package built.');
@@ -91,8 +107,11 @@ const run = async () => {
     try {
         await exec('git add --all');
         await exec(`git commit --allow-empty -am  "New version build : ${version}."`);
-    } catch {
+    } catch (error) {
         committingNewBuildSpinner.fail('Could not commit new package build.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     committingNewBuildSpinner.succeed('Committed new package build.');
@@ -100,8 +119,11 @@ const run = async () => {
     const creatingNewVersionTagSpinner = ora('Creating new version tag...').start();
     try {
         await exec(`git tag v${version}`);
-    } catch {
+    } catch (error) {
         creatingNewVersionTagSpinner.fail('Could not create new version tag.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     creatingNewVersionTagSpinner.succeed('Created new version tag.');
@@ -109,8 +131,11 @@ const run = async () => {
     const pushingBuildBranchSpinner = ora('Pushing local build branch...').start();
     try {
         await exec(`git push origin build`);
-    } catch {
+    } catch (error) {
         pushingBuildBranchSpinner.fail('Could not push local build branch.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     pushingBuildBranchSpinner.succeed('Pushed local build branch.');
@@ -118,16 +143,23 @@ const run = async () => {
     const pushingTagsSpinner = ora(`Publishing version ${version}...`).start();
     try {
         await exec(`git push --tags`);
-    } catch {
+    } catch (error) {
         pushingTagsSpinner.fail(`Could not publish new version ${version}.`);
+        if (isVerbose) {
+            console.error(error);
+        }
+        process.exit(-1);
     }
     pushingTagsSpinner.succeed(`Published version ${version}.`);
 
     const checkingOutMasterSpinner = ora('Checking out master branch...');
     try {
         await exec(`git checkout master`);
-    } catch {
+    } catch (error) {
         checkingOutMasterSpinner.fail('Could not check out master.');
+        if (isVerbose) {
+            console.error(error);
+        }
         process.exit(-1);
     }
     checkingOutMasterSpinner.succeed('Checked out master.');
@@ -135,8 +167,12 @@ const run = async () => {
     const pushingMasterSpinner = ora('Pushing local master branch...').start();
     try {
         await exec(`git push origin master`);
-    } catch {
+    } catch (error) {
         pushingMasterSpinner.fail('Could not push local master branch.');
+        if (isVerbose) {
+            console.error(error);
+        }
+        process.exit(-1);
     }
     pushingMasterSpinner.succeed('Pushed local master branch.');
     console.log('\n✅ Package published successfully.');
