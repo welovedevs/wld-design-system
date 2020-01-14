@@ -71,3 +71,5 @@ typings/
 
 # next.js build output
 .next
+
+./test_build
