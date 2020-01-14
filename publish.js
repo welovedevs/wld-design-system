@@ -93,6 +93,7 @@ const run = async () => {
     if (rootFiles && rootFiles.length) {
         removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
         rootFiles = rootFiles.filter(name => !TO_PRESERVE_IN_BUILD.includes(name) && !name.startsWith('.'));
+        console.log({ rootFiles })
         rootFiles.forEach((name, index) => {
             removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
             rimraf.sync(__dirname + `/${name}`, {}, () => {});
