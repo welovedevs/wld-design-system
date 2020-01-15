@@ -145,7 +145,7 @@ const run = async () => {
     const committingNewBuildSpinner = ora('Committing freshly made package build...').start();
     try {
         await exec('git add --all');
-        await exec(`git commit --allow-empty -am  "New version build : ${version}."`);
+        await exec(`git commit --no-verify --allow-empty -am  "New version build : ${version}."`);
     } catch (error) {
         committingNewBuildSpinner.fail('Could not commit new package build.');
         if (isVerbose) {
