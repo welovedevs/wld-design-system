@@ -23,8 +23,6 @@ var _core = require("@material-ui/core");
 
 var _card = require("../card/card");
 
-var _speech_bubble_arrow = require("../assets/icons/speech_bubble_arrow.svg");
-
 var _popper_card_styles = require("./popper_card_styles");
 
 var _popper_card_styles2 = _interopRequireDefault(_popper_card_styles);
@@ -50,6 +48,27 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+var SpeechBubbleArrow = function SpeechBubbleArrow(props) {
+  return _react2["default"].createElement("svg", props, _react2["default"].createElement("title", null, "Rectangle Copy@2x (1)"), _react2["default"].createElement("g", {
+    fill: "none",
+    fillRule: "evenodd"
+  }, _react2["default"].createElement("path", {
+    d: "M9.404 10.823l5.156-9.28a3 3 0 0 1 5.25.01l5.09 9.239a10 10 0 0 0 8.758 5.175H.663a10 10 0 0 0 8.741-5.144z",
+    fill: "#000",
+    fillRule: "nonzero"
+  }), _react2["default"].createElement("path", {
+    d: "M9.404 10.823l5.156-9.28a3 3 0 0 1 5.25.01l5.09 9.239a10 10 0 0 0 8.758 5.175H.663a10 10 0 0 0 8.741-5.144z",
+    fill: "#FFF"
+  })));
+};
+
+SpeechBubbleArrow.defaultProps = {
+  width: "34",
+  height: "16",
+  viewBox: "0 0 34 16",
+  xmlns: "http://www.w3.org/2000/svg"
+};
 
 var PopperCardComponent = function PopperCardComponent(_ref) {
   var className = _ref.className,
@@ -184,7 +203,7 @@ var Content = function Content(_ref3) {
   }, !dismissArrow && _react2["default"].createElement("div", {
     className: classes.arrowContainer,
     ref: setArrowReference
-  }, _react2["default"].createElement(_speech_bubble_arrow.ReactComponent, null)), _react2["default"].createElement(_card.Card, _extends({
+  }, _react2["default"].createElement(SpeechBubbleArrow, null)), _react2["default"].createElement(_card.Card, _extends({
     className: (0, _classnames2["default"])(className, classes.container, customClasses.container, structured && classes.structured)
   }, other)));
 

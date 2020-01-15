@@ -5,16 +5,39 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BANNER_DATA = undefined;
 
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
 var _icons = require("@material-ui/icons");
 
 var _palettes = require("../styles/palettes");
 
-var _warning = require("../assets/icons/warning.svg");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+var WarningIcon = function WarningIcon(props) {
+  return _react2["default"].createElement("svg", props, _react2["default"].createElement("title", null, "Warning icon"), _react2["default"].createElement("desc", null, "Warning - WeLoveDevs"), _react2["default"].createElement("g", {
+    fill: "none",
+    fillRule: "evenodd"
+  }, _react2["default"].createElement("path", {
+    d: "M-1-3h32v32H-1z"
+  }), _react2["default"].createElement("path", {
+    d: "M1.731 25H28.27a1 1 0 0 0 .866-1.5L15.866.501a1 1 0 0 0-1.732 0l-13.269 23A1 1 0 0 0 1.731 25zm14.633-4.105h-2.728v-2.737h2.728v2.737zm0-5.474h-2.728V9.947h2.728v5.474z",
+    fill: "#000",
+    fillRule: "nonzero"
+  })));
+};
+
+WarningIcon.defaultProps = {
+  width: "30",
+  height: "25",
+  viewBox: "0 0 30 25",
+  xmlns: "http://www.w3.org/2000/svg"
+};
 var BANNER_DATA = exports.BANNER_DATA = Object.freeze({
   warning: {
     color: _palettes.orange[600],
-    icon: _warning.ReactComponent
+    icon: WarningIcon
   },
   error: {
     color: _palettes.danger[500],

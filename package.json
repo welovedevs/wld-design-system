@@ -1,6 +1,6 @@
 {
   "name": "@wld/ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "WeLoveDevs.com UI components",
   "main": "dist/index.js",
   "scripts": {
@@ -43,6 +43,7 @@
     "@storybook/react": "^5.3.1",
     "@storybook/theming": "^5.3.1",
     "babel-loader": "^8.0.6",
+    "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
