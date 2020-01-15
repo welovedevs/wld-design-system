@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl';
 import {configure, addDecorator, addParameters} from '@storybook/react';
 import StoryContainer from "./story_container/story_container";
 
