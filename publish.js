@@ -92,7 +92,7 @@ const run = async () => {
     const cleanBuildBranchSpinner = ora('Cleaning build branch...').start();
     let rootFiles = fs.readdirSync(__dirname);
     if (rootFiles && rootFiles.length) {
-        rootFiles = rootFiles.filter((name) => !TO_PRESERVE_DURING_BASE_CLEAN_UP.includes(name));
+        rootFiles = rootFiles.filter((name) => !TO_PRESERVE_DURING_CLEAN_UP.includes(name));
         cleanBuildBranchSpinner.text = `Cleaning build branch... (Removing ${rootFiles.length} element${rootFiles.length > 1 ? 's' : ''})...`;
         rootFiles.forEach((name, index) => {
             cleanBuildBranchSpinner.text = `Cleaning build branch... (Removing ${rootFiles.length} element${rootFiles.length > 1 ? 's' : ''}) (${index + 1} / ${rootFiles.length})...`;
