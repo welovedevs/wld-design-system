@@ -132,8 +132,8 @@ const run = async () => {
     buildingPackageSpinner.succeed('Package built.');
 
     const postBuildCleanUpSpinner = ora('Doing post-build clean-up...').start();
-    const rootFiles = fs.readdirSync(__dirname);
-    rootFiles
+    const rootNewFiles = fs.readdirSync(__dirname);
+    rootNewFiles
         .filter((name) => !srcFiles.includes(name))
         .forEach((fileName) => {
             rimraf.sync(__dirname + `/${fileName}`, {}, () => {})
