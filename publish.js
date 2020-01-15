@@ -11,8 +11,8 @@ let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
-const TO_PRESERVE_DURING_CLEAN_UP = ['.git', 'node_modules'];
-const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.gitignore', 'package.json', 'src'];
+const TO_PRESERVE_DURING_CLEAN_UP = ['package.json', '.git', 'node_modules'];
+const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.gitignore', 'src'];
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
