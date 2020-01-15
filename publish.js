@@ -103,7 +103,7 @@ const run = async () => {
 
     const mergingMasterSourcesSpinner = ora('Checking out master elements...').start();
     try {
-        await exec(`git checkout master ${TO_CHECKOUT_FROM_MASTER.join(' ')}`);
+        await exec(`git checkout --theirs master ${TO_CHECKOUT_FROM_MASTER.join(' ')}`);
     } catch (error) {
         mergingMasterSourcesSpinner.fail('Could not check out master elements.');
         if (isVerbose) {
