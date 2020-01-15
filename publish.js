@@ -11,7 +11,7 @@ let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
-const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.gitignore', 'node_modules', 'package.json', 'src'];
+const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.git', '.gitignore', 'node_modules', 'package.json', 'src'];
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
@@ -132,8 +132,8 @@ const run = async () => {
     buildingPackageSpinner.succeed('Package built.');
 
     const postBuildCleanUpSpinner = ora('Doing post-build clean-up...').start();
-    const rootNewFiles = fs.readdirSync(__dirname);
-    rootNewFiles
+    const rootFiles = fs.readdirSync(__dirname);
+    rootFiles
         .filter((name) => !srcFiles.includes(name))
         .forEach((fileName) => {
             rimraf.sync(__dirname + `/${fileName}`, {}, () => {})
