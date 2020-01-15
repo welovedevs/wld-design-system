@@ -12,7 +12,7 @@ const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
 const TO_PRESERVE_DURING_CLEAN_UP = ['package.json', '.git', '.gitignore', 'node_modules'];
-const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.gitignore', 'src'];
+const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.gitignore', 'src', 'package.json'];
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
