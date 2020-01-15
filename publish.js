@@ -83,7 +83,8 @@ const run = async () => {
     checkingOutBuildBranchSpinner.succeed('Checked out build branch.');
     const pullingBuildBranchSpinner = ora('Pulling remote branch and fetching latest version.').start();
     try {
-        await exec('git pull origin build');
+        await exec('git fetch');
+        await exec('git reset --hard origin/build');
         pullingBuildBranchSpinner.succeed('Pulled remote branch.');
     } catch {
         pullingBuildBranchSpinner.info('Could not pull remote branch, might not have been pushed yet.');
@@ -120,6 +121,18 @@ const run = async () => {
         error('⨯ Did not find any sources. Exiting.');
         process.exit(-1);
     }
+
+    const installSpinner = ora('Installing dependencies...').start();
+    try {
+        await exec('npm install');
+    } catch (error) {
+        installSpinner.fail('Dependencies installation failed.');
+        if (isVerbose) {
+            console.error(error);
+        }
+        process.exit(-1);
+    }
+    installSpinner.succeed('Dependencies installed.');
 
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
