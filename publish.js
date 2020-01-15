@@ -11,7 +11,7 @@ let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
-const TO_PRESERVE_IN_BUILD = ['node_modules', 'package.json', 'yarn.lock'];
+const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.gitignore', 'node_modules', 'package.json', 'src'];
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
@@ -88,30 +88,36 @@ const run = async () => {
         pullingBuildBranchSpinner.info('Could not pull remote branch, might not have been pushed yet.');
     }
 
-    const removingLegacyElementsSpinner = ora('Removing legacy elements...').start();
+    const cleanBuildBranchSpinner = ora('Cleaning build branch...').start();
     let rootFiles = fs.readdirSync(__dirname);
     if (rootFiles && rootFiles.length) {
-        removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''}...`;
-        rootFiles = rootFiles.filter(name => !TO_PRESERVE_IN_BUILD.includes(name) && !name.startsWith('.'));
-        console.log({ rootFiles })
+        cleanBuildBranchSpinner.text = `Cleaning build branch... (Removing ${rootFiles.length} element${rootFiles.length > 1 ? 's' : ''})...`;
         rootFiles.forEach((name, index) => {
-            removingLegacyElementsSpinner.text = `Removing ${rootFiles.length} legacy element${rootFiles.length > 1 ? 's' : ''} (${index + 1} / ${rootFiles.length})...`;
+            cleanBuildBranchSpinner.text = `Cleaning build branch... (Removing ${rootFiles.length} element${rootFiles.length > 1 ? 's' : ''}) (${index + 1} / ${rootFiles.length})...`;
             rimraf.sync(__dirname + `/${name}`, {}, () => {});
         });
     }
-    removingLegacyElementsSpinner.succeed('Removed legacy elements.');
+    cleanBuildBranchSpinner.succeed('Cleaned build branch.');
 
-    const mergingMasterSourcesSpinner = ora('Merging master sources...').start();
+    const mergingMasterSourcesSpinner = ora('Checking out master elements...').start();
     try {
-        await exec('git checkout master src');
+        await exec(`git checkout master ${TO_CHECKOUT_FROM_MASTER.join(' ')}`);
     } catch (error) {
-        mergingMasterSourcesSpinner.fail('Could not merge master sources.');
+        mergingMasterSourcesSpinner.fail('Could not check out master elements.');
         if (isVerbose) {
             console.error(error);
         }
         process.exit(-1);
     }
-    mergingMasterSourcesSpinner.succeed('Merged master sources.');
+    mergingMasterSourcesSpinner.succeed('Checked out master elements.');
+
+    const srcPath = __dirname + '/src';
+    const srcFiles = fs.readdirSync(srcPath);
+
+    if (!srcFiles || !srcFiles.length) {
+        error('⨯ Did not find any sources. Exiting.');
+        process.exit(-1);
+    }
 
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
@@ -125,13 +131,14 @@ const run = async () => {
     }
     buildingPackageSpinner.succeed('Package built.');
 
-    const srcPath = __dirname + '/src';
-
-    if (fs.existsSync(srcPath)) {
-        const removingMasterSourcesInBuildSpinner = ora('Removing previously added sources...').start();
-        rimraf.sync(srcPath, {}, () => {});
-        removingMasterSourcesInBuildSpinner.succeed('Removed previously added sources.');
-    }
+    const postBuildCleanUpSpinner = ora('Doing post-build clean-up...').start();
+    const rootFiles = fs.readdirSync(__dirname);
+    rootFiles
+        .filter((name) => !srcFiles.includes(name))
+        .forEach((fileName) => {
+            rimraf.sync(__dirname + `/${fileName}`, {}, () => {})
+        });
+    postBuildCleanUpSpinner.succeed('Did post-build clean up.');
 
     const committingNewBuildSpinner = ora('Committing freshly made package build...').start();
     try {
