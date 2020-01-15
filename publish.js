@@ -11,7 +11,8 @@ let semver = yargs.version || 'patch';
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const cleanInput = ({ stdout, stderr }) => ({ stdout: stdout.replace(/\n/g, ''), stderr: stderr.replace(/\n/g, '') });
 
-const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.git', '.gitignore', 'node_modules', 'package.json', 'src'];
+const TO_PRESERVE_DURING_BASE_CLEAN_UP = '.git';
+const TO_CHECKOUT_FROM_MASTER = ['.babelrc', '.gitignore', 'node_modules', 'package.json', 'src'];
 
 const VALID_SEMVER = ['patch', 'minor', 'major', 'prepatch', 'preminor', 'premajor', 'prerelease'];
 
@@ -91,6 +92,7 @@ const run = async () => {
     const cleanBuildBranchSpinner = ora('Cleaning build branch...').start();
     let rootFiles = fs.readdirSync(__dirname);
     if (rootFiles && rootFiles.length) {
+        rootFiles = rootFiles.filter((name) => !TO_PRESERVE_DURING_BASE_CLEAN_UP.includes(name));
         cleanBuildBranchSpinner.text = `Cleaning build branch... (Removing ${rootFiles.length} element${rootFiles.length > 1 ? 's' : ''})...`;
         rootFiles.forEach((name, index) => {
             cleanBuildBranchSpinner.text = `Cleaning build branch... (Removing ${rootFiles.length} element${rootFiles.length > 1 ? 's' : ''}) (${index + 1} / ${rootFiles.length})...`;
