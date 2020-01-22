@@ -1,0 +1,42 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import { ButtonExamples } from './examples/button_examples';
+import { Button } from '../../src/button/button';
+import { Spacing } from '../stories_helpers/spacing/spacing';
+
+<Meta title="Design System/Button" />
+
+# Button
+
+Buttons are elements users interacts frequently with.  
+It is important to choose the right props for any given application.
+
+<Spacing value={4} />
+
+## Props
+
+<Props of={Button} />
+
+The following props are available:
+
+- ``color``: **String** - Palette color.
+- ``variant``: **String** - Button variant, see below.
+
+<Preview withSource="none">
+    <Story name="text">
+      <ButtonExamples variant="text" />
+    </Story>
+</Preview>
+
+<Preview withSource="none">
+    <Story name="outlined">
+      <ButtonExamples variant="outlined" />
+    </Story>
+</Preview>
+
+
+<Preview withSource="none">
+    <Story name="contained">
+      <ButtonExamples variant="contained" />
+    </Story>
+</Preview>

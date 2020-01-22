@@ -1,7 +1,9 @@
 export default {
     container: {
-        minHeight: '100vh',
         backgroundColor: '#f6f6f6',
-        padding: 50
+        padding: 30,
+        display: 'flex',
+        flexWrap: 'wrap',
+        borderRadius: 4
     }
 };

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 import cn from 'classnames';
 import injectSheet from 'react-jss';
@@ -167,3 +168,7 @@ const WithVariantButton = ({ variant = 'text', ...props }) => {
 };
 
 export const Button = injectSheet(styles)(WithVariantButton);
+
+Button.propTypes = {
+    color: PropTypes.string.isRequired
+};

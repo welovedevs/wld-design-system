@@ -1,6 +1,6 @@
-import { create } from '@storybook/theming';
+import { create, themes } from '@storybook/theming';
 
-export default create({
+export const theme = create({
     base: 'light',
 
     colorPrimary: '#e91e63',
@@ -13,3 +13,4 @@ export default create({
     brandUrl: 'https://welovedevs.com',
     brandImage: 'https://welovedevs.com/wp-content/uploads/2019/12/logo-menu-welovedevs-220bad.svg'
 });
+

@@ -4,7 +4,6 @@ import { withKnobs } from "@storybook/addon-knobs";
 
 import AutoCompleteStory from './autocomplete_story/autocomplete_story';
 import BannerStory from './banner_story/banner_story';
-import ButtonStory from './button_story/button_story';
 import CardStory from './card_story/card_story';
 import CheckboxStory from './checkbox_story/checkbox_story';
 import PopperCardStory from './popper_card_story/popper_card_story';
@@ -23,7 +22,6 @@ export default {
 
 export const AutoComplete = () => <AutoCompleteStory />;
 export const Banner = () => <BannerStory />;
-export const Button = () => <ButtonStory />;
 export const Card = () => <CardStory />;
 export const Checkbox = () => <CheckboxStory />;
 export const PopperCard = () => <PopperCardStory />;
