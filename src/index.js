@@ -1,4 +1,5 @@
 import { AutoComplete } from './autocomplete/autocomplete';
+import { Banner } from './banner/banner';
 import { Button } from './button/button';
 import { Card } from './card/card';
 import { Checkbox } from './checkbox/checkbox';
@@ -19,6 +20,7 @@ import { Typography } from './typography/typography';
 
 export {
     AutoComplete,
+    Banner,
     Button,
     Card,
     Checkbox,
