@@ -128,6 +128,11 @@ var orange = exports.orange = {
   800: '#FF612F',
   900: '#FF4E20'
 };
+var light = exports.light = {
+  500: '#fff',
+  900: '#fff',
+  contrastDefaultColor: 'dark'
+};
 var dark = exports.dark = {
   50: '#E6E6E6',
   100: '#C1C1C1',
@@ -159,5 +164,6 @@ exports["default"] = {
   danger: danger,
   safe: safe,
   warn: warn,
-  orange: orange
+  orange: orange,
+  light: light
 };
