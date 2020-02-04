@@ -3,9 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Typography = exports.Tooltip = exports.TextFieldIcon = exports.TextField = exports.Tag = exports.Switch = exports.Slider = exports.ProgressBar = exports.PopperCardTitle = exports.PopperCardContent = exports.PopperCardActions = exports.PopperCard = exports.ListItem = exports.List = exports.Checkbox = exports.Card = exports.Button = exports.AutoComplete = undefined;
+exports.Typography = exports.Tooltip = exports.TextFieldIcon = exports.TextField = exports.Tag = exports.Switch = exports.Slider = exports.ProgressBar = exports.PopperCardTitle = exports.PopperCardContent = exports.PopperCardActions = exports.PopperCard = exports.ListItem = exports.List = exports.Checkbox = exports.Card = exports.Button = exports.Banner = exports.AutoComplete = undefined;
 
 var _autocomplete = require("./autocomplete/autocomplete");
+
+var _banner = require("./banner/banner");
 
 var _button = require("./button/button");
 
@@ -42,6 +44,7 @@ var _tooltip = require("./tooltip/tooltip");
 var _typography = require("./typography/typography");
 
 exports.AutoComplete = _autocomplete.AutoComplete;
+exports.Banner = _banner.Banner;
 exports.Button = _button.Button;
 exports.Card = _card.Card;
 exports.Checkbox = _checkbox.Checkbox;
