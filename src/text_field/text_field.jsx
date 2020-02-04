@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 
 import cn from 'classnames';
-import injectSheet from 'react-jss';
+import injectSheet, {createUseStyles} from 'react-jss';
 import { animated, useSpring } from 'react-spring';
 
 import styles from './text_field_styles';
-
+const useStyles= createUseStyles(styles);
 const DEFAULT_SPRING_PROPS = {
     boxShadow: '0 7.5px 15px 0 #e4e4e4'
 };
@@ -101,10 +101,11 @@ const RaisedTextField = ({ onFocus, onBlur, containerProps, ...other }) => {
 };
 
 const WithVariantTextField = ({ variant = 'raised', ...other }) => {
+    const classes = useStyles();
     if (variant === 'raised') {
-        return <RaisedTextField {...{ variant }} {...other} />;
+        return <RaisedTextField {...{ variant }} {...other} classes={classes} />;
     }
-    return <TextFieldComponent {...{ variant }} {...other} />;
+    return <TextFieldComponent {...{ variant }} {...other} classes={classes} />;
 };
 
-export const TextField = injectSheet(styles)(WithVariantTextField);
+export const TextField =(WithVariantTextField);
