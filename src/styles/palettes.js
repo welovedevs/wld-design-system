@@ -133,6 +133,12 @@ export const orange = {
     900: '#FF4E20'
 };
 
+export const light = {
+    500: '#fff',
+    900: '#fff',
+    contrastDefaultColor: 'dark'
+};
+
 export const dark = {
     50: '#E6E6E6',
     100: '#C1C1C1',
@@ -166,5 +172,6 @@ export default {
     danger,
     safe,
     warn,
-    orange
+    orange,
+    light
 };
