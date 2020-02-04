@@ -197,6 +197,9 @@ var Content = function Content(_ref3) {
       onClickAway.apply(void 0, arguments);
     }
   }, [onClickAway]);
+  console.log({
+    customClasses: customClasses
+  });
 
   var content = _react2["default"].createElement("div", {
     className: classes.wrapper
