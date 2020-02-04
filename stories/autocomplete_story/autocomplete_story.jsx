@@ -15,14 +15,14 @@ const DefaultStory = ({ classes }) => {
     }, []);
     return (
         <div className={classes.default}>
-            <Typography component="h1" variant="h1">
-                Default behaviour
-            </Typography>
-            <Typography component="h4" variant="h4">
-                {`Autocomplete value: ${value}`}
-            </Typography>
-            <AutoComplete {...{ value }} onChange={handleInputChange} suggestions={defaultSuggestions} />
-        </div>
+        <Typography component="h1" variant="h1">
+        Default behaviour
+    </Typography>
+    <Typography component="h4" variant="h4">
+        {`Autocomplete value: ${value}`}
+    </Typography>
+    <AutoComplete {...{ value }} onChange={handleInputChange} suggestions={defaultSuggestions} />
+</div>
     );
 };
 

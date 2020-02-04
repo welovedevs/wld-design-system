@@ -4,7 +4,7 @@ import { ButtonExamples } from './examples/button_examples';
 import { Button } from '../../src/button/button';
 import { Spacing } from '../stories_helpers/spacing/spacing';
 
-<Meta title="Design System/Button" />
+<Meta title="Components/Button" />
 
 # Button
 
@@ -17,10 +17,22 @@ It is important to choose the right props for any given application.
 
 <Props of={Button} />
 
-The following props are available:
+### Color
 
-- ``color``: **String** - Palette color.
-- ``variant``: **String** - Button variant, see below.
+The button's colors will be based on this value.
+
+### Variant
+
+Different variants exists for different situations.  
+This component have three main variants.
+
+#### ↳ _``text (default)``_
+
+Used by default, this variant should be used for less-pronounced actions.  
+Usage example:
+
+- Dialog Actions.
+- Card Actions (including PopperCard).
 
 <Preview withSource="none">
     <Story name="text">
@@ -28,12 +40,21 @@ The following props are available:
     </Story>
 </Preview>
 
+#### ↳ _``outlined``_
+
+This variant is more pronounced than ``text`` but less than ``contained``.  
+Use it when its background is not plain or if displayed on shadowed surfaces.
+
 <Preview withSource="none">
     <Story name="outlined">
       <ButtonExamples variant="outlined" />
     </Story>
 </Preview>
 
+#### ↳ _``contained``_
+
+This variant is more pronounced than any other.  
+Use it for important actions which might require user's attention.
 
 <Preview withSource="none">
     <Story name="contained">
