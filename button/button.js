@@ -9,6 +9,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _classnames = require("classnames");
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -192,3 +196,6 @@ var WithVariantButton = function WithVariantButton(_ref2) {
 };
 
 var Button = exports.Button = (0, _reactJss2["default"])(_button_styles2["default"])(WithVariantButton);
+Button.propTypes = {
+  color: _propTypes2["default"].string.isRequired
+};

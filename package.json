@@ -1,6 +1,6 @@
 {
   "name": "@wld/ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "WeLoveDevs.com UI components",
   "main": "dist/index.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "react-dom": "^16.12.0",
     "react-jss": "^10.0.3",
     "react-measure": "^2.3.0",
+    "react-slick": "^0.25.2",
     "react-spring": "^8.0.27"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "@babel/preset-env": "^7.8.2",
     "@babel/preset-react": "^7.8.0",
     "@storybook/addon-actions": "^5.3.1",
+    "@storybook/addon-docs": "^5.3.8",
     "@storybook/addon-knobs": "^5.3.1",
     "@storybook/addon-links": "^5.3.1",
     "@storybook/addons": "^5.3.1",
@@ -56,6 +58,7 @@
     "ora": "^4.0.3",
     "prettier": "^1.19.1",
     "react-emoji-render": "^1.2.1",
+    "react-is": "^16.12.0",
     "readline-sync": "^1.4.10",
     "yargs": "^15.1.0"
   },
