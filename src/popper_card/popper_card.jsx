@@ -139,7 +139,7 @@ const Content = ({
     const content = (
         <div className={classes.wrapper}>
             {!dismissArrow && (
-                <div className={classes.arrowContainer} ref={setArrowReference}>
+                <div className={cn(classes.arrowContainer, customClasses.arrowContainer)} ref={setArrowReference}>
                     <SpeechBubbleArrow />
                 </div>
             )}
