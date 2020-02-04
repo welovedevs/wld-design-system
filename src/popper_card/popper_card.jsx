@@ -136,6 +136,8 @@ const Content = ({
         [onClickAway]
     );
 
+    console.log({ customClasses });
+
     const content = (
         <div className={classes.wrapper}>
             {!dismissArrow && (
