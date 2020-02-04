@@ -45,6 +45,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+var useStyles = (0, _reactJss.createUseStyles)(_text_field_styles2["default"]);
 var DEFAULT_SPRING_PROPS = {
   boxShadow: '0 7.5px 15px 0 #e4e4e4'
 }; // Variant should be one of the following : ['raised', 'flat', 'underlined'].
@@ -137,15 +138,21 @@ var WithVariantTextField = function WithVariantTextField(_ref3) {
       variant = _ref3$variant === void 0 ? 'raised' : _ref3$variant,
       other = _objectWithoutProperties(_ref3, ["variant"]);
 
+  var classes = useStyles();
+
   if (variant === 'raised') {
     return _react2["default"].createElement(RaisedTextField, _extends({
       variant: variant
-    }, other));
+    }, other, {
+      classes: classes
+    }));
   }
 
   return _react2["default"].createElement(TextFieldComponent, _extends({
     variant: variant
-  }, other));
+  }, other, {
+    classes: classes
+  }));
 };
 
-var TextField = exports.TextField = (0, _reactJss2["default"])(_text_field_styles2["default"])(WithVariantTextField);
+var TextField = exports.TextField = WithVariantTextField;
