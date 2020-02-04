@@ -201,7 +201,7 @@ var Content = function Content(_ref3) {
   var content = _react2["default"].createElement("div", {
     className: classes.wrapper
   }, !dismissArrow && _react2["default"].createElement("div", {
-    className: classes.arrowContainer,
+    className: (0, _classnames2["default"])(classes.arrowContainer, customClasses.arrowContainer),
     ref: setArrowReference
   }, _react2["default"].createElement(SpeechBubbleArrow, null)), _react2["default"].createElement(_card.Card, _extends({
     className: (0, _classnames2["default"])(className, classes.container, customClasses.container, structured && classes.structured)
