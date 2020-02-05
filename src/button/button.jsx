@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 
 import cn from 'classnames';
 import injectSheet from 'react-jss';
-import { animated, config, useSpring } from 'react-spring';
+import {animated, config, useSpring} from 'react-spring';
 
-import { Typography } from '../typography/typography';
+import {Typography} from '../typography/typography';
 
-import { getComponentColor } from '../styles/utils/styles_utils';
+import {getComponentColor} from '../styles/utils/styles_utils';
 import palette from '../styles/palettes';
 
 import styles from './button_styles';
@@ -18,24 +18,25 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 };
 
 const ButtonComponent = ({
-    className,
-    containerRef,
-    disabled,
-    size,
-    color = 'default',
-    containerProps,
-    typographyClassName,
-    variant,
-    onMouseEnter,
-    onMouseLeave,
-    onFocus,
-    onBlur,
-    onClick,
-    children,
-    customClasses = {},
-    classes,
-    ...other
-}) => {
+                             className,
+                             containerRef,
+                             disabled,
+                             size,
+                             color = 'default',
+                             containerProps,
+                             typographyClassName,
+                             variant,
+                             onMouseEnter,
+                             onMouseLeave,
+                             onFocus,
+                             onBlur,
+                             onClick,
+                             children,
+                             customClasses = {},
+                             classes,
+                             style: propsStyle,
+                             ...other
+                         }) => {
     const withColor = disabled || (color && color !== 'default' && palette[color]);
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const colorSpring = useSpring({
@@ -114,8 +115,9 @@ const ButtonComponent = ({
             )}
             {...containerProps}
             style={{
+                ...propsStyle,
                 ...(withColor && colorSpring),
-                ...(containerProps && containerProps.style)
+                ...(containerProps && containerProps.style),
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -124,7 +126,7 @@ const ButtonComponent = ({
             onClick={handleClick}
             {...other}
         >
-            <animated.div className={classes.brightLayer} style={brightLayerSpringProps} />
+            <animated.div className={classes.brightLayer} style={brightLayerSpringProps}/>
             <Typography
                 className={cn(classes.typography, typographyClassName, customClasses.typography)}
                 variant="button"
@@ -136,7 +138,7 @@ const ButtonComponent = ({
 };
 
 const ContainedButton = props => {
-    const { color, disabled, style } = props;
+    const {color, disabled} = props;
     const springProps = useSpring({
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
             Boolean(color),
@@ -150,21 +152,16 @@ const ContainedButton = props => {
     return (
         <ButtonComponent
             {...props}
-            {...(!disabled && {
-                containerProps: {
-                    style: springProps,
-                    ...style
-                }
-            })}
+            {...!disabled && {style: springProps}}
         />
     );
 };
 
-const WithVariantButton = ({ variant = 'text', ...props }) => {
+const WithVariantButton = ({variant = 'text', ...props}) => {
     if (variant === 'contained') {
-        return <ContainedButton {...{ variant }} {...props} />;
+        return <ContainedButton {...{variant}} {...props} />;
     }
-    return <ButtonComponent {...{ variant }} {...props} />;
+    return <ButtonComponent {...{variant}} {...props} />;
 };
 
 export const Button = injectSheet(styles)(WithVariantButton);
