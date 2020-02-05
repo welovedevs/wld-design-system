@@ -81,7 +81,8 @@ var ButtonComponent = function ButtonComponent(_ref) {
       _ref$customClasses = _ref.customClasses,
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
       classes = _ref.classes,
-      other = _objectWithoutProperties(_ref, ["className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "children", "customClasses", "classes"]);
+      propsStyle = _ref.style,
+      other = _objectWithoutProperties(_ref, ["className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "children", "customClasses", "classes", "style"]);
 
   var withColor = disabled || color && color !== 'default' && _palettes2["default"][color];
 
@@ -149,7 +150,7 @@ var ButtonComponent = function ButtonComponent(_ref) {
     ref: containerRef,
     className: (0, _classnames2["default"])(className, classes.container, disabled && classes.disabled, withColor && classes.withColor, classes[variant], classes["size_".concat(size)], customClasses.container)
   }, containerProps, {
-    style: _objectSpread({}, withColor && colorSpring, {}, containerProps && containerProps.style),
+    style: _objectSpread({}, propsStyle, {}, withColor && colorSpring, {}, containerProps && containerProps.style),
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     onFocus: handleFocus,
@@ -166,16 +167,13 @@ var ButtonComponent = function ButtonComponent(_ref) {
 
 var ContainedButton = function ContainedButton(props) {
   var color = props.color,
-      disabled = props.disabled,
-      style = props.style;
+      disabled = props.disabled;
   var springProps = (0, _reactSpring.useSpring)({
     boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(color), color, disabled, 200, '#d6d6d6')),
     config: _reactSpring.config.stiff
   });
   return _react2["default"].createElement(ButtonComponent, _extends({}, props, !disabled && {
-    containerProps: _objectSpread({
-      style: springProps
-    }, style)
+    style: springProps
   }));
 };
 
