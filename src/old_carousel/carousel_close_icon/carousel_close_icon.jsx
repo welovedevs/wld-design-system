@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 import { FormattedMessage } from 'react-intl';
 import { animated, useSpring } from 'react-spring';
 
-import { Close as CloseIcon } from '@material-ui/icons';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { Tooltip } from '../../tooltip/tooltip';
 
