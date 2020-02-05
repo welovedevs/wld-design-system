@@ -15,7 +15,9 @@ var _reactIntl = require("react-intl");
 
 var _reactSpring = require("react-spring");
 
-var _icons = require("@material-ui/icons");
+var _Close = require("@material-ui/icons/Close");
+
+var _Close2 = _interopRequireDefault(_Close);
 
 var _tooltip = require("../../tooltip/tooltip");
 
@@ -47,7 +49,7 @@ var CarouselCloseIconComponent = function CarouselCloseIconComponent(_ref) {
     style: {
       color: colorSpringProps.color
     }
-  }, _react2["default"].createElement(_icons.Close, {
+  }, _react2["default"].createElement(_Close2["default"], {
     className: classes.icon
   })));
 };

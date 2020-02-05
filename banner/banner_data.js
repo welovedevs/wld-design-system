@@ -9,7 +9,17 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _icons = require("@material-ui/icons");
+var _CheckCircle = require("@material-ui/icons/CheckCircle");
+
+var _CheckCircle2 = _interopRequireDefault(_CheckCircle);
+
+var _Error = require("@material-ui/icons/Error");
+
+var _Error2 = _interopRequireDefault(_Error);
+
+var _Info = require("@material-ui/icons/Info");
+
+var _Info2 = _interopRequireDefault(_Info);
 
 var _palettes = require("../styles/palettes");
 
@@ -41,14 +51,14 @@ var BANNER_DATA = exports.BANNER_DATA = Object.freeze({
   },
   error: {
     color: _palettes.danger[500],
-    icon: _icons.Error
+    icon: _Error2["default"]
   },
   success: {
     color: _palettes.safe[500],
-    icon: _icons.CheckCircle
+    icon: _CheckCircle2["default"]
   },
   info: {
     color: _palettes.primary[500],
-    icon: _icons.Info
+    icon: _Info2["default"]
   }
 });
