@@ -11,16 +11,17 @@ import { Typography } from '../typography/typography';
 import styles from './tag_styles';
 
 const TagComponent = ({
-                          component: Component = animated.div,
-                          containerRef,
-                          className,
-                          color = 'default',
-                          children,
-                          typographyProps,
-                          customClasses = {},
-                          classes,
-                          ...other
-                      }) => {
+    component: Component = animated.div,
+    containerRef,
+    className,
+    color = 'default',
+    children,
+    typographyProps,
+    style: receivedStyle,
+    customClasses = {},
+    classes,
+    ...other
+}) => {
     const springProps = useSpring({
         color: getComponentColor(true, color),
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
@@ -37,7 +38,10 @@ const TagComponent = ({
         <Component
             ref={containerRef}
             className={cn(className, classes.container, customClasses.container)}
-            style={springProps}
+            style={{
+                ...receivedStyle,
+                ...springProps
+            }}
             {...other}
         >
             <Typography
