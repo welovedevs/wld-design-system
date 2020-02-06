@@ -60,7 +60,7 @@ const ListItemComponent = ({
             }}
             {...other}
         >
-            <Typography className={cn(classes.typography, className)} color="dark">
+            <Typography className={cn(classes.typography)} color="dark">
                 {children}
             </Typography>
         </Component>
