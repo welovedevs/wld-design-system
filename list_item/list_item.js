@@ -97,7 +97,7 @@ var ListItemComponent = function ListItemComponent(_ref) {
   }, button && {
     role: 'button'
   }, other), _react2["default"].createElement(_typography.Typography, {
-    className: (0, _classnames2["default"])(classes.typography, className),
+    className: (0, _classnames2["default"])(classes.typography),
     color: "dark"
   }, children));
 };
