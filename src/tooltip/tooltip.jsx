@@ -20,7 +20,7 @@ const fusionFunctions = (...functions) => (...args) => {
     });
 };
 
-const TooltipComponent = ({ title, placement, children, customClasses }) => {
+const TooltipComponent = ({ title, placement, children, customClasses = {} }) => {
     const classes = useStyles();
     const anchorReference = useRef();
     const [open, eventsHandlerElementProps] = useOpenerState();
