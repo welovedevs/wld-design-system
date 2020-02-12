@@ -69,7 +69,8 @@ var TooltipComponent = function TooltipComponent(_ref) {
   var title = _ref.title,
       placement = _ref.placement,
       children = _ref.children,
-      customClasses = _ref.customClasses;
+      _ref$customClasses = _ref.customClasses,
+      customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses;
   var classes = useStyles();
   var anchorReference = (0, _react.useRef)();
 
