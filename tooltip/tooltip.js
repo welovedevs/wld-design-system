@@ -9,6 +9,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _reactJss = require("react-jss");
 
 var _get = require("lodash/get");
@@ -64,7 +68,8 @@ var fusionFunctions = function fusionFunctions() {
 var TooltipComponent = function TooltipComponent(_ref) {
   var title = _ref.title,
       placement = _ref.placement,
-      children = _ref.children;
+      children = _ref.children,
+      customClasses = _ref.customClasses;
   var classes = useStyles();
   var anchorReference = (0, _react.useRef)();
 
@@ -107,7 +112,8 @@ var TooltipComponent = function TooltipComponent(_ref) {
       title: title,
       open: open,
       placement: placement,
-      classes: classes
+      classes: classes,
+      customClasses: customClasses
     })));
   }, [open, anchorReference, title, placement, classes]);
   return (0, _react.cloneElement)(children, generateChildProps(children), generateChildChildren(children));
@@ -119,7 +125,8 @@ var TooltipPopper = function TooltipPopper(_ref4) {
       anchorElement = _ref4.anchorElement,
       _ref4$placement = _ref4.placement,
       placement = _ref4$placement === void 0 ? 'top' : _ref4$placement,
-      classes = _ref4.classes;
+      classes = _ref4.classes,
+      customClasses = _ref4.customClasses;
   return _react2["default"].createElement(_popper_card.PopperCard, _extends({
     dismissArrow: true
   }, {
@@ -130,8 +137,8 @@ var TooltipPopper = function TooltipPopper(_ref4) {
       config: _reactSpring.config.stiff
     },
     customClasses: {
-      popper: classes.popper,
-      container: classes.container
+      popper: (0, _classnames2["default"])(classes.popper, customClasses.popper),
+      container: (0, _classnames2["default"])(classes.container, customClasses.container)
     },
     popperProps: {
       placement: placement,
