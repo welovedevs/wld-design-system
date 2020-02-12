@@ -1,5 +1,6 @@
 import React, { cloneElement, useCallback, useRef } from 'react';
 
+import cn from 'classnames';
 import { createUseStyles } from 'react-jss';
 import get from 'lodash/get';
 import { config } from 'react-spring';
@@ -19,7 +20,7 @@ const fusionFunctions = (...functions) => (...args) => {
     });
 };
 
-const TooltipComponent = ({ title, placement, children }) => {
+const TooltipComponent = ({ title, placement, children, customClasses }) => {
     const classes = useStyles();
     const anchorReference = useRef();
     const [open, eventsHandlerElementProps] = useOpenerState();
@@ -59,7 +60,8 @@ const TooltipComponent = ({ title, placement, children }) => {
                             title,
                             open,
                             placement,
-                            classes
+                            classes,
+                            customClasses
                         }}
                     />
                 </>
@@ -71,7 +73,7 @@ const TooltipComponent = ({ title, placement, children }) => {
     return cloneElement(children, generateChildProps(children), generateChildChildren(children));
 };
 
-const TooltipPopper = ({ title, open, anchorElement, placement = 'top', classes }) => (
+const TooltipPopper = ({ title, open, anchorElement, placement = 'top', classes, customClasses }) => (
     <PopperCard
         dismissArrow
         {...{ open, anchorElement }}
@@ -79,8 +81,8 @@ const TooltipPopper = ({ title, open, anchorElement, placement = 'top', classes 
             config: config.stiff
         }}
         customClasses={{
-            popper: classes.popper,
-            container: classes.container
+            popper: cn(classes.popper, customClasses.popper),
+            container: cn(classes.container, customClasses.container)
         }}
         popperProps={{
             placement,
