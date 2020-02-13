@@ -1,21 +1,26 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 
 import cn from 'classnames';
-import injectSheet from 'react-jss';
-import { animated, useSpring } from 'react-spring';
+import {createUseStyles, useTheme} from 'react-jss';
+import {animated, useSpring} from 'react-spring';
 
-import { getComponentColor } from '../styles';
+import {getComponentColor, getHexFromTheme} from '../styles';
 
 import styles from './progress_bar_styles';
 
-const ProgressBarComponent = ({
-                                  value: progressValue = 0,
-                                  color = 'primary',
-                                  className,
-                                  barClassName,
-                                  customClasses = {},
-                                  classes
-                              }) => {
+const useStyles = createUseStyles(styles);
+
+export const ProgressBar = ({
+    value: progressValue = 0,
+    color = 'primary',
+    className,
+    barClassName,
+    customClasses = {}
+}) => {
+    const classes = useStyles();
+    const theme = useTheme();
+    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+
     const { translation } = useSpring({
         from: {
             translation: -100
@@ -29,12 +34,10 @@ const ProgressBarComponent = ({
             <animated.div
                 className={cn(classes.bar, barClassName, customClasses.bar)}
                 style={{
-                    color: getComponentColor(true, color, false, 300),
+                    color: getComponentColor(true, hexColor, false),
                     transform: translation.interpolate(value => `translate3d(${value}%, 0, 0)`)
                 }}
             />
         </div>
     );
 };
-
-export const ProgressBar = injectSheet(styles)(ProgressBarComponent);

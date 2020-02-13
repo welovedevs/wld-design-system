@@ -1,35 +1,35 @@
 import React, { useCallback } from 'react';
 
 import cn from 'classnames';
-import injectSheet, {createUseStyles} from 'react-jss';
+import injectSheet, { createUseStyles } from 'react-jss';
 import { animated, useSpring } from 'react-spring';
 
 import styles from './text_field_styles';
-const useStyles= createUseStyles(styles);
+const useStyles = createUseStyles(styles);
 const DEFAULT_SPRING_PROPS = {
     boxShadow: '0 7.5px 15px 0 #e4e4e4'
 };
 
 // Variant should be one of the following : ['raised', 'flat', 'underlined'].
 const TextFieldComponent = ({
-                                containerElement: ContainerElement = 'div',
-                                containerProps,
-                                className,
-                                inputClassName,
-                                fullWidth,
-                                inputRef,
-                                containerRef,
-                                beforeChildren = null,
-                                multiline,
-                                rows,
-                                children,
-                                variant = 'raised',
-                                type = 'text',
-                                disabled,
-                                customClasses = {},
-                                classes,
-                                ...other
-                            }) => {
+    containerElement: ContainerElement = 'div',
+    containerProps,
+    className,
+    inputClassName,
+    fullWidth,
+    inputRef,
+    containerRef,
+    beforeChildren = null,
+    multiline,
+    rows,
+    children,
+    variant = 'raised',
+    type = 'text',
+    disabled,
+    customClasses = {},
+    classes,
+    ...other
+}) => {
     const InputComponent = multiline ? 'textarea' : 'input';
     return (
         <ContainerElement
@@ -43,8 +43,8 @@ const TextFieldComponent = ({
                 classes[variant],
                 disabled && classes[`${variant}Disabled`]
             )}
-            {...(containerProps
-                && containerProps.style && {
+            {...(containerProps &&
+                containerProps.style && {
                     style: containerProps.style
                 })}
             {...containerProps}
@@ -108,4 +108,4 @@ const WithVariantTextField = ({ variant = 'raised', ...other }) => {
     return <TextFieldComponent {...{ variant }} {...other} classes={classes} />;
 };
 
-export const TextField =(WithVariantTextField);
+export const TextField = WithVariantTextField;

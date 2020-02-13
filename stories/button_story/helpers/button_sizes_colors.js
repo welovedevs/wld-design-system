@@ -6,5 +6,6 @@ export const BUTTON_POSSIBLE_SIZES = {
 export const BUTTON_EXAMPLE_COLORS = {
     default: 'Default',
     primary: 'Primary',
-    secondary: 'Secondary'
+    secondary: 'Secondary',
+    tertiary: 'Tertiary'
 };

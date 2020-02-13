@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import { ButtonExamples } from './examples/button_examples';
+import { ThemedButtons } from './examples/themed_button';
 import { Button } from '../../src/button/button';
 import { Spacing } from '../stories_helpers/spacing/spacing';
 
@@ -8,7 +9,7 @@ import { Spacing } from '../stories_helpers/spacing/spacing';
 
 # Button
 
-Buttons are elements users interacts frequently with.  
+Buttons are elements users interacts frequently with.
 It is important to choose the right props for any given application.
 
 <Spacing value={4} />
@@ -23,12 +24,12 @@ The button's colors will be based on this value.
 
 ### Variant
 
-Different variants exists for different situations.  
+Different variants exists for different situations.
 This component have three main variants.
 
 #### ↳ _``text (default)``_
 
-Used by default, this variant should be used for less-pronounced actions.  
+Used by default, this variant should be used for less-pronounced actions.
 Usage example:
 
 - Dialog Actions.
@@ -42,7 +43,7 @@ Usage example:
 
 #### ↳ _``outlined``_
 
-This variant is more pronounced than ``text`` but less than ``contained``.  
+This variant is more pronounced than ``text`` but less than ``contained``.
 Use it when its background is not plain or if displayed on shadowed surfaces.
 
 <Preview withSource="none">
@@ -53,11 +54,21 @@ Use it when its background is not plain or if displayed on shadowed surfaces.
 
 #### ↳ _``contained``_
 
-This variant is more pronounced than any other.  
+This variant is more pronounced than any other.
 Use it for important actions which might require user's attention.
 
 <Preview withSource="none">
     <Story name="contained">
       <ButtonExamples variant="contained" />
+    </Story>
+</Preview>
+
+### Themed button
+
+You can use react-jss theming mechnanism to style your buttons (colors only for now).
+
+<Preview withSource="none">
+    <Story name="themed">
+      <ThemedButtons />
     </Story>
 </Preview>

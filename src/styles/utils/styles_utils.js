@@ -1,8 +1,12 @@
 // Material Design's box-shadows (see: https://codepen.io/sdthornton/pen/wBZdXq)
 import palettes, { dark } from '../palettes';
+import { DEFAULT_THEME } from '../theme';
 
 export const card2 = {
-    boxShadow: [[0, 3, 6, 'rgba(0,0,0,.16)'], [0, 3, 6, 'rgba(0,0,0,.23)']]
+    boxShadow: [
+        [0, 3, 6, 'rgba(0,0,0,.16)'],
+        [0, 3, 6, 'rgba(0,0,0,.23)']
+    ]
 };
 
 // Flex utils
@@ -78,12 +82,15 @@ export const getColorShade = (color, percent) => {
     return `#${RR}${GG}${BB}`;
 };
 
-export const getComponentColor = (active, color, disabled, shade = 500, defaultValue = '#fff') => {
+export const getHexFromTheme = (theme = DEFAULT_THEME, color = 'primary', shade = 500) => {
+    return theme.palette?.[color]?.[shade];
+};
+export const getComponentColor = (active, color, disabled, defaultValue = '#fff') => {
     if (disabled) {
         return '#c0c0c0';
     }
-    if (active && color && palettes[color]) {
-        return palettes[color][shade];
+    if (active && color) {
+        return color;
     }
     return defaultValue;
 };

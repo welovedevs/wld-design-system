@@ -10,8 +10,8 @@ import { styles } from './banner_styles';
 const useStyles = createUseStyles(styles);
 
 const BannerComponent = ({ type = 'warning', icon: receivedIcon, customClasses = {}, children }) => {
-    const classes = useStyles();
     const { icon, color } = useMemo(() => BANNER_DATA[type] || {}, [type]);
+    const classes = useStyles({type});
     const Icon = receivedIcon || icon;
     return (
         <div className={cn(classes.container, customClasses.container)} style={{ color }}>

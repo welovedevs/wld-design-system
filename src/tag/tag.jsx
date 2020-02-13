@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import injectSheet from 'react-jss';
+import injectSheet, { createUseStyles, useTheme } from 'react-jss';
 import { animated, config, useSpring } from 'react-spring';
 
-import { getComponentColor } from '../styles/utils/styles_utils';
+import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 
 import { Typography } from '../typography/typography';
 
 import styles from './tag_styles';
 
-const TagComponent = ({
+const useStyles = createUseStyles(styles);
+
+export const Tag = ({
     component: Component = animated.div,
     containerRef,
     className,
@@ -19,14 +21,17 @@ const TagComponent = ({
     typographyProps,
     style: receivedStyle,
     customClasses = {},
-    classes,
     ...other
 }) => {
+    const theme = useTheme();
+    const classes = useStyles();
+    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+
     const springProps = useSpring({
-        color: getComponentColor(true, color),
+        color: getComponentColor(true, hexColor),
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
-            Boolean(color),
-            color,
+            Boolean(hexColor),
+            hexColor,
             false,
             200,
             '#d6d6d6'
@@ -57,5 +62,3 @@ const TagComponent = ({
         </Component>
     );
 };
-
-export const Tag = injectSheet(styles)(TagComponent);

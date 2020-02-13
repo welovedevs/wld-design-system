@@ -1,13 +1,14 @@
-import React, { forwardRef, useCallback, useEffect } from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo } from 'react';
 
 import cn from 'classnames';
-import injectSheet from 'react-jss';
+import injectSheet, { createUseStyles, useTheme } from 'react-jss';
 import { animated, config, useSpring } from 'react-spring';
 
-import { getComponentColor } from '../styles/utils/styles_utils';
+import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 import { dark } from '../styles/palettes';
 
 import styles from './checkbox_styles';
+const useStyles = createUseStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,
@@ -18,11 +19,10 @@ const CheckboxComponent = forwardRef(
     (
         {
             component: Component = animated.div,
-            classes,
             checked,
             disabled,
             color,
-            defaultColor = dark[500],
+            defaultColor: propsDefaultColor,
             className,
             inputClassName,
             containerProps,
@@ -37,7 +37,19 @@ const CheckboxComponent = forwardRef(
         },
         ref
     ) => {
+        const theme = useTheme();
+        const classes = useStyles();
+        const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+        const defaultColor = useMemo(() => propsDefaultColor || getHexFromTheme(theme, 'dark', 500), [
+            propsDefaultColor,
+            theme
+        ]);
+
         const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
+        const { color: colorSpring } = useSpring({
+            color: getComponentColor(checked, hexColor, disabled, defaultColor),
+            config: config.stiff
+        });
 
         const handleChange = useCallback(
             (...parameters) => {
@@ -53,10 +65,12 @@ const CheckboxComponent = forwardRef(
         const showBrightLayer = useCallback(() =>
             setBrightLayerSpringProps(() => ({
                 opacity: 0.3
-            })));
+            }))
+        );
 
         const dismissBrightLayer = useCallback(() =>
-            setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS));
+            setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS)
+        );
 
         const handleMouseEnter = useCallback(
             (...parameters) => {
@@ -97,10 +111,7 @@ const CheckboxComponent = forwardRef(
             },
             [onBlur]
         );
-        const { color: colorSpring } = useSpring({
-            color: getComponentColor(checked, color, disabled, 500, defaultColor),
-            config: config.stiff
-        });
+
         return (
             <Component
                 className={cn(
@@ -170,13 +181,13 @@ const CheckIcon = ({ checked, classes }) => {
 };
 
 const RaisedCheckbox = props => {
+    const theme = useTheme();
     const { checked, color, disabled } = props;
     const springProps = useSpring({
         boxShadow: `0 ${checked ? 5 : 10}px ${checked ? 15 : 20}px 0 ${getComponentColor(
             checked,
-            color,
+            getHexFromTheme(theme, color, 200),
             disabled,
-            200,
             '#d6d6d6'
         )}`,
         config: config.stiff
@@ -202,4 +213,4 @@ const WithVariantCheckbox = props => {
     return <CheckboxComponent {...{ variant }} {...props} />;
 };
 
-export const Checkbox = injectSheet(styles)(WithVariantCheckbox);
+export const Checkbox = WithVariantCheckbox;

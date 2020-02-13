@@ -1,42 +1,47 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import injectSheet from 'react-jss';
+import injectSheet, { createUseStyles, useTheme } from 'react-jss';
 import { animated, config, useSpring } from 'react-spring';
 import get from 'lodash/get';
 import Measure from 'react-measure';
 
-import { getComponentColor } from '../styles/utils/styles_utils';
+import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 import { dark } from '../styles/palettes';
 
 import styles from './switch_styles';
+
+const useStyles = createUseStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,
     config: config.stiff
 };
 
-const SwitchComponent = ({
-                             classes,
-                             containerRef,
-                             checked = false,
-                             disabled,
-                             color,
-                             className,
-                             inputClassName,
-                             containerProps,
-                             onChange,
-                             onFocus,
-                             onBlur,
-                             onMouseEnter,
-                             onMouseLeave,
-                             size,
-                             customClasses = {},
-                             ...other
-                         }) => {
+export const Switch = ({
+    containerRef,
+    checked = false,
+    disabled,
+    color,
+    className,
+    inputClassName,
+    containerProps,
+    onChange,
+    onFocus,
+    onBlur,
+    onMouseEnter,
+    onMouseLeave,
+    size,
+    customClasses = {},
+    ...other
+}) => {
+    const theme = useTheme();
+    const classes = useStyles();
+    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const containerSpringProps = useSpring({
-        color: getComponentColor(true, color, disabled, 500, dark[50])
+        color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50))
     });
     const [thumbWidth, setThumbWidth] = useState(null);
     const thumbContainerSpringProps = useSpring({
@@ -54,12 +59,18 @@ const SwitchComponent = ({
         },
         [disabled, onChange]
     );
-    const showBrightLayer = useCallback(() =>
-        setBrightLayerSpringProps(() => ({
-            opacity: 0.3
-        })), []);
+    const showBrightLayer = useCallback(
+        () =>
+            setBrightLayerSpringProps(() => ({
+                opacity: 0.3
+            })),
+        []
+    );
 
-    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
+    const dismissBrightLayer = useCallback(
+        () => setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS),
+        []
+    );
 
     const handleMouseEnter = useCallback(
         (...parameters) => {
@@ -158,5 +169,3 @@ const SwitchComponent = ({
         </animated.div>
     );
 };
-
-export const Switch = injectSheet(styles)(SwitchComponent);

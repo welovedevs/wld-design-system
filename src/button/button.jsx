@@ -1,16 +1,17 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import cn from 'classnames';
-import injectSheet from 'react-jss';
-import {animated, config, useSpring} from 'react-spring';
+import { useTheme, createUseStyles } from 'react-jss';
+import { animated, config, useSpring } from 'react-spring';
 
-import {Typography} from '../typography/typography';
+import { Typography } from '../typography/typography';
 
-import {getComponentColor} from '../styles/utils/styles_utils';
-import palette from '../styles/palettes';
+import { getComponentColor } from '../styles/utils/styles_utils';
 
 import styles from './button_styles';
+import { getHexFromTheme } from '../styles';
+const useStyles = createUseStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,
@@ -18,35 +19,38 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 };
 
 const ButtonComponent = ({
-                             className,
-                             containerRef,
-                             disabled,
-                             size,
-                             color = 'default',
-                             containerProps,
-                             typographyClassName,
-                             variant,
-                             onMouseEnter,
-                             onMouseLeave,
-                             onFocus,
-                             onBlur,
-                             onClick,
-                             children,
-                             customClasses = {},
-                             classes,
-                             style: propsStyle,
-                             ...other
-                         }) => {
-    const withColor = disabled || (color && color !== 'default' && palette[color]);
+    className,
+    containerRef,
+    disabled,
+    size,
+    color = 'default',
+    containerProps,
+    typographyClassName,
+    variant,
+    onMouseEnter,
+    onMouseLeave,
+    onFocus,
+    onBlur,
+    onClick,
+    children,
+    customClasses = {},
+    style: propsStyle,
+    ...other
+}) => {
+    const theme = useTheme();
+    const classes = useStyles();
+    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const colorSpring = useSpring({
-        color: getComponentColor(true, color, disabled),
+        color: getComponentColor(true, hexColor, disabled),
         config: config.stiff
     });
     const showBrightLayer = useCallback(() =>
         setBrightLayerSpringProps(() => ({
             opacity: variant !== 'contained' ? 0.1 : 0.2
-        })));
+        }))
+    );
 
     const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS));
 
@@ -117,7 +121,7 @@ const ButtonComponent = ({
             style={{
                 ...propsStyle,
                 ...(withColor && colorSpring),
-                ...(containerProps && containerProps.style),
+                ...(containerProps && containerProps.style)
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -126,7 +130,7 @@ const ButtonComponent = ({
             onClick={handleClick}
             {...other}
         >
-            <animated.div className={classes.brightLayer} style={brightLayerSpringProps}/>
+            <animated.div className={classes.brightLayer} style={brightLayerSpringProps} />
             <Typography
                 className={cn(classes.typography, typographyClassName, customClasses.typography)}
                 variant="button"
@@ -138,33 +142,25 @@ const ButtonComponent = ({
 };
 
 const ContainedButton = props => {
-    const {color, disabled} = props;
+    const theme = useTheme();
+    const { color, disabled } = props;
     const springProps = useSpring({
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
             Boolean(color),
-            color,
-            disabled,
-            200,
-            '#d6d6d6'
+            getHexFromTheme(theme, color, 200),
+            disabled
         )}`,
         config: config.stiff
     });
-    return (
-        <ButtonComponent
-            {...props}
-            {...!disabled && {style: springProps}}
-        />
-    );
+    return <ButtonComponent {...props} {...(!disabled && { style: springProps })} />;
 };
 
-const WithVariantButton = ({variant = 'text', ...props}) => {
+export const Button = ({ variant = 'text', ...props }) => {
     if (variant === 'contained') {
-        return <ContainedButton {...{variant}} {...props} />;
+        return <ContainedButton {...{ variant }} {...props} />;
     }
-    return <ButtonComponent {...{variant}} {...props} />;
+    return <ButtonComponent {...{ variant }} {...props} />;
 };
-
-export const Button = injectSheet(styles)(WithVariantButton);
 
 Button.propTypes = {
     color: PropTypes.string.isRequired
