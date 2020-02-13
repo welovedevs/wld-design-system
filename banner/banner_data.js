@@ -21,8 +21,6 @@ var _Info = require("@material-ui/icons/Info");
 
 var _Info2 = _interopRequireDefault(_Info);
 
-var _palettes = require("../styles/palettes");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var WarningIcon = function WarningIcon(props) {
@@ -46,19 +44,22 @@ WarningIcon.defaultProps = {
 };
 var BANNER_DATA = exports.BANNER_DATA = Object.freeze({
   warning: {
-    color: _palettes.orange[600],
+    color: 'orange',
     icon: WarningIcon
   },
   error: {
-    color: _palettes.danger[500],
+    color: 'danger',
     icon: _Error2["default"]
   },
   success: {
-    color: _palettes.safe[500],
+    color: 'safe',
     icon: _CheckCircle2["default"]
   },
   info: {
-    color: _palettes.primary[500],
+    color: 'primary',
     icon: _Info2["default"]
+  },
+  "default": {
+    color: 'primary'
   }
 });

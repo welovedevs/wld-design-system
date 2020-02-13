@@ -19,21 +19,17 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _reactJss = require("react-jss");
 
-var _reactJss2 = _interopRequireDefault(_reactJss);
-
 var _reactSpring = require("react-spring");
 
 var _typography = require("../typography/typography");
 
 var _styles_utils = require("../styles/utils/styles_utils");
 
-var _palettes = require("../styles/palettes");
-
-var _palettes2 = _interopRequireDefault(_palettes);
-
 var _button_styles = require("./button_styles");
 
 var _button_styles2 = _interopRequireDefault(_button_styles);
+
+var _styles = require("../styles");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -57,6 +53,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+var useStyles = (0, _reactJss.createUseStyles)(_button_styles2["default"]);
 var DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
   opacity: 0,
   config: _reactSpring.config.stiff
@@ -80,11 +77,17 @@ var ButtonComponent = function ButtonComponent(_ref) {
       children = _ref.children,
       _ref$customClasses = _ref.customClasses,
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
-      classes = _ref.classes,
       propsStyle = _ref.style,
-      other = _objectWithoutProperties(_ref, ["className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "children", "customClasses", "classes", "style"]);
+      other = _objectWithoutProperties(_ref, ["className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "children", "customClasses", "style"]);
 
-  var withColor = disabled || color && color !== 'default' && _palettes2["default"][color];
+  var theme = (0, _reactJss.useTheme)();
+  var classes = useStyles();
+  var hexColor = (0, _react.useMemo)(function () {
+    return (0, _styles.getHexFromTheme)(theme, color);
+  }, [theme, color]);
+  var withColor = (0, _react.useMemo)(function () {
+    return disabled || color && color !== 'default' && hexColor;
+  }, [disabled, hexColor]);
 
   var _useSpring = (0, _reactSpring.useSpring)(function () {
     return DEFAULT_BRIGHT_LAYER_SPRING_PROPS;
@@ -94,7 +97,7 @@ var ButtonComponent = function ButtonComponent(_ref) {
       setBrightLayerSpringProps = _useSpring2[1];
 
   var colorSpring = (0, _reactSpring.useSpring)({
-    color: (0, _styles_utils.getComponentColor)(true, color, disabled),
+    color: (0, _styles_utils.getComponentColor)(true, hexColor, disabled),
     config: _reactSpring.config.stiff
   });
   var showBrightLayer = (0, _react.useCallback)(function () {
@@ -166,10 +169,11 @@ var ButtonComponent = function ButtonComponent(_ref) {
 };
 
 var ContainedButton = function ContainedButton(props) {
+  var theme = (0, _reactJss.useTheme)();
   var color = props.color,
       disabled = props.disabled;
   var springProps = (0, _reactSpring.useSpring)({
-    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(color), color, disabled, 200, '#d6d6d6')),
+    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(color), (0, _styles.getHexFromTheme)(theme, color, 200), disabled)),
     config: _reactSpring.config.stiff
   });
   return _react2["default"].createElement(ButtonComponent, _extends({}, props, !disabled && {
@@ -177,7 +181,7 @@ var ContainedButton = function ContainedButton(props) {
   }));
 };
 
-var WithVariantButton = function WithVariantButton(_ref2) {
+var Button = exports.Button = function Button(_ref2) {
   var _ref2$variant = _ref2.variant,
       variant = _ref2$variant === void 0 ? 'text' : _ref2$variant,
       props = _objectWithoutProperties(_ref2, ["variant"]);
@@ -193,7 +197,6 @@ var WithVariantButton = function WithVariantButton(_ref2) {
   }, props));
 };
 
-var Button = exports.Button = (0, _reactJss2["default"])(_button_styles2["default"])(WithVariantButton);
 Button.propTypes = {
   color: _propTypes2["default"].string.isRequired
 };

@@ -57,14 +57,14 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+var useStyles = (0, _reactJss.createUseStyles)(_switch_styles2["default"]);
 var DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
   opacity: 0,
   config: _reactSpring.config.stiff
 };
 
-var SwitchComponent = function SwitchComponent(_ref) {
-  var classes = _ref.classes,
-      containerRef = _ref.containerRef,
+var Switch = exports.Switch = function Switch(_ref) {
+  var containerRef = _ref.containerRef,
       _ref$checked = _ref.checked,
       checked = _ref$checked === void 0 ? false : _ref$checked,
       disabled = _ref.disabled,
@@ -80,7 +80,13 @@ var SwitchComponent = function SwitchComponent(_ref) {
       size = _ref.size,
       _ref$customClasses = _ref.customClasses,
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
-      other = _objectWithoutProperties(_ref, ["classes", "containerRef", "checked", "disabled", "color", "className", "inputClassName", "containerProps", "onChange", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave", "size", "customClasses"]);
+      other = _objectWithoutProperties(_ref, ["containerRef", "checked", "disabled", "color", "className", "inputClassName", "containerProps", "onChange", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave", "size", "customClasses"]);
+
+  var theme = (0, _reactJss.useTheme)();
+  var classes = useStyles();
+  var hexColor = (0, _react.useMemo)(function () {
+    return (0, _styles_utils.getHexFromTheme)(theme, color);
+  }, [theme, color]);
 
   var _useSpring = (0, _reactSpring.useSpring)(function () {
     return DEFAULT_BRIGHT_LAYER_SPRING_PROPS;
@@ -90,7 +96,7 @@ var SwitchComponent = function SwitchComponent(_ref) {
       setBrightLayerSpringProps = _useSpring2[1];
 
   var containerSpringProps = (0, _reactSpring.useSpring)({
-    color: (0, _styles_utils.getComponentColor)(true, color, disabled, 500, _palettes.dark[50])
+    color: (0, _styles_utils.getComponentColor)(true, hexColor, disabled, (0, _styles_utils.getHexFromTheme)(theme, 'dark', 50))
   });
 
   var _useState = (0, _react.useState)(null),
@@ -194,5 +200,3 @@ var SwitchComponent = function SwitchComponent(_ref) {
     checked: checked
   }, other)));
 };
-
-var Switch = exports.Switch = (0, _reactJss2["default"])(_switch_styles2["default"])(SwitchComponent);

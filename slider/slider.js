@@ -15,8 +15,6 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _reactJss = require("react-jss");
 
-var _reactJss2 = _interopRequireDefault(_reactJss);
-
 var _reactMeasure = require("react-measure");
 
 var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
@@ -51,7 +49,9 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-var SliderComponent = function SliderComponent(_ref) {
+var useStyles = (0, _reactJss.createUseStyles)(_slider_styles2["default"]);
+
+var Slider = exports.Slider = function Slider(_ref) {
   var color = _ref.color,
       disabled = _ref.disabled,
       _ref$value = _ref.value,
@@ -63,8 +63,14 @@ var SliderComponent = function SliderComponent(_ref) {
       thumbChildren = _ref.thumbChildren,
       thumbReference = _ref.thumbReference,
       thumbProps = _ref.thumbProps,
-      classes = _ref.classes,
+      propsClasses = _ref.classes,
       other = _objectWithoutProperties(_ref, ["color", "disabled", "value", "min", "max", "thumbChildren", "thumbReference", "thumbProps", "classes"]);
+
+  var theme = (0, _reactJss.useTheme)();
+  var classes = useStyles();
+  var hexColor = (0, _react.useMemo)(function () {
+    return (0, _styles_utils.getHexFromTheme)(theme, color);
+  }, [theme, color]);
 
   var _useState = (0, _react.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
@@ -73,7 +79,7 @@ var SliderComponent = function SliderComponent(_ref) {
 
   var _useSpring = (0, _reactSpring.useSpring)({
     translation: containerWidth * ((value - min) * 100 / (max - min) / 100),
-    color: (0, _styles_utils.getComponentColor)(true, color, disabled)
+    color: (0, _styles_utils.getComponentColor)(true, hexColor, disabled)
   }),
       translation = _useSpring.translation,
       otherRailThumbSpringProps = _objectWithoutProperties(_useSpring, ["translation"]);
@@ -92,7 +98,7 @@ var SliderComponent = function SliderComponent(_ref) {
     var measureRef = _ref3.measureRef;
     return _react2["default"].createElement("div", {
       ref: measureRef,
-      className: (0, _classnames2["default"])(classes.container, disabled && classes.disabled)
+      className: (0, _classnames2["default"])(classes.container, disabled && classes.disabled, propsClasses.container)
     }, _react2["default"].createElement("div", {
       className: classes.track
     }, _react2["default"].createElement(_reactSpring.animated.div, {
@@ -139,4 +145,3 @@ var Thumb = (0, _react.forwardRef)(function (_ref4, ref) {
     ref: ref
   }), thumbChildren));
 });
-var Slider = exports.Slider = (0, _reactJss2["default"])(_slider_styles2["default"])(SliderComponent);

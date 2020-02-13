@@ -3,11 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.withCustomScrollbar = exports.getComponentColor = exports.getColorShade = exports.checkAndScale = exports.pixelsToRem = exports.getDefaultBorder = exports.generateGradient = exports.createBackground = exports.flexUtils = exports.card2 = undefined;
+exports.withCustomScrollbar = exports.getComponentColor = exports.getHexFromTheme = exports.getColorShade = exports.checkAndScale = exports.pixelsToRem = exports.getDefaultBorder = exports.generateGradient = exports.createBackground = exports.flexUtils = exports.card2 = undefined;
 
 var _palettes = require("../palettes");
 
 var _palettes2 = _interopRequireDefault(_palettes);
+
+var _theme = require("../theme");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -109,16 +111,24 @@ var getColorShade = exports.getColorShade = function getColorShade(color, percen
   return "#".concat(RR).concat(GG).concat(BB);
 };
 
+var getHexFromTheme = exports.getHexFromTheme = function getHexFromTheme() {
+  var _theme$palette, _theme$palette$color;
+
+  var theme = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _theme.DEFAULT_THEME;
+  var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'primary';
+  var shade = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 500;
+  return (_theme$palette = theme.palette) === null || _theme$palette === void 0 ? void 0 : (_theme$palette$color = _theme$palette[color]) === null || _theme$palette$color === void 0 ? void 0 : _theme$palette$color[shade];
+};
+
 var getComponentColor = exports.getComponentColor = function getComponentColor(active, color, disabled) {
-  var shade = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 500;
-  var defaultValue = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '#fff';
+  var defaultValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '#fff';
 
   if (disabled) {
     return '#c0c0c0';
   }
 
-  if (active && color && _palettes2["default"][color]) {
-    return _palettes2["default"][color][shade];
+  if (active && color) {
+    return color;
   }
 
   return defaultValue;

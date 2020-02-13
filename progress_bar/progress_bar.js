@@ -15,8 +15,6 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _reactJss = require("react-jss");
 
-var _reactJss2 = _interopRequireDefault(_reactJss);
-
 var _reactSpring = require("react-spring");
 
 var _styles = require("../styles");
@@ -27,7 +25,9 @@ var _progress_bar_styles2 = _interopRequireDefault(_progress_bar_styles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var ProgressBarComponent = function ProgressBarComponent(_ref) {
+var useStyles = (0, _reactJss.createUseStyles)(_progress_bar_styles2["default"]);
+
+var ProgressBar = exports.ProgressBar = function ProgressBar(_ref) {
   var _ref$value = _ref.value,
       progressValue = _ref$value === void 0 ? 0 : _ref$value,
       _ref$color = _ref.color,
@@ -35,8 +35,12 @@ var ProgressBarComponent = function ProgressBarComponent(_ref) {
       className = _ref.className,
       barClassName = _ref.barClassName,
       _ref$customClasses = _ref.customClasses,
-      customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
-      classes = _ref.classes;
+      customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses;
+  var classes = useStyles();
+  var theme = (0, _reactJss.useTheme)();
+  var hexColor = (0, _react.useMemo)(function () {
+    return (0, _styles.getHexFromTheme)(theme, color);
+  }, [theme, color]);
 
   var _useSpring = (0, _reactSpring.useSpring)({
     from: {
@@ -53,12 +57,10 @@ var ProgressBarComponent = function ProgressBarComponent(_ref) {
   }, _react2["default"].createElement(_reactSpring.animated.div, {
     className: (0, _classnames2["default"])(classes.bar, barClassName, customClasses.bar),
     style: {
-      color: (0, _styles.getComponentColor)(true, color, false, 300),
+      color: (0, _styles.getComponentColor)(true, hexColor, false),
       transform: translation.interpolate(function (value) {
         return "translate3d(".concat(value, "%, 0, 0)");
       })
     }
   }));
 };
-
-var ProgressBar = exports.ProgressBar = (0, _reactJss2["default"])(_progress_bar_styles2["default"])(ProgressBarComponent);

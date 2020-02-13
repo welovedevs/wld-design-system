@@ -41,7 +41,9 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-var TagComponent = function TagComponent(_ref) {
+var useStyles = (0, _reactJss.createUseStyles)(_tag_styles2["default"]);
+
+var Tag = exports.Tag = function Tag(_ref) {
   var _ref$component = _ref.component,
       Component = _ref$component === void 0 ? _reactSpring.animated.div : _ref$component,
       containerRef = _ref.containerRef,
@@ -53,12 +55,16 @@ var TagComponent = function TagComponent(_ref) {
       receivedStyle = _ref.style,
       _ref$customClasses = _ref.customClasses,
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
-      classes = _ref.classes,
-      other = _objectWithoutProperties(_ref, ["component", "containerRef", "className", "color", "children", "typographyProps", "style", "customClasses", "classes"]);
+      other = _objectWithoutProperties(_ref, ["component", "containerRef", "className", "color", "children", "typographyProps", "style", "customClasses"]);
 
+  var theme = (0, _reactJss.useTheme)();
+  var classes = useStyles();
+  var hexColor = (0, _react.useMemo)(function () {
+    return (0, _styles_utils.getHexFromTheme)(theme, color);
+  }, [theme, color]);
   var springProps = (0, _reactSpring.useSpring)({
-    color: (0, _styles_utils.getComponentColor)(true, color),
-    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(color), color, false, 200, '#d6d6d6')),
+    color: (0, _styles_utils.getComponentColor)(true, hexColor),
+    boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(hexColor), hexColor, false, 200, '#d6d6d6')),
     config: _reactSpring.config.stiff
   });
   var withColor = color && color !== 'default';
@@ -73,5 +79,3 @@ var TagComponent = function TagComponent(_ref) {
     color: '#fff'
   }, typographyProps), children));
 };
-
-var Tag = exports.Tag = (0, _reactJss2["default"])(_tag_styles2["default"])(TagComponent);

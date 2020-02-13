@@ -49,36 +49,38 @@ var TypographyComponent = function TypographyComponent(_ref) {
       other = _objectWithoutProperties(_ref, ["containerRef", "className", "color", "component", "variant", "style", "customClasses"]);
 
   var classes = useStyles();
-  var style = null;
+  var theme = (0, _reactJss.useTheme)();
+  var style = (0, _react.useMemo)(function () {
+    if (color) {
+      var hex = (0, _styles_utils.getComponentColor)(true, (0, _styles_utils.getHexFromTheme)(theme, color), false);
 
-  if (color) {
-    var hex = (0, _styles_utils.getComponentColor)(true, color, false, 500);
+      if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some(function (key) {
+        return variant === key;
+      })) {
+        if (color === 'secondary') {
+          return {
+            backgroundColor: hex,
+            color: '#fff'
+          };
+        }
 
-    if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some(function (key) {
-      return variant === key;
-    })) {
-      if (color === 'secondary') {
-        style = {
-          backgroundColor: hex,
-          color: '#fff'
-        };
-      } else if (color === 'tertiary') {
-        style = {
-          color: (0, _styles_utils.getComponentColor)(true, 'primary', false, 500),
-          backgroundColor: hex
-        };
-      } else {
-        style = {
-          color: (0, _styles_utils.getComponentColor)(true, 'primary', false, 500)
+        if (color === 'tertiary') {
+          return {
+            color: (0, _styles_utils.getComponentColor)(true, (0, _styles_utils.getHexFromTheme)(theme, 'primary'), false),
+            backgroundColor: hex
+          };
+        }
+
+        return {
+          color: (0, _styles_utils.getComponentColor)(true, (0, _styles_utils.getHexFromTheme)(theme, 'primary'), false)
         };
       }
-    } else {
-      style = {
+
+      return {
         color: hex
       };
     }
-  }
-
+  }, [variant, theme, color]);
   return _react2["default"].createElement(Component, _extends({
     ref: containerRef,
     className: (0, _classnames2["default"])(classes.container, classes[color], classes[variant], className, customClasses.container),

@@ -30,7 +30,6 @@ var BannerComponent = function BannerComponent(_ref) {
       _ref$customClasses = _ref.customClasses,
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
       children = _ref.children;
-  var classes = useStyles();
 
   var _useMemo = (0, _react.useMemo)(function () {
     return _banner_data.BANNER_DATA[type] || {};
@@ -38,6 +37,9 @@ var BannerComponent = function BannerComponent(_ref) {
       icon = _useMemo.icon,
       color = _useMemo.color;
 
+  var classes = useStyles({
+    type: type
+  });
   var Icon = receivedIcon || icon;
   return _react2["default"].createElement("div", {
     className: (0, _classnames2["default"])(classes.container, customClasses.container),

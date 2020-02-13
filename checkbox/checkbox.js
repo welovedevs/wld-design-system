@@ -49,6 +49,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+var useStyles = (0, _reactJss.createUseStyles)(_checkbox_styles2["default"]);
 var DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
   opacity: 0,
   config: _reactSpring.config.stiff
@@ -56,12 +57,10 @@ var DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 var CheckboxComponent = (0, _react.forwardRef)(function (_ref, ref) {
   var _ref$component = _ref.component,
       Component = _ref$component === void 0 ? _reactSpring.animated.div : _ref$component,
-      classes = _ref.classes,
       checked = _ref.checked,
       disabled = _ref.disabled,
       color = _ref.color,
-      _ref$defaultColor = _ref.defaultColor,
-      defaultColor = _ref$defaultColor === void 0 ? _palettes.dark[500] : _ref$defaultColor,
+      propsDefaultColor = _ref.defaultColor,
       className = _ref.className,
       inputClassName = _ref.inputClassName,
       containerProps = _ref.containerProps,
@@ -72,7 +71,16 @@ var CheckboxComponent = (0, _react.forwardRef)(function (_ref, ref) {
       onMouseLeave = _ref.onMouseLeave,
       variant = _ref.variant,
       isRadio = _ref.isRadio,
-      other = _objectWithoutProperties(_ref, ["component", "classes", "checked", "disabled", "color", "defaultColor", "className", "inputClassName", "containerProps", "onChange", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave", "variant", "isRadio"]);
+      other = _objectWithoutProperties(_ref, ["component", "checked", "disabled", "color", "defaultColor", "className", "inputClassName", "containerProps", "onChange", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave", "variant", "isRadio"]);
+
+  var theme = (0, _reactJss.useTheme)();
+  var classes = useStyles();
+  var hexColor = (0, _react.useMemo)(function () {
+    return (0, _styles_utils.getHexFromTheme)(theme, color);
+  }, [theme, color]);
+  var defaultColor = (0, _react.useMemo)(function () {
+    return propsDefaultColor || (0, _styles_utils.getHexFromTheme)(theme, 'dark', 500);
+  }, [propsDefaultColor, theme]);
 
   var _useSpring = (0, _reactSpring.useSpring)(function () {
     return DEFAULT_BRIGHT_LAYER_SPRING_PROPS;
@@ -80,6 +88,12 @@ var CheckboxComponent = (0, _react.forwardRef)(function (_ref, ref) {
       _useSpring2 = _slicedToArray(_useSpring, 2),
       brightLayerSpringProps = _useSpring2[0],
       setBrightLayerSpringProps = _useSpring2[1];
+
+  var _useSpring3 = (0, _reactSpring.useSpring)({
+    color: (0, _styles_utils.getComponentColor)(checked, hexColor, disabled, defaultColor),
+    config: _reactSpring.config.stiff
+  }),
+      colorSpring = _useSpring3.color;
 
   var handleChange = (0, _react.useCallback)(function () {
     if (disabled) {
@@ -130,13 +144,6 @@ var CheckboxComponent = (0, _react.forwardRef)(function (_ref, ref) {
 
     dismissBrightLayer();
   }, [onBlur]);
-
-  var _useSpring3 = (0, _reactSpring.useSpring)({
-    color: (0, _styles_utils.getComponentColor)(checked, color, disabled, 500, defaultColor),
-    config: _reactSpring.config.stiff
-  }),
-      colorSpring = _useSpring3.color;
-
   return _react2["default"].createElement(Component, _extends({
     className: (0, _classnames2["default"])(className, classes.container, checked && classes.checked, disabled && classes.disabled, isRadio && classes.isRadio, classes[variant])
   }, containerProps, {
@@ -204,11 +211,12 @@ var CheckIcon = function CheckIcon(_ref2) {
 };
 
 var RaisedCheckbox = function RaisedCheckbox(props) {
+  var theme = (0, _reactJss.useTheme)();
   var checked = props.checked,
       color = props.color,
       disabled = props.disabled;
   var springProps = (0, _reactSpring.useSpring)({
-    boxShadow: "0 ".concat(checked ? 5 : 10, "px ").concat(checked ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(checked, color, disabled, 200, '#d6d6d6')),
+    boxShadow: "0 ".concat(checked ? 5 : 10, "px ").concat(checked ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(checked, (0, _styles_utils.getHexFromTheme)(theme, color, 200), disabled, '#d6d6d6')),
     config: _reactSpring.config.stiff
   });
   return _react2["default"].createElement(CheckboxComponent, _extends({
@@ -234,4 +242,4 @@ var WithVariantCheckbox = function WithVariantCheckbox(props) {
   }, props));
 };
 
-var Checkbox = exports.Checkbox = (0, _reactJss2["default"])(_checkbox_styles2["default"])(WithVariantCheckbox);
+var Checkbox = exports.Checkbox = WithVariantCheckbox;

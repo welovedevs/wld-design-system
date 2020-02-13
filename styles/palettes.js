@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var w3dPrimary = exports.w3dPrimary = {
+var primary = exports.primary = {
   50: '#e4e2f5',
   100: '#bdb6e6',
   200: '#9185d5',
@@ -20,8 +20,7 @@ var w3dPrimary = exports.w3dPrimary = {
   A700: '#352eff',
   contrastDefaultColor: 'light'
 };
-var primary = exports.primary = w3dPrimary;
-var pink = exports.pink = {
+var pink = {
   50: '#fce4ec',
   100: '#f8bbd0',
   200: '#f48fb1',
@@ -35,7 +34,7 @@ var pink = exports.pink = {
   contrastDefaultColor: 'light'
 };
 var secondary = exports.secondary = pink;
-var yellow = exports.yellow = {
+var yellow = {
   50: '#FEFCE4',
   100: '#FDF8BB',
   200: '#FCF38E',
@@ -48,23 +47,6 @@ var yellow = exports.yellow = {
   900: '#F3D709'
 };
 var tertiary = exports.tertiary = yellow;
-var jcudPrimary = exports.jcudPrimary = {
-  50: '#e8f3f9',
-  100: '#c6e0f1',
-  200: '#a0cce8',
-  300: '#7ab7df',
-  400: '#5ea7d8',
-  500: '#4198d1',
-  600: '#3b90cc',
-  700: '#3285c6',
-  800: '#2a7bc0',
-  900: '#1c6ab5',
-  A100: '#ebf5ff',
-  A200: '#b8daff',
-  A400: '#85bfff',
-  A700: '#6cb2ff',
-  contrastDefaultColor: 'light'
-};
 var safe = exports.safe = {
   50: '#ecf7f0',
   100: '#d0ebda',
@@ -144,17 +126,6 @@ var dark = exports.dark = {
   700: '#232323',
   800: '#1D1D1D',
   900: '#121212'
-};
-var otherColors = exports.otherColors = {
-  notSoBlack: '#191919',
-  lightBlack: '#2f2f2f',
-  lightGray: '#efefef',
-  gray: '#b5b5b5',
-  white: '#ffffff',
-  yellow: '#F8E71C',
-  transparentWhite: {
-    75: 'rgba(255,255,255,0.75)'
-  }
 };
 exports["default"] = {
   primary: primary,
