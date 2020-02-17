@@ -63,7 +63,8 @@ var Slider = exports.Slider = function Slider(_ref) {
       thumbChildren = _ref.thumbChildren,
       thumbReference = _ref.thumbReference,
       thumbProps = _ref.thumbProps,
-      propsClasses = _ref.classes,
+      _ref$classes = _ref.classes,
+      propsClasses = _ref$classes === void 0 ? {} : _ref$classes,
       other = _objectWithoutProperties(_ref, ["color", "disabled", "value", "min", "max", "thumbChildren", "thumbReference", "thumbProps", "classes"]);
 
   var theme = (0, _reactJss.useTheme)();
