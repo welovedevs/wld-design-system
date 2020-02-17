@@ -111,12 +111,12 @@ var getColorShade = exports.getColorShade = function getColorShade(color, percen
   return "#".concat(RR).concat(GG).concat(BB);
 };
 
-var getHexFromTheme = exports.getHexFromTheme = function getHexFromTheme() {
+var getHexFromTheme = exports.getHexFromTheme = function getHexFromTheme(inputTheme) {
   var _theme$palette, _theme$palette$color;
 
-  var theme = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _theme.DEFAULT_THEME;
   var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'primary';
   var shade = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 500;
+  var theme = Object.keys(inputTheme || {}).length ? inputTheme : _theme.DEFAULT_THEME;
   return (_theme$palette = theme.palette) === null || _theme$palette === void 0 ? void 0 : (_theme$palette$color = _theme$palette[color]) === null || _theme$palette$color === void 0 ? void 0 : _theme$palette$color[shade];
 };
 
