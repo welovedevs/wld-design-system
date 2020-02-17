@@ -1,12 +1,12 @@
-import React, {forwardRef, useCallback, useMemo, useState} from 'react';
+import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import {createUseStyles, useTheme} from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 import Measure from 'react-measure';
 
-import {animated, useSpring} from 'react-spring';
+import { animated, useSpring } from 'react-spring';
 
-import {getComponentColor, getHexFromTheme} from '../styles/utils/styles_utils';
+import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 
 import styles from './slider_styles';
 
@@ -21,7 +21,7 @@ export const Slider = ({
     thumbChildren,
     thumbReference,
     thumbProps,
-    classes :  propsClasses,
+    classes: propsClasses = {},
     ...other
 }) => {
     const theme = useTheme();
@@ -46,7 +46,10 @@ export const Slider = ({
     return (
         <Measure bounds onResize={handleMeasureChange}>
             {({ measureRef }) => (
-                <div ref={measureRef} className={cn(classes.container, disabled && classes.disabled, propsClasses.container)}>
+                <div
+                    ref={measureRef}
+                    className={cn(classes.container, disabled && classes.disabled, propsClasses.container)}
+                >
                     <div className={classes.track}>
                         <animated.div
                             className={classes.rail}
