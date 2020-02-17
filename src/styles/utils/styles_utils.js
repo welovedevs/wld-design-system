@@ -82,7 +82,8 @@ export const getColorShade = (color, percent) => {
     return `#${RR}${GG}${BB}`;
 };
 
-export const getHexFromTheme = (theme = DEFAULT_THEME, color = 'primary', shade = 500) => {
+export const getHexFromTheme = (inputTheme, color = 'primary', shade = 500) => {
+    const theme = Object.keys(inputTheme || {}).length ? inputTheme : DEFAULT_THEME;
     return theme.palette?.[color]?.[shade];
 };
 export const getComponentColor = (active, color, disabled, defaultValue = '#fff') => {
