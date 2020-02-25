@@ -26,7 +26,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var useOpenerState = exports.useOpenerState = function useOpenerState() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       _ref$mobileWidth = _ref.mobileWidth,
-      mobileWidth = _ref$mobileWidth === void 0 ? 560 : _ref$mobileWidth;
+      mobileWidth = _ref$mobileWidth === void 0 ? 560 : _ref$mobileWidth,
+      useClickOnMobile = _ref.useClickOnMobile,
+      defaultHandlers = _ref.defaultHandlers;
 
   var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -42,13 +44,20 @@ var useOpenerState = exports.useOpenerState = function useOpenerState() {
   var toggle = (0, _react.useCallback)(function () {
     return setOpen(!open);
   }, [open]);
+  var handleClick = (0, _react.useCallback)(function () {
+    if (typeof defaultHandlers.onClick === 'function') {
+      defaultHandlers.onClick();
+    }
+
+    toggle();
+  }, [defaultHandlers, toggle]);
   var isMobile = (0, _core.useMediaQuery)("(max-width: ".concat(mobileWidth, "px)"), {
     defaultMatches: true
   });
   var eventsHandlerElementProps = (0, _react.useMemo)(function () {
-    return _objectSpread({}, isMobile && {
-      onClick: toggle
-    }, {}, !isMobile && {
+    return _objectSpread({}, isMobile && useClickOnMobile && {
+      onClick: handleClick
+    }, {}, (!isMobile || !useClickOnMobile) && {
       onMouseEnter: setOpened,
       onMouseLeave: setClosed,
       onFocus: setOpened,
