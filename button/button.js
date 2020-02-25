@@ -181,22 +181,23 @@ var ContainedButton = function ContainedButton(props) {
   }));
 };
 
-var Button = exports.Button = function Button(_ref2) {
-  var _ref2$variant = _ref2.variant,
-      variant = _ref2$variant === void 0 ? 'text' : _ref2$variant,
-      props = _objectWithoutProperties(_ref2, ["variant"]);
+var Button = exports.Button = (0, _react.forwardRef)(function (props, containerRef) {
+  var _props$variant = props.variant,
+      variant = _props$variant === void 0 ? 'text' : _props$variant,
+      other = _objectWithoutProperties(props, ["variant"]);
 
   if (variant === 'contained') {
     return _react2["default"].createElement(ContainedButton, _extends({
-      variant: variant
-    }, props));
+      variant: variant,
+      containerRef: containerRef
+    }, other));
   }
 
   return _react2["default"].createElement(ButtonComponent, _extends({
-    variant: variant
-  }, props));
-};
-
+    variant: variant,
+    containerRef: containerRef
+  }, other));
+});
 Button.propTypes = {
   color: _propTypes2["default"].string.isRequired
 };
