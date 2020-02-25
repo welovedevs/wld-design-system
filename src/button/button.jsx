@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, {forwardRef, useCallback, useMemo} from 'react';
 import PropTypes from 'prop-types';
 
 import cn from 'classnames';
@@ -155,12 +155,13 @@ const ContainedButton = props => {
     return <ButtonComponent {...props} {...(!disabled && { style: springProps })} />;
 };
 
-export const Button = ({ variant = 'text', ...props }) => {
+export const Button = forwardRef((props, containerRef) => {
+    const { variant = 'text', ...other } = props;
     if (variant === 'contained') {
-        return <ContainedButton {...{ variant }} {...props} />;
+        return <ContainedButton {...{ variant, containerRef }} {...other} />;
     }
-    return <ButtonComponent {...{ variant }} {...props} />;
-};
+    return <ButtonComponent {...{ variant, containerRef }} {...other} />;
+});
 
 Button.propTypes = {
     color: PropTypes.string.isRequired
