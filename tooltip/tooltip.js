@@ -79,12 +79,13 @@ var TooltipComponent = function TooltipComponent(_ref) {
       open = _useOpenerState2[0],
       eventsHandlerElementProps = _useOpenerState2[1];
 
-  var generateChildProps = (0, _react.useCallback)(function (child) {
+  var childProps = (0, _react.useMemo)(function () {
     if (!eventsHandlerElementProps) {
       return {};
     }
 
-    var props = child.props;
+    var _child = child,
+        props = _child.props;
     return _objectSpread({
       ref: anchorReference
     }, Object.entries(eventsHandlerElementProps).reduce(function (acc, _ref2) {
@@ -104,8 +105,8 @@ var TooltipComponent = function TooltipComponent(_ref) {
 
       return newAcc;
     }, props || {}));
-  }, [eventsHandlerElementProps, anchorReference]);
-  var generateChildChildren = (0, _react.useCallback)(function (child) {
+  }, [children, eventsHandlerElementProps, anchorReference]);
+  var childChildren = (0, _react.useMemo)(function (child) {
     var childChildren = (0, _get2["default"])(child, 'props.children');
     return _react2["default"].createElement(_react2["default"].Fragment, null, childChildren, _react2["default"].createElement(TooltipPopper, _extends({
       anchorElement: anchorReference.current
@@ -117,7 +118,7 @@ var TooltipComponent = function TooltipComponent(_ref) {
       customClasses: customClasses
     })));
   }, [open, anchorReference, title, placement, classes]);
-  return (0, _react.cloneElement)(children, generateChildProps(children), generateChildChildren(children));
+  return (0, _react.cloneElement)(children, childProps, childChildren);
 };
 
 var TooltipPopper = function TooltipPopper(_ref4) {
