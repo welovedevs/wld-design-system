@@ -1,4 +1,4 @@
-import React, { cloneElement, useCallback, useRef } from 'react';
+import React, { cloneElement, useCallback, useMemo, useRef } from 'react';
 
 import cn from 'classnames';
 import { createUseStyles } from 'react-jss';
@@ -25,8 +25,7 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
     const anchorReference = useRef();
     const [open, eventsHandlerElementProps] = useOpenerState();
 
-    const generateChildProps = useCallback(
-        child => {
+    const childProps = useMemo(() => {
             if (!eventsHandlerElementProps) {
                 return {};
             }
@@ -45,10 +44,10 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
                 }, props || {})
             };
         },
-        [eventsHandlerElementProps, anchorReference]
+        [children, eventsHandlerElementProps, anchorReference]
     );
 
-    const generateChildChildren = useCallback(
+    const childChildren = useMemo(
         child => {
             const childChildren = get(child, 'props.children');
             return (
@@ -70,7 +69,7 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
         [open, anchorReference, title, placement, classes]
     );
 
-    return cloneElement(children, generateChildProps(children), generateChildChildren(children));
+    return cloneElement(children, childProps, childChildren);
 };
 
 const TooltipPopper = ({ title, open, anchorElement, placement = 'top', classes, customClasses }) => (
