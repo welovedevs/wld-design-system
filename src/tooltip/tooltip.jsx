@@ -29,7 +29,7 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
             if (!eventsHandlerElementProps) {
                 return {};
             }
-            const { props } = child;
+            const { props } = children;
             return {
                 ref: anchorReference,
                 ...Object.entries(eventsHandlerElementProps).reduce((acc, [eventKey, eventFn]) => {
@@ -48,11 +48,11 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
     );
 
     const childChildren = useMemo(
-        child => {
-            const childChildren = get(child, 'props.children');
+        () => {
+            const propsChildren = get(children, 'props.children');
             return (
                 <>
-                    {childChildren}
+                    {propsChildren}
                     <TooltipPopper
                         anchorElement={anchorReference.current}
                         {...{
