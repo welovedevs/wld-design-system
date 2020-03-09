@@ -84,8 +84,7 @@ var TooltipComponent = function TooltipComponent(_ref) {
       return {};
     }
 
-    var _child = child,
-        props = _child.props;
+    var props = children.props;
     return _objectSpread({
       ref: anchorReference
     }, Object.entries(eventsHandlerElementProps).reduce(function (acc, _ref2) {
@@ -106,9 +105,9 @@ var TooltipComponent = function TooltipComponent(_ref) {
       return newAcc;
     }, props || {}));
   }, [children, eventsHandlerElementProps, anchorReference]);
-  var childChildren = (0, _react.useMemo)(function (child) {
-    var childChildren = (0, _get2["default"])(child, 'props.children');
-    return _react2["default"].createElement(_react2["default"].Fragment, null, childChildren, _react2["default"].createElement(TooltipPopper, _extends({
+  var childChildren = (0, _react.useMemo)(function () {
+    var propsChildren = (0, _get2["default"])(children, 'props.children');
+    return _react2["default"].createElement(_react2["default"].Fragment, null, propsChildren, _react2["default"].createElement(TooltipPopper, _extends({
       anchorElement: anchorReference.current
     }, {
       title: title,
