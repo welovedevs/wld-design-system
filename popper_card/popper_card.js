@@ -165,6 +165,11 @@ var Fade = _react2["default"].forwardRef(function (props, ref) {
     config: _reactSpring.config["default"]
   }, springOptions, {
     onStart: function onStart() {
+      console.log({
+        open: open,
+        onEnter: onEnter
+      });
+
       if (open && onEnter) {
         onEnter();
       }
