@@ -12,20 +12,20 @@ import { ReactComponent as SpeechBubbleArrow } from '../assets/icons/speech_bubb
 import styles from './popper_card_styles';
 
 const PopperCardComponent = ({
-                                 className,
-                                 anchorElement,
-                                 open,
-                                 onClose,
-                                 popperProps,
-                                 structured,
-                                 onClickAway,
-                                 dismissArrow = false,
-                                 springOptions = {},
-                                 customClasses = {},
-                                 classes,
-                                 containerProps = {},
-                                 ...other
-                             }) => {
+    className,
+    anchorElement,
+    open,
+    onClose,
+    popperProps,
+    structured,
+    onClickAway,
+    dismissArrow = false,
+    springOptions = {},
+    customClasses = {},
+    classes,
+    containerProps = {},
+    ...other
+}) => {
     const [arrowReference, setArrowReference] = useState(null);
     return (
         <Popper
@@ -98,6 +98,7 @@ const Fade = React.forwardRef((props, ref) => {
         config: config.default,
         ...springOptions,
         onStart: () => {
+            console.log({ open, onEnter });
             if (open && onEnter) {
                 onEnter();
             }
@@ -135,7 +136,7 @@ const Content = ({
         },
         [onClickAway]
     );
-    
+
     const content = (
         <div className={classes.wrapper}>
             {!dismissArrow && (
