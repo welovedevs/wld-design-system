@@ -98,7 +98,8 @@ const Fade = React.forwardRef((props, ref) => {
         config: config.default,
         ...springOptions,
         onStart: () => {
-            console.log({ open, onEnter });
+            // This cause the following error: Cannot update a component from inside the function body of a different component.
+            // It is a pattern documented in the Transition section of Material-UI docs, waiting for a possible update.
             if (open && onEnter) {
                 onEnter();
             }
