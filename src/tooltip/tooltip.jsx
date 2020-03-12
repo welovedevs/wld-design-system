@@ -66,7 +66,7 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
                 </>
             );
         },
-        [open, anchorReference, title, placement, classes]
+        [open, anchorReference, title, placement, classes, customClasses]
     );
 
     return cloneElement(children, childProps, childChildren);
