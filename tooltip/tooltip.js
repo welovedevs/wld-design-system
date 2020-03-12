@@ -116,7 +116,7 @@ var TooltipComponent = function TooltipComponent(_ref) {
       classes: classes,
       customClasses: customClasses
     })));
-  }, [open, anchorReference, title, placement, classes]);
+  }, [open, anchorReference, title, placement, classes, customClasses]);
   return (0, _react.cloneElement)(children, childProps, childChildren);
 };
 
