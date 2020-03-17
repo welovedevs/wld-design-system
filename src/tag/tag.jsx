@@ -38,7 +38,6 @@ export const Tag = ({
         )}`,
         config: config.stiff
     });
-    console.log({ receivedStyle })
     const withColor = color && color !== 'default';
     return (
         <Component
