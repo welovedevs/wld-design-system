@@ -67,9 +67,6 @@ var Tag = exports.Tag = function Tag(_ref) {
     boxShadow: "0 ".concat(color ? 5 : 10, "px ").concat(color ? 15 : 20, "px 0 ").concat((0, _styles_utils.getComponentColor)(Boolean(hexColor), hexColor, false, 200, '#d6d6d6')),
     config: _reactSpring.config.stiff
   });
-  console.log({
-    receivedStyle: receivedStyle
-  });
   var withColor = color && color !== 'default';
   return _react2["default"].createElement(Component, _extends({
     ref: containerRef,
