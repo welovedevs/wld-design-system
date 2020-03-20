@@ -60,9 +60,7 @@ var DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 };
 
 var ButtonComponent = function ButtonComponent(_ref) {
-  var _ref$component = _ref.component,
-      Component = _ref$component === void 0 ? _reactSpring.animated.button : _ref$component,
-      className = _ref.className,
+  var className = _ref.className,
       containerRef = _ref.containerRef,
       disabled = _ref.disabled,
       size = _ref.size,
@@ -80,7 +78,7 @@ var ButtonComponent = function ButtonComponent(_ref) {
       _ref$customClasses = _ref.customClasses,
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
       propsStyle = _ref.style,
-      other = _objectWithoutProperties(_ref, ["component", "className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "children", "customClasses", "style"]);
+      other = _objectWithoutProperties(_ref, ["className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "children", "customClasses", "style"]);
 
   var theme = (0, _reactJss.useTheme)();
   var classes = useStyles();
@@ -151,7 +149,7 @@ var ButtonComponent = function ButtonComponent(_ref) {
       onClick.apply(void 0, arguments);
     }
   }, [onClick, disabled]);
-  return _react2["default"].createElement(Component, _extends({
+  return _react2["default"].createElement(_reactSpring.animated.button, _extends({
     ref: containerRef,
     className: (0, _classnames2["default"])(className, classes.container, disabled && classes.disabled, withColor && classes.withColor, classes[variant], classes["size_".concat(size)], customClasses.container)
   }, containerProps, {
