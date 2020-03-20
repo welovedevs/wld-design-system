@@ -19,6 +19,7 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 };
 
 const ButtonComponent = ({
+    component: Component = animated.button,
     className,
     containerRef,
     disabled,
@@ -106,7 +107,7 @@ const ButtonComponent = ({
         [onClick, disabled]
     );
     return (
-        <animated.button
+        <Component
             ref={containerRef}
             className={cn(
                 className,
@@ -137,7 +138,7 @@ const ButtonComponent = ({
             >
                 {children}
             </Typography>
-        </animated.button>
+        </Component>
     );
 };
 
