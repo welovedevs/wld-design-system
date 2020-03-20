@@ -19,25 +19,24 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 };
 
 const ButtonComponent = ({
-    component: Component = animated.button,
-    className,
-    containerRef,
-    disabled,
-    size,
-    color = 'default',
-    containerProps,
-    typographyClassName,
-    variant,
-    onMouseEnter,
-    onMouseLeave,
-    onFocus,
-    onBlur,
-    onClick,
-    children,
-    customClasses = {},
-    style: propsStyle,
-    ...other
-}) => {
+                             className,
+                             containerRef,
+                             disabled,
+                             size,
+                             color = 'default',
+                             containerProps,
+                             typographyClassName,
+                             variant,
+                             onMouseEnter,
+                             onMouseLeave,
+                             onFocus,
+                             onBlur,
+                             onClick,
+                             children,
+                             customClasses = {},
+                             style: propsStyle,
+                             ...other
+                         }) => {
     const theme = useTheme();
     const classes = useStyles();
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
@@ -107,7 +106,7 @@ const ButtonComponent = ({
         [onClick, disabled]
     );
     return (
-        <Component
+        <animated.button
             ref={containerRef}
             className={cn(
                 className,
@@ -138,7 +137,7 @@ const ButtonComponent = ({
             >
                 {children}
             </Typography>
-        </Component>
+        </animated.button>
     );
 };
 
