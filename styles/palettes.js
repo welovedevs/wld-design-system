@@ -44,7 +44,8 @@ var yellow = {
   600: '#F7E419',
   700: '#F6E014',
   800: '#F5DD11',
-  900: '#F3D709'
+  900: '#F3D709',
+  contrastDefaultColor: 'dark'
 };
 var tertiary = exports.tertiary = yellow;
 var safe = exports.safe = {
@@ -108,7 +109,8 @@ var orange = exports.orange = {
   600: '#FF7640',
   700: '#FF6B37',
   800: '#FF612F',
-  900: '#FF4E20'
+  900: '#FF4E20',
+  contrastDefaultColor: 'light'
 };
 var light = exports.light = {
   500: '#fff',
@@ -125,7 +127,8 @@ var dark = exports.dark = {
   600: '#2A2A2A',
   700: '#232323',
   800: '#1D1D1D',
-  900: '#121212'
+  900: '#121212',
+  contrastDefaultColor: 'light'
 };
 exports["default"] = {
   primary: primary,
