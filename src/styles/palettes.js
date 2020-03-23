@@ -42,7 +42,8 @@ const yellow = {
     600: '#F7E419',
     700: '#F6E014',
     800: '#F5DD11',
-    900: '#F3D709'
+    900: '#F3D709',
+    contrastDefaultColor: 'dark'
 };
 
 export const tertiary = yellow;
@@ -110,7 +111,9 @@ export const orange = {
     600: '#FF7640',
     700: '#FF6B37',
     800: '#FF612F',
-    900: '#FF4E20'
+    900: '#FF4E20',
+    contrastDefaultColor: 'light'
+
 };
 
 export const light = {
@@ -129,7 +132,8 @@ export const dark = {
     600: '#2A2A2A',
     700: '#232323',
     800: '#1D1D1D',
-    900: '#121212'
+    900: '#121212',
+    contrastDefaultColor: 'light'
 };
 
 export default {
