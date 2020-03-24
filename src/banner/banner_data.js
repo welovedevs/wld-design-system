@@ -6,7 +6,7 @@ import {ReactComponent as WarningIcon} from '../assets/icons/warning.svg';
 
 export const BANNER_DATA = Object.freeze({
     warning: {
-        color: 'orange',
+        color: 'warn',
         icon: WarningIcon
     },
     error: {
@@ -22,6 +22,7 @@ export const BANNER_DATA = Object.freeze({
         icon: InfoIcon
     },
     default: {
-        color: 'primary'
+        color: 'primary',
+        icon : null
     }
 });

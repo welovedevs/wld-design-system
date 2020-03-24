@@ -1,7 +1,8 @@
-import { Banner, Button, Checkbox, Slider, Switch, Tag, Typography } from '../../../src';
+import {Banner, Button, Checkbox, Slider, Switch, Tag, Typography} from '../../../src';
 import React from 'react';
-import { createUseStyles, ThemeProvider } from 'react-jss';
-import { styles } from './all_the_things_styles';
+import {createUseStyles, ThemeProvider} from 'react-jss';
+import {styles} from './all_the_things_styles';
+import {DEFAULT_THEME} from "../../../src/styles/theme";
 
 const useStyles = createUseStyles(styles);
 const theme = {
@@ -52,17 +53,17 @@ export const AllTheThings = () => {
     const colors = ['primary', 'secondary', 'tertiary'];
     const variants = ['default', 'outlined', 'contained'];
     const components = [
-        { Component: Button, value: 'Button' },
-        { Component: Checkbox, props: { checked: true } },
-        { Component: Slider, props: { classes: { container: classes.aslider }, min: 0, max: 10, value: 4 } },
-        { Component: Switch },
-        { Component: Tag, value: 'Tag' },
-        { Component: Typography, value: 'Tag' }
+        {Component: Button, value: 'Button'},
+        {Component: Checkbox, props: {checked: true}},
+        {Component: Slider, props: {classes: {container: classes.aslider}, min: 0, max: 10, value: 4}},
+        {Component: Switch},
+        {Component: Tag, value: 'Tag'},
+        {Component: Typography, value: 'Tag'}
     ];
 
     return (
         <div>
-            {components.map(({ Component, value, props }) => (
+            {components.map(({Component, value, props}) => (
                 <>
                     <div key={`${Component.name}`} className={classes.container}>
                         {Component.name}
@@ -98,7 +99,11 @@ export const AllTheThings = () => {
                     </ThemeProvider>
                 </>
             ))}
-            <Banner type="info">Without Theme</Banner>
+            <ThemeProvider theme={DEFAULT_THEME}>
+                <Banner type="info">Without Theme</Banner>
+                <Banner type="success">Success</Banner>
+                <Banner type="warning">Warn</Banner>
+            </ThemeProvider>
             <ThemeProvider theme={theme}>
                 <Banner type="info">With Theme</Banner>
             </ThemeProvider>
