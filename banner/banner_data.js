@@ -44,7 +44,7 @@ WarningIcon.defaultProps = {
 };
 var BANNER_DATA = exports.BANNER_DATA = Object.freeze({
   warning: {
-    color: 'orange',
+    color: 'warn',
     icon: WarningIcon
   },
   error: {
@@ -60,6 +60,7 @@ var BANNER_DATA = exports.BANNER_DATA = Object.freeze({
     icon: _Info2["default"]
   },
   "default": {
-    color: 'primary'
+    color: 'primary',
+    icon: null
   }
 });
