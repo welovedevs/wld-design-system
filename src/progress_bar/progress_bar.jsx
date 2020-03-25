@@ -35,7 +35,7 @@ export const ProgressBar = ({
                 className={cn(classes.bar, barClassName, customClasses.bar)}
                 style={{
                     color: getComponentColor(true, hexColor, false),
-                    transform: translation.interpolate(value => `translate3d(${value}%, 0, 0)`)
+                    transform: translation.to(value => `translate3d(${value}%, 0, 0)`)
                 }}
             />
         </div>

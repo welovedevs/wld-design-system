@@ -54,7 +54,7 @@ export const Slider = ({
                         <animated.div
                             className={classes.rail}
                             style={{
-                                transform: translation.interpolate(
+                                transform: translation.to(
                                     translationValue => `translate3d(${-containerWidth + translationValue}px, 0, 0)`
                                 ),
                                 ...otherRailThumbSpringProps
@@ -65,7 +65,7 @@ export const Slider = ({
                         {...{ thumbChildren, classes }}
                         ref={thumbReference}
                         style={{
-                            transform: translation.interpolate(
+                            transform: translation.to(
                                 translationValue => `translate3d(${translationValue}px, 0, 0)`
                             ),
                             ...otherRailThumbSpringProps

@@ -169,7 +169,7 @@ const CheckIcon = ({ checked, classes }) => {
             viewBox="0 0 24 24"
             fill="#fff"
             style={{
-                transform: springProps.scale.interpolate(value => `scale3d(${value}, ${value}, ${value})`),
+                transform: springProps.scale.to(value => `scale3d(${value}, ${value}, ${value})`),
                 ...springProps
             }}
         >

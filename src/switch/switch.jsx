@@ -140,7 +140,7 @@ export const Switch = ({
             <animated.div
                 className={classes.thumbContainer}
                 style={{
-                    transform: thumbContainerSpringProps.translation.interpolate(
+                    transform: thumbContainerSpringProps.translation.to(
                         value => `translate3d(calc(${value}% + ${thumbWidth}px), 0, 0)`
                     ),
                     width: `calc(100% - ${thumbWidth}px)`
