@@ -199,5 +199,5 @@ var Button = exports.Button = (0, _react.forwardRef)(function (props, containerR
   }, other));
 });
 Button.propTypes = {
-  color: _propTypes2["default"].string.isRequired
+  color: _propTypes2["default"].string
 };
