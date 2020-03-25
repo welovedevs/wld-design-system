@@ -201,7 +201,7 @@ var CheckIcon = function CheckIcon(_ref2) {
     viewBox: "0 0 24 24",
     fill: "#fff",
     style: _objectSpread({
-      transform: springProps.scale.interpolate(function (value) {
+      transform: springProps.scale.to(function (value) {
         return "scale3d(".concat(value, ", ").concat(value, ", ").concat(value, ")");
       })
     }, springProps)

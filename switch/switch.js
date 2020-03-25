@@ -170,7 +170,7 @@ var Switch = exports.Switch = function Switch(_ref) {
   }, containerProps), _react2["default"].createElement(_reactSpring.animated.div, {
     className: classes.thumbContainer,
     style: {
-      transform: thumbContainerSpringProps.translation.interpolate(function (value) {
+      transform: thumbContainerSpringProps.translation.to(function (value) {
         return "translate3d(calc(".concat(value, "% + ").concat(thumbWidth, "px), 0, 0)");
       }),
       width: "calc(100% - ".concat(thumbWidth, "px)")

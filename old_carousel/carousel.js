@@ -144,7 +144,7 @@ var NavigateButton = function NavigateButton(_ref) {
     onFocus: handleMouseDown,
     onBlur: handleMouseUp,
     style: {
-      transform: springProps.scale.interpolate(function (value) {
+      transform: springProps.scale.to(function (value) {
         return "scale3d(".concat(value, ", ").concat(value, ", ").concat(value, ")");
       })
     }

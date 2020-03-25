@@ -105,7 +105,7 @@ var Slider = exports.Slider = function Slider(_ref) {
     }, _react2["default"].createElement(_reactSpring.animated.div, {
       className: classes.rail,
       style: _objectSpread({
-        transform: translation.interpolate(function (translationValue) {
+        transform: translation.to(function (translationValue) {
           return "translate3d(".concat(-containerWidth + translationValue, "px, 0, 0)");
         })
       }, otherRailThumbSpringProps)
@@ -115,7 +115,7 @@ var Slider = exports.Slider = function Slider(_ref) {
     }, {
       ref: thumbReference,
       style: _objectSpread({
-        transform: translation.interpolate(function (translationValue) {
+        transform: translation.to(function (translationValue) {
           return "translate3d(".concat(translationValue, "px, 0, 0)");
         })
       }, otherRailThumbSpringProps)

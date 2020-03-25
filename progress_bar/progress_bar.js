@@ -58,7 +58,7 @@ var ProgressBar = exports.ProgressBar = function ProgressBar(_ref) {
     className: (0, _classnames2["default"])(classes.bar, barClassName, customClasses.bar),
     style: {
       color: (0, _styles.getComponentColor)(true, hexColor, false),
-      transform: translation.interpolate(function (value) {
+      transform: translation.to(function (value) {
         return "translate3d(".concat(value, "%, 0, 0)");
       })
     }
