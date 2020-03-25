@@ -164,5 +164,5 @@ export const Button = forwardRef((props, containerRef) => {
 });
 
 Button.propTypes = {
-    color: PropTypes.string.isRequired
+    color: PropTypes.string
 };
