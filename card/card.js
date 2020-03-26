@@ -51,7 +51,7 @@ var CardComponent = function CardComponent(_ref) {
   var springProps = (0, _reactSpring.useSpring)(_objectSpread({}, _card_elevation_spring_props.ELEVATION_SPRING_PROPS[elevation], {
     config: _reactSpring.config["default"]
   }));
-  return _react2["default"].createElement(_reactSpring.animated.div, _extends({
+  return /*#__PURE__*/_react2["default"].createElement(_reactSpring.animated.div, _extends({
     ref: containerRef,
     className: (0, _classnames2["default"])(classes.container, className, customClasses.container),
     style: _objectSpread({}, springProps, {}, style)

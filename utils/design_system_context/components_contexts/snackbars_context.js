@@ -41,7 +41,7 @@ var SnackbarsProvider = exports.SnackbarsProvider = function SnackbarsProvider(_
       }
     }));
   });
-  return _react2["default"].createElement(SnackbarsContext.Provider, {
+  return /*#__PURE__*/_react2["default"].createElement(SnackbarsContext.Provider, {
     value: {
       snackbars: snackbars,
       setSnackbars: setSnackbars

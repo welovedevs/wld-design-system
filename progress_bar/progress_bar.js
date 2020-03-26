@@ -52,9 +52,9 @@ var ProgressBar = exports.ProgressBar = function ProgressBar(_ref) {
   }),
       translation = _useSpring.translation;
 
-  return _react2["default"].createElement("div", {
+  return /*#__PURE__*/_react2["default"].createElement("div", {
     className: (0, _classnames2["default"])(className, classes.container, customClasses.container)
-  }, _react2["default"].createElement(_reactSpring.animated.div, {
+  }, /*#__PURE__*/_react2["default"].createElement(_reactSpring.animated.div, {
     className: (0, _classnames2["default"])(classes.bar, barClassName, customClasses.bar),
     style: {
       color: (0, _styles.getComponentColor)(true, hexColor, false),

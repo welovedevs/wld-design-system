@@ -24,12 +24,12 @@ var _Info2 = _interopRequireDefault(_Info);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var WarningIcon = function WarningIcon(props) {
-  return _react2["default"].createElement("svg", props, _react2["default"].createElement("title", null, "Warning icon"), _react2["default"].createElement("desc", null, "Warning - WeLoveDevs"), _react2["default"].createElement("g", {
+  return /*#__PURE__*/_react2["default"].createElement("svg", props, /*#__PURE__*/_react2["default"].createElement("title", null, "Warning icon"), /*#__PURE__*/_react2["default"].createElement("desc", null, "Warning - WeLoveDevs"), /*#__PURE__*/_react2["default"].createElement("g", {
     fill: "none",
     fillRule: "evenodd"
-  }, _react2["default"].createElement("path", {
+  }, /*#__PURE__*/_react2["default"].createElement("path", {
     d: "M-1-3h32v32H-1z"
-  }), _react2["default"].createElement("path", {
+  }), /*#__PURE__*/_react2["default"].createElement("path", {
     d: "M1.731 25H28.27a1 1 0 0 0 .866-1.5L15.866.501a1 1 0 0 0-1.732 0l-13.269 23A1 1 0 0 0 1.731 25zm14.633-4.105h-2.728v-2.737h2.728v2.737zm0-5.474h-2.728V9.947h2.728v5.474z",
     fill: "#000",
     fillRule: "nonzero"

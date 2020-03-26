@@ -26,7 +26,7 @@ var PopperCardActionsComponent = function PopperCardActionsComponent(_ref) {
       _ref$customClasses = _ref.customClasses,
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses;
   var classes = useStyles();
-  return _react2["default"].createElement("div", {
+  return /*#__PURE__*/_react2["default"].createElement("div", {
     className: (0, _classnames2["default"])(classes.container, customClasses.container)
   }, children);
 };

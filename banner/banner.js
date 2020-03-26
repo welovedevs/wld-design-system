@@ -58,14 +58,14 @@ var BannerComponent = function BannerComponent(_ref) {
     type: type
   });
   var Icon = receivedIcon || icon;
-  return _react2["default"].createElement("div", {
+  return /*#__PURE__*/_react2["default"].createElement("div", {
     className: (0, _classnames2["default"])(classes.container, customClasses.container),
     style: {
       color: color
     }
-  }, _react2["default"].createElement("span", {
+  }, /*#__PURE__*/_react2["default"].createElement("span", {
     className: classes.iconContainer
-  }, Icon && _react2["default"].createElement(Icon, null)), children);
+  }, Icon && /*#__PURE__*/_react2["default"].createElement(Icon, null)), children);
 };
 
 var Banner = exports.Banner = BannerComponent;

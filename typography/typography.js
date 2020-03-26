@@ -81,7 +81,7 @@ var TypographyComponent = function TypographyComponent(_ref) {
       };
     }
   }, [variant, theme, color]);
-  return _react2["default"].createElement(Component, _extends({
+  return /*#__PURE__*/_react2["default"].createElement(Component, _extends({
     ref: containerRef,
     className: (0, _classnames2["default"])(classes.container, classes[color], classes[variant], className, customClasses.container),
     style: _objectSpread({}, receivedStyle, {}, style)

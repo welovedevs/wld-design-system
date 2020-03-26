@@ -37,19 +37,19 @@ var CarouselCloseIconComponent = function CarouselCloseIconComponent(_ref) {
   var colorSpringProps = (0, _reactSpring.useSpring)({
     color: (0, _js.getComponentColor)(true, color, false, 500, color || '#000')
   });
-  return _react2["default"].createElement(_tooltip.Tooltip, {
-    title: _react2["default"].createElement(_reactIntl.FormattedMessage, {
+  return /*#__PURE__*/_react2["default"].createElement(_tooltip.Tooltip, {
+    title: /*#__PURE__*/_react2["default"].createElement(_reactIntl.FormattedMessage, {
       id: "Main.lang.close",
       defaultMessage: "Fermer"
     })
-  }, _react2["default"].createElement(_reactSpring.animated.button, {
+  }, /*#__PURE__*/_react2["default"].createElement(_reactSpring.animated.button, {
     className: classes.button,
     type: "button",
     onClick: onClose,
     style: {
       color: colorSpringProps.color
     }
-  }, _react2["default"].createElement(_Close2["default"], {
+  }, /*#__PURE__*/_react2["default"].createElement(_Close2["default"], {
     className: classes.icon
   })));
 };

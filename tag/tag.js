@@ -68,11 +68,11 @@ var Tag = exports.Tag = function Tag(_ref) {
     config: _reactSpring.config.stiff
   });
   var withColor = color && color !== 'default';
-  return _react2["default"].createElement(Component, _extends({
+  return /*#__PURE__*/_react2["default"].createElement(Component, _extends({
     ref: containerRef,
     className: (0, _classnames2["default"])(className, classes.container, customClasses.container),
     style: _objectSpread({}, receivedStyle, {}, springProps)
-  }, other), _react2["default"].createElement(_typography.Typography, _extends({
+  }, other), /*#__PURE__*/_react2["default"].createElement(_typography.Typography, _extends({
     className: (0, _classnames2["default"])(classes.typography, customClasses.typography),
     variant: "tag"
   }, withColor && {

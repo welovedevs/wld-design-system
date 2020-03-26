@@ -45,11 +45,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -163,11 +167,11 @@ var Switch = exports.Switch = function Switch(_ref) {
       setThumbWidth(width);
     }
   }, [thumbWidth]);
-  return _react2["default"].createElement(_reactSpring.animated.div, _extends({
+  return /*#__PURE__*/_react2["default"].createElement(_reactSpring.animated.div, _extends({
     ref: containerRef,
     className: (0, _classnames2["default"])(className, customClasses.container, classes.container, disabled && classes.disabled, classes["size_".concat(size)]),
     style: _objectSpread({}, (0, _get2["default"])(containerProps, 'style'), {}, containerSpringProps)
-  }, containerProps), _react2["default"].createElement(_reactSpring.animated.div, {
+  }, containerProps), /*#__PURE__*/_react2["default"].createElement(_reactSpring.animated.div, {
     className: classes.thumbContainer,
     style: {
       transform: thumbContainerSpringProps.translation.to(function (value) {
@@ -175,20 +179,20 @@ var Switch = exports.Switch = function Switch(_ref) {
       }),
       width: "calc(100% - ".concat(thumbWidth, "px)")
     }
-  }, _react2["default"].createElement(_reactMeasure2["default"], {
+  }, /*#__PURE__*/_react2["default"].createElement(_reactMeasure2["default"], {
     bounds: true,
     onResize: handleThumbResize
   }, function (_ref3) {
     var measureRef = _ref3.measureRef;
-    return _react2["default"].createElement("span", {
+    return /*#__PURE__*/_react2["default"].createElement("span", {
       ref: measureRef
-    }, _react2["default"].createElement("div", {
+    }, /*#__PURE__*/_react2["default"].createElement("div", {
       className: classes.thumb
     }));
-  })), _react2["default"].createElement(_reactSpring.animated.div, {
+  })), /*#__PURE__*/_react2["default"].createElement(_reactSpring.animated.div, {
     className: classes.brightLayer,
     style: brightLayerSpringProps
-  }), _react2["default"].createElement("input", _extends({
+  }), /*#__PURE__*/_react2["default"].createElement("input", _extends({
     className: (0, _classnames2["default"])(classes.input, inputClassName),
     type: "checkbox",
     onChange: handleChange,

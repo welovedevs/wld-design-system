@@ -34,7 +34,7 @@ var TextFieldIconComponent = (0, _react.forwardRef)(function (_ref, ref) {
       classes = _ref.classes,
       other = _objectWithoutProperties(_ref, ["className", "classes"]);
 
-  return _react2["default"].createElement("div", _extends({
+  return /*#__PURE__*/_react2["default"].createElement("div", _extends({
     className: (0, _classnames2["default"])(className, classes.container)
   }, {
     ref: ref

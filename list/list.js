@@ -34,7 +34,7 @@ var ListComponent = function ListComponent(_ref) {
       classes = _ref.classes,
       other = _objectWithoutProperties(_ref, ["className", "classes"]);
 
-  return _react2["default"].createElement("ul", _extends({
+  return /*#__PURE__*/_react2["default"].createElement("ul", _extends({
     className: (0, _classnames2["default"])(classes.container, className)
   }, other));
 };

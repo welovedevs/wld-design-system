@@ -28,7 +28,7 @@ var PopperCardTitleComponent = function PopperCardTitleComponent(_ref) {
       customClasses = _ref$customClasses === void 0 ? {} : _ref$customClasses,
       children = _ref.children;
   var classes = useStyles();
-  return _react2["default"].createElement(_typography.Typography, {
+  return /*#__PURE__*/_react2["default"].createElement(_typography.Typography, {
     className: (0, _classnames2["default"])(classes.container, customClasses.container),
     variant: "body1",
     component: "h2",

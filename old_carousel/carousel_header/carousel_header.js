@@ -29,7 +29,7 @@ var CarouselHeaderComponent = function CarouselHeaderComponent(_ref) {
   var classes = useStyles({
     color: color
   });
-  return _react2["default"].createElement("div", {
+  return /*#__PURE__*/_react2["default"].createElement("div", {
     className: (0, _classnames2["default"])(classes.container, customClasses.container)
   }, children);
 };

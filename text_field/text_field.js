@@ -31,11 +31,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -75,12 +79,12 @@ var TextFieldComponent = function TextFieldComponent(_ref) {
       other = _objectWithoutProperties(_ref, ["containerElement", "containerProps", "className", "inputClassName", "fullWidth", "inputRef", "containerRef", "beforeChildren", "multiline", "rows", "children", "variant", "type", "disabled", "customClasses", "classes"]);
 
   var InputComponent = multiline ? 'textarea' : 'input';
-  return _react2["default"].createElement(ContainerElement, _extends({
+  return /*#__PURE__*/_react2["default"].createElement(ContainerElement, _extends({
     ref: containerRef,
     className: (0, _classnames2["default"])(className, customClasses.container, classes.container, fullWidth && classes.fullWidth, multiline && classes.multilineContainer, classes[variant], disabled && classes["".concat(variant, "Disabled")])
   }, containerProps && containerProps.style && {
     style: containerProps.style
-  }, containerProps), beforeChildren, _react2["default"].createElement(InputComponent, _extends({
+  }, containerProps), beforeChildren, /*#__PURE__*/_react2["default"].createElement(InputComponent, _extends({
     ref: inputRef,
     className: (0, _classnames2["default"])(inputClassName, classes.input, multiline && classes.multiline)
   }, {
@@ -123,7 +127,7 @@ var RaisedTextField = function RaisedTextField(_ref2) {
       return DEFAULT_SPRING_PROPS;
     });
   }, [onBlur]);
-  return _react2["default"].createElement(TextFieldComponent, _extends({
+  return /*#__PURE__*/_react2["default"].createElement(TextFieldComponent, _extends({
     containerElement: _reactSpring.animated.div,
     containerProps: _objectSpread({}, containerProps, {
       style: _objectSpread({}, containerProps && containerProps.style, {}, springProps)
@@ -141,14 +145,14 @@ var WithVariantTextField = function WithVariantTextField(_ref3) {
   var classes = useStyles();
 
   if (variant === 'raised') {
-    return _react2["default"].createElement(RaisedTextField, _extends({
+    return /*#__PURE__*/_react2["default"].createElement(RaisedTextField, _extends({
       variant: variant
     }, other, {
       classes: classes
     }));
   }
 
-  return _react2["default"].createElement(TextFieldComponent, _extends({
+  return /*#__PURE__*/_react2["default"].createElement(TextFieldComponent, _extends({
     variant: variant
   }, other, {
     classes: classes

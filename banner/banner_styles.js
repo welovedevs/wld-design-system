@@ -13,12 +13,12 @@ var styles = exports.styles = function styles(inputTheme) {
   var theme = Object.keys(inputTheme).length ? inputTheme : _theme.DEFAULT_THEME;
   return {
     container: function container(_ref) {
-      var _ref2, _BANNER_DATA$type, _ref3, _theme$palette;
+      var _BANNER_DATA$type$col, _BANNER_DATA$type, _theme$palette$color, _theme$palette;
 
       var type = _ref.type;
-      var color = (_ref2 = _banner_data.BANNER_DATA === null || _banner_data.BANNER_DATA === void 0 ? void 0 : (_BANNER_DATA$type = _banner_data.BANNER_DATA[type]) === null || _BANNER_DATA$type === void 0 ? void 0 : _BANNER_DATA$type.color) !== null && _ref2 !== void 0 ? _ref2 : 'primary';
+      var color = (_BANNER_DATA$type$col = _banner_data.BANNER_DATA === null || _banner_data.BANNER_DATA === void 0 ? void 0 : (_BANNER_DATA$type = _banner_data.BANNER_DATA[type]) === null || _BANNER_DATA$type === void 0 ? void 0 : _BANNER_DATA$type.color) !== null && _BANNER_DATA$type$col !== void 0 ? _BANNER_DATA$type$col : 'primary';
       return {
-        color: ((_ref3 = (_theme$palette = theme.palette) === null || _theme$palette === void 0 ? void 0 : _theme$palette[color]) !== null && _ref3 !== void 0 ? _ref3 : theme.palette.primary)[500],
+        color: ((_theme$palette$color = (_theme$palette = theme.palette) === null || _theme$palette === void 0 ? void 0 : _theme$palette[color]) !== null && _theme$palette$color !== void 0 ? _theme$palette$color : theme.palette.primary)[500],
         width: '100%',
         padding: [25, 40],
         position: 'relative',
