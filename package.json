@@ -30,7 +30,7 @@
         "react-jss": "^10.0.4",
         "react-measure": "^2.3.0",
         "react-slick": "^0.25.2",
-        "react-spring": "9.0.0-beta.34",
+        "react-spring": "9.0.0-beta.33",
         "react-emoji-render": "^1.2.1"
     },
     "devDependencies": {
@@ -38,6 +38,7 @@
         "@babel/core": "^7.8.0",
         "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
         "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+        "@babel/plugin-proposal-numeric-separator": "^7.8.3",
         "@babel/preset-env": "^7.8.2",
         "@babel/preset-react": "^7.8.0",
         "@storybook/addon-actions": "^5.3.1",
