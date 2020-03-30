@@ -1,13 +1,15 @@
 {
-    "name": "@wld/ui",
-    "version": "1.1.11",
+    "name": "@welovedevs/ui",
+    "version": "0.0.1",
     "description": "WeLoveDevs.com UI components",
     "main": "dist/index.js",
     "scripts": {
-        "build": "babel src -d .",
+        "package": "babel src -d .",
         "test-build": "rimraf ./test-build && ./node_modules/.bin/babel src -d ./test_build",
         "storybook": "start-storybook -p 6006 --ci",
-        "build-storybook": "build-storybook"
+        "build-storybook": "build-storybook",
+        "version:beta": "npm version prerelease --preid=beta",
+        "version:release": "npm version ${VERSION:-patch}"
     },
     "repository": {
         "type": "git",
