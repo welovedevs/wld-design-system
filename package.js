@@ -10,7 +10,7 @@ const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const TO_PRESERVE_DURING_CLEAN_UP = ['package.json', '.git', '.gitignore', 'node_modules', 'LICENSE.md'];
 
 const run = async () => {
-    const srcPath = __dirname + '/src/package';
+    const srcPath = __dirname + '/src';
     const srcFiles = fs.readdirSync(srcPath);
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
