@@ -12,7 +12,7 @@ const useStyles = createUseStyles(styles);
 
 const CardComponent = ({ component: Component = animated.div, className, containerRef, elevation = 1, style, customClasses = {}, ...other }) => {
     const classes = useStyles();
-    const springProps = useSpring({
+        const springProps = useSpring({
         ...ELEVATION_SPRING_PROPS[elevation],
         config: config.default
     });
