@@ -10,14 +10,14 @@ import { styles } from './card_styles';
 
 const useStyles = createUseStyles(styles);
 
-const CardComponent = ({ className, containerRef, elevation = 1, style, customClasses = {}, ...other }) => {
+const CardComponent = ({ component: Component = animated.div, containerRef, elevation = 1, style, customClasses = {}, ...other }) => {
     const classes = useStyles();
     const springProps = useSpring({
         ...ELEVATION_SPRING_PROPS[elevation],
         config: config.default
     });
     return (
-        <animated.div
+        <Component
             ref={containerRef}
             className={cn(classes.container, className, customClasses.container)}
             style={{
