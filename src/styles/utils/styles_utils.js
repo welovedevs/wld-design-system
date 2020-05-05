@@ -5,8 +5,8 @@ import { DEFAULT_THEME } from '../theme';
 export const card2 = {
     boxShadow: [
         [0, 3, 6, 'rgba(0,0,0,.16)'],
-        [0, 3, 6, 'rgba(0,0,0,.23)']
-    ]
+        [0, 3, 6, 'rgba(0,0,0,.23)'],
+    ],
 };
 
 // Flex utils
@@ -14,15 +14,15 @@ export const flexUtils = {
     center: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 };
 
 // Background utils
 export const createBackground = (size = 'cover') => ({
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: size
+    backgroundSize: size,
 });
 
 export const generateGradient = (palette, deg = 'to right top') => {
@@ -36,9 +36,9 @@ export const generateGradient = (palette, deg = 'to right top') => {
 export const getDefaultBorder = (width = 1, color = 'lightgray') => [width, 'solid', color];
 
 // Transformations
-export const pixelsToRem = pixels => `${pixels / 16}rem`;
+export const pixelsToRem = (pixels) => `${pixels / 16}rem`;
 
-const arrayToString = (array, transform = something => something) => {
+const arrayToString = (array, transform = (something) => something) => {
     if (!array) {
         return null;
     }
@@ -49,7 +49,7 @@ const arrayToString = (array, transform = something => something) => {
     return str;
 };
 
-export const checkAndScale = value => ({ sizeScale }) => {
+export const checkAndScale = (value) => ({ sizeScale }) => {
     if (!sizeScale) {
         if (Array.isArray(value)) {
             return arrayToString(value);
@@ -57,7 +57,7 @@ export const checkAndScale = value => ({ sizeScale }) => {
         return value;
     }
     if (Array.isArray(value)) {
-        return arrayToString(value, something => something * sizeScale);
+        return arrayToString(value, (something) => something * sizeScale);
     }
     return value * sizeScale;
 };
@@ -98,12 +98,12 @@ export const getComponentColor = (active, color, disabled, defaultValue = '#fff'
 
 export const withCustomScrollbar = (color = dark[100]) => ({
     '&::-webkit-scrollbar-track': {
-        border: 0
+        border: 0,
     },
     '&::-webkit-scrollbar': {
-        width: 5
+        width: 5,
     },
     '&::-webkit-scrollbar-thumb': {
-        backgroundColor: color
-    }
+        backgroundColor: color,
+    },
 });

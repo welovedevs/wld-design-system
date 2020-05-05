@@ -2,27 +2,27 @@ import CheckIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
 
-import {ReactComponent as WarningIcon} from '../assets/icons/warning.svg';
+import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg';
 
 export const BANNER_DATA = Object.freeze({
     warning: {
         color: 'warn',
-        icon: WarningIcon
+        icon: WarningIcon,
     },
     error: {
         color: 'danger',
-        icon: ErrorIcon
+        icon: ErrorIcon,
     },
     success: {
         color: 'safe',
-        icon: CheckIcon
+        icon: CheckIcon,
     },
     info: {
         color: 'primary',
-        icon: InfoIcon
+        icon: InfoIcon,
     },
     default: {
         color: 'primary',
-        icon : null
-    }
+        icon: null,
+    },
 });

@@ -9,6 +9,6 @@ export const styles = {
         padding: 30,
         backgroundColor: ({ color }) => color,
         flexDirection: 'column',
-        ...center
-    }
+        ...center,
+    },
 };

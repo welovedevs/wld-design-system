@@ -10,7 +10,7 @@ import { Typography } from '../typography/typography';
 import styles from './list_item_styles';
 
 const DEFAULT_SPRING_PROPS = Object.freeze({
-    backgroundColor: 'rgba(0, 0, 0, 0)'
+    backgroundColor: 'rgba(0, 0, 0, 0)',
 });
 
 const ListItemComponent = ({
@@ -32,7 +32,7 @@ const ListItemComponent = ({
                 onMouseEnter(...parameters);
             }
             setSpringProps(() => ({
-                backgroundColor: 'rgba(0, 0, 0, .075)'
+                backgroundColor: 'rgba(0, 0, 0, .075)',
             }));
         },
         [onMouseEnter]
@@ -51,13 +51,13 @@ const ListItemComponent = ({
             className={cn(classes.container, button && classes.button, className)}
             style={{
                 ...style,
-                ...springProps
+                ...springProps,
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            {...button && {
-                role: 'button'
-            }}
+            {...(button && {
+                role: 'button',
+            })}
             {...other}
         >
             <Typography className={cn(classes.typography)} color="dark">

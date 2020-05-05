@@ -13,7 +13,7 @@ export const primary = {
     A200: '#7f7aff',
     A400: '#4e47ff',
     A700: '#352eff',
-    contrastDefaultColor: 'light'
+    contrastDefaultColor: 'light',
 };
 
 const pink = {
@@ -27,7 +27,7 @@ const pink = {
     700: '#c2185b',
     800: '#ad1457',
     900: '#880e4f',
-    contrastDefaultColor: 'light'
+    contrastDefaultColor: 'light',
 };
 
 export const secondary = pink;
@@ -43,7 +43,7 @@ const yellow = {
     700: '#F6E014',
     800: '#F5DD11',
     900: '#F3D709',
-    contrastDefaultColor: 'dark'
+    contrastDefaultColor: 'dark',
 };
 
 export const tertiary = yellow;
@@ -63,7 +63,7 @@ export const safe = {
     A200: '#aeffc5',
     A400: '#7bffa1',
     A700: '#62ff8f',
-    contrastDefaultColor: 'light'
+    contrastDefaultColor: 'light',
 };
 
 export const danger = {
@@ -81,7 +81,7 @@ export const danger = {
     A200: '#fff0f0',
     A400: '#ffbdbd',
     A700: '#ffa3a4',
-    contrastDefaultColor: 'light'
+    contrastDefaultColor: 'light',
 };
 export const warn = {
     50: '#fff3e0',
@@ -98,7 +98,7 @@ export const warn = {
     A200: '#ffab40',
     A400: '#ff9100',
     A700: '#ff6d00',
-    contrastDefaultColor: 'light'
+    contrastDefaultColor: 'light',
 };
 
 export const orange = {
@@ -112,14 +112,13 @@ export const orange = {
     700: '#FF6B37',
     800: '#FF612F',
     900: '#FF4E20',
-    contrastDefaultColor: 'light'
-
+    contrastDefaultColor: 'light',
 };
 
 export const light = {
     500: '#fff',
     900: '#fff',
-    contrastDefaultColor: 'dark'
+    contrastDefaultColor: 'dark',
 };
 
 export const dark = {
@@ -133,7 +132,7 @@ export const dark = {
     700: '#232323',
     800: '#1D1D1D',
     900: '#121212',
-    contrastDefaultColor: 'light'
+    contrastDefaultColor: 'light',
 };
 
 export default {
@@ -145,5 +144,5 @@ export default {
     safe,
     warn,
     orange,
-    light
+    light,
 };

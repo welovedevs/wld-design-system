@@ -8,15 +8,15 @@ export default {
         borderRadius: 150,
         display: 'flex',
         alignItems: 'center',
-        cursor: 'pointer'
+        cursor: 'pointer',
     },
     disabled: {
-        cursor: 'not-allowed'
+        cursor: 'not-allowed',
     },
     thumbContainer: {
         width: '100%',
         display: 'flex',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
     thumb: {
         height: 25,
@@ -24,7 +24,7 @@ export default {
         margin: 6,
         backgroundColor: '#f7f7f7',
         boxShadow: '0 2px 8px rgba(0, 0, 0,.15)',
-        borderRadius: '50%'
+        borderRadius: '50%',
     },
     brightLayer: {
         height: '100%',
@@ -33,7 +33,7 @@ export default {
         top: 0,
         left: 0,
         backgroundColor: '#fff',
-        zIndex: 1
+        zIndex: 1,
     },
     input: {
         height: '100%',
@@ -45,13 +45,13 @@ export default {
         padding: 0,
         margin: 0,
         cursor: 'inherit',
-        zIndex: 2
+        zIndex: 2,
     },
     size_small: {
         width: 60,
         '& $thumb': {
             height: 16,
-            width: 16
-        }
-    }
+            width: 16,
+        },
+    },
 };

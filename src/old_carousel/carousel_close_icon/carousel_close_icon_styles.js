@@ -9,11 +9,11 @@ export const styles = {
         position: 'absolute',
         top: 8 * 2,
         right: 8 * 2,
-        zIndex: 100
+        zIndex: 100,
     },
     icon: {
         height: 16,
         width: 'auto',
-        color: 'currentColor'
-    }
+        color: 'currentColor',
+    },
 };

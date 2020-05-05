@@ -3,13 +3,13 @@ export default {
         padding: [15, 20],
         borderRadius: 5,
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     button: {
-        cursor: 'pointer'
+        cursor: 'pointer',
     },
     typography: {
         display: 'flex',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 };

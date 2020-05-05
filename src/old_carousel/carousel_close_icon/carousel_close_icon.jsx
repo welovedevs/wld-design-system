@@ -17,7 +17,7 @@ const useStyles = createUseStyles(styles);
 const CarouselCloseIconComponent = ({ onClose, color = 'dark' }) => {
     const classes = useStyles();
     const colorSpringProps = useSpring({
-        color: getComponentColor(true, color, false, 500, color || '#000')
+        color: getComponentColor(true, color, false, 500, color || '#000'),
     });
     return (
         <Tooltip title={<FormattedMessage id="Main.lang.close" defaultMessage="Fermer" />}>
@@ -26,7 +26,7 @@ const CarouselCloseIconComponent = ({ onClose, color = 'dark' }) => {
                 type="button"
                 onClick={onClose}
                 style={{
-                    color: colorSpringProps.color
+                    color: colorSpringProps.color,
                 }}
             >
                 <CloseIcon className={classes.icon} />

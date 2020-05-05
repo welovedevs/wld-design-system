@@ -9,6 +9,6 @@ export const DEFAULT_THEME = {
         dark,
         safe,
         danger,
-        warn
-    }
+        warn,
+    },
 };

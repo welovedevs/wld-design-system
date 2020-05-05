@@ -12,7 +12,7 @@ const useStyles = createUseStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,
-    config: config.stiff
+    config: config.stiff,
 };
 
 const CheckboxComponent = forwardRef(
@@ -42,13 +42,13 @@ const CheckboxComponent = forwardRef(
         const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
         const defaultColor = useMemo(() => propsDefaultColor || getHexFromTheme(theme, 'dark', 500), [
             propsDefaultColor,
-            theme
+            theme,
         ]);
 
         const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
         const { color: colorSpring } = useSpring({
             color: getComponentColor(checked, hexColor, disabled, defaultColor),
-            config: config.stiff
+            config: config.stiff,
         });
 
         const handleChange = useCallback(
@@ -64,7 +64,7 @@ const CheckboxComponent = forwardRef(
         );
         const showBrightLayer = useCallback(() =>
             setBrightLayerSpringProps(() => ({
-                opacity: 0.3
+                opacity: 0.3,
             }))
         );
 
@@ -125,7 +125,7 @@ const CheckboxComponent = forwardRef(
                 {...containerProps}
                 style={{
                     color: colorSpring,
-                    ...(containerProps && containerProps.style)
+                    ...(containerProps && containerProps.style),
                 }}
                 {...{ ref }}
             >
@@ -150,12 +150,12 @@ const CheckboxComponent = forwardRef(
 const DEFAULT_ICON_SPRING_PROPS = {
     scale: 0.5,
     opacity: 0,
-    config: config.wobbly
+    config: config.wobbly,
 };
 
 const CHECKED_ICON_SPRING_PROPS = {
     scale: 1,
-    opacity: 1
+    opacity: 1,
 };
 
 const CheckIcon = ({ checked, classes }) => {
@@ -169,8 +169,8 @@ const CheckIcon = ({ checked, classes }) => {
             viewBox="0 0 24 24"
             fill="#fff"
             style={{
-                transform: springProps.scale.to(value => `scale3d(${value}, ${value}, ${value})`),
-                ...springProps
+                transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
+                ...springProps,
             }}
         >
             <g>
@@ -180,7 +180,7 @@ const CheckIcon = ({ checked, classes }) => {
     );
 };
 
-const RaisedCheckbox = props => {
+const RaisedCheckbox = (props) => {
     const theme = useTheme();
     const { checked, color, disabled } = props;
     const springProps = useSpring({
@@ -190,14 +190,14 @@ const RaisedCheckbox = props => {
             disabled,
             '#d6d6d6'
         )}`,
-        config: config.stiff
+        config: config.stiff,
     });
     return (
         <CheckboxComponent
             containerProps={{
                 style: {
-                    ...springProps
-                }
+                    ...springProps,
+                },
             }}
             defaultColor="#fff"
             {...props}
@@ -205,7 +205,7 @@ const RaisedCheckbox = props => {
     );
 };
 
-const WithVariantCheckbox = props => {
+const WithVariantCheckbox = (props) => {
     const { variant = 'raised' } = props;
     if (variant === 'raised') {
         return <RaisedCheckbox {...{ variant }} {...props} />;

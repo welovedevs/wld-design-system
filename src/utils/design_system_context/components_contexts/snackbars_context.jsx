@@ -10,19 +10,20 @@ export const SnackbarsProvider = ({ children }) => {
         setState,
         ...state
     } = useContext(DesignSystemContext);
-    const setSnackbars = useCallback(newSnackbars =>
+    const setSnackbars = useCallback((newSnackbars) =>
         setState({
             ...state,
             setState,
             components: {
-                snackbars: newSnackbars
-            }
-        }));
+                snackbars: newSnackbars,
+            },
+        })
+    );
     return (
         <SnackbarsContext.Provider
             value={{
                 snackbars,
-                setSnackbars
+                setSnackbars,
             }}
         >
             {children}

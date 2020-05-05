@@ -5,10 +5,10 @@ export default {
         '& > ul': {
             listStyleType: 'none',
             margin: 0,
-            padding: 0
-        }
+            padding: 0,
+        },
     },
     listItem: {
-        borderRadius: 5
-    }
+        borderRadius: 5,
+    },
 };

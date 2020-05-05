@@ -1,5 +1,5 @@
 export const initialState = {
     components: {
-        snackbars: {}
-    }
+        snackbars: {},
+    },
 };

@@ -1,4 +1,4 @@
-import React, {forwardRef, useCallback, useMemo} from 'react';
+import React, { forwardRef, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import cn from 'classnames';
@@ -15,7 +15,7 @@ const useStyles = createUseStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,
-    config: config.stiff
+    config: config.stiff,
 };
 
 const ButtonComponent = ({
@@ -45,11 +45,11 @@ const ButtonComponent = ({
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const colorSpring = useSpring({
         color: getComponentColor(true, hexColor, disabled),
-        config: config.stiff
+        config: config.stiff,
     });
     const showBrightLayer = useCallback(() =>
         setBrightLayerSpringProps(() => ({
-            opacity: variant !== 'contained' ? 0.1 : 0.2
+            opacity: variant !== 'contained' ? 0.1 : 0.2,
         }))
     );
 
@@ -122,7 +122,7 @@ const ButtonComponent = ({
             style={{
                 ...propsStyle,
                 ...(withColor && colorSpring),
-                ...(containerProps && containerProps.style)
+                ...(containerProps && containerProps.style),
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -142,7 +142,7 @@ const ButtonComponent = ({
     );
 };
 
-const ContainedButton = props => {
+const ContainedButton = (props) => {
     const theme = useTheme();
     const { color, disabled } = props;
     const springProps = useSpring({
@@ -151,7 +151,7 @@ const ContainedButton = props => {
             getHexFromTheme(theme, color, 200),
             disabled
         )}`,
-        config: config.stiff
+        config: config.stiff,
     });
     return <ButtonComponent {...props} {...(!disabled && { style: springProps })} />;
 };
@@ -165,5 +165,5 @@ export const Button = forwardRef((props, containerRef) => {
 });
 
 Button.propTypes = {
-    color: PropTypes.string
+    color: PropTypes.string,
 };

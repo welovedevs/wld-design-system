@@ -4,6 +4,6 @@ export const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        padding: 8
-    }
+        padding: 8,
+    },
 };

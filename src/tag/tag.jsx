@@ -36,7 +36,7 @@ export const Tag = ({
             200,
             '#d6d6d6'
         )}`,
-        config: config.stiff
+        config: config.stiff,
     });
     const withColor = color && color !== 'default';
     return (
@@ -45,7 +45,7 @@ export const Tag = ({
             className={cn(className, classes.container, customClasses.container)}
             style={{
                 ...receivedStyle,
-                ...springProps
+                ...springProps,
             }}
             {...other}
         >
@@ -53,7 +53,7 @@ export const Tag = ({
                 className={cn(classes.typography, customClasses.typography)}
                 variant="tag"
                 {...(withColor && {
-                    color: '#fff'
+                    color: '#fff',
                 })}
                 {...typographyProps}
             >

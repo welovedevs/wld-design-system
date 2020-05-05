@@ -4,23 +4,23 @@ export default {
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        cursor: 'pointer'
+        cursor: 'pointer',
     },
     disabled: {
         '&, & $input': {
-            cursor: 'not-allowed'
-        }
+            cursor: 'not-allowed',
+        },
     },
     track: {
         height: 1,
         width: '100%',
         backgroundColor: '#e2e2e2',
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     rail: {
         height: 1,
         width: '100%',
-        backgroundColor: 'currentColor'
+        backgroundColor: 'currentColor',
     },
     thumb: {
         height: 12,
@@ -30,12 +30,12 @@ export default {
         boxShadow: '0 2px 10px 0 rgba(0, 0, 0, .3)',
         position: 'absolute',
         left: 0,
-        top: 'calc(100% / 2 - (12px / 2))'
+        top: 'calc(100% / 2 - (12px / 2))',
     },
     thumbChildrenContainer: {
         height: '100%',
         width: '100%',
-        paddingTop: 10
+        paddingTop: 10,
     },
     input: {
         opacity: 0,
@@ -46,17 +46,17 @@ export default {
         left: 0,
         width: '100%',
         '&::-webkit-slider-thumb': {
-            '-webkit-appearance': 'none'
+            '-webkit-appearance': 'none',
         },
         '&:focus': {
-            outline: 'none'
+            outline: 'none',
         },
         '&::-ms-track': {
             width: '100%',
             cursor: 'pointer',
             background: 'transparent',
             borderColor: 'transparent',
-            color: 'transparent'
-        }
-    }
+            color: 'transparent',
+        },
+    },
 };

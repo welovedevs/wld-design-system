@@ -1,10 +1,10 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import {createUseStyles, useTheme} from 'react-jss';
-import {animated, useSpring} from 'react-spring';
+import { createUseStyles, useTheme } from 'react-jss';
+import { animated, useSpring } from 'react-spring';
 
-import {getComponentColor, getHexFromTheme} from '../styles';
+import { getComponentColor, getHexFromTheme } from '../styles';
 
 import styles from './progress_bar_styles';
 
@@ -15,7 +15,7 @@ export const ProgressBar = ({
     color = 'primary',
     className,
     barClassName,
-    customClasses = {}
+    customClasses = {},
 }) => {
     const classes = useStyles();
     const theme = useTheme();
@@ -23,11 +23,11 @@ export const ProgressBar = ({
 
     const { translation } = useSpring({
         from: {
-            translation: -100
+            translation: -100,
         },
         to: {
-            translation: -100 + progressValue
-        }
+            translation: -100 + progressValue,
+        },
     });
     return (
         <div className={cn(className, classes.container, customClasses.container)}>
@@ -35,7 +35,7 @@ export const ProgressBar = ({
                 className={cn(classes.bar, barClassName, customClasses.bar)}
                 style={{
                     color: getComponentColor(true, hexColor, false),
-                    transform: translation.to(value => `translate3d(${value}%, 0, 0)`)
+                    transform: translation.to((value) => `translate3d(${value}%, 0, 0)`),
                 }}
             />
         </div>

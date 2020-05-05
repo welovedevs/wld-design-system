@@ -12,10 +12,10 @@ export default {
         padding: [12, 22],
         color: '#fff',
         backgroundColor: 'currentColor',
-        ...center
+        ...center,
     },
     typography: {
         display: 'flex',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 };

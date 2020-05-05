@@ -5,6 +5,6 @@ export const styles = {
         right: 8 * 2,
         display: 'flex',
         justifyContent: 'flex-end',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 };

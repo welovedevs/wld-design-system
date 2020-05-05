@@ -9,10 +9,10 @@ export default {
         alignItems: 'center',
         padding: 0,
         overflow: 'hidden',
-        border: [1, 'solid', '#f0f0f0']
+        border: [1, 'solid', '#f0f0f0'],
     },
     multilineContainer: {
-        padding: [17.5, 20]
+        padding: [17.5, 20],
     },
     input: {
         backgroundColor: 'transparent',
@@ -28,27 +28,27 @@ export default {
         alignItems: 'center',
         borderRadius: 5,
         '&::placeholder': {
-            color: '#afafaf'
-        }
+            color: '#afafaf',
+        },
     },
     multiline: {
         padding: [0, 20, 0, 0],
         '&::-webkit-scrollbar-track': {
-            border: 0
+            border: 0,
         },
         '&::-webkit-scrollbar': {
-            width: 4
+            width: 4,
         },
         '&::-webkit-scrollbar-thumb': {
             backgroundColor: primary[300],
-            borderRadius: 100
-        }
+            borderRadius: 100,
+        },
     },
     fullWidth: {
-        width: '100%'
+        width: '100%',
     },
     flat: {
-        backgroundColor: '#f9f9f9'
+        backgroundColor: '#f9f9f9',
     },
     flatDisabled: {
         backgroundColor: '#ededed',
@@ -56,8 +56,8 @@ export default {
         extend: 'disabled',
         '&>input': {
             color: '#959595',
-            cursor: 'inherit'
-        }
+            cursor: 'inherit',
+        },
     },
     raised: {},
     raisedDisabled: {},
@@ -67,11 +67,11 @@ export default {
         borderBottom: [1, 'solid', '#e8e8e8'],
         borderRadius: 0,
         '& > $input': {
-            paddingBottom: 10
-        }
+            paddingBottom: 10,
+        },
     },
     underlinedDisabled: {},
     disabled: {
-        cursor: 'not-allowed'
-    }
+        cursor: 'not-allowed',
+    },
 };

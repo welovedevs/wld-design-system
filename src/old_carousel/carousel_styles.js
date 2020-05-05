@@ -6,19 +6,19 @@ export const styles = {
         height: 340,
         maxHeight: '40vh',
         position: 'relative',
-        ...flexUtils.center
+        ...flexUtils.center,
     },
     video: {
         zIndex: 2,
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
     frontImage: {
         width: '100%',
         height: '100%',
         objectFit: 'contain',
         zIndex: 2,
-        padding: 10
+        padding: 10,
     },
     backgroundBlur: {
         position: 'absolute',
@@ -26,7 +26,7 @@ export const styles = {
         width: '100%',
         top: 0,
         left: 0,
-        objectFit: 'cover'
+        objectFit: 'cover',
     },
     body: {
         maxHeight: '40vh',
@@ -34,31 +34,31 @@ export const styles = {
         flex: 1,
         overflowY: 'auto',
         backgroundColor: 'white',
-        margin: [20, 20, 30, 20]
+        margin: [20, 20, 30, 20],
     },
     bodyWrapper: {
         ...flexUtils.center,
         justifyContent: 'space-around',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     buttons: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     dialogPaper: {
         width: '100%',
         maxWidth: 600,
         overflow: 'visible',
         '& .slick-dots': {
-            bottom: -50
-        }
+            bottom: -50,
+        },
     },
     swipeIcon: {
         position: 'absolute',
         bottom: 5,
         left: 5,
         animation: 'swipe-icon-movement 1s ease-in-out infinite alternate',
-        transformOrigin: 'bottom center'
+        transformOrigin: 'bottom center',
     },
     iNeedHelp: {
         cursor: 'pointer',
@@ -66,25 +66,25 @@ export const styles = {
         bottom: 5,
         right: 5,
         fontStyle: 'italic',
-        fontSize: 12
+        fontSize: 12,
     },
     carousel: {
-        flex: 1
+        flex: 1,
     },
     title: {
         padding: [0, 20],
-        marginBottom: 20
+        marginBottom: 20,
     },
     reverseButton: {
         '& > svg': {
-            transform: 'scale(-1)'
-        }
+            transform: 'scale(-1)',
+        },
     },
     nextButton: {
-        right: -80
+        right: -80,
     },
     previousButton: {
-        left: -80
+        left: -80,
     },
     navigateButton: {
         top: 'calc(50% - 25px)',
@@ -98,8 +98,8 @@ export const styles = {
         ...flexUtils.center,
         '& > svg': {
             height: 20,
-            width: 'auto'
-        }
+            width: 'auto',
+        },
     },
     carouselStep: {
         position: 'relative',
@@ -107,10 +107,10 @@ export const styles = {
         display: 'flex',
         flexDirection: 'column',
         borderRadius: 4,
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     carouselStepFullScreen: {
         borderRadius: 0,
-        height: '100vh'
-    }
+        height: '100vh',
+    },
 };

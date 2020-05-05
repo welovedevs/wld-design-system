@@ -6,9 +6,9 @@ export const styles = {
         backgroundColor: 'rgba(0, 0, 0, .85)',
         color: '#fff',
         fontWeight: '500',
-        maxWidth: 375
+        maxWidth: 375,
     },
     popper: {
-        zIndex: 20000
-    }
+        zIndex: 20000,
+    },
 };

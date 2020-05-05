@@ -12,24 +12,24 @@ export default {
         padding: 3,
         cursor: 'pointer',
         overflow: 'hidden',
-        ...center
+        ...center,
     },
     raised: {
         backgroundColor: 'currentColor',
         '& $checkIcon': {
-            fill: '#fff'
-        }
+            fill: '#fff',
+        },
     },
     outlined: {
-        border: [1, 'solid', 'currentColor']
+        border: [1, 'solid', 'currentColor'],
     },
     disabled: {
-        cursor: 'not-allowed'
+        cursor: 'not-allowed',
     },
     isRadio: {
         '&, & > $brightLayer': {
-            borderRadius: '50%'
-        }
+            borderRadius: '50%',
+        },
     },
     brightLayer: {
         height: '100%',
@@ -38,12 +38,12 @@ export default {
         top: 0,
         left: 0,
         backgroundColor: '#fff',
-        zIndex: 1
+        zIndex: 1,
     },
     checkIcon: {
         height: '100%',
         width: 'auto',
-        fill: 'currentColor'
+        fill: 'currentColor',
     },
     input: {
         height: '100%',
@@ -55,6 +55,6 @@ export default {
         cursor: 'inherit',
         padding: 0,
         margin: 0,
-        zIndex: 2
-    }
+        zIndex: 2,
+    },
 };

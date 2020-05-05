@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import {createUseStyles, useTheme} from 'react-jss';
+import { createUseStyles, useTheme } from 'react-jss';
 
 import { BANNER_DATA } from './banner_data';
 
 import { styles } from './banner_styles';
-import {getComponentColor, getHexFromTheme} from "../styles";
+import { getComponentColor, getHexFromTheme } from '../styles';
 
 const useStyles = createUseStyles(styles);
 
@@ -14,22 +14,20 @@ const BannerComponent = ({ type = 'warning', icon: receivedIcon, customClasses =
     const theme = useTheme();
 
     const { icon, color } = useMemo(() => {
-        const typeConfig= BANNER_DATA[type];
-        if(!typeConfig){
+        const typeConfig = BANNER_DATA[type];
+        if (!typeConfig) {
             return BANNER_DATA.default;
         }
-        return  {
+        return {
             ...typeConfig,
-            color : getComponentColor(true, getHexFromTheme(theme, typeConfig.color), false)
+            color: getComponentColor(true, getHexFromTheme(theme, typeConfig.color), false),
         };
     }, [type, theme]);
-    const classes = useStyles({type});
+    const classes = useStyles({ type });
     const Icon = receivedIcon || icon;
     return (
         <div className={cn(classes.container, customClasses.container)} style={{ color }}>
-            <span className={classes.iconContainer}>
-                {Icon &&  <Icon />}
-            </span>
+            <span className={classes.iconContainer}>{Icon && <Icon />}</span>
             {children}
         </div>
     );

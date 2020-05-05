@@ -68,7 +68,7 @@ const AutocompleteComponent = ({
             onChange && onChange(suggestionValue);
             onSelect && onSelect(newValue);
         },
-        [onChange,onSelect]
+        [onChange, onSelect]
     );
 
     const inputProps = {

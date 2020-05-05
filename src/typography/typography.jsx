@@ -25,25 +25,25 @@ const TypographyComponent = ({
     let style = useMemo(() => {
         if (color) {
             const hex = getComponentColor(true, getHexFromTheme(theme, color), false);
-            if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some(key => variant === key)) {
+            if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
                 if (color === 'secondary') {
                     return {
                         backgroundColor: hex,
-                        color: '#fff'
+                        color: '#fff',
                     };
                 }
                 if (color === 'tertiary') {
                     return {
                         color: getComponentColor(true, getHexFromTheme(theme, 'primary'), false),
-                        backgroundColor: hex
+                        backgroundColor: hex,
                     };
                 }
                 return {
-                    color: getComponentColor(true, getHexFromTheme(theme, 'primary'), false)
+                    color: getComponentColor(true, getHexFromTheme(theme, 'primary'), false),
                 };
             }
             return {
-                color: hex
+                color: hex,
             };
         }
     }, [variant, theme, color]);
@@ -54,7 +54,7 @@ const TypographyComponent = ({
             className={cn(classes.container, classes[color], classes[variant], className, customClasses.container)}
             style={{
                 ...receivedStyle,
-                ...style
+                ...style,
             }}
             {...other}
         />

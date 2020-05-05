@@ -15,7 +15,7 @@ const useStyles = createUseStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,
-    config: config.stiff
+    config: config.stiff,
 };
 
 export const Switch = ({
@@ -41,11 +41,11 @@ export const Switch = ({
 
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const containerSpringProps = useSpring({
-        color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50))
+        color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50)),
     });
     const [thumbWidth, setThumbWidth] = useState(null);
     const thumbContainerSpringProps = useSpring({
-        translation: checked ? 0 : -100
+        translation: checked ? 0 : -100,
     });
 
     const handleChange = useCallback(
@@ -62,7 +62,7 @@ export const Switch = ({
     const showBrightLayer = useCallback(
         () =>
             setBrightLayerSpringProps(() => ({
-                opacity: 0.3
+                opacity: 0.3,
             })),
         []
     );
@@ -133,7 +133,7 @@ export const Switch = ({
             )}
             style={{
                 ...get(containerProps, 'style'),
-                ...containerSpringProps
+                ...containerSpringProps,
             }}
             {...containerProps}
         >
@@ -141,9 +141,9 @@ export const Switch = ({
                 className={classes.thumbContainer}
                 style={{
                     transform: thumbContainerSpringProps.translation.to(
-                        value => `translate3d(calc(${value}% + ${thumbWidth}px), 0, 0)`
+                        (value) => `translate3d(calc(${value}% + ${thumbWidth}px), 0, 0)`
                     ),
-                    width: `calc(100% - ${thumbWidth}px)`
+                    width: `calc(100% - ${thumbWidth}px)`,
                 }}
             >
                 <Measure bounds onResize={handleThumbResize}>

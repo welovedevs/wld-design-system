@@ -16,46 +16,46 @@ export default {
         overflow: 'hidden',
         border: 'none',
         backgroundColor: 'unset',
-        ...center
+        ...center,
     },
     withColor: {},
     applyToChildrenSameColorAsMyself: {
         '&$withColor': {
-            color: 'currentColor'
+            color: 'currentColor',
         },
         '&:not($withColor)': {
-            color: '#4e4e4e'
+            color: '#4e4e4e',
         },
         '& > $typography, & > $brightLayer': {
-            color: 'currentColor'
-        }
+            color: 'currentColor',
+        },
     },
     lightenBrightLayerAndTypography: {
         '& > $brightLayer, & > $typography': {
-            color: '#fff'
-        }
+            color: '#fff',
+        },
     },
     contained: {
         backgroundColor: 'currentColor',
         '&$withColor ': {
-            extend: 'lightenBrightLayerAndTypography'
-        }
+            extend: 'lightenBrightLayerAndTypography',
+        },
     },
     text: {
-        extend: 'applyToChildrenSameColorAsMyself'
+        extend: 'applyToChildrenSameColorAsMyself',
     },
     outlined: {
         extend: 'text',
-        border: [1, 'solid', 'currentColor']
+        border: [1, 'solid', 'currentColor'],
     },
     disabled: {
-        cursor: 'not-allowed'
+        cursor: 'not-allowed',
     },
     size_small: {
         padding: [10, 14],
         '& > $typography': {
-            fontSize: 12
-        }
+            fontSize: 12,
+        },
     },
     brightLayer: {
         height: '100%',
@@ -64,10 +64,10 @@ export default {
         top: 0,
         left: 0,
         backgroundColor: 'currentColor',
-        zIndex: 1
+        zIndex: 1,
     },
     typography: {
         display: 'flex',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 };

@@ -5,6 +5,6 @@ export const styles = {
         fontSize: 20,
         lineHeight: 1.6,
         fontWeight: 500,
-        letterSpacing: 'unset'
-    }
+        letterSpacing: 'unset',
+    },
 };

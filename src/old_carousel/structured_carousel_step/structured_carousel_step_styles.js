@@ -1,9 +1,9 @@
 export const styles = {
     container: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     fullScreen: {
-        height: '100vh'
-    }
+        height: '100vh',
+    },
 };

@@ -1,7 +1,7 @@
 import { BANNER_DATA } from './banner_data';
 import { DEFAULT_THEME } from '../styles/theme';
 
-export const styles = inputTheme => {
+export const styles = (inputTheme) => {
     const theme = Object.keys(inputTheme).length ? inputTheme : DEFAULT_THEME;
     return {
         container: ({ type }) => {
@@ -23,11 +23,11 @@ export const styles = inputTheme => {
                     opacity: 0.15,
                     borderRadius: 5,
                     zIndex: 0,
-                    content: "''"
+                    content: "''",
                 },
                 '& > *': {
-                    zIndex: 1
-                }
+                    zIndex: 1,
+                },
             };
         },
         iconContainer: {
@@ -37,19 +37,19 @@ export const styles = inputTheme => {
                 height: 60,
                 width: 60,
                 '& > g > path:last-child': {
-                    fill: 'currentColor'
-                }
-            }
+                    fill: 'currentColor',
+                },
+            },
         },
         '@media screen and (max-width: 550px)': {
             iconContainer: {
-                display: 'none'
-            }
+                display: 'none',
+            },
         },
         '@media screen and (max-width: 400px)': {
             container: {
-                padding: 25
-            }
-        }
+                padding: 25,
+            },
+        },
     };
 };

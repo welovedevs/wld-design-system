@@ -6,12 +6,12 @@ export default {
         backgroundColor: '#f0f0f0',
         overflow: 'hidden',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     bar: {
         backgroundColor: 'currentColor',
         height: '100%',
         width: '100%',
-        borderRadius: 100
-    }
+        borderRadius: 100,
+    },
 };

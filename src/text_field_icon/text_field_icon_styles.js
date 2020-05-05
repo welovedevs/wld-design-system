@@ -4,7 +4,7 @@ export default {
         display: 'flex',
         '& > svg': {
             maxHeight: 22,
-            maxWidth: 22
-        }
-    }
+            maxWidth: 22,
+        },
+    },
 };

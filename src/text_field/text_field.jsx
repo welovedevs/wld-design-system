@@ -7,7 +7,7 @@ import { animated, useSpring } from 'react-spring';
 import styles from './text_field_styles';
 const useStyles = createUseStyles(styles);
 const DEFAULT_SPRING_PROPS = {
-    boxShadow: '0 7.5px 15px 0 #e4e4e4'
+    boxShadow: '0 7.5px 15px 0 #e4e4e4',
 };
 
 // Variant should be one of the following : ['raised', 'flat', 'underlined'].
@@ -45,7 +45,7 @@ const TextFieldComponent = ({
             )}
             {...(containerProps &&
                 containerProps.style && {
-                    style: containerProps.style
+                    style: containerProps.style,
                 })}
             {...containerProps}
         >
@@ -69,7 +69,7 @@ const RaisedTextField = ({ onFocus, onBlur, containerProps, ...other }) => {
                 onFocus(...parameters);
             }
             setSpringProps(() => ({
-                boxShadow: '0 10px 20px 0 #dadada'
+                boxShadow: '0 10px 20px 0 #dadada',
             }));
         },
         [onFocus]
@@ -90,8 +90,8 @@ const RaisedTextField = ({ onFocus, onBlur, containerProps, ...other }) => {
                 ...containerProps,
                 style: {
                     ...(containerProps && containerProps.style),
-                    ...springProps
-                }
+                    ...springProps,
+                },
             }}
             onFocus={handleFocus}
             onBlur={handleBlur}

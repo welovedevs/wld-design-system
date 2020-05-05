@@ -41,17 +41,17 @@ const PopperCardComponent = ({
             {...popperProps}
             modifiers={{
                 flip: {
-                    enabled: true
+                    enabled: true,
                 },
                 preventOverflow: {
                     enabled: true,
-                    boundariesElement: 'scrollParent'
+                    boundariesElement: 'scrollParent',
                 },
                 arrow: {
                     enabled: !dismissArrow,
-                    element: arrowReference
+                    element: arrowReference,
                 },
-                ...(popperProps && popperProps.modifiers)
+                ...(popperProps && popperProps.modifiers),
             }}
             transition
         >
@@ -66,7 +66,7 @@ const PopperCardComponent = ({
                             onClickAway,
                             classes,
                             customClasses,
-                            ...other
+                            ...other,
                         }}
                     />
                 </Fade>
@@ -77,9 +77,9 @@ const PopperCardComponent = ({
 
 const Fade = React.forwardRef((props, ref) => {
     const { in: open, children, onEnter, onExited, springOptions, popperProps, ...other } = props;
-    const getTranslationFromPlacement = useCallback(value => {
+    const getTranslationFromPlacement = useCallback((value) => {
         const placement = (popperProps && popperProps.placement) || 'bottom';
-        if (['top', 'bottom'].some(key => placement === key)) {
+        if (['top', 'bottom'].some((key) => placement === key)) {
             return `translate3d(0, ${value}px, 0)`;
         }
         return `translate3d(-${value}px, 0, 0)`;
@@ -88,12 +88,12 @@ const Fade = React.forwardRef((props, ref) => {
         from: {
             opacity: 0,
             pointerEvents: 'none',
-            transform: getTranslationFromPlacement(20)
+            transform: getTranslationFromPlacement(20),
         },
         to: {
             opacity: open ? 1 : 0,
             pointerEvents: open ? 'all' : 'none',
-            transform: getTranslationFromPlacement(open ? 0 : 20)
+            transform: getTranslationFromPlacement(open ? 0 : 20),
         },
         config: config.default,
         ...springOptions,
@@ -108,7 +108,7 @@ const Fade = React.forwardRef((props, ref) => {
             if (!open && onExited) {
                 onExited();
             }
-        }
+        },
     });
 
     return (
@@ -119,16 +119,16 @@ const Fade = React.forwardRef((props, ref) => {
 });
 
 const Content = ({
-                     className,
-                     dismissArrow,
-                     translation,
-                     setArrowReference,
-                     onClickAway,
-                     structured,
-                     classes,
-                     customClasses,
-                     ...other
-                 }) => {
+    className,
+    dismissArrow,
+    translation,
+    setArrowReference,
+    onClickAway,
+    structured,
+    classes,
+    customClasses,
+    ...other
+}) => {
     const handleClickAway = useCallback(
         (...parameters) => {
             if (typeof onClickAway === 'function') {

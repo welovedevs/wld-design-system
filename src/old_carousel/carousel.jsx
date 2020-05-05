@@ -22,7 +22,7 @@ import './override_nuka.scss';
 const useStyles = createUseStyles(styles);
 
 const DEFAULT_ARROW_SPRING_PROPS = Object.freeze({
-    scale: 1
+    scale: 1,
 });
 
 const NavigateButton = ({
@@ -33,12 +33,12 @@ const NavigateButton = ({
     buttonProps: { className: buttonClassName },
     currentSlide,
     slideCount,
-    arrowRole
+    arrowRole,
 }) => {
     const [springProps, setSpringProps] = useSpring(() => DEFAULT_ARROW_SPRING_PROPS);
     const handleMouseDown = useCallback(() => {
         setSpringProps(() => ({
-            scale: 0.9
+            scale: 0.9,
         }));
     }, [setSpringProps]);
     const handleMouseUp = useCallback(() => {
@@ -60,7 +60,7 @@ const NavigateButton = ({
             onFocus={handleMouseDown}
             onBlur={handleMouseUp}
             style={{
-                transform: springProps.scale.to(value => `scale3d(${value}, ${value}, ${value})`)
+                transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
             }}
         >
             <ArrowIcon />
@@ -77,7 +77,7 @@ const CarouselStep = ({ fullScreen, freelyStructuredSteps, step, onAction, onDis
                 step,
                 onAction,
                 onDismiss,
-                classes
+                classes,
             }}
         />
     </div>
@@ -145,7 +145,7 @@ const StructuredStep = ({ onAction, step, isMobile, onDismiss, classes }) => {
                             component={({ children, ...other }) => (
                                 <span
                                     dangerouslySetInnerHTML={{
-                                        __html: typeof title === 'string' ? title : formatHTMLMessage(title)
+                                        __html: typeof title === 'string' ? title : formatHTMLMessage(title),
                                     }}
                                     {...other}
                                 />
@@ -158,7 +158,7 @@ const StructuredStep = ({ onAction, step, isMobile, onDismiss, classes }) => {
                             component={({ children, ...other }) => (
                                 <span
                                     dangerouslySetInnerHTML={{
-                                        __html: typeof subtitle === 'string' ? subtitle : formatHTMLMessage(subtitle)
+                                        __html: typeof subtitle === 'string' ? subtitle : formatHTMLMessage(subtitle),
                                     }}
                                     {...other}
                                 />
@@ -205,7 +205,7 @@ const CarouselComponent = ({
     steps,
     fullScreen,
     children,
-    customClasses = {}
+    customClasses = {},
 }) => {
     const classes = useStyles(styles);
     const carouselRef = useRef();
@@ -238,21 +238,21 @@ const CarouselComponent = ({
                 ref={carouselRef}
                 dots
                 infinite={false}
-                prevArrow={(
+                prevArrow={
                     <NavigateButton
                         {...{ classes }}
                         arrowRole="prev"
                         buttonProps={{ className: classes.previousButton }}
                     />
-                  )}
-                nextArrow={(
+                }
+                nextArrow={
                     <NavigateButton
                         {...{ classes }}
                         arrowRole="next"
                         buttonProps={{ className: classes.nextButton }}
                         reverse
                     />
-                  )}
+                }
             >
                 {steps.map((step, stepIndex) => (
                     <CarouselStep
@@ -263,7 +263,7 @@ const CarouselComponent = ({
                             classes,
                             onDismiss,
                             step,
-                            onClick
+                            onClick,
                         }}
                     />
                 ))}

@@ -31,7 +31,7 @@ export const Slider = ({
     const [containerWidth, setContainerWidth] = useState(0);
     const { translation, ...otherRailThumbSpringProps } = useSpring({
         translation: containerWidth * (((value - min) * 100) / (max - min) / 100),
-        color: getComponentColor(true, hexColor, disabled)
+        color: getComponentColor(true, hexColor, disabled),
     });
 
     const handleMeasureChange = useCallback(
@@ -55,9 +55,9 @@ export const Slider = ({
                             className={classes.rail}
                             style={{
                                 transform: translation.to(
-                                    translationValue => `translate3d(${-containerWidth + translationValue}px, 0, 0)`
+                                    (translationValue) => `translate3d(${-containerWidth + translationValue}px, 0, 0)`
                                 ),
-                                ...otherRailThumbSpringProps
+                                ...otherRailThumbSpringProps,
                             }}
                         />
                     </div>
@@ -65,10 +65,8 @@ export const Slider = ({
                         {...{ thumbChildren, classes }}
                         ref={thumbReference}
                         style={{
-                            transform: translation.to(
-                                translationValue => `translate3d(${translationValue}px, 0, 0)`
-                            ),
-                            ...otherRailThumbSpringProps
+                            transform: translation.to((translationValue) => `translate3d(${translationValue}px, 0, 0)`),
+                            ...otherRailThumbSpringProps,
                         }}
                         {...thumbProps}
                     />

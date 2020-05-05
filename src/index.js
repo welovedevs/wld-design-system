@@ -37,5 +37,5 @@ export {
     TextField,
     TextFieldIcon,
     Tooltip,
-    Typography
+    Typography,
 };

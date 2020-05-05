@@ -18,7 +18,7 @@ export const DesignSystemProvider = ({ children }) => {
         <DesignSystemContext.Provider
             value={{
                 ...state,
-                setState
+                setState,
             }}
         >
             {children}
