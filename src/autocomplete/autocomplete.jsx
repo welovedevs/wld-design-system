@@ -9,15 +9,15 @@ import { PopperCard } from '../popper_card/popper_card';
 
 import styles from './autocomplete_styles';
 
-
 const defaultGetSuggestionValue = ({ value }) => value;
-const defaultFilterSuggestion = inputValue => ({ value }) =>
+const defaultFilterSuggestion = (inputValue) => ({ value }) =>
     inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 
 const AutocompleteComponent = ({
     placeholder,
     suggestions,
     onChange,
+    onSelect,
     getSuggestionValue = defaultGetSuggestionValue,
     renderSuggestion: renderSuggestionProps,
     filterFunction = defaultFilterSuggestion,
@@ -25,18 +25,19 @@ const AutocompleteComponent = ({
     value: propsValue,
     id,
     name,
-    transformSuggestionValue = props => props && props.value,
-    classes
+    transformSuggestionValue = (props) => props && props.value,
+    classes,
 }) => {
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState([]);
     const [value, setValue] = useState(propsValue || '');
-    const renderSuggestion = renderSuggestionProps
-        || (props => (
+    const renderSuggestion =
+        renderSuggestionProps ||
+        ((props) => (
             <DefaultSuggestionsRender
                 {...{
                     classes,
-                    value: transformSuggestionValue(props)
+                    value: transformSuggestionValue(props),
                 }}
             />
         ));
@@ -61,11 +62,13 @@ const AutocompleteComponent = ({
         [onChange]
     );
     const suggestionSelected = useCallback(
-        (e, { suggestionValue }) => {
+        (e, newValue) => {
+            const { suggestionValue } = newValue;
             setValue(suggestionValue);
-            onChange(suggestionValue);
+            onChange && onChange(suggestionValue);
+            onSelect && onSelect(newValue);
         },
-        [onChange]
+        [onChange,onSelect]
     );
 
     const inputProps = {
@@ -73,7 +76,7 @@ const AutocompleteComponent = ({
         name,
         placeholder,
         value,
-        onChange: valueChanged
+        onChange: valueChanged,
     };
     return (
         <Autosuggest
@@ -88,14 +91,16 @@ const AutocompleteComponent = ({
                     {...{
                         containerProps,
                         children,
-                        classes
+                        classes,
                     }}
                     anchorElement={inputReference.current}
                 />
             )}
             onSuggestionSelected={suggestionSelected}
             inputProps={inputProps}
-            renderInputComponent={props => <TextField {...props} inputRef={inputReference} className={classes.field} />}
+            renderInputComponent={(props) => (
+                <TextField {...props} inputRef={inputReference} className={classes.field} />
+            )}
         />
     );
 };
@@ -114,9 +119,9 @@ const SuggestionsContainer = ({ containerProps, anchorElement, children, classes
             popperProps={{
                 modifiers: {
                     preventOverflow: {
-                        boundariesElement: 'viewport'
-                    }
-                }
+                        boundariesElement: 'viewport',
+                    },
+                },
             }}
             {...{ anchorElement, containerProps }}
         >
