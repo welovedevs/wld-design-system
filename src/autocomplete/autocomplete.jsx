@@ -13,11 +13,12 @@ const defaultGetSuggestionValue = ({ value }) => value;
 const defaultFilterSuggestion = (inputValue) => ({ value }) =>
     inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 
+const DEFAULT_FUNCTION = () => {};
 const AutocompleteComponent = ({
     placeholder,
     suggestions,
-    onChange,
-    onSelect,
+    onChange = DEFAULT_FUNCTION,
+    onSelect = DEFAULT_FUNCTION,
     getSuggestionValue = defaultGetSuggestionValue,
     renderSuggestion: renderSuggestionProps,
     filterFunction = defaultFilterSuggestion,
