@@ -17,7 +17,7 @@ const defaultFilterSuggestion = (inputValue) => ({ value }) =>
 const useStyles = createUseStyles(styles);
 
 const DEFAULT_FUNCTION = () => {};
-const AutocompleteComponent = ({
+export const AutoComplete = ({
     placeholder,
     suggestions,
     onChange = DEFAULT_FUNCTION,
@@ -140,5 +140,3 @@ const DefaultSuggestionsRender = ({ value, classes }) => (
         <ListItemText classes={{ root: classes.predictionListItem }} primary={value} />
     </ListItem>
 );
-
-export const AutoComplete = injectSheet(styles)(AutocompleteComponent);
