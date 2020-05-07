@@ -9,6 +9,7 @@ import { TextField } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
 
 import styles from './autocomplete_styles';
+import { select } from '@storybook/addon-knobs';
 
 const defaultGetSuggestionValue = ({ value }) => value;
 const defaultFilterSuggestion = (inputValue) => ({ value }) =>
@@ -93,12 +94,13 @@ export const AutoComplete = ({
             onSuggestionsFetchRequested={filterSuggestions}
             renderSuggestion={renderSuggestion}
             renderSuggestionsContainer={({ containerProps, children, query }) => {
+                if (selected) {
+                    return null;
+                }
                 if (query && !children && noResultsComponent) {
                     return React.cloneElement(noResultsComponent, { anchorElement: inputReference.current });
                 }
-                if(selected){
-                    return null;
-                }
+
                 return (
                     <SuggestionsContainer
                         {...{
