@@ -25,6 +25,7 @@ export const AutoComplete = ({
     getSuggestionValue = defaultGetSuggestionValue,
     renderSuggestion: renderSuggestionProps,
     filterFunction = defaultFilterSuggestion,
+    noResultsComponent,
     maxLength = 10,
     value: propsValue,
     id,
@@ -91,17 +92,22 @@ export const AutoComplete = ({
             onSuggestionsFetchRequested={filterSuggestions}
             onSuggestionsClearRequested={clearSuggestions}
             renderSuggestion={renderSuggestion}
-            renderSuggestionsContainer={({ containerProps, children }) => (
-                <SuggestionsContainer
-                    {...{
-                        containerProps,
-                        children,
-                    }}
-                    className={cn(classes.popperCard)}
-                    popperCustomClasses={{ popper: additionalClasses.popper }}
-                    anchorElement={inputReference.current}
-                />
-            )}
+            renderSuggestionsContainer={({ containerProps, children, query }) => {
+                if (query && !children && noResultsComponent) {
+                    return React.cloneElement(noResultsComponent, { anchor: inputReference.current });
+                }
+                return (
+                    <SuggestionsContainer
+                        {...{
+                            containerProps,
+                            children,
+                        }}
+                        className={cn(classes.popperCard)}
+                        popperCustomClasses={{ popper: additionalClasses.popper }}
+                        anchorElement={inputReference.current}
+                    />
+                );
+            }}
             onSuggestionSelected={suggestionSelected}
             inputProps={inputProps}
             renderInputComponent={(props) => (
