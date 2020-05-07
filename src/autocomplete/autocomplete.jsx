@@ -97,7 +97,8 @@ export const AutoComplete = ({
                         containerProps,
                         children,
                     }}
-                    className={cn(classes.popperCard, additionalClasses.popperCard)}
+                    className={cn(classes.popperCard)}
+                    customClasses={{popper : additionalClasses.popper}}
                     anchorElement={inputReference.current}
                 />
             )}
@@ -128,6 +129,7 @@ const SuggestionsContainer = ({ containerProps, anchorElement, children, classNa
                     },
                 },
             }}
+            customClasses
             {...{ anchorElement, containerProps }}
         >
             {children || lastChildrenRendered.current}
