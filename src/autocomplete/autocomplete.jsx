@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import Autosuggest from 'react-autosuggest';
-import injectSheet from 'react-jss';
+import { createUseStyles } from 'react-jss';
+import cn from 'classnames';
 
 import { ListItem, ListItemText } from '@material-ui/core';
 import { TextField } from '../text_field/text_field';
@@ -12,6 +13,8 @@ import styles from './autocomplete_styles';
 const defaultGetSuggestionValue = ({ value }) => value;
 const defaultFilterSuggestion = (inputValue) => ({ value }) =>
     inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
+
+const useStyles = createUseStyles(styles);
 
 const DEFAULT_FUNCTION = () => {};
 const AutocompleteComponent = ({
@@ -27,8 +30,9 @@ const AutocompleteComponent = ({
     id,
     name,
     transformSuggestionValue = (props) => props && props.value,
-    classes,
+    classes: additionalClasses = {},
 }) => {
+    const classes = useStyles();
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState([]);
     const [value, setValue] = useState(propsValue || '');
@@ -92,8 +96,8 @@ const AutocompleteComponent = ({
                     {...{
                         containerProps,
                         children,
-                        classes,
                     }}
+                    className={cn(classes.popperCard, additionalClasses.popperCard)}
                     anchorElement={inputReference.current}
                 />
             )}
@@ -106,7 +110,7 @@ const AutocompleteComponent = ({
     );
 };
 
-const SuggestionsContainer = ({ containerProps, anchorElement, children, classes }) => {
+const SuggestionsContainer = ({ containerProps, anchorElement, children, className }) => {
     const lastChildrenRendered = useRef(children);
     useEffect(() => {
         if (children) {
@@ -115,7 +119,7 @@ const SuggestionsContainer = ({ containerProps, anchorElement, children, classes
     }, [children]);
     return (
         <PopperCard
-            className={classes.popperCard}
+            className={className}
             open={Boolean(children)}
             popperProps={{
                 modifiers: {
