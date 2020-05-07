@@ -28,7 +28,7 @@ export const AutoComplete = ({
     filterFunction = defaultFilterSuggestion,
     noResultsComponent,
     maxLength = 10,
-    value: propsValue,
+    value: propsValue = '',
     id,
     name,
     transformSuggestionValue = (props) => props && props.value,
