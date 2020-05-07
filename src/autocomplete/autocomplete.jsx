@@ -98,7 +98,7 @@ export const AutoComplete = ({
                         children,
                     }}
                     className={cn(classes.popperCard)}
-                    customClasses={{popper : additionalClasses.popper}}
+                    popperCustomClasses={{ popper: additionalClasses.popper }}
                     anchorElement={inputReference.current}
                 />
             )}
@@ -111,7 +111,7 @@ export const AutoComplete = ({
     );
 };
 
-const SuggestionsContainer = ({ containerProps, anchorElement, children, className }) => {
+const SuggestionsContainer = ({ containerProps, anchorElement, children, popperCustomClasses = {}, className }) => {
     const lastChildrenRendered = useRef(children);
     useEffect(() => {
         if (children) {
@@ -129,7 +129,7 @@ const SuggestionsContainer = ({ containerProps, anchorElement, children, classNa
                     },
                 },
             }}
-            customClasses
+            customClasses={popperCustomClasses}
             {...{ anchorElement, containerProps }}
         >
             {children || lastChildrenRendered.current}
