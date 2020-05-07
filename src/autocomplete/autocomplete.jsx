@@ -40,6 +40,10 @@ export const AutoComplete = ({
     const [value, setValue] = useState(propsValue || '');
     const [selected, setSelected] = useState(false);
 
+    useEffect(() => {
+        setValue(propsValue);
+    }, [propsValue]);
+
     const renderSuggestion =
         renderSuggestionProps ||
         ((props) => (
