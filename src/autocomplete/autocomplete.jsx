@@ -94,7 +94,7 @@ export const AutoComplete = ({
             renderSuggestion={renderSuggestion}
             renderSuggestionsContainer={({ containerProps, children, query }) => {
                 if (query && !children && noResultsComponent) {
-                    return React.cloneElement(noResultsComponent, { anchor: inputReference.current });
+                    return React.cloneElement(noResultsComponent, { anchorElement: inputReference.current });
                 }
                 return (
                     <SuggestionsContainer
