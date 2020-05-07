@@ -1,13 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 
-import injectSheet from 'react-jss';
+import {createUseStyles} from 'react-jss';
 
-import { Typography } from '../../src/typography/typography';
-import { AutoComplete } from '../../src/autocomplete/autocomplete';
+import {Typography} from '../../../src/typography/typography';
+import {AutoComplete} from '../../../src/autocomplete/autocomplete';
 
 import styles from './autocomplete_story_styles';
 
-const DefaultStory = ({ classes }) => {
+const useStyles = createUseStyles(styles);
+
+export const DefaultStory = ({  }) => {
+    const classes= useStyles();
     const defaultSuggestions = [{ value: 'Autocomplete' }, { value: 'Butocomplete' }, { value: 'Cutocomplete' }];
     const [value, setValue] = useState('');
     const handleInputChange = useCallback(autocompleteValue => {
@@ -26,7 +29,8 @@ const DefaultStory = ({ classes }) => {
     );
 };
 
-const CustomDataStory = ({ classes }) => {
+export const CustomDataStory = ({  }) => {
+    const classes= useStyles();
     const defaultSuggestions = [{ name: 'Autocomplete' }, { name: 'Butocomplete' }, { name: 'Cutocomplete' }];
     const [value, setValue] = useState('');
     const handleInputChange = useCallback(autocompleteValue => {
@@ -53,11 +57,4 @@ const CustomDataStory = ({ classes }) => {
     );
 };
 
-const Stories = ({ classes }) => (
-    <>
-        <DefaultStory classes={classes} />
-        <CustomDataStory classes={classes} />
-    </>
-);
 
-export default injectSheet(styles)(Stories);

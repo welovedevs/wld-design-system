@@ -37,6 +37,8 @@ export const AutoComplete = ({
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState([]);
     const [value, setValue] = useState(propsValue || '');
+    const [selected, setSelected] = useState(false);
+
     const renderSuggestion =
         renderSuggestionProps ||
         ((props) => (
@@ -56,12 +58,9 @@ export const AutoComplete = ({
         [suggestions]
     );
 
-    const clearSuggestions = useCallback(() => {
-        setFilteredSuggetions([]);
-    }, []);
-
     const valueChanged = useCallback(
         (e, { newValue }) => {
+            setSelected(false);
             setValue(newValue || '');
             onChange(newValue);
         },
@@ -71,6 +70,7 @@ export const AutoComplete = ({
         (e, newValue) => {
             const { suggestionValue } = newValue;
             setValue(suggestionValue);
+            setSelected(true);
             onChange && onChange(suggestionValue);
             onSelect && onSelect(newValue);
         },
@@ -88,13 +88,16 @@ export const AutoComplete = ({
         <Autosuggest
             suggestions={filteredSuggestions}
             focusInputOnSuggestionClick={false}
+            alwaysRenderSuggestions
             getSuggestionValue={getSuggestionValue}
             onSuggestionsFetchRequested={filterSuggestions}
-            onSuggestionsClearRequested={clearSuggestions}
             renderSuggestion={renderSuggestion}
             renderSuggestionsContainer={({ containerProps, children, query }) => {
                 if (query && !children && noResultsComponent) {
                     return React.cloneElement(noResultsComponent, { anchorElement: inputReference.current });
+                }
+                if(selected){
+                    return null;
                 }
                 return (
                     <SuggestionsContainer
