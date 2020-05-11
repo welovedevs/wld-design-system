@@ -122,6 +122,7 @@ export const AutoComplete = ({
             renderInputComponent={props => (
                 <TextField {...props} {...other} inputRef={inputReference} className={classes.field} />
             )}
+            {...{ inputProps }}
         />
     );
 };
