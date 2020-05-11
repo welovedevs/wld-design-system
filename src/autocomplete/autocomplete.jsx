@@ -33,6 +33,7 @@ export const AutoComplete = ({
     name,
     transformSuggestionValue = props => props && props.value,
     classes: additionalClasses = {},
+    popperPlacement,
     ...other
 }) => {
     const classes = useStyles();
@@ -109,6 +110,7 @@ export const AutoComplete = ({
                 return (
                     <SuggestionsContainer
                         {...{
+                            popperPlacement,
                             containerProps,
                             children
                         }}
@@ -127,7 +129,7 @@ export const AutoComplete = ({
     );
 };
 
-const SuggestionsContainer = ({ containerProps, anchorElement, children, popperCustomClasses = {}, className }) => {
+const SuggestionsContainer = ({ containerProps, popperPlacement, anchorElement, children, popperCustomClasses = {}, className }) => {
     const lastChildrenRendered = useRef(children);
     useEffect(() => {
         if (children) {
@@ -139,6 +141,7 @@ const SuggestionsContainer = ({ containerProps, anchorElement, children, popperC
             className={className}
             open={Boolean(children)}
             popperProps={{
+                ...popperPlacement && { placement: popperPlacement },
                 modifiers: {
                     preventOverflow: {
                         boundariesElement: 'viewport'
