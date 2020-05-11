@@ -4,15 +4,15 @@ import Autosuggest from 'react-autosuggest';
 import { createUseStyles } from 'react-jss';
 import cn from 'classnames';
 
-import { ListItem, ListItemText } from '@material-ui/core';
 import { TextField } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
+import { Typography } from '../typography/typography';
+import { ListItem } from '../list_item/list_item';
 
 import styles from './autocomplete_styles';
-import { select } from '@storybook/addon-knobs';
 
 const defaultGetSuggestionValue = ({ value }) => value;
-const defaultFilterSuggestion = (inputValue) => ({ value }) =>
+const defaultFilterSuggestion = inputValue => ({ value }) =>
     inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 
 const useStyles = createUseStyles(styles);
@@ -31,8 +31,9 @@ export const AutoComplete = ({
     value: propsValue = '',
     id,
     name,
-    transformSuggestionValue = (props) => props && props.value,
+    transformSuggestionValue = props => props && props.value,
     classes: additionalClasses = {},
+    ...other
 }) => {
     const classes = useStyles();
     const inputReference = useRef();
@@ -46,11 +47,11 @@ export const AutoComplete = ({
 
     const renderSuggestion =
         renderSuggestionProps ||
-        ((props) => (
+        (props => (
             <DefaultSuggestionsRender
                 {...{
                     classes,
-                    value: transformSuggestionValue(props),
+                    value: transformSuggestionValue(props)
                 }}
             />
         ));
@@ -87,7 +88,7 @@ export const AutoComplete = ({
         name,
         placeholder,
         value,
-        onChange: valueChanged,
+        onChange: valueChanged
     };
     return (
         <Autosuggest
@@ -109,7 +110,7 @@ export const AutoComplete = ({
                     <SuggestionsContainer
                         {...{
                             containerProps,
-                            children,
+                            children
                         }}
                         className={cn(classes.popperCard)}
                         popperCustomClasses={{ popper: additionalClasses.popper }}
@@ -118,9 +119,8 @@ export const AutoComplete = ({
                 );
             }}
             onSuggestionSelected={suggestionSelected}
-            inputProps={inputProps}
-            renderInputComponent={(props) => (
-                <TextField {...props} inputRef={inputReference} className={classes.field} />
+            renderInputComponent={props => (
+                <TextField {...props} {...other} inputRef={inputReference} className={classes.field} />
             )}
         />
     );
@@ -140,9 +140,9 @@ const SuggestionsContainer = ({ containerProps, anchorElement, children, popperC
             popperProps={{
                 modifiers: {
                     preventOverflow: {
-                        boundariesElement: 'viewport',
-                    },
-                },
+                        boundariesElement: 'viewport'
+                    }
+                }
             }}
             customClasses={popperCustomClasses}
             {...{ anchorElement, containerProps }}
@@ -154,6 +154,6 @@ const SuggestionsContainer = ({ containerProps, anchorElement, children, popperC
 
 const DefaultSuggestionsRender = ({ value, classes }) => (
     <ListItem className={classes.listItem} key={`prediction_${value}`} button>
-        <ListItemText classes={{ root: classes.predictionListItem }} primary={value} />
+        <Typography color="dark" classes={{ container: classes.predictionListItem }} primary={value} />
     </ListItem>
 );
