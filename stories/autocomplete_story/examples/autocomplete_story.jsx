@@ -6,12 +6,13 @@ import {Typography} from '../../../src/typography/typography';
 import {AutoComplete} from '../../../src/autocomplete/autocomplete';
 
 import styles from './autocomplete_story_styles';
+import {Button} from "../../../src";
 
 const useStyles = createUseStyles(styles);
 
 export const DefaultStory = ({  }) => {
     const classes= useStyles();
-    const defaultSuggestions = [{ value: 'Autocomplete' }, { value: 'Butocomplete' }, { value: 'Cutocomplete' }];
+    const defaultSuggestions = [{ value: 'Autocomplete' }, { value: 'Butocomplete' },{ name: 'Batocomplete' }, { value: 'Cutocomplete' }];
     const [value, setValue] = useState('');
     const handleInputChange = useCallback(autocompleteValue => {
         setValue(autocompleteValue);
@@ -31,7 +32,7 @@ export const DefaultStory = ({  }) => {
 
 export const CustomDataStory = ({  }) => {
     const classes= useStyles();
-    const defaultSuggestions = [{ name: 'Autocomplete' }, { name: 'Butocomplete' }, { name: 'Cutocomplete' }];
+    const defaultSuggestions = [{ name: 'Autocomplete' }, { name: 'Butocomplete' },{ name: 'Batocomplete' },  { name: 'Cutocomplete' }];
     const [value, setValue] = useState('');
     const handleInputChange = useCallback(autocompleteValue => {
         setValue(autocompleteValue);
@@ -52,6 +53,37 @@ export const CustomDataStory = ({  }) => {
                 renderSuggestion={({ name }) => <div className={classes.suggestionEntry}>{name}</div>}
                 filterFunction={needle => ({ name }) =>
                     needle && name && name.toLowerCase().includes(needle.toLowerCase())}
+            />
+        </>
+    );
+};
+export const NoResultsStory = ({  }) => {
+    const classes= useStyles();
+    const defaultSuggestions = [{ name: 'Autocomplete' }, { name: 'Butocomplete' },{ name: 'Batocomplete' },  { name: 'Cutocomplete' }];
+    const [value, setValue] = useState('');
+    const handleInputChange = useCallback(autocompleteValue => {
+        setValue(autocompleteValue);
+    }, []);
+    return (
+        <>
+            <Typography component="h1" variant="h1">
+                Custom data behaviour
+            </Typography>
+            <Typography component="h4" variant="h4">
+                {`Autocomplete value: ${value}`}
+            </Typography>
+            <AutoComplete
+                value={value}
+                onChange={handleInputChange}
+                suggestions={defaultSuggestions}
+                getSuggestionValue={({ name }) => name}
+                renderNoSuggestion={({open}) => <Button color="primary" disabled={!open}>No Results</Button>}
+                renderSuggestion={({ name }) => <div className={classes.suggestionEntry}>{name}</div>}
+                filterFunction={needle => ({ name }) => {
+                    let matches = needle && name && name.toLowerCase().includes(needle.toLowerCase());
+                    console.log({needle, name, matches})
+                    return matches;
+                }}
             />
         </>
     );

@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import Autosuggest from 'react-autosuggest';
-import { createUseStyles } from 'react-jss';
 import cn from 'classnames';
+import Autosuggest from 'react-autosuggest';
+
+import { createUseStyles } from 'react-jss';
 
 import { TextField } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
@@ -12,7 +13,7 @@ import { ListItem } from '../list_item/list_item';
 import styles from './autocomplete_styles';
 
 const defaultGetSuggestionValue = ({ value }) => value;
-const defaultFilterSuggestion = inputValue => ({ value }) =>
+const defaultFilterSuggestion = (inputValue) => ({ value }) =>
     inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 
 const useStyles = createUseStyles(styles);
@@ -26,12 +27,12 @@ export const AutoComplete = ({
     getSuggestionValue = defaultGetSuggestionValue,
     renderSuggestion: renderSuggestionProps,
     filterFunction = defaultFilterSuggestion,
-    noResultsComponent,
+    renderNoSuggestion,
     maxLength = 10,
     value: propsValue = '',
     id,
     name,
-    transformSuggestionValue = props => props && props.value,
+    transformSuggestionValue = (props) => props && props.value,
     classes: additionalClasses = {},
     popperPlacement,
     ...other
@@ -40,7 +41,7 @@ export const AutoComplete = ({
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState([]);
     const [value, setValue] = useState(propsValue || '');
-    const [selected, setSelected] = useState(false);
+    const [focused, setFocused] = useState(false);
 
     useEffect(() => {
         setValue(propsValue);
@@ -48,11 +49,11 @@ export const AutoComplete = ({
 
     const renderSuggestion =
         renderSuggestionProps ||
-        (props => (
+        ((props) => (
             <DefaultSuggestionsRender
                 {...{
                     classes,
-                    value: transformSuggestionValue(props)
+                    value: transformSuggestionValue(props),
                 }}
             />
         ));
@@ -65,9 +66,12 @@ export const AutoComplete = ({
         [suggestions]
     );
 
+    const clearSuggestions = useCallback(() => {
+        setFilteredSuggetions([]);
+    }, []);
+
     const valueChanged = useCallback(
         (e, { newValue }) => {
-            setSelected(false);
             setValue(newValue || '');
             onChange(newValue);
         },
@@ -77,59 +81,74 @@ export const AutoComplete = ({
         (e, newValue) => {
             const { suggestionValue } = newValue;
             setValue(suggestionValue);
-            setSelected(true);
             onChange && onChange(suggestionValue);
             onSelect && onSelect(newValue);
         },
         [onChange, onSelect]
     );
 
+    const setIsFocused = useCallback(() => setFocused(true), []);
+    const setIsNotFocused = useCallback(() => setFocused(false), []);
+
     const inputProps = {
         id,
         name,
         placeholder,
         value,
-        onChange: valueChanged
+        onChange: valueChanged,
+        onFocus: setIsFocused,
+        onBlur: setIsNotFocused,
     };
-    return (
-        <Autosuggest
-            suggestions={filteredSuggestions}
-            focusInputOnSuggestionClick={false}
-            alwaysRenderSuggestions
-            getSuggestionValue={getSuggestionValue}
-            onSuggestionsFetchRequested={filterSuggestions}
-            renderSuggestion={renderSuggestion}
-            renderSuggestionsContainer={({ containerProps, children, query }) => {
-                if (selected) {
-                    return null;
-                }
-                if (query && !children && noResultsComponent) {
-                    return React.cloneElement(noResultsComponent, { anchorElement: inputReference.current });
-                }
+    const shouldShowNoResultComponent = useMemo(() => value && !filteredSuggestions?.length && focused, [
+        value,
+        filteredSuggestions,
+        focused,
+    ]);
 
-                return (
+    return (
+        <>
+            <Autosuggest
+                suggestions={filteredSuggestions}
+                focusInputOnSuggestionClick={false}
+                getSuggestionValue={getSuggestionValue}
+                onSuggestionsClearRequested={clearSuggestions}
+                onSuggestionsFetchRequested={filterSuggestions}
+                renderSuggestion={renderSuggestion}
+                renderSuggestionsContainer={({ containerProps, children }) => (
                     <SuggestionsContainer
                         {...{
                             popperPlacement,
                             containerProps,
-                            children
+                            children,
                         }}
                         className={cn(classes.popperCard)}
                         popperCustomClasses={{ popper: additionalClasses.popper }}
                         anchorElement={inputReference.current}
                     />
-                );
-            }}
-            onSuggestionSelected={suggestionSelected}
-            renderInputComponent={props => (
-                <TextField {...props} {...other} inputRef={inputReference} className={classes.field} />
-            )}
-            {...{ inputProps }}
-        />
+                )}
+                onSuggestionSelected={suggestionSelected}
+                renderInputComponent={(props) => (
+                    <TextField {...props} {...other} inputRef={inputReference} className={classes.field} />
+                )}
+                {...{ inputProps }}
+            />
+            {typeof renderNoSuggestion === 'function' &&
+                renderNoSuggestion({
+                    anchorElement: inputReference.current,
+                    open: shouldShowNoResultComponent,
+                })}
+        </>
     );
 };
 
-const SuggestionsContainer = ({ containerProps, popperPlacement, anchorElement, children, popperCustomClasses = {}, className }) => {
+const SuggestionsContainer = ({
+    containerProps,
+    popperPlacement,
+    anchorElement,
+    children,
+    popperCustomClasses = {},
+    className,
+}) => {
     const lastChildrenRendered = useRef(children);
     useEffect(() => {
         if (children) {
@@ -141,12 +160,12 @@ const SuggestionsContainer = ({ containerProps, popperPlacement, anchorElement, 
             className={className}
             open={Boolean(children)}
             popperProps={{
-                ...popperPlacement && { placement: popperPlacement },
+                ...(popperPlacement && { placement: popperPlacement }),
                 modifiers: {
                     preventOverflow: {
-                        boundariesElement: 'viewport'
-                    }
-                }
+                        boundariesElement: 'viewport',
+                    },
+                },
             }}
             customClasses={popperCustomClasses}
             {...{ anchorElement, containerProps }}
