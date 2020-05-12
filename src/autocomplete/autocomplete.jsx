@@ -11,6 +11,7 @@ import { Typography } from '../typography/typography';
 import { ListItem } from '../list_item/list_item';
 
 import styles from './autocomplete_styles';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const defaultGetSuggestionValue = ({ value }) => value;
 const defaultFilterSuggestion = (inputValue) => ({ value }) =>
@@ -97,16 +98,10 @@ export const AutoComplete = ({
         value,
         onChange: valueChanged,
         onFocus: setIsFocused,
-        onBlur: setIsNotFocused,
     };
-    const shouldShowNoResultComponent = useMemo(() => value && !filteredSuggestions?.length && focused, [
-        value,
-        filteredSuggestions,
-        focused,
-    ]);
 
     return (
-        <>
+        <ClickAwayListener onClickAway={setIsNotFocused}>
             <Autosuggest
                 suggestions={filteredSuggestions}
                 focusInputOnSuggestionClick={false}
@@ -114,30 +109,31 @@ export const AutoComplete = ({
                 onSuggestionsClearRequested={clearSuggestions}
                 onSuggestionsFetchRequested={filterSuggestions}
                 renderSuggestion={renderSuggestion}
-                renderSuggestionsContainer={({ containerProps, children }) => (
-                    <SuggestionsContainer
-                        {...{
-                            popperPlacement,
-                            containerProps,
-                            children,
-                        }}
-                        className={cn(classes.popperCard)}
-                        popperCustomClasses={{ popper: additionalClasses.popper }}
-                        anchorElement={inputReference.current}
-                    />
-                )}
+                renderSuggestionsContainer={(props) => {
+                    const { containerProps, children } = props;
+                    if (value && !filteredSuggestions.length && typeof renderNoSuggestion === 'function') {
+                        return renderNoSuggestion({ anchorElement: inputReference.current, open: focused });
+                    }
+                    return (
+                        <SuggestionsContainer
+                            {...{
+                                popperPlacement,
+                                containerProps,
+                                children,
+                            }}
+                            className={cn(classes.popperCard)}
+                            popperCustomClasses={{ popper: additionalClasses.popper }}
+                            anchorElement={inputReference.current}
+                        />
+                    );
+                }}
                 onSuggestionSelected={suggestionSelected}
                 renderInputComponent={(props) => (
                     <TextField {...props} {...other} inputRef={inputReference} className={classes.field} />
                 )}
                 {...{ inputProps }}
             />
-            {typeof renderNoSuggestion === 'function' &&
-                renderNoSuggestion({
-                    anchorElement: inputReference.current,
-                    open: shouldShowNoResultComponent,
-                })}
-        </>
+        </ClickAwayListener>
     );
 };
 

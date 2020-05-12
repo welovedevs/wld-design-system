@@ -1,40 +1,50 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 
-import {createUseStyles} from 'react-jss';
+import { createUseStyles } from 'react-jss';
 
-import {Typography} from '../../../src/typography/typography';
-import {AutoComplete} from '../../../src/autocomplete/autocomplete';
+import { Typography } from '../../../src/typography/typography';
+import { AutoComplete } from '../../../src/autocomplete/autocomplete';
 
 import styles from './autocomplete_story_styles';
-import {Button} from "../../../src";
+import { Button, PopperCard } from '../../../src';
 
 const useStyles = createUseStyles(styles);
 
-export const DefaultStory = ({  }) => {
-    const classes= useStyles();
-    const defaultSuggestions = [{ value: 'Autocomplete' }, { value: 'Butocomplete' },{ name: 'Batocomplete' }, { value: 'Cutocomplete' }];
+export const DefaultStory = ({}) => {
+    const classes = useStyles();
+    const defaultSuggestions = [
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { name: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+    ];
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback(autocompleteValue => {
+    const handleInputChange = useCallback((autocompleteValue) => {
         setValue(autocompleteValue);
     }, []);
     return (
         <div className={classes.default}>
-        <Typography component="h1" variant="h1">
-        Default behaviour
-    </Typography>
-    <Typography component="h4" variant="h4">
-        {`Autocomplete value: ${value}`}
-    </Typography>
-    <AutoComplete {...{ value }} onChange={handleInputChange} suggestions={defaultSuggestions} />
-</div>
+            <Typography component="h1" variant="h1">
+                Default behaviour
+            </Typography>
+            <Typography component="h4" variant="h4">
+                {`Autocomplete value: ${value}`}
+            </Typography>
+            <AutoComplete {...{ value }} onChange={handleInputChange} suggestions={defaultSuggestions} />
+        </div>
     );
 };
 
-export const CustomDataStory = ({  }) => {
-    const classes= useStyles();
-    const defaultSuggestions = [{ name: 'Autocomplete' }, { name: 'Butocomplete' },{ name: 'Batocomplete' },  { name: 'Cutocomplete' }];
+export const CustomDataStory = ({}) => {
+    const classes = useStyles();
+    const defaultSuggestions = [
+        { name: 'Autocomplete' },
+        { name: 'Butocomplete' },
+        { name: 'Batocomplete' },
+        { name: 'Cutocomplete' },
+    ];
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback(autocompleteValue => {
+    const handleInputChange = useCallback((autocompleteValue) => {
         setValue(autocompleteValue);
     }, []);
     return (
@@ -51,17 +61,22 @@ export const CustomDataStory = ({  }) => {
                 suggestions={defaultSuggestions}
                 getSuggestionValue={({ name }) => name}
                 renderSuggestion={({ name }) => <div className={classes.suggestionEntry}>{name}</div>}
-                filterFunction={needle => ({ name }) =>
+                filterFunction={(needle) => ({ name }) =>
                     needle && name && name.toLowerCase().includes(needle.toLowerCase())}
             />
         </>
     );
 };
-export const NoResultsStory = ({  }) => {
-    const classes= useStyles();
-    const defaultSuggestions = [{ name: 'Autocomplete' }, { name: 'Butocomplete' },{ name: 'Batocomplete' },  { name: 'Cutocomplete' }];
+export const NoResultsStory = ({}) => {
+    const classes = useStyles();
+    const defaultSuggestions = [
+        { name: 'Autocomplete' },
+        { name: 'Butocomplete' },
+        { name: 'Batocomplete' },
+        { name: 'Cutocomplete' },
+    ];
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback(autocompleteValue => {
+    const handleInputChange = useCallback((autocompleteValue) => {
         setValue(autocompleteValue);
     }, []);
     return (
@@ -77,16 +92,35 @@ export const NoResultsStory = ({  }) => {
                 onChange={handleInputChange}
                 suggestions={defaultSuggestions}
                 getSuggestionValue={({ name }) => name}
-                renderNoSuggestion={({open}) => <Button color="primary" disabled={!open}>No Results</Button>}
+                renderNoSuggestion={({ open, anchorElement }) => (
+                    <PopperCard
+                        open={open}
+                        popperProps={{
+                            modifiers: {
+                                preventOverflow: {
+                                    boundariesElement: 'viewport',
+                                },
+                            },
+                        }}
+                        {...{ anchorElement }}
+                    >
+                        <Button
+                            color="primary"
+                            onClick={() => {
+                                alert('ok');
+                            }}
+                        >
+                            No Results
+                        </Button>
+                    </PopperCard>
+                )}
                 renderSuggestion={({ name }) => <div className={classes.suggestionEntry}>{name}</div>}
-                filterFunction={needle => ({ name }) => {
+                filterFunction={(needle) => ({ name }) => {
                     let matches = needle && name && name.toLowerCase().includes(needle.toLowerCase());
-                    console.log({needle, name, matches})
+                    console.log({ needle, name, matches });
                     return matches;
                 }}
             />
         </>
     );
 };
-
-
