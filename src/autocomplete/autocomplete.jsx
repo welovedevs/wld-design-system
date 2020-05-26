@@ -173,6 +173,8 @@ const SuggestionsContainer = ({
 
 const DefaultSuggestionsRender = ({ value, classes }) => (
     <ListItem className={classes.listItem} key={`prediction_${value}`} button>
-        <Typography color="dark" classes={{ container: classes.predictionListItem }} primary={value} />
+        <Typography color="dark" classes={{ container: classes.predictionListItem }}>
+            {value}
+        </Typography>
     </ListItem>
 );
