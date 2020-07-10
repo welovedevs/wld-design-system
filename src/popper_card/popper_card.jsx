@@ -13,7 +13,7 @@ import { styles }  from './popper_card_styles';
 
 const useStyles = makeStyles(styles);
 
-const PopperCardComponent = ({
+export const PopperCard = ({
     className,
     anchorElement,
     open,
@@ -24,10 +24,10 @@ const PopperCardComponent = ({
     dismissArrow = false,
     springOptions = {},
     customClasses = {},
-    classes,
     containerProps = {},
     ...other
 }) => {
+    const classes = useStyles();
     const [arrowReference, setArrowReference] = useState(null);
     return (
         <Popper
@@ -158,5 +158,3 @@ const Content = ({
     }
     return content;
 };
-
-export const PopperCard = injectSheet(styles)(PopperCardComponent);
