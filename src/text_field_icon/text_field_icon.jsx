@@ -7,11 +7,9 @@ import { styles } from './text_field_icon_styles';
 
 const useStyles = makeStyles(styles);
 
-const TextFieldIconComponent = forwardRef(({ className, classes: receivedClasses = {}, ...other }, ref) => {
+export const TextFieldIcon = forwardRef(({ className, classes: receivedClasses = {}, ...other }, ref) => {
     const classes = useStyles();
     return (
         <div className={cn(classes.container, className, receivedClasses.container)} {...{ ref }} {...other} />
     )
 });
-
-export const TextFieldIcon = injectSheet(styles)(TextFieldIconComponent);

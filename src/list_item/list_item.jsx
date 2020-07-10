@@ -15,7 +15,7 @@ const DEFAULT_SPRING_PROPS = Object.freeze({
     backgroundColor: 'rgba(0, 0, 0, 0)',
 });
 
-const ListItemComponent = ({
+export const ListItem = ({
     component: Component = animated.li,
     className,
     typographyClassName,
@@ -69,5 +69,3 @@ const ListItemComponent = ({
         </Component>
     );
 };
-
-export const ListItem = injectSheet(styles)(ListItemComponent);
