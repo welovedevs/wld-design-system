@@ -1,3 +1,5 @@
+import { createStyles } from '@material-ui/core';
+
 export const styles = createStyles({
     container: {
         width: 'fit-content',
