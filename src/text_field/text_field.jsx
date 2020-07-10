@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react';
 
 import cn from 'classnames';
-import injectSheet, { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 import { animated, useSpring } from 'react-spring';
 
-import styles from './text_field_styles';
-const useStyles = createUseStyles(styles);
+import { styles } from './text_field_styles';
+
+const useStyles = makeStyles(styles);
+
 const DEFAULT_SPRING_PROPS = {
     boxShadow: '0 7.5px 15px 0 #e4e4e4',
 };

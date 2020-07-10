@@ -1,9 +1,9 @@
 import { BANNER_DATA } from './banner_data';
 import { DEFAULT_THEME } from '../styles/theme';
+import { createStyles } from '@material-ui/core';
 
-export const styles = (inputTheme) => {
-    const theme = Object.keys(inputTheme).length ? inputTheme : DEFAULT_THEME;
-    return {
+export const styles = (theme) =>
+    createStyles({
         container: ({ type }) => {
             const color = BANNER_DATA?.[type]?.color ?? 'primary';
             return {
@@ -51,5 +51,4 @@ export const styles = (inputTheme) => {
                 padding: 25,
             },
         },
-    };
-};
+    });

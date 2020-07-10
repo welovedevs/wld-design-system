@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 import { FormattedMessage } from 'react-intl';
 import { animated, useSpring } from 'react-spring';
 
@@ -12,7 +12,7 @@ import { getComponentColor } from '../../../../style/js';
 
 import { styles } from './carousel_close_icon_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const CarouselCloseIconComponent = ({ onClose, color = 'dark' }) => {
     const classes = useStyles();

@@ -1,4 +1,4 @@
-export const styles = {
+export const styles = createStyles({
     container: {
         width: 'fit-content',
         backgroundColor: '#fff',
@@ -6,4 +6,4 @@ export const styles = {
         padding: 20,
         fontFamily: ['Avenir Next', 'open sans', 'Roboto', 'Arial'],
     },
-};
+});

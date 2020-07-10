@@ -2,16 +2,17 @@ import React, { forwardRef, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import cn from 'classnames';
-import { useTheme, createUseStyles } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { animated, config, useSpring } from 'react-spring';
 
 import { Typography } from '../typography/typography';
 
 import { getComponentColor } from '../styles/utils/styles_utils';
 
-import styles from './button_styles';
 import { getHexFromTheme } from '../styles';
-const useStyles = createUseStyles(styles);
+import { styles } from './button_styles';
+
+const useStyles = makeStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,

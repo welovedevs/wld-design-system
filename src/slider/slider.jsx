@@ -1,16 +1,16 @@
 import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import { createUseStyles, useTheme } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Measure from 'react-measure';
 
 import { animated, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 
-import styles from './slider_styles';
+import { styles } from './slider_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 export const Slider = ({
     color,

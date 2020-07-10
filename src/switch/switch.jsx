@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import injectSheet, { createUseStyles, useTheme } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { animated, config, useSpring } from 'react-spring';
 import get from 'lodash/get';
 import Measure from 'react-measure';
@@ -9,9 +9,9 @@ import Measure from 'react-measure';
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 import { dark } from '../styles/palettes';
 
-import styles from './switch_styles';
+import { styles } from './switch_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,

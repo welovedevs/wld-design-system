@@ -1,11 +1,11 @@
 import React from 'react';
 
 import cn from 'classnames';
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { styles } from './structured_carousel_step_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const StructuredCarouselStepComponent = ({ fullScreen, children, customClasses = {} }) => {
     const classes = useStyles();

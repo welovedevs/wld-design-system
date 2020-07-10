@@ -2,12 +2,13 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import injectSheet from 'react-jss';
+import { makeStyles } from '@material-ui/core/styles';
 
-import styles from './list_styles';
+import { styles } from './list_styles';
 
-const ListComponent = ({ className, classes, ...other }) => (
-    <ul className={cn(classes.container, className)} {...other} />
-);
+const useStyles = makeStyles(styles);
 
-export const List = injectSheet(styles)(ListComponent);
+export const List = ({ className, classes: receivedClasses = {}, ...other }) => {
+    const classes = useStyles();
+    return <ul className={cn(classes.container, className, receivedClasses.container)} {...other} />;
+};

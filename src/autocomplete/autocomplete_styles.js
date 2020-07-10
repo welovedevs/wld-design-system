@@ -1,4 +1,6 @@
-export default {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     popperCard: {
         maxWidth: 600,
         border: 'none',
@@ -11,4 +13,4 @@ export default {
     listItem: {
         borderRadius: 5,
     },
-};
+});

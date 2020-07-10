@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 
-import { createUseStyles } from "react-jss";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { Button } from "../../../src";
 
@@ -8,7 +8,7 @@ import { BUTTON_EXAMPLE_COLORS, BUTTON_POSSIBLE_SIZES } from "../helpers/button_
 
 import { styles } from './button_examples_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const COLORS_DISABLED = {
     ...Object.entries(BUTTON_EXAMPLE_COLORS).reduce((acc, [color, colorLabel]) => {

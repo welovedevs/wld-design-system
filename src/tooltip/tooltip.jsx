@@ -1,7 +1,7 @@
 import React, { cloneElement, useCallback, useMemo, useRef } from 'react';
 
 import cn from 'classnames';
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 import get from 'lodash/get';
 import { config } from 'react-spring';
 
@@ -10,7 +10,7 @@ import { useOpenerState } from '../hooks/use_opener_state';
 
 import { styles } from './tooltip_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const fusionFunctions = (...functions) => (...args) => {
     functions.forEach((fn) => {

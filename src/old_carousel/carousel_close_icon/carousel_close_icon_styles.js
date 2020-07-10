@@ -1,4 +1,6 @@
-export const styles = {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     button: {
         display: 'flex',
         alignItems: 'center',
@@ -16,4 +18,4 @@ export const styles = {
         width: 'auto',
         color: 'currentColor',
     },
-};
+});

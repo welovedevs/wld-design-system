@@ -1,8 +1,9 @@
 import { flexUtils } from '../styles/utils/styles_utils';
+import {createStyles} from "@material-ui/core";
 
 const { center } = flexUtils;
 
-export default {
+export const styles = createStyles({
     container: {
         height: 24,
         width: 24,
@@ -57,4 +58,4 @@ export default {
         margin: 0,
         zIndex: 2,
     },
-};
+});

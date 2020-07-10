@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react';
 
 import cn from 'classnames';
-
-import injectSheet from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 import { animated, useSpring } from 'react-spring';
 
 import { Typography } from '../typography/typography';
 
-import styles from './list_item_styles';
+import { styles } from './list_item_styles';
+
+const useStyles = makeStyles(styles);
+
 
 const DEFAULT_SPRING_PROPS = Object.freeze({
     backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -21,10 +23,11 @@ const ListItemComponent = ({
     style,
     onMouseEnter,
     onMouseLeave,
-    classes,
+    classes: receivedClasses = {},
     children,
     ...other
 }) => {
+    const classes = useStyles();
     const [springProps, setSpringProps] = useSpring(() => DEFAULT_SPRING_PROPS);
     const handleMouseEnter = useCallback(
         (...parameters) => {

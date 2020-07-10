@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import injectSheet, { createUseStyles, useTheme } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { animated, config, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 
 import { Typography } from '../typography/typography';
 
-import styles from './tag_styles';
+import { styles } from './tag_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 export const Tag = ({
     component: Component = animated.div,

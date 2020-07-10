@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import { createUseStyles, useTheme } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 
 import { styles } from './typography_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const TypographyComponent = ({
     containerRef,

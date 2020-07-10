@@ -1,4 +1,6 @@
-export default {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     container: {
         height: 6,
         width: '100%',
@@ -14,4 +16,4 @@ export default {
         width: '100%',
         borderRadius: 100,
     },
-};
+});

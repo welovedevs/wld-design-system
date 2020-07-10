@@ -1,4 +1,6 @@
-export default {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     popper: {
         zIndex: 100,
         '&[x-placement*="bottom"] $container': {
@@ -72,4 +74,4 @@ export default {
             },
         },
     },
-};
+});

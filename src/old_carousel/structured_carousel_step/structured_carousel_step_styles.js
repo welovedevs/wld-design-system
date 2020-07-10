@@ -1,4 +1,6 @@
-export const styles = {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     container: {
         display: 'flex',
         flexDirection: 'column',
@@ -6,4 +8,4 @@ export const styles = {
     fullScreen: {
         height: '100vh',
     },
-};
+});

@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import { createUseStyles, useTheme } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { animated, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles';
 
-import styles from './progress_bar_styles';
+import { styles } from './progress_bar_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 export const ProgressBar = ({
     value: progressValue = 0,

@@ -1,14 +1,14 @@
 import React from 'react';
 
 import cn from 'classnames';
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 import { animated, config, useSpring } from 'react-spring';
 
 import { ELEVATION_SPRING_PROPS } from './card_elevation_spring_props';
 
 import { styles } from './card_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const CardComponent = ({
     component: Component = animated.div,

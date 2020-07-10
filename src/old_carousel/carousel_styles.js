@@ -1,7 +1,9 @@
+import {createStyles} from "@material-ui/core";
+
 import { secondary } from '../../app/palettes';
 import { flexUtils } from '../../../style/js';
 
-export const styles = {
+export const styles = createStyles({
     heading: {
         height: 340,
         maxHeight: '40vh',
@@ -113,4 +115,4 @@ export const styles = {
         borderRadius: 0,
         height: '100vh',
     },
-};
+});

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import cn from 'classnames';
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { Typography } from '../typography/typography';
 
 import { styles } from './popper_card_title_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const PopperCardTitleComponent = ({ customClasses = {}, children }) => {
     const classes = useStyles();

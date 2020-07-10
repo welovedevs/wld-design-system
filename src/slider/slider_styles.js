@@ -1,4 +1,6 @@
-export default {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     container: {
         height: 25,
         position: 'relative',
@@ -59,4 +61,4 @@ export default {
             color: 'transparent',
         },
     },
-};
+});

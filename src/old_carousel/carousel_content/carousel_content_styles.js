@@ -2,7 +2,7 @@ import { flexUtils } from '../../../../style/js';
 
 const { center } = flexUtils;
 
-export const styles = {
+export const styles = createStyles({
     container: {
         width: '100%',
         minHeight: 200,
@@ -11,4 +11,4 @@ export const styles = {
         flexDirection: 'column',
         ...center,
     },
-};
+});

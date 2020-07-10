@@ -1,6 +1,7 @@
 import { dark } from '../styles/palettes';
+import {createStyles} from "@material-ui/core";
 
-export const styles = {
+export const styles = createStyles({
     container: {
         fontFamily: ['Avenir Next', 'Roboto', 'Open sans', 'Arial'],
         color: dark[400],
@@ -121,4 +122,4 @@ export const styles = {
         marginBottom: 8,
     },
     primary: {},
-};
+});

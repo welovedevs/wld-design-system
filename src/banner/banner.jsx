@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import { createUseStyles, useTheme } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import { BANNER_DATA } from './banner_data';
 
 import { styles } from './banner_styles';
 import { getComponentColor, getHexFromTheme } from '../styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const BannerComponent = ({ type = 'warning', icon: receivedIcon, customClasses = {}, children }) => {
     const theme = useTheme();

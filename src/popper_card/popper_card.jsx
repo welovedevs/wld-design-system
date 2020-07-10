@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import cn from 'classnames';
-import injectSheet from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 import { animated, config, useSpring } from 'react-spring';
 
 import { Popper, ClickAwayListener } from '@material-ui/core';
@@ -9,7 +9,9 @@ import { Card } from '../card/card';
 
 import { ReactComponent as SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow.svg';
 
-import styles from './popper_card_styles';
+import { styles }  from './popper_card_styles';
+
+const useStyles = makeStyles(styles);
 
 const PopperCardComponent = ({
     className,

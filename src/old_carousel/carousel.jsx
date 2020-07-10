@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import cn from 'classnames';
 
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 import SlickCarousel from 'react-slick';
 import { Twemoji } from 'react-emoji-render';
 import { animated, config, useSpring } from 'react-spring';
@@ -19,7 +19,7 @@ import { styles } from './carousel_styles';
 
 import './override_nuka.scss';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const DEFAULT_ARROW_SPRING_PROPS = Object.freeze({
     scale: 1,

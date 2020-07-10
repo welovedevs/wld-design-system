@@ -3,41 +3,41 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import cn from 'classnames';
 import Autosuggest from 'react-autosuggest';
 
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { TextField } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
 import { Typography } from '../typography/typography';
 import { ListItem } from '../list_item/list_item';
 
-import styles from './autocomplete_styles';
+import { styles } from './autocomplete_styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const defaultGetSuggestionValue = ({ value }) => value;
 const defaultFilterSuggestion = (inputValue) => ({ value }) =>
     inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const DEFAULT_FUNCTION = () => {};
 export const AutoComplete = ({
-    placeholder,
-    suggestions,
-    onChange = DEFAULT_FUNCTION,
-    onSelect = DEFAULT_FUNCTION,
-    getSuggestionValue = defaultGetSuggestionValue,
-    renderSuggestion: renderSuggestionProps,
-    filterFunction = defaultFilterSuggestion,
-    renderNoSuggestion,
-    maxLength = 10,
-    value: propsValue = '',
-    id,
-    name,
-    transformSuggestionValue = (props) => props && props.value,
-    classes: additionalClasses = {},
-    popperPlacement,
-    ...other
-}) => {
+                                 placeholder,
+                                 suggestions,
+                                 onChange = DEFAULT_FUNCTION,
+                                 onSelect = DEFAULT_FUNCTION,
+                                 getSuggestionValue = defaultGetSuggestionValue,
+                                 renderSuggestion: renderSuggestionProps,
+                                 filterFunction = defaultFilterSuggestion,
+                                 renderNoSuggestion,
+                                 maxLength = 10,
+                                 value: propsValue = '',
+                                 id,
+                                 name,
+                                 transformSuggestionValue = (props) => props && props.value,
+                                 classes: additionalClasses = {},
+                                 popperPlacement,
+                                 ...other
+                             }) => {
     const classes = useStyles();
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState([]);
@@ -138,13 +138,13 @@ export const AutoComplete = ({
 };
 
 const SuggestionsContainer = ({
-    containerProps,
-    popperPlacement,
-    anchorElement,
-    children,
-    popperCustomClasses = {},
-    className,
-}) => {
+                                  containerProps,
+                                  popperPlacement,
+                                  anchorElement,
+                                  children,
+                                  popperCustomClasses = {},
+                                  className,
+                              }) => {
     const lastChildrenRendered = useRef(children);
     useEffect(() => {
         if (children) {

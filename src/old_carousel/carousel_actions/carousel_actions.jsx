@@ -1,11 +1,11 @@
 import React from 'react';
 
 import cn from 'classnames';
-import { createUseStyles } from 'react-jss';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { styles } from './carousel_actions_styles';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const CarouselActionsComponent = ({ children, customClasses = {} }) => {
     const classes = useStyles();

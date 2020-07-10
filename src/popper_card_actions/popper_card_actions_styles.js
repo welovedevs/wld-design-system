@@ -1,4 +1,6 @@
-export const styles = {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     container: {
         width: '100%',
         display: 'flex',
@@ -6,4 +8,4 @@ export const styles = {
         justifyContent: 'flex-end',
         padding: 8,
     },
-};
+});

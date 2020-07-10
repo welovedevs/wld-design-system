@@ -1,6 +1,7 @@
 import { primary } from '../styles/palettes';
+import {createStyles} from "@material-ui/core";
 
-export default {
+export const styles = createStyles({
     container: {
         width: 'fit-content',
         backgroundColor: '#fff',
@@ -74,4 +75,4 @@ export default {
     disabled: {
         cursor: 'not-allowed',
     },
-};
+});

@@ -1,4 +1,6 @@
-export default {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     container: {
         padding: [15, 20],
         borderRadius: 5,
@@ -12,4 +14,4 @@ export default {
         display: 'flex',
         alignItems: 'center',
     },
-};
+});

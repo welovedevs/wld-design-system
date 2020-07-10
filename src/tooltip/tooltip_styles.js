@@ -1,4 +1,6 @@
-export const styles = {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     container: {
         lineHeight: 1.5,
         fontSize: 13,
@@ -11,4 +13,4 @@ export const styles = {
     popper: {
         zIndex: 20000,
     },
-};
+});

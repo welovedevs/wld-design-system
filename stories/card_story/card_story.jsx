@@ -1,6 +1,5 @@
 import React from 'react';
 
-import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
 import { Card } from '../../src/card/card';

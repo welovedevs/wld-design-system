@@ -1,4 +1,6 @@
-export default {
+import {createStyles} from "@material-ui/core";
+
+export const styles = createStyles({
     container: {
         minHeight: 30,
         height: 'fit-content',
@@ -54,4 +56,4 @@ export default {
             width: 16,
         },
     },
-};
+});

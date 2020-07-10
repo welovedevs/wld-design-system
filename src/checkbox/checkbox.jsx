@@ -1,14 +1,15 @@
 import React, { forwardRef, useCallback, useEffect, useMemo } from 'react';
 
 import cn from 'classnames';
-import injectSheet, { createUseStyles, useTheme } from 'react-jss';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { animated, config, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 import { dark } from '../styles/palettes';
 
-import styles from './checkbox_styles';
-const useStyles = createUseStyles(styles);
+import { styles } from './checkbox_styles';
+
+const useStyles = makeStyles(styles);
 
 const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     opacity: 0,
