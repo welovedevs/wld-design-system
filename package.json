@@ -1,6 +1,6 @@
 {
     "name": "@welovedevs/ui",
-    "version": "1.0.4-beta.18",
+    "version": "1.0.4",
     "description": "WeLoveDevs.com UI components",
     "main": "dist/index.js",
     "scripts": {
