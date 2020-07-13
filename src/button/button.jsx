@@ -36,11 +36,12 @@ const ButtonComponent = ({
     onClick,
     children,
     customClasses = {},
+    classes: receivedClasses = {},
     style: propsStyle,
     ...other
 }) => {
     const theme = useTheme();
-    const classes = useStyles();
+    const classes = useStyles({ classes: receivedClasses });
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
     const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);

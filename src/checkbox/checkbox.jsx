@@ -40,7 +40,7 @@ const CheckboxComponent = forwardRef(
         ref
     ) => {
         const theme = useTheme();
-        const classes = useStyles();
+        const classes = useStyles({ classes: receivedClasses });
         const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
         const defaultColor = useMemo(() => propsDefaultColor || getHexFromTheme(theme, 'dark', 500), [
             propsDefaultColor,
@@ -122,8 +122,7 @@ const CheckboxComponent = forwardRef(
                     disabled && classes.disabled,
                     isRadio && classes.isRadio,
                     classes[variant],
-                    className,
-                    receivedClasses.container
+                    className
 
                 )}
                 {...containerProps}
@@ -133,10 +132,10 @@ const CheckboxComponent = forwardRef(
                 }}
                 {...{ ref }}
             >
-                <CheckIcon {...{ checked, classes, receivedClasses }} />
-                <animated.div className={cn(classes.brightLayer, receivedClasses.brightLayer)} style={brightLayerSpringProps} />
+                <CheckIcon {...{ checked, classes }} />
+                <animated.div className={classes.brightLayer} style={brightLayerSpringProps} />
                 <input
-                    className={cn(classes.input, inputClassName, receivedClasses.input)}
+                    className={cn(classes.input, inputClassName)}
                     type="checkbox"
                     onChange={handleChange}
                     onMouseEnter={handleMouseEnter}
@@ -162,14 +161,14 @@ const CHECKED_ICON_SPRING_PROPS = {
     opacity: 1,
 };
 
-const CheckIcon = ({ checked, classes, receivedClasses }) => {
+const CheckIcon = ({ checked, classes }) => {
     const [springProps, setSpringProps] = useSpring(() => DEFAULT_ICON_SPRING_PROPS);
     useEffect(() => {
         setSpringProps(() => (checked ? CHECKED_ICON_SPRING_PROPS : DEFAULT_ICON_SPRING_PROPS));
     }, [checked]);
     return (
         <animated.svg
-            className={cn(classes.checkIcon, receivedClasses.checkIcon)}
+            className={classes.checkIcon}
             viewBox="0 0 24 24"
             fill="#fff"
             style={{
