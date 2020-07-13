@@ -53,8 +53,8 @@ const TypographyComponent = ({
             ref={containerRef}
             className={cn(classes.container, classes[color], classes[variant], className, customClasses.container)}
             style={{
-                ...receivedStyle,
                 ...style,
+                ...receivedStyle,
             }}
             {...other}
         />
