@@ -18,6 +18,7 @@ export const Slider = ({
     value = 0,
     min = 0,
     max = 100,
+    step = 1,
     thumbChildren,
     thumbReference,
     thumbProps,
@@ -70,7 +71,7 @@ export const Slider = ({
                         }}
                         {...thumbProps}
                     />
-                    <input className={classes.input} type="range" {...{ value, min, max }} {...other} />
+                    <input className={classes.input} type="range" {...{ value, min, max, step }} {...other} />
                 </div>
             )}
         </Measure>
