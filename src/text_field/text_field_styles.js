@@ -1,5 +1,5 @@
 import { primary } from '../styles/palettes';
-import {createStyles} from "@material-ui/core";
+import createStyles from "@material-ui/styles/createStyles";
 
 export const styles = createStyles({
     container: {

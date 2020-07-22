@@ -23,6 +23,7 @@
     "homepage": "https://github.com/welovedevs/wld-design-system#readme",
     "dependencies": {
         "@material-ui/core": "^4.11.0",
+        "@material-ui/styles": "^4.10.0",
         "@material-ui/icons": "^4.9.1",
         "classnames": "^2.2.6",
         "lodash": "^4.17.15",

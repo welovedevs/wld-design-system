@@ -1,6 +1,8 @@
 import { BANNER_DATA } from './banner_data';
 import { DEFAULT_THEME } from '../styles/theme';
-import { createStyles } from '@material-ui/core';
+import createStyles from "@material-ui/styles/createStyles";
+
+
 
 export const styles = (theme) =>
     createStyles({
