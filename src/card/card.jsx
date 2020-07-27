@@ -1,7 +1,8 @@
 import React from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from "@material-ui/styles/makeStyles";
+
 import { animated, config, useSpring } from 'react-spring';
 
 import { ELEVATION_SPRING_PROPS } from './card_elevation_spring_props';
