@@ -1,10 +1,11 @@
-import {Banner, Button, Checkbox, Slider, Switch, Tag, Typography} from '../../../src';
+import { Banner, Button, Checkbox, Slider, Switch, Tag, Typography } from '../../../src';
 import React from 'react';
-import {createUseStyles, ThemeProvider} from 'react-jss';
-import {styles} from './all_the_things_styles';
-import {DEFAULT_THEME} from "../../../src/styles/theme";
+import { styles } from './all_the_things_styles';
+import { DEFAULT_THEME } from '../../../src/styles/theme';
+import makeStyles from '@material-ui/styles/makeStyles';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 const theme = {
     palette: {
         primary: {
@@ -18,7 +19,7 @@ const theme = {
             '700': '#333b43',
             '800': '#22272d',
             '900': '#111416',
-            contrastDefaultColor: 'light'
+            contrastDefaultColor: 'light',
         },
         secondary: {
             '50': '#edfaf9',
@@ -31,7 +32,7 @@ const theme = {
             '700': '#2f7b76',
             '800': '#1f524e',
             '900': '#102927',
-            contrastDefaultColor: 'light'
+            contrastDefaultColor: 'light',
         },
         tertiary: {
             '50': '#f9fef0',
@@ -44,31 +45,31 @@ const theme = {
             '700': '#77923c',
             '800': '#506228',
             '900': '#283114',
-            contrastDefaultColor: 'light'
-        }
-    }
+            contrastDefaultColor: 'light',
+        },
+    },
 };
 export const AllTheThings = () => {
     const classes = useStyles();
     const colors = ['primary', 'secondary', 'tertiary'];
     const variants = ['default', 'outlined', 'contained'];
     const components = [
-        {Component: Button, value: 'Button'},
-        {Component: Checkbox, props: {checked: true}},
-        {Component: Slider, props: {classes: {container: classes.aslider}, min: 0, max: 10, value: 4}},
-        {Component: Switch},
-        {Component: Tag, value: 'Tag'},
-        {Component: Typography, value: 'Tag'}
+        { Component: Button, value: 'Button' },
+        { Component: Checkbox, props: { checked: true } },
+        { Component: Slider, props: { classes: { container: classes.aslider }, min: 0, max: 10, value: 4 } },
+        { Component: Switch },
+        { Component: Tag, value: 'Tag' },
+        { Component: Typography, value: 'Tag' },
     ];
 
     return (
         <div>
-            {components.map(({Component, value, props}) => (
+            {components.map(({ Component, value, props }) => (
                 <>
                     <div key={`${Component.name}`} className={classes.container}>
                         {Component.name}
-                        {colors.map(color =>
-                            variants.map(variant => (
+                        {colors.map((color) =>
+                            variants.map((variant) => (
                                 <Component
                                     {...props}
                                     key={`${Component.name}_${variant}_${color}`}
@@ -83,7 +84,7 @@ export const AllTheThings = () => {
                     <ThemeProvider theme={theme}>
                         <div key={`${Component.name}`} className={classes.container}>
                             {Component.name}
-                            {colors.map(color =>
+                            {colors.map((color) =>
                                 variants.map((variant, index) => (
                                     <Component
                                         {...props}

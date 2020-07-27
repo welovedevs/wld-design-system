@@ -1,14 +1,13 @@
 import React, { useCallback, useState } from 'react';
-
-import { createUseStyles } from 'react-jss';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 import { Typography } from '../../../src/typography/typography';
-import { AutoComplete } from '../../../src/autocomplete/autocomplete';
 
+import { AutoComplete } from '../../../src/autocomplete/autocomplete';
 import styles from './autocomplete_story_styles';
 import { Button, PopperCard } from '../../../src';
 
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 export const DefaultStory = ({}) => {
     const classes = useStyles();

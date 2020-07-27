@@ -1,23 +1,22 @@
 import React from 'react';
 
-import { createUseStyles } from 'react-jss';
+import {Banner} from '../../src/banner/banner';
+import {BANNER_DATA} from '../../src/banner/banner_data';
 
-import { Banner } from '../../src/banner/banner';
-import { BANNER_DATA } from '../../src/banner/banner_data';
+import {styles} from './banner_story_styles';
+import makeStyles from '@material-ui/styles/makeStyles';
 
-import { styles } from './banner_story_styles';
-
-const useStyles = createUseStyles(styles);
+const useStyles = makeStyles(styles);
 
 const BannerStoryComponent = () => {
     const classes = useStyles();
-    return Object.keys(BANNER_DATA).map(type => (
+    return Object.keys(BANNER_DATA).map((type) => (
         <Banner
             key={`banner_${type}`}
             customClasses={{
-                container: classes.banner
+                container: classes.banner,
             }}
-            {...{ type }}
+            {...{type}}
         />
     ));
 };

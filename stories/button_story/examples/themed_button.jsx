@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import { ThemeProvider } from 'react-jss';
 import { ButtonExamples } from './button_examples';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 
 const theme = {
     palette: {
@@ -16,7 +16,7 @@ const theme = {
             '700': '#333b43',
             '800': '#22272d',
             '900': '#111416',
-            contrastDefaultColor: 'light'
+            contrastDefaultColor: 'light',
         },
         secondary: {
             '50': '#edfaf9',
@@ -29,7 +29,7 @@ const theme = {
             '700': '#2f7b76',
             '800': '#1f524e',
             '900': '#102927',
-            contrastDefaultColor: 'light'
+            contrastDefaultColor: 'light',
         },
         tertiary: {
             '50': '#f9fef0',
@@ -42,16 +42,15 @@ const theme = {
             '700': '#77923c',
             '800': '#506228',
             '900': '#283114',
-            contrastDefaultColor: 'light'
-        }
-    }
+            contrastDefaultColor: 'light',
+        },
+    },
 };
 
 export const ThemedButtons = () => {
     return (
         <ThemeProvider theme={theme}>
-            <ButtonExamples variant='contained' />
+            <ButtonExamples variant="contained" />
         </ThemeProvider>
     );
 };
-

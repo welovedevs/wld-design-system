@@ -13,6 +13,8 @@ const POSSIBLE_VARIANTS = {
     Underlined: 'underlined'
 };
 
+export default { title: 'Textfield' };
+
 const TextFieldStory = () => {
     const [value, setValue] = useState('');
     const handleInputChange = useCallback(event => {
