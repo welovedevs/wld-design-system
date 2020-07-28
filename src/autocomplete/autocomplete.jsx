@@ -38,7 +38,7 @@ export const AutoComplete = ({
                                  popperPlacement,
                                  ...other
                              }) => {
-    const classes = useStyles();
+    const classes = useStyles({classes:additionalClasses});
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState([]);
     const [value, setValue] = useState(propsValue || '');
