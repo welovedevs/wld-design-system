@@ -5,7 +5,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { animated, config, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
-import { dark } from '../styles/palettes';
+import { dark } from '../styles/palette';
 
 import { styles } from './checkbox_styles';
 

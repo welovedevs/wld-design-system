@@ -7,7 +7,7 @@ import get from 'lodash/get';
 import Measure from 'react-measure';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
-import { dark } from '../styles/palettes';
+import { dark } from '../styles/palette';
 
 import { styles } from './switch_styles';
 

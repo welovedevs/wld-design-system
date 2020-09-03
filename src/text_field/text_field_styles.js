@@ -1,4 +1,4 @@
-import { primary } from '../styles/palettes';
+import { primary } from '../styles/palette';
 import createStyles from "@material-ui/styles/createStyles";
 
 export const styles = createStyles({

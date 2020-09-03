@@ -135,7 +135,19 @@ export const dark = {
     contrastDefaultColor: 'light',
 };
 
-export default {
+export type PaletteColors =
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'dark'
+    | 'danger'
+    | 'safe'
+    | 'warn'
+    | 'orange'
+    | 'light';
+export type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+
+let palette: { [color in PaletteColors]: any } = {
     primary,
     secondary,
     tertiary,
@@ -146,3 +158,4 @@ export default {
     orange,
     light,
 };
+export default palette;

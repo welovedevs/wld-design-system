@@ -1,28 +1,40 @@
-import React, { useMemo } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 
-import { styles } from './typography_styles';
+import { Classes, styles, TypographyVariants } from './typography_styles';
+import { PaletteColors } from '../styles/palette';
 
 const useStyles = makeStyles(styles);
 
-const TypographyComponent = ({
+interface TypographyProps {
+    containerRef?: any;
+    className?: string;
+    color?: PaletteColors;
+    component: string;
+    variant: TypographyVariants;
+    style?: CSSProperties;
+    classes?: Classes;
+}
+
+const TypographyComponent: React.FC<TypographyProps> = ({
     containerRef,
     className,
     color,
     component: Component = 'span',
     variant = 'body1',
     style: receivedStyle,
-    customClasses = {},
+    classes: receivedClasses = {},
+
     ...other
 }) => {
-    const classes = useStyles();
+    const classes = useStyles({ classes: receivedClasses });
     const theme = useTheme();
 
-    let style = useMemo(() => {
+    let style = useMemo<{ backgroundColor?: string; color: string } | null>(() => {
         if (color) {
             const hex = getComponentColor(true, getHexFromTheme(theme, color), false);
             if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
@@ -46,17 +58,18 @@ const TypographyComponent = ({
                 color: hex,
             };
         }
+        return null;
     }, [variant, theme, color]);
 
     return (
         <Component
-            ref={containerRef}
-            className={cn(classes.container, classes[color], classes[variant], className, customClasses.container)}
+            className={cn(classes.container, classes[variant], className)}
             style={{
                 ...style,
                 ...receivedStyle,
             }}
             {...other}
+            {...({ ref: containerRef } as any)}
         />
     );
 };
