@@ -175,7 +175,7 @@ const Content: React.FC<PopperContentProps> = ({
         <div className={classes.wrapper}>
             {!dismissArrow && (
                 <div className={cn(classes.arrowContainer)} ref={setArrowReference}>
-                    <SpeechBubbleArrow />
+                    <img src={SpeechBubbleArrow} />
                 </div>
             )}
             <Card className={cn(className, classes.container, structured && classes.structured)} {...other} />

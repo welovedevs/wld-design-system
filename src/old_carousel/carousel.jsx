@@ -63,7 +63,7 @@ const NavigateButton = ({
                 transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
             }}
         >
-            <ArrowIcon />
+            <img src={ArrowIcon} />
         </animated.button>
     );
 };
@@ -184,7 +184,7 @@ const StructuredStep = ({ onAction, step, isMobile, onDismiss, classes }) => {
                     </div>
                 </div>
             </div>
-            {isMobile && <SwipeIcon className={classes.swipeIcon} />}
+            {isMobile && <img src={SwipeIcon} className={classes.swipeIcon} />}
             <Typography
                 className={classes.iNeedHelp}
                 onClick={helpClicked}
