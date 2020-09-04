@@ -5,6 +5,7 @@
     "main": "dist/index.js",
     "scripts": {
         "package": "tsc",
+        "postpackage": "copy src/assets/ assets/",
         "test-build": "tsc --noEmit",
         "storybook": "start-storybook -p 6006 --ci",
         "build-storybook": "build-storybook",
