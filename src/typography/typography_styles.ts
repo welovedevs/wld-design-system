@@ -2,9 +2,8 @@ import { dark } from '../styles/palette';
 import createStyles from '@material-ui/styles/createStyles';
 import { Theme } from '@material-ui/core';
 
-enum StylesKeys {
-    container,
-}
+type StylesKeys = "container"
+
 
 export type Classes = {
     [key in StylesKeys]?: string;

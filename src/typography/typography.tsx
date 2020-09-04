@@ -14,8 +14,8 @@ interface TypographyProps {
     containerRef?: any;
     className?: string;
     color?: PaletteColors;
-    component: string;
-    variant: TypographyVariants;
+    component?: string;
+    variant?: TypographyVariants;
     style?: CSSProperties;
     classes?: Classes;
 }
