@@ -12,12 +12,11 @@ import { Dialog, useMediaQuery } from '@material-ui/core';
 import { Button } from '../button/button';
 import { Typography } from '../typography/typography';
 
-const SwipeIcon = require('../assets/icons/swipe.svg');
-const ArrowIcon = require('../assets/icons/arrow.svg');
-
 import { styles } from './carousel_styles';
 
 import './override_nuka.scss';
+import { SwipeIcon } from '../assets/icons/swipe_component';
+import { ArrowIcon } from '../assets/icons/arrow_component';
 
 const useStyles = makeStyles(styles);
 
@@ -63,7 +62,7 @@ const NavigateButton = ({
                 transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
             }}
         >
-            <img src={ArrowIcon} />
+            <ArrowIcon />
         </animated.button>
     );
 };
@@ -184,7 +183,7 @@ const StructuredStep = ({ onAction, step, isMobile, onDismiss, classes }) => {
                     </div>
                 </div>
             </div>
-            {isMobile && <img src={SwipeIcon} className={classes.swipeIcon} />}
+            {isMobile && <SwipeIcon className={classes.swipeIcon} />}
             <Typography
                 className={classes.iNeedHelp}
                 onClick={helpClicked}

@@ -7,10 +7,9 @@ import { animated, config, useSpring } from 'react-spring';
 import { ClickAwayListener, Popper, PopperProps } from '@material-ui/core';
 import { Card } from '../card/card';
 
-const SpeechBubbleArrow = require('../assets/icons/speech_bubble_arrow.svg');
-
 import { PopperCustomClasses, styles } from './popper_card_styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
+import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 
 const useStyles = makeStyles(styles);
 
@@ -175,7 +174,7 @@ const Content: React.FC<PopperContentProps> = ({
         <div className={classes.wrapper}>
             {!dismissArrow && (
                 <div className={cn(classes.arrowContainer)} ref={setArrowReference}>
-                    <img src={SpeechBubbleArrow} />
+                    <SpeechBubbleArrow />
                 </div>
             )}
             <Card className={cn(className, classes.container, structured && classes.structured)} {...other} />

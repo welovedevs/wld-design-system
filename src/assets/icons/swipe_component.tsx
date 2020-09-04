@@ -1,0 +1,58 @@
+import React from 'react';
+
+export const SwipeIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg
+        className={className}
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        viewBox="0 0 24 24"
+        height="24"
+        width="24"
+    >
+        <title>gesture swipe horizontal 3 (From Streamline App : https://app.streamlineicons.com)</title>
+        <g transform="matrix(1,0,0,1,0,0)" id="hand">
+            <path
+                d="M 10.608,20.748l-3.789-3.093c-0.5-0.4-0.721-1.055-0.566-1.676l0,0c0.219-0.878,1.109-1.411,1.986-1.192 c0.116,0.029,0.228,0.07,0.335,0.124l1.174,0.587v-6.75c0-0.828,0.672-1.5,1.5-1.5l0,0c0.828,0,1.5,0.672,1.5,1.5v4.5l1.993,0.333 c1.447,0.241,2.507,1.492,2.507,2.959v4.208 "
+                stroke="#000000"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)" id="arrows">
+            <path
+                d="M 0.748,7.248h5.25 "
+                stroke="#000000"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M 4.498,3.498l-3.75,3.75l3.75,3.75 "
+                stroke="#000000"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M 15.748,7.248h7.5 "
+                stroke="#000000"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M 19.498,3.498 l3.75,3.75l-3.75,3.75"
+                stroke="#000000"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </g>
+    </svg>
+);
