@@ -27,16 +27,16 @@ interface Props {
     size?: 'small';
     color?: PaletteColors |'default';
     containerProps?: any;
-    typographyClassName : any;
+    typographyClassName? : any;
     variant?: ButtonVariants;
-    onMouseEnter : any;
-    onMouseLeave : any;
-    onFocus : any;
-    onBlur : any;
-    onClick : any;
+    onMouseEnter? : any;
+    onMouseLeave? : any;
+    onFocus? : any;
+    onBlur? : any;
+    onClick? : any;
     customClasses?: Classes;
     classes ?: Classes;
-    style : any ;
+    style?: any ;
 }
 
 type SpringType = { opacity?: number, config?:typeof config.stiff};
