@@ -1,4 +1,4 @@
-import React, { Component, ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';

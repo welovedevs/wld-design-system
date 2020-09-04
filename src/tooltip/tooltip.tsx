@@ -22,9 +22,9 @@ const fusionFunctions = (...functions: any[]) => (...args: any[]) => {
 };
 
 interface TooltipProps {
-    title: PopperProps['children'];
-    placement: PopperProps['placement'];
-    classes: Classes;
+    title?: PopperProps['children'];
+    placement?: PopperProps['placement'];
+    classes?: Classes;
 }
 const TooltipComponent: React.FC<TooltipProps> = ({ title, placement, children, classes: customClasses = {} }) => {
     const classes = useStyles({ classes: customClasses });

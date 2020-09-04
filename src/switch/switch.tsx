@@ -1,15 +1,15 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { animated, config, useSpring } from 'react-spring';
 import get from 'lodash/get';
 import Measure from 'react-measure';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
-import { dark } from '../styles/palette';
+import { dark, PaletteColors } from '../styles/palette';
 
-import { styles } from './switch_styles';
+import { Classes, styles } from './switch_styles';
 
 const useStyles = makeStyles(styles);
 
@@ -18,7 +18,23 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     config: config.stiff,
 };
 
-export const Switch = ({
+interface Props {
+    containerRef: any;
+    checked: boolean;
+    disabled?: boolean;
+    color?: PaletteColors;
+    className?: string;
+    inputClassName?: string;
+    containerProps: any;
+    onChange?: (...params: any[]) => void;
+    onFocus?: (...params: any[]) => void;
+    onBlur?: (...params: any[]) => void;
+    onMouseEnter?: (...params: any[]) => void;
+    onMouseLeave?: (...params: any[]) => void;
+    size?: 'small';
+    classes?: Classes;
+}
+export const Switch: React.FC<Props> = ({
     containerRef,
     checked = false,
     disabled,
@@ -32,11 +48,11 @@ export const Switch = ({
     onMouseEnter,
     onMouseLeave,
     size,
-    customClasses = {},
+    classes: customClasses = {},
     ...other
 }) => {
     const theme = useTheme();
-    const classes = useStyles();
+    const classes = useStyles({ classes: customClasses });
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
@@ -61,16 +77,13 @@ export const Switch = ({
     );
     const showBrightLayer = useCallback(
         () =>
-            setBrightLayerSpringProps(() => ({
+            setBrightLayerSpringProps({
                 opacity: 0.3,
-            })),
+            }),
         []
     );
 
-    const dismissBrightLayer = useCallback(
-        () => setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS),
-        []
-    );
+    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
 
     const handleMouseEnter = useCallback(
         (...parameters) => {
@@ -121,6 +134,8 @@ export const Switch = ({
         [thumbWidth]
     );
 
+    const sizeClasses: 'size_small' | undefined = size && (`size_${size}` as 'size_small');
+
     return (
         <animated.div
             ref={containerRef}
@@ -129,7 +144,7 @@ export const Switch = ({
                 customClasses.container,
                 classes.container,
                 disabled && classes.disabled,
-                classes[`size_${size}`]
+                sizeClasses && classes[sizeClasses]
             )}
             style={{
                 ...get(containerProps, 'style'),
@@ -154,7 +169,7 @@ export const Switch = ({
                     )}
                 </Measure>
             </animated.div>
-            <animated.div className={classes.brightLayer} style={brightLayerSpringProps} />
+            <animated.div className={classes.brightLayer} style={brightLayerSpringProps as any} />
             <input
                 className={cn(classes.input, inputClassName)}
                 type="checkbox"

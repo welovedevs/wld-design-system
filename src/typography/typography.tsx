@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo } from 'react';
+import React, { CSSProperties, ExoticComponent, useMemo } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ interface TypographyProps {
     containerRef?: any;
     className?: string;
     color?: PaletteColors;
-    component?: string;
+    component?: string | ExoticComponent;
     variant?: TypographyVariants;
     style?: CSSProperties;
     classes?: Classes;
