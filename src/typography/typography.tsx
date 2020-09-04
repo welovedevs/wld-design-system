@@ -10,7 +10,7 @@ import { PaletteColors } from '../styles/palette';
 
 const useStyles = makeStyles(styles);
 
-interface TypographyProps {
+export interface TypographyProps {
     containerRef?: any;
     className?: string;
     color?: PaletteColors;

@@ -1,5 +1,12 @@
-import { flexUtils } from '../styles/utils/styles_utils';
-import createStyles from "@material-ui/styles/createStyles";
+import {flexUtils} from '../styles/utils/styles_utils';
+
+import {createStyles} from '@material-ui/core/styles';
+
+type StylesKeys = 'container' | 'typography'
+
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
 
 const { center } = flexUtils;
 
@@ -9,8 +16,8 @@ export const styles = createStyles({
         width: 'fit-content',
         whiteSpace: 'nowrap',
         borderRadius: 100,
-        margin: [10, 7.5],
-        padding: [12, 22],
+        margin: '10px 7.5px',
+        padding: '12px 12px',
         color: '#fff',
         backgroundColor: 'currentColor',
         ...center,

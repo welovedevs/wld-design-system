@@ -1,18 +1,27 @@
-import React, { useMemo } from 'react';
+import React, { CSSProperties, ExoticComponent, useMemo } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { animated, config, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 
-import { Typography } from '../typography/typography';
+import { Typography, TypographyProps } from '../typography/typography';
 
-import { styles } from './tag_styles';
+import { Classes, styles } from './tag_styles';
+import { PaletteColors } from '../styles/palette';
 
 const useStyles = makeStyles(styles);
-
-export const Tag = ({
+interface Props {
+    component?: string | ExoticComponent;
+    containerRef?: any;
+    className?: string;
+    color?: PaletteColors | 'default';
+    typographyProps?: TypographyProps;
+    style?: CSSProperties;
+    customClasses?: Classes;
+}
+export const Tag: React.FC<Props> = ({
     component: Component = animated.div,
     containerRef,
     className,
@@ -33,7 +42,6 @@ export const Tag = ({
             Boolean(hexColor),
             hexColor,
             false,
-            200,
             '#d6d6d6'
         )}`,
         config: config.stiff,
@@ -43,19 +51,21 @@ export const Tag = ({
         <Component
             ref={containerRef}
             className={cn(className, classes.container, customClasses.container)}
-            style={{
-                ...receivedStyle,
-                ...springProps,
-            }}
+            style={
+                {
+                    ...receivedStyle,
+                    ...springProps,
+                } as any
+            }
             {...other}
         >
             <Typography
                 className={cn(classes.typography, customClasses.typography)}
-                variant="tag"
                 {...(withColor && {
-                    color: '#fff',
+                    color: 'light',
                 })}
                 {...typographyProps}
+                variant="tag"
             >
                 {children}
             </Typography>
