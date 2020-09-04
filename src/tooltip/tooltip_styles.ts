@@ -1,13 +1,18 @@
-import createStyles from "@material-ui/styles/createStyles";
+import {createStyles} from '@material-ui/core/styles';
+
+type StylesKeys = 'container' | 'popper'
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
 
 export const styles = createStyles({
     container: {
         lineHeight: 1.5,
         fontSize: 13,
-        padding: [12.5, 15],
+        padding: '12.5px 15px',
         backgroundColor: 'rgba(0, 0, 0, .85)',
         color: '#fff',
-        fontWeight: '500',
+        fontWeight: '500' as any,
         maxWidth: 375,
     },
     popper: {

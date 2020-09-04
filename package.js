@@ -7,7 +7,7 @@ const rimraf = require('rimraf');
 require('colors');
 
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
-const TO_PRESERVE_DURING_CLEAN_UP = ['package.json', '.git', '.gitignore', 'node_modules', 'LICENSE.md',"index.d.ts", "index.d.ts.map"];
+const TO_PRESERVE_DURING_CLEAN_UP = ['package.json', '.git', '.gitignore', 'node_modules', 'LICENSE.md',"index.d.ts", "index.d.ts.map", "svg.d.ts"];
 
 const run = async () => {
     const srcPath = __dirname + '/src';

@@ -1,18 +1,19 @@
-import React, { cloneElement, useCallback, useMemo, useRef } from 'react';
+import React, { cloneElement, ReactChildren, ReactNode, useCallback, useMemo, useRef } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import get from 'lodash/get';
 import { config } from 'react-spring';
 
 import { PopperCard } from '../popper_card/popper_card';
 import { useOpenerState } from '../hooks/use_opener_state';
 
-import { styles } from './tooltip_styles';
+import { Classes, styles } from './tooltip_styles';
+import { PopperProps } from '@material-ui/core';
 
 const useStyles = makeStyles(styles);
 
-const fusionFunctions = (...functions) => (...args) => {
+const fusionFunctions = (...functions: any[]) => (...args: any[]) => {
     functions.forEach((fn) => {
         if (typeof fn === 'function') {
             fn(...args);
@@ -20,8 +21,13 @@ const fusionFunctions = (...functions) => (...args) => {
     });
 };
 
-const TooltipComponent = ({ title, placement, children, customClasses = {} }) => {
-    const classes = useStyles();
+interface TooltipProps {
+    title: PopperProps['children'];
+    placement: PopperProps['placement'];
+    classes: Classes;
+}
+const TooltipComponent: React.FC<TooltipProps> = ({ title, placement, children, classes: customClasses = {} }) => {
+    const classes = useStyles({ classes: customClasses });
     const anchorReference = useRef();
     const [open, eventsHandlerElementProps] = useOpenerState();
 
@@ -29,6 +35,7 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
         if (!eventsHandlerElementProps) {
             return {};
         }
+        // @ts-ignore/
         const { props } = children;
         return {
             ref: anchorReference,
@@ -64,10 +71,18 @@ const TooltipComponent = ({ title, placement, children, customClasses = {} }) =>
         );
     }, [open, anchorReference, title, placement, classes, customClasses]);
 
+    // @ts-ignore
     return cloneElement(children, childProps, childChildren);
 };
 
-const TooltipPopper = ({ title, open, anchorElement, placement = 'top', classes, customClasses }) => (
+interface TooltipPopperProps {
+    title: PopperProps['children'];
+    open: boolean;
+    anchorElement: PopperProps['anchorEl'];
+    placement: PopperProps['placement'];
+    classes: Classes;
+}
+const TooltipPopper: React.FC<TooltipPopperProps> = ({ title, open, anchorElement, placement = 'top', classes }) => (
     <PopperCard
         dismissArrow
         {...{ open, anchorElement }}
@@ -75,8 +90,8 @@ const TooltipPopper = ({ title, open, anchorElement, placement = 'top', classes,
             config: config.stiff,
         }}
         customClasses={{
-            popper: cn(classes.popper, customClasses.popper),
-            container: cn(classes.container, customClasses.container),
+            popper: cn(classes.popper),
+            container: cn(classes.container),
         }}
         popperProps={{
             placement,

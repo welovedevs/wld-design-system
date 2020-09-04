@@ -49,6 +49,7 @@
         "@storybook/theming": "^5.3.1",
         "@types/classnames": "^2.2.10",
         "@types/events": "^3.0.0",
+        "@types/lodash": "^4.14.161",
         "cpy-cli": "^3.1.1",
         "eslint": "^6.8.0",
         "eslint-config-airbnb": "^18.0.1",

@@ -1,19 +1,37 @@
 import React, { useCallback, useState } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import { animated, config, useSpring } from 'react-spring';
 
-import { Popper, ClickAwayListener } from '@material-ui/core';
+import { ClickAwayListener, Popper, PopperProps } from '@material-ui/core';
 import { Card } from '../card/card';
 
 import { ReactComponent as SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow.svg';
 
-import { styles }  from './popper_card_styles';
+import { Classes, styles } from './popper_card_styles';
+import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 
 const useStyles = makeStyles(styles);
 
-export const PopperCard = ({
+interface Props {
+    className?: string;
+    anchorElement: any;
+    open?: boolean;
+    onClose?: () => void;
+    popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
+    structured?: boolean;
+    onClickAway?: () => void;
+    dismissArrow?: boolean;
+    springOptions?: any;
+    customClasses?: Classes;
+    containerProps?: any;
+}
+
+type ClassesRecord = ClassNameMap<
+    'container' | 'popper' | 'closedPopper' | 'arrowContainer' | 'structured' | 'wrapper'
+>;
+export const PopperCard: React.FC<Props> = ({
     className,
     anchorElement,
     open,
@@ -27,7 +45,7 @@ export const PopperCard = ({
     containerProps = {},
     ...other
 }) => {
-    const classes = useStyles();
+    const classes: ClassesRecord = useStyles({ classes: customClasses });
     const [arrowReference, setArrowReference] = useState(null);
     return (
         <Popper
@@ -77,7 +95,14 @@ export const PopperCard = ({
     );
 };
 
-const Fade = React.forwardRef((props, ref) => {
+const Fade: React.FC<{
+    in?: boolean;
+    onEnter?: () => void;
+    onExited?: () => void;
+    springOptions?: any;
+    popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
+    TransitionProps?: any;
+}> = React.forwardRef((props, ref) => {
     const { in: open, children, onEnter, onExited, springOptions, popperProps, ...other } = props;
     const getTranslationFromPlacement = useCallback((value) => {
         const placement = (popperProps && popperProps.placement) || 'bottom';
@@ -114,21 +139,27 @@ const Fade = React.forwardRef((props, ref) => {
     });
 
     return (
-        <animated.div {...{ ref, style }} {...other}>
+        <animated.div {...{ ref: ref as any, style }} {...other}>
             {children}
         </animated.div>
     );
 });
 
-const Content = ({
+interface PopperContentProps {
+    className?: string;
+    dismissArrow?: boolean;
+    setArrowReference: (...parameters: any[]) => void;
+    onClickAway?: (...parameters: any[]) => void;
+    structured?: boolean;
+    classes: ClassesRecord;
+}
+const Content: React.FC<PopperContentProps> = ({
     className,
     dismissArrow,
-    translation,
     setArrowReference,
     onClickAway,
     structured,
     classes,
-    customClasses,
     ...other
 }) => {
     const handleClickAway = useCallback(
@@ -143,14 +174,11 @@ const Content = ({
     const content = (
         <div className={classes.wrapper}>
             {!dismissArrow && (
-                <div className={cn(classes.arrowContainer, customClasses.arrowContainer)} ref={setArrowReference}>
+                <div className={cn(classes.arrowContainer)} ref={setArrowReference}>
                     <SpeechBubbleArrow />
                 </div>
             )}
-            <Card
-                className={cn(className, classes.container, customClasses.container, structured && classes.structured)}
-                {...other}
-            />
+            <Card className={cn(className, classes.container, structured && classes.structured)} {...other} />
         </div>
     );
     if (onClickAway) {
