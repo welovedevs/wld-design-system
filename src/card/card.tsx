@@ -28,7 +28,7 @@ const CardComponent: React.FC<Props> = ({
     classes: customClasses = {},
     ...other
 }) => {
-    const classes = useStyles({ customClasses });
+    const classes = useStyles({ classes: customClasses });
     const springProps = useSpring({
         ...ELEVATION_SPRING_PROPS[elevation],
         config: config.default,

@@ -33,7 +33,7 @@ export const Tag: React.FC<Props> = ({
     ...other
 }) => {
     const theme = useTheme();
-    const classes = useStyles();
+    const classes = useStyles({ classes: customClasses });
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
     const springProps = useSpring({
