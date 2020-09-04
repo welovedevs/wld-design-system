@@ -19,13 +19,13 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
 };
 
 interface Props {
-    containerRef: any;
+    containerRef?: any;
     checked: boolean;
     disabled?: boolean;
     color?: PaletteColors;
     className?: string;
     inputClassName?: string;
-    containerProps: any;
+    containerProps?: any;
     onChange?: (...params: any[]) => void;
     onFocus?: (...params: any[]) => void;
     onBlur?: (...params: any[]) => void;
