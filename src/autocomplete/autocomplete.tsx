@@ -1,13 +1,13 @@
-import React, {ReactElement, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, { ChangeEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import Autosuggest from 'react-autosuggest';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { TextField } from '../text_field/text_field';
+import { TextField, TextFieldProps } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
-import { Typography } from '../typography/typography';
+import { Typography, TypographyProps } from '../typography/typography';
 import { ListItem } from '../list_item/list_item';
 
 import { Classes, styles } from './autocomplete_styles';
@@ -27,12 +27,12 @@ const DEFAULT_FUNCTION = () => {};
 interface Props {
     placeholder?: string;
     suggestions: any[];
-    onChange: (value: any) => void;
-    onSelect: (value: any) => void;
+    onChange: (...attibutes: any[]) => void;
+    onSelect: (...attibutes: any[]) => void;
     getSuggestionValue: (value: any) => any;
-    renderSuggestion: (value: any) => "string" | ReactElement | JSX.Element;
+    renderSuggestion: (value: any) => 'string' | ReactElement | JSX.Element;
     filterFunction?: (input: string) => (value: any) => boolean;
-    renderNoSuggestion?: (...attibutes: any[]) => "string" | ReactElement | JSX.Element;
+    renderNoSuggestion?: (...attibutes: any[]) => 'string' | ReactElement | JSX.Element;
     maxLength?: number;
     value: string;
     id?: string;
@@ -58,7 +58,7 @@ export function AutoComplete({
     classes: additionalClasses = {},
     popperPlacement,
     ...other
-}: Props) {
+}: TextFieldProps & Props) {
     const classes = useStyles({ classes: additionalClasses });
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState<any[]>([]);
@@ -93,7 +93,7 @@ export function AutoComplete({
     }, []);
 
     const valueChanged = useCallback(
-        (e, { newValue }) => {
+        (e: ChangeEvent, { newValue }) => {
             setValue(newValue || '');
             onChange(newValue);
         },
@@ -149,8 +149,14 @@ export function AutoComplete({
                     );
                 }}
                 onSuggestionSelected={suggestionSelected}
-                renderInputComponent={(props) => (
-                    <TextField {...props} {...other} inputRef={inputReference} className={classes.field} />
+                renderInputComponent={({ onChange, ...props }) => (
+                    <TextField
+                        {...props}
+                        {...other}
+                        inputRef={inputReference}
+                        className={classes.field}
+                        onChange={onChange as any}
+                    />
                 )}
                 {...{ inputProps }}
             />

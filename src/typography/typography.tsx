@@ -1,4 +1,4 @@
-import React, { CSSProperties, ExoticComponent, ReactElement, useMemo } from 'react';
+import React, {CSSProperties, ExoticComponent, HTMLAttributes, ReactElement, useMemo} from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ export interface TypographyProps {
     classes?: Classes;
 }
 
-const TypographyComponent: React.FC<TypographyProps> = ({
+const TypographyComponent: React.FC<TypographyProps & HTMLAttributes<any>> = ({
     containerRef,
     className,
     color,

@@ -14,7 +14,7 @@ const DEFAULT_SPRING_PROPS = {
 };
 
 // Variant should be one of the following : ['raised', 'flat', 'underlined'].
-interface Props {
+interface CustomProps {
     containerElement?: string | ExoticComponent;
     containerProps?: any;
     className?: string;
@@ -32,7 +32,9 @@ interface Props {
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
 }
-const TextFieldComponent: React.FC<Props & React.InputHTMLAttributes<any>> = ({
+
+export type TextFieldProps = React.InputHTMLAttributes<any> & CustomProps;
+const TextFieldComponent: React.FC<TextFieldProps> = ({
     containerElement: ContainerElement = 'div',
     containerProps,
     className,
@@ -83,7 +85,7 @@ const TextFieldComponent: React.FC<Props & React.InputHTMLAttributes<any>> = ({
     );
 };
 
-const RaisedTextField: React.FC<Props> = ({ onFocus, onBlur, containerProps, ...other }) => {
+const RaisedTextField: React.FC<TextFieldProps> = ({ onFocus, onBlur, containerProps, ...other }) => {
     const [springProps, setSpringProps] = useSpring(() => DEFAULT_SPRING_PROPS);
     const handleFocus = useCallback(
         (...parameters) => {
@@ -122,7 +124,7 @@ const RaisedTextField: React.FC<Props> = ({ onFocus, onBlur, containerProps, ...
     );
 };
 
-const WithVariantTextField: React.FC<Props> = ({ variant = 'raised', ...other }) => {
+const WithVariantTextField: React.FC<TextFieldProps> = ({ variant = 'raised', ...other }) => {
     if (variant === 'raised') {
         return <RaisedTextField {...{ variant }} {...other} />;
     }
