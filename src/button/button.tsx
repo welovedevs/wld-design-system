@@ -1,16 +1,16 @@
-import React, { forwardRef, useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, {forwardRef, useCallback, useMemo} from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { animated, config, useSpring } from 'react-spring';
+import {makeStyles, useTheme} from "@material-ui/core/styles";
+import {animated, config, useSpring} from 'react-spring';
 
-import { Typography } from '../typography/typography';
+import {Typography} from '../typography/typography';
 
-import { getComponentColor } from '../styles/utils/styles_utils';
+import {getComponentColor} from '../styles/utils/styles_utils';
 
-import { getHexFromTheme } from '../styles';
-import { styles } from './button_styles';
+import {getHexFromTheme} from '../styles';
+import {ButtonVariants, Classes, styles} from './button_styles';
+import {PaletteColors} from "../styles/palette";
 
 const useStyles = makeStyles(styles);
 
@@ -19,7 +19,28 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     config: config.stiff,
 };
 
-const ButtonComponent = ({
+interface Props {
+    component?: string;
+    className?: string;
+    containerRef?: any;
+    disabled?:boolean;
+    size?: 'small';
+    color?: PaletteColors |'default';
+    containerProps?: any;
+    typographyClassName : any;
+    variant?: ButtonVariants;
+    onMouseEnter : any;
+    onMouseLeave : any;
+    onFocus : any;
+    onBlur : any;
+    onClick : any;
+    customClasses?: Classes;
+    classes ?: Classes;
+    style : any ;
+}
+
+type SpringType = { opacity?: number, config?:typeof config.stiff};
+const ButtonComponent :React.FC<Props>= ({
     component: Component = animated.button,
     className,
     containerRef,
@@ -27,6 +48,7 @@ const ButtonComponent = ({
     size,
     color = 'default',
     containerProps,
+    // @deprecated please use classes.typography
     typographyClassName,
     variant,
     onMouseEnter,
@@ -50,12 +72,12 @@ const ButtonComponent = ({
         config: config.stiff,
     });
     const showBrightLayer = useCallback(() =>
-        setBrightLayerSpringProps(() => ({
+        setBrightLayerSpringProps(({
             opacity: variant !== 'contained' ? 0.1 : 0.2,
-        }))
+        })),[variant]
     );
 
-    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS));
+    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS),[]);
 
     const handleMouseEnter = useCallback(
         (...parameters) => {
@@ -108,6 +130,7 @@ const ButtonComponent = ({
         },
         [onClick, disabled]
     );
+    const classesSizes : any= size && `size_${size}`;
     return (
         <Component
             ref={containerRef}
@@ -116,8 +139,9 @@ const ButtonComponent = ({
                 classes.container,
                 disabled && classes.disabled,
                 withColor && classes.withColor,
-                classes[variant],
-                classes[`size_${size}`],
+                variant && classes[variant],
+                // @ts-ignore
+                classesSizes && classes[classesSizes],
                 customClasses.container
             )}
             {...containerProps}
@@ -133,9 +157,9 @@ const ButtonComponent = ({
             onClick={handleClick}
             {...other}
         >
-            <animated.div className={classes.brightLayer} style={brightLayerSpringProps} />
+            <animated.div className={classes.brightLayer} style={brightLayerSpringProps as any} />
             <Typography
-                className={cn(classes.typography, typographyClassName, customClasses.typography)}
+                className={cn(classes.typography,customClasses.typography)}
                 variant="button"
             >
                 {children}
@@ -144,7 +168,7 @@ const ButtonComponent = ({
     );
 };
 
-const ContainedButton = (props) => {
+const ContainedButton: React.FC<Props> = (props) => {
     const theme = useTheme();
     const { color, disabled } = props;
     const springProps = useSpring({
@@ -158,14 +182,10 @@ const ContainedButton = (props) => {
     return <ButtonComponent {...props} {...(!disabled && { style: springProps })} />;
 };
 
-export const Button = forwardRef((props, containerRef) => {
+export const Button : React.FC<Props>= forwardRef((props, containerRef) => {
     const { variant = 'text', ...other } = props;
     if (variant === 'contained') {
         return <ContainedButton {...{ variant, containerRef }} {...other} />;
     }
     return <ButtonComponent {...{ variant, containerRef }} {...other} />;
 });
-
-Button.propTypes = {
-    color: PropTypes.string,
-};

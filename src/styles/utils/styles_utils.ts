@@ -12,7 +12,7 @@ export const flexUtils = {
     },
 };
 
-export const getHexFromTheme = (inputTheme: Theme, color: PaletteColors = 'primary', shade: PaletteShade = 500) => {
+export const getHexFromTheme = (inputTheme: Theme, color: PaletteColors |'default' = 'primary', shade: PaletteShade = 500) => {
     const theme = Object.keys(inputTheme || {}).length ? inputTheme : DEFAULT_THEME;
     // @ts-ignore
     return theme.palette?.[color]?.[shade];

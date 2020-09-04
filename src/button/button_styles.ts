@@ -1,7 +1,15 @@
 import { flexUtils } from '../styles/utils/styles_utils.js';
-import createStyles from "@material-ui/styles/createStyles";
 
 const { center } = flexUtils;
+
+import { createStyles } from '@material-ui/core/styles';
+
+type StylesKeys  = 'container' | 'typography';
+export type ButtonVariants = 'contained' | 'outlined' | 'text'
+
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
 
 export const styles = createStyles({
     container: {
@@ -9,8 +17,8 @@ export const styles = createStyles({
         width: 'fit-content',
         maxWidth: '100%',
         borderRadius: 5,
-        margin: [10, 7.5],
-        padding: [12, 22],
+        margin: "10px 7.5px",
+        padding: "12px 22px",
         color: '#fff',
         cursor: 'pointer',
         position: 'relative',
@@ -47,13 +55,13 @@ export const styles = createStyles({
     },
     outlined: {
         extend: 'text',
-        border: [1, 'solid', 'currentColor'],
+        border: "1px solid currentColor",
     },
     disabled: {
         cursor: 'not-allowed',
     },
     size_small: {
-        padding: [10, 14],
+        padding:"10px 14px",
         '& > $typography': {
             fontSize: 12,
         },
