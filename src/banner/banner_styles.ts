@@ -1,17 +1,22 @@
-import { BANNER_DATA } from './banner_data';
-import { DEFAULT_THEME } from '../styles/theme';
-import createStyles from "@material-ui/styles/createStyles";
+import { BANNER_DATA, BannerType } from './banner_data';
 
+import { createStyles, Theme } from '@material-ui/core/styles';
 
+type StylesKeys = 'container';
 
-export const styles = (theme) =>
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
+
+export const styles = (theme: Theme) =>
     createStyles({
-        container: ({ type }) => {
+        container: ({ type }: { type: BannerType; classes?: Classes }) => {
             const color = BANNER_DATA?.[type]?.color ?? 'primary';
             return {
+                // @ts-ignore
                 color: (theme.palette?.[color] ?? theme.palette.primary)[500],
                 width: '100%',
-                padding: [25, 40],
+                padding: '25px 40px',
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',

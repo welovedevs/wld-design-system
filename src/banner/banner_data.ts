@@ -3,8 +3,15 @@ import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
 
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg';
+import { PaletteColors } from '../styles/palette';
+import { OverridableComponent } from '@material-ui/core/OverridableComponent';
+import { SvgIconTypeMap } from '@material-ui/core/SvgIcon/SvgIcon';
 
-export const BANNER_DATA = Object.freeze({
+export type BannerType = 'warning' | 'error' | 'success' | 'info' | 'default';
+
+export const BANNER_DATA: {
+    [key in BannerType]: { color: PaletteColors; icon?: OverridableComponent<SvgIconTypeMap> | 'svg' | null };
+} = Object.freeze({
     warning: {
         color: 'warn',
         icon: WarningIcon,
