@@ -2,7 +2,8 @@
     "name": "@welovedevs/ui",
     "version": "1.1.0-beta.4",
     "description": "WeLoveDevs.com UI components",
-    "main": "dist/index.js",
+    "main": "index.js",
+    "types": "index.d.ts",
     "scripts": {
         "package": "tsc",
         "postpackage": "cpy ./assets .. --parents --cwd=src",
