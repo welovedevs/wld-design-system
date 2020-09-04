@@ -28,11 +28,11 @@ interface Props {
     variant?: 'raised' | 'flat' | 'underlined';
     type?: HTMLInputElement['type'];
     disabled?: boolean;
-    classes?: StyleTypes;
+    classes?: Classes;
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
 }
-const TextFieldComponent: React.FC<Props> = ({
+const TextFieldComponent: React.FC<Props & React.InputHTMLAttributes<any>> = ({
     containerElement: ContainerElement = 'div',
     containerProps,
     className,
@@ -50,7 +50,7 @@ const TextFieldComponent: React.FC<Props> = ({
     classes: otherClasses = {},
     ...other
 }) => {
-    const classes: StyleTypes = useStyles({ classes: otherClasses });
+    const classes = useStyles({ classes: otherClasses });
 
     const InputComponent = multiline ? 'textarea' : 'input';
     return (
@@ -122,20 +122,6 @@ const RaisedTextField: React.FC<Props> = ({ onFocus, onBlur, containerProps, ...
     );
 };
 
-type StyleTypes = ClassNameMap<
-    | 'container'
-    | 'input'
-    | 'fullWidth'
-    | 'raisedDisabled'
-    | 'underlinedDisabled'
-    | 'multilineContainer'
-    | 'flat'
-    | 'multiline'
-    | 'underlined'
-    | 'raised'
-    | 'disabled'
-    | 'flatDisabled'
->;
 const WithVariantTextField: React.FC<Props> = ({ variant = 'raised', ...other }) => {
     if (variant === 'raised') {
         return <RaisedTextField {...{ variant }} {...other} />;

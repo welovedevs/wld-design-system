@@ -1,6 +1,6 @@
 import { createStyles } from '@material-ui/core/styles';
 
-type StylesKeys = 'popper';
+type StylesKeys = 'popper' | 'field';
 
 export type Classes = {
     [key in StylesKeys]?: string;

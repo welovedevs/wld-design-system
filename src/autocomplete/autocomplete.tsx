@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {ReactElement, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import cn from 'classnames';
 import Autosuggest from 'react-autosuggest';
@@ -32,7 +32,7 @@ interface Props {
     getSuggestionValue: (value: any) => any;
     renderSuggestion: (value: any) => ExoticComponent | string;
     filterFunction?: (input: string) => (value: any) => boolean;
-    renderNoSuggestion?: (...attibutes: any[]) => ExoticComponent | string;
+    renderNoSuggestion?: (...attibutes: any[]) => "string" | ReactElement | JSX.Element;
     maxLength?: number;
     value: string;
     id?: string;
