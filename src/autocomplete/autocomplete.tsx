@@ -1,19 +1,18 @@
-import React, { ChangeEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 
 import cn from 'classnames';
-import Autosuggest from 'react-autosuggest';
+import Autosuggest, { SuggestionSelectedEventData } from 'react-autosuggest';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import { TextField, TextFieldProps } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
-import { Typography, TypographyProps } from '../typography/typography';
+import { Typography } from '../typography/typography';
 import { ListItem } from '../list_item/list_item';
 
 import { Classes, styles } from './autocomplete_styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Popper, { PopperProps } from '@material-ui/core/Popper';
-import { ExoticComponent } from 'react';
+import { PopperProps } from '@material-ui/core/Popper';
 import { PopperCustomClasses } from '../popper_card/popper_card_styles';
 
 const defaultGetSuggestionValue = ({ value }: { value: any }) => value;
@@ -27,8 +26,8 @@ const DEFAULT_FUNCTION = () => {};
 interface Props {
     placeholder?: string;
     suggestions: any[];
-    onChange: (...attibutes: any[]) => void;
-    onSelect: (...attibutes: any[]) => void;
+    onChange: (value: any) => void;
+    onSelect: (data: SuggestionSelectedEventData<any>) => void;
     getSuggestionValue: (value: any) => any;
     renderSuggestion: (value: any) => 'string' | ReactElement | JSX.Element;
     filterFunction?: (input: string) => (value: any) => boolean;
@@ -54,11 +53,11 @@ export function AutoComplete({
     value: propsValue = '',
     id,
     name,
-    transformSuggestionValue = (props) => props && props.value,
+    transformSuggestionValue = (props: any) => props && props.value,
     classes: additionalClasses = {},
     popperPlacement,
     ...other
-}: TextFieldProps & Props) {
+}: Omit<TextFieldProps, 'onSelect' | 'onChange'> & Props) {
     const classes = useStyles({ classes: additionalClasses });
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState<any[]>([]);
@@ -100,7 +99,7 @@ export function AutoComplete({
         [onChange]
     );
     const suggestionSelected = useCallback(
-        (e, newValue) => {
+        (_, newValue: SuggestionSelectedEventData<any>) => {
             const { suggestionValue } = newValue;
             setValue(suggestionValue);
             onChange && onChange(suggestionValue);
