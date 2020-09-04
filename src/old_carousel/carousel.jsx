@@ -12,8 +12,8 @@ import { Dialog, useMediaQuery } from '@material-ui/core';
 import { Button } from '../button/button';
 import { Typography } from '../typography/typography';
 
-import { ReactComponent as SwipeIcon } from '../assets/icons/swipe.svg';
-import { ReactComponent as ArrowIcon } from '../assets/icons/arrow.svg';
+import SwipeIcon from '../assets/icons/swipe.svg';
+import ArrowIcon from '../assets/icons/arrow.svg';
 
 import { styles } from './carousel_styles';
 
