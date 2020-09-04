@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { DOMAttributes, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -34,7 +34,7 @@ interface Props {
     size?: 'small';
     classes?: Classes;
 }
-export const Switch: React.FC<Props> = ({
+export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     containerRef,
     checked = false,
     disabled,

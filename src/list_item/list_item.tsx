@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { ExoticComponent, useCallback } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import { animated, useSpring } from 'react-spring';
 
 import { Typography } from '../typography/typography';
@@ -10,12 +10,20 @@ import { styles } from './list_item_styles';
 
 const useStyles = makeStyles(styles);
 
-
 const DEFAULT_SPRING_PROPS = Object.freeze({
     backgroundColor: 'rgba(0, 0, 0, 0)',
 });
 
-export const ListItem = ({
+interface Props {
+    component?: string | ExoticComponent;
+    className?: string;
+    typographyClassName?: string;
+    button?: boolean;
+    style?: any;
+    onMouseEnter?: (...args: any[]) => void;
+    onMouseLeave?: (...args: any[]) => void;
+}
+export const ListItem: React.FC<Props> = ({
     component: Component = animated.li,
     className,
     typographyClassName,
@@ -23,7 +31,6 @@ export const ListItem = ({
     style,
     onMouseEnter,
     onMouseLeave,
-    classes: receivedClasses = {},
     children,
     ...other
 }) => {
@@ -34,9 +41,9 @@ export const ListItem = ({
             if (typeof onMouseEnter === 'function') {
                 onMouseEnter(...parameters);
             }
-            setSpringProps(() => ({
+            setSpringProps({
                 backgroundColor: 'rgba(0, 0, 0, .075)',
-            }));
+            });
         },
         [onMouseEnter]
     );

@@ -89,7 +89,7 @@ const TooltipPopper: React.FC<TooltipPopperProps> = ({ title, open, anchorElemen
         springOptions={{
             config: config.stiff,
         }}
-        customClasses={{
+        classes={{
             popper: cn(classes.popper),
             container: cn(classes.container),
         }}

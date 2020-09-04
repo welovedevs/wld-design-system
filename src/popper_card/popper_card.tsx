@@ -9,7 +9,7 @@ import { Card } from '../card/card';
 
 import { ReactComponent as SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow.svg';
 
-import { Classes, styles } from './popper_card_styles';
+import { PopperCustomClasses, styles } from './popper_card_styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 
 const useStyles = makeStyles(styles);
@@ -24,7 +24,7 @@ interface Props {
     onClickAway?: () => void;
     dismissArrow?: boolean;
     springOptions?: any;
-    customClasses?: Classes;
+    classes?: PopperCustomClasses;
     containerProps?: any;
 }
 
@@ -41,7 +41,7 @@ export const PopperCard: React.FC<Props> = ({
     onClickAway,
     dismissArrow = false,
     springOptions = {},
-    customClasses = {},
+    classes: customClasses = {},
     containerProps = {},
     ...other
 }) => {

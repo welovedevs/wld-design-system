@@ -1,4 +1,10 @@
-import createStyles from "@material-ui/styles/createStyles";
+import { createStyles } from '@material-ui/core/styles';
+
+type StylesKeys = 'popper';
+
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
 
 export const styles = createStyles({
     popperCard: {
@@ -13,7 +19,5 @@ export const styles = createStyles({
     listItem: {
         borderRadius: 5,
     },
-    field : {
-
-    }
+    field: {},
 });

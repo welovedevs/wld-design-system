@@ -1,5 +1,11 @@
 import { primary } from '../styles/palette';
-import createStyles from "@material-ui/styles/createStyles";
+import { createStyles } from '@material-ui/core/styles';
+
+type StylesKeys = 'container';
+
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
 
 export const styles = createStyles({
     container: {
@@ -10,20 +16,20 @@ export const styles = createStyles({
         alignItems: 'center',
         padding: 0,
         overflow: 'hidden',
-        border: [1, 'solid', '#f0f0f0'],
+        border: "1px solid '#f0f0f0",
     },
     multilineContainer: {
-        padding: [17.5, 20],
+        padding: '17.5px 20px',
     },
     input: {
         backgroundColor: 'transparent',
         width: '100%',
         minHeight: 40,
-        padding: [17.5, 20],
+        padding: '17.5px 20px',
         border: 'none',
         fontSize: 16,
         lineHeight: '24px',
-        fontFamily: ['Roboto', 'Open sans', 'Arial'],
+        fontFamily: 'Roboto, Open sans , Arial',
         color: '#2f2f2f',
         display: 'flex',
         alignItems: 'center',
@@ -33,7 +39,7 @@ export const styles = createStyles({
         },
     },
     multiline: {
-        padding: [0, 20, 0, 0],
+        padding: '0 20px 0 0 ',
         '&::-webkit-scrollbar-track': {
             border: 0,
         },
@@ -53,7 +59,7 @@ export const styles = createStyles({
     },
     flatDisabled: {
         backgroundColor: '#ededed',
-        border: [1, 'solid', '#c0c0c0'],
+        border: '1px solid #c0c0c0',
         extend: 'disabled',
         '&>input': {
             color: '#959595',
@@ -65,7 +71,7 @@ export const styles = createStyles({
     underlined: {
         backgroundColor: 'transparent',
         border: 'none',
-        borderBottom: [1, 'solid', '#e8e8e8'],
+        borderBottom: '1px solid #e8e8e8',
         borderRadius: 0,
         '& > $input': {
             paddingBottom: 10,

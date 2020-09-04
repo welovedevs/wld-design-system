@@ -2,7 +2,7 @@ import { createStyles } from '@material-ui/core/styles';
 
 type StylesKeys = 'container' | 'arrowContainer' | 'popper';
 
-export type Classes = {
+export type PopperCustomClasses = {
     [key in StylesKeys]?: string;
 };
 

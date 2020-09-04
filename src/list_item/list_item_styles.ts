@@ -1,8 +1,8 @@
-import createStyles from "@material-ui/styles/createStyles";
+import createStyles from '@material-ui/styles/createStyles';
 
 export const styles = createStyles({
     container: {
-        padding: [15, 20],
+        padding: '15px 20px',
         borderRadius: 5,
         display: 'flex',
         alignItems: 'center',
