@@ -2,7 +2,7 @@ import CheckIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
 
-import WarningIcon from '../assets/icons/warning.svg';
+const WarningIcon = require('../assets/icons/warning.svg');
 import { PaletteColors } from '../styles/palette';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 import { SvgIconTypeMap } from '@material-ui/core/SvgIcon/SvgIcon';

@@ -12,8 +12,8 @@ import { Dialog, useMediaQuery } from '@material-ui/core';
 import { Button } from '../button/button';
 import { Typography } from '../typography/typography';
 
-import SwipeIcon from '../assets/icons/swipe.svg';
-import ArrowIcon from '../assets/icons/arrow.svg';
+const SwipeIcon = require('../assets/icons/swipe.svg');
+const ArrowIcon = require('../assets/icons/arrow.svg');
 
 import { styles } from './carousel_styles';
 
