@@ -42,7 +42,7 @@ interface Props {
     classes?: Classes;
 }
 
-type CheckboxProps = PropsWithChildren<React.InputHTMLAttributes<any> & Props>;
+type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color'> & Props>;
 type StyleKeys = ClassNameMap<
     'container' | 'input' | 'outlined' | 'brightLayer' | 'raised' | 'disabled' | 'isRadio' | 'checkIcon'
 >;
