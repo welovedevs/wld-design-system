@@ -1,13 +1,13 @@
 import React, {
+    ChangeEvent,
     ElementType,
+    FocusEvent,
     forwardRef,
+    MouseEvent,
     PropsWithChildren,
     useCallback,
     useEffect,
     useMemo,
-    FocusEvent,
-    MouseEvent,
-    ChangeEvent,
 } from 'react';
 
 import cn from 'classnames';
@@ -15,11 +15,10 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { animated, config, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
-import { dark } from '../styles/palette';
 
 import { Classes, styles } from './checkbox_styles';
-import { Palette, PaletteColor } from '@material-ui/core/styles/createPalette';
 import { ClassNameMap } from '@material-ui/styles';
+import { PaletteColors } from '../styles/palette';
 
 const useStyles = makeStyles(styles);
 
@@ -32,7 +31,7 @@ interface Props {
     component?: string | ElementType;
     checked: boolean;
     disabled?: boolean;
-    color?: PaletteColor;
+    color?: PaletteColors;
     defaultColor?: string;
     className?: string;
     inputClassName?: string;
