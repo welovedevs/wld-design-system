@@ -1,13 +1,25 @@
-import React, { forwardRef, useCallback, useEffect, useMemo } from 'react';
+import React, {
+    ElementType,
+    forwardRef,
+    PropsWithChildren,
+    useCallback,
+    useEffect,
+    useMemo,
+    FocusEvent,
+    MouseEvent,
+    ChangeEvent,
+} from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { animated, config, useSpring } from 'react-spring';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 import { dark } from '../styles/palette';
 
-import { styles } from './checkbox_styles';
+import { Classes, styles } from './checkbox_styles';
+import { Palette, PaletteColor } from '@material-ui/core/styles/createPalette';
+import { ClassNameMap } from '@material-ui/styles';
 
 const useStyles = makeStyles(styles);
 
@@ -16,7 +28,25 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     config: config.stiff,
 };
 
-const CheckboxComponent = forwardRef(
+interface Props {
+    component?: string | ElementType;
+    checked: boolean;
+    disabled?: boolean;
+    color?: PaletteColor;
+    defaultColor?: string;
+    className?: string;
+    inputClassName?: string;
+    containerProps?: any;
+    variant?: 'raised' | 'outlined';
+    isRadio?: Boolean;
+    classes?: Classes;
+}
+
+type CheckboxProps = PropsWithChildren<React.InputHTMLAttributes<any> & Props>;
+type StyleKeys = ClassNameMap<
+    'container' | 'input' | 'outlined' | 'brightLayer' | 'raised' | 'disabled' | 'isRadio' | 'checkIcon'
+>;
+const CheckboxComponent = forwardRef<any, CheckboxProps>(
     (
         {
             component: Component = animated.div,
@@ -40,8 +70,8 @@ const CheckboxComponent = forwardRef(
         ref
     ) => {
         const theme = useTheme();
-        const classes = useStyles({ classes: receivedClasses });
-        const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+        const classes: StyleKeys = useStyles({ classes: receivedClasses });
+        const hexColor = useMemo(() => getHexFromTheme(theme, color as any), [theme, color]);
         const defaultColor = useMemo(() => propsDefaultColor || getHexFromTheme(theme, 'dark', 500), [
             propsDefaultColor,
             theme,
@@ -49,35 +79,35 @@ const CheckboxComponent = forwardRef(
 
         const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
         const { color: colorSpring } = useSpring({
-            color: getComponentColor(checked, hexColor, disabled, defaultColor),
+            color: getComponentColor(checked, hexColor ?? null, disabled, defaultColor),
             config: config.stiff,
-        });
+        } as any);
 
         const handleChange = useCallback(
-            (...parameters) => {
+            (event: ChangeEvent) => {
                 if (disabled) {
                     return;
                 }
                 if (typeof onChange === 'function') {
-                    onChange(...parameters);
+                    onChange(event);
                 }
             },
             [disabled, onChange]
         );
-        const showBrightLayer = useCallback(() =>
-            setBrightLayerSpringProps(() => ({
-                opacity: 0.3,
-            }))
+        const showBrightLayer = useCallback(
+            () =>
+                setBrightLayerSpringProps({
+                    opacity: 0.3,
+                }),
+            []
         );
 
-        const dismissBrightLayer = useCallback(() =>
-            setBrightLayerSpringProps(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS)
-        );
+        const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
 
         const handleMouseEnter = useCallback(
-            (...parameters) => {
+            (event: MouseEvent<any>) => {
                 if (typeof onMouseEnter === 'function') {
-                    onMouseEnter(...parameters);
+                    onMouseEnter(event);
                 }
                 showBrightLayer();
             },
@@ -85,9 +115,9 @@ const CheckboxComponent = forwardRef(
         );
 
         const handleMouseLeave = useCallback(
-            (...parameters) => {
+            (event: MouseEvent<any>) => {
                 if (typeof onMouseLeave === 'function') {
-                    onMouseLeave(...parameters);
+                    onMouseLeave(event);
                 }
                 dismissBrightLayer();
             },
@@ -95,9 +125,9 @@ const CheckboxComponent = forwardRef(
         );
 
         const handleFocus = useCallback(
-            (...parameters) => {
+            (event: FocusEvent<any>) => {
                 if (typeof onFocus === 'function') {
-                    onFocus(...parameters);
+                    onFocus(event);
                 }
                 showBrightLayer();
             },
@@ -105,9 +135,9 @@ const CheckboxComponent = forwardRef(
         );
 
         const handleBlur = useCallback(
-            (...parameters) => {
+            (event: FocusEvent<any>) => {
                 if (typeof onBlur === 'function') {
-                    onBlur(...parameters);
+                    onBlur(event);
                 }
                 dismissBrightLayer();
             },
@@ -118,12 +148,10 @@ const CheckboxComponent = forwardRef(
             <Component
                 className={cn(
                     classes.container,
-                    checked && classes.checked,
                     disabled && classes.disabled,
                     isRadio && classes.isRadio,
-                    classes[variant],
+                    variant && classes[variant],
                     className
-
                 )}
                 {...containerProps}
                 style={{
@@ -133,7 +161,7 @@ const CheckboxComponent = forwardRef(
                 {...{ ref }}
             >
                 <CheckIcon {...{ checked, classes }} />
-                <animated.div className={classes.brightLayer} style={brightLayerSpringProps} />
+                <animated.div className={classes.brightLayer} style={brightLayerSpringProps as any} />
                 <input
                     className={cn(classes.input, inputClassName)}
                     type="checkbox"
@@ -161,20 +189,22 @@ const CHECKED_ICON_SPRING_PROPS = {
     opacity: 1,
 };
 
-const CheckIcon = ({ checked, classes }) => {
+const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
     const [springProps, setSpringProps] = useSpring(() => DEFAULT_ICON_SPRING_PROPS);
     useEffect(() => {
-        setSpringProps(() => (checked ? CHECKED_ICON_SPRING_PROPS : DEFAULT_ICON_SPRING_PROPS));
+        setSpringProps(checked ? CHECKED_ICON_SPRING_PROPS : DEFAULT_ICON_SPRING_PROPS);
     }, [checked]);
     return (
         <animated.svg
             className={classes.checkIcon}
             viewBox="0 0 24 24"
             fill="#fff"
-            style={{
-                transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
-                ...springProps,
-            }}
+            style={
+                {
+                    transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
+                    ...springProps,
+                } as any
+            }
         >
             <g>
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
@@ -183,18 +213,18 @@ const CheckIcon = ({ checked, classes }) => {
     );
 };
 
-const RaisedCheckbox = (props) => {
+const RaisedCheckbox: React.FC<CheckboxProps> = (props) => {
     const theme = useTheme();
     const { checked, color, disabled } = props;
     const springProps = useSpring({
         boxShadow: `0 ${checked ? 5 : 10}px ${checked ? 15 : 20}px 0 ${getComponentColor(
             checked,
-            getHexFromTheme(theme, color, 200),
+            getHexFromTheme(theme, color as any, 200),
             disabled,
             '#d6d6d6'
         )}`,
         config: config.stiff,
-    });
+    } as any);
     return (
         <CheckboxComponent
             containerProps={{
@@ -208,7 +238,7 @@ const RaisedCheckbox = (props) => {
     );
 };
 
-const WithVariantCheckbox = (props) => {
+const WithVariantCheckbox: React.FC<CheckboxProps> = (props) => {
     const { variant = 'raised' } = props;
     if (variant === 'raised') {
         return <RaisedCheckbox {...{ variant }} {...props} />;

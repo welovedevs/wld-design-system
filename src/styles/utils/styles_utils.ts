@@ -12,14 +12,18 @@ export const flexUtils = {
     },
 };
 
-export const getHexFromTheme = (inputTheme: Theme, color: PaletteColors |'default' = 'primary', shade: PaletteShade = 500) => {
+export const getHexFromTheme = (
+    inputTheme: Theme,
+    color: PaletteColors | 'default' = 'primary',
+    shade: PaletteShade = 500
+) => {
     const theme = Object.keys(inputTheme || {}).length ? inputTheme : DEFAULT_THEME;
     // @ts-ignore
     return theme.palette?.[color]?.[shade];
 };
 export const getComponentColor = (
     active: boolean,
-    color: PaletteColors,
+    color: string | null,
     disabled?: boolean,
     defaultValue: string = '#fff'
 ) => {

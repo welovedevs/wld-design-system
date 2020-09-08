@@ -1,7 +1,13 @@
 import { flexUtils } from '../styles/utils/styles_utils';
-import createStyles from "@material-ui/styles/createStyles";
 
 const { center } = flexUtils;
+import { createStyles } from '@material-ui/core/styles';
+
+type StylesKeys = 'container' | 'input';
+
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
 
 export const styles = createStyles({
     container: {
@@ -22,7 +28,7 @@ export const styles = createStyles({
         },
     },
     outlined: {
-        border: [1, 'solid', 'currentColor'],
+        border: "1px solid currentColor",
     },
     disabled: {
         cursor: 'not-allowed',
