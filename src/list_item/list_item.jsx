@@ -27,7 +27,7 @@ export const ListItem = ({
     children,
     ...other
 }) => {
-    const classes = useStyles();
+    const classes = useStyles({classes: receivedClasses});
     const [springProps, setSpringProps] = useSpring(() => DEFAULT_SPRING_PROPS);
     const handleMouseEnter = useCallback(
         (...parameters) => {
