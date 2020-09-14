@@ -1,4 +1,4 @@
-import React, {CSSProperties, ExoticComponent, HTMLAttributes, ReactElement, useMemo} from 'react';
+import React, { CSSProperties, ExoticComponent, HTMLAttributes, ReactElement, useMemo } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils
 
 import { Classes, styles, TypographyVariants } from './typography_styles';
 import { PaletteColors } from '../styles/palette';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
@@ -18,6 +19,7 @@ export interface TypographyProps {
     variant?: TypographyVariants;
     style?: CSSProperties;
     classes?: Classes;
+    customClasses?: Classes;
 }
 
 const TypographyComponent: React.FC<TypographyProps & HTMLAttributes<any>> = ({
@@ -27,12 +29,16 @@ const TypographyComponent: React.FC<TypographyProps & HTMLAttributes<any>> = ({
     component: Component = 'span',
     variant = 'body1',
     style: receivedStyle,
+    customClasses: oldCustomClasses = {},
     classes: receivedClasses = {},
 
     ...other
 }) => {
-    const classes = useStyles({ classes: receivedClasses });
-    const theme = useTheme();
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });const theme = useTheme();
 
     let style = useMemo<{ backgroundColor?: string; color: string } | null>(() => {
         if (color) {

@@ -10,6 +10,7 @@ import { useOpenerState } from '../hooks/use_opener_state';
 
 import { Classes, styles } from './tooltip_styles';
 import { PopperProps } from '@material-ui/core';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
@@ -25,9 +26,20 @@ interface TooltipProps {
     title?: PopperProps['children'];
     placement?: PopperProps['placement'];
     classes?: Classes;
+    customClasses?: Classes;
 }
-const TooltipComponent: React.FC<TooltipProps> = ({ title, placement, children, classes: customClasses = {} }) => {
-    const classes = useStyles({ classes: customClasses });
+const TooltipComponent: React.FC<TooltipProps> = ({
+    title,
+    placement,
+    children,
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
+}) => {
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });
     const anchorReference = useRef();
     const [open, eventsHandlerElementProps] = useOpenerState();
 
@@ -64,12 +76,11 @@ const TooltipComponent: React.FC<TooltipProps> = ({ title, placement, children, 
                         open,
                         placement,
                         classes,
-                        customClasses,
                     }}
                 />
             </>
         );
-    }, [open, anchorReference, title, placement, classes, customClasses]);
+    }, [open, anchorReference, title, placement, classes]);
 
     // @ts-ignore
     return cloneElement(children, childProps, childChildren);

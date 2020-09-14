@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ import { Card } from '../card/card';
 import { PopperCustomClasses, styles } from './popper_card_styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
@@ -24,6 +25,7 @@ interface Props {
     dismissArrow?: boolean;
     springOptions?: any;
     classes?: PopperCustomClasses;
+    customClasses?: PopperCustomClasses;
     containerProps?: any;
 }
 
@@ -40,11 +42,16 @@ export const PopperCard: React.FC<Props> = ({
     onClickAway,
     dismissArrow = false,
     springOptions = {},
-    classes: customClasses = {},
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
     containerProps = {},
     ...other
 }) => {
-    const classes: ClassesRecord = useStyles({ classes: customClasses });
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });
     const [arrowReference, setArrowReference] = useState(null);
     return (
         <Popper
@@ -53,7 +60,7 @@ export const PopperCard: React.FC<Props> = ({
             className={cn(
                 classes.popper,
                 !open && classes.closedPopper,
-                customClasses.popper,
+                receivedClasses.popper,
                 containerProps.className
             )}
             anchorEl={anchorElement}
@@ -84,7 +91,7 @@ export const PopperCard: React.FC<Props> = ({
                             dismissArrow,
                             onClickAway,
                             classes,
-                            customClasses,
+                            customClasses: receivedClasses,
                             ...other,
                         }}
                     />

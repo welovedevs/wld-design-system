@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import cn from 'classnames';
 import Autosuggest, { SuggestionSelectedEventData } from 'react-autosuggest';
@@ -14,6 +14,7 @@ import { Classes, styles } from './autocomplete_styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { PopperProps } from '@material-ui/core/Popper';
 import { PopperCustomClasses } from '../popper_card/popper_card_styles';
+import merge from 'lodash/merge';
 
 const defaultGetSuggestionValue = ({ value }: { value: any }) => value;
 const defaultFilterSuggestion = (inputValue: string) => ({ value }: { value: any }) =>
@@ -38,6 +39,7 @@ interface Props {
     name?: string;
     transformSuggestionValue?: (value: any) => any;
     classes?: Classes;
+    customClasses?: Classes;
     popperPlacement?: PopperProps['placement'];
 }
 export function AutoComplete({
@@ -54,11 +56,16 @@ export function AutoComplete({
     id,
     name,
     transformSuggestionValue = (props: any) => props && props.value,
-    classes: additionalClasses = {},
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
     popperPlacement,
     ...other
 }: Omit<TextFieldProps, 'onSelect' | 'onChange'> & Props) {
-    const classes = useStyles({ classes: additionalClasses });
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState<any[]>([]);
     const [value, setValue] = useState(propsValue || '');
@@ -142,7 +149,7 @@ export function AutoComplete({
                                 children,
                             }}
                             className={cn(classes.popperCard)}
-                            popperCustomClasses={{ popper: additionalClasses.popper }}
+                            popperCustomClasses={{ popper: receivedClasses.popper }}
                             anchorElement={inputReference.current}
                         />
                     );

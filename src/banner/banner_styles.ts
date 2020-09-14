@@ -10,8 +10,8 @@ export type Classes = {
 
 export const styles = (theme: Theme) =>
     createStyles({
-        container: ({ type }: { type: BannerType; classes?: Classes }) => {
-            const color = BANNER_DATA?.[type]?.color ?? 'primary';
+        container: ({ type }: { type?: BannerType; classes?: Classes }) => {
+            const color = BANNER_DATA?.[type || 'warning']?.color ?? 'primary';
             return {
                 // @ts-ignore
                 color: (theme.palette?.[color] ?? theme.palette.primary)[500],

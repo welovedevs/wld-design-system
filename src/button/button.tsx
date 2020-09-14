@@ -11,6 +11,7 @@ import { getComponentColor } from '../styles/utils/styles_utils';
 import { getHexFromTheme } from '../styles';
 import { ButtonVariants, Classes, styles } from './button_styles';
 import { PaletteColors } from '../styles/palette';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
@@ -58,14 +59,17 @@ const ButtonComponent: React.FC<Props> = ({
     onBlur,
     onClick,
     children,
-    customClasses = {},
+    customClasses: oldCustomClasses = {},
     classes: receivedClasses = {},
     style: propsStyle,
     ...other
 }) => {
     const theme = useTheme();
-    const classes = useStyles({ classes: receivedClasses });
-    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
     const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const colorSpring = useSpring({
@@ -145,7 +149,7 @@ const ButtonComponent: React.FC<Props> = ({
                 variant && classes[variant],
                 // @ts-ignore
                 classesSizes && classes[classesSizes],
-                customClasses.container
+                oldCustomClasses.container
             )}
             {...containerProps}
             style={{
@@ -161,7 +165,7 @@ const ButtonComponent: React.FC<Props> = ({
             {...other}
         >
             <animated.div className={classes.brightLayer} style={brightLayerSpringProps as any} />
-            <Typography className={cn(classes.typography, customClasses.typography)} variant="button">
+            <Typography className={cn(classes.typography, oldCustomClasses.typography)} variant="button">
                 {children}
             </Typography>
         </Component>

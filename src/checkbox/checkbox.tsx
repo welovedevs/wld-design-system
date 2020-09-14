@@ -19,6 +19,7 @@ import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils
 import { Classes, styles } from './checkbox_styles';
 import { ClassNameMap } from '@material-ui/styles';
 import { PaletteColors } from '../styles/palette';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
@@ -39,6 +40,7 @@ interface Props {
     variant?: 'raised' | 'outlined';
     isRadio?: Boolean;
     classes?: Classes;
+    customClasses?: Classes;
 }
 
 type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color'> & Props>;
@@ -63,14 +65,19 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             onMouseLeave,
             variant,
             isRadio,
+            customClasses: oldCustomClasses = {},
             classes: receivedClasses = {},
+
             ...other
         },
         ref
     ) => {
         const theme = useTheme();
-        const classes: StyleKeys = useStyles({ classes: receivedClasses });
-        const hexColor = useMemo(() => getHexFromTheme(theme, color as any), [theme, color]);
+        const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color as any), [theme, color]);
         const defaultColor = useMemo(() => propsDefaultColor || getHexFromTheme(theme, 'dark', 500), [
             propsDefaultColor,
             theme,

@@ -1,4 +1,4 @@
-import React, { ExoticComponent, ReactChildren, useCallback } from 'react';
+import React, { ExoticComponent, ReactChildren, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,6 +6,7 @@ import { animated, useSpring } from 'react-spring';
 
 import { Classes, styles } from './text_field_styles';
 import { ClassNameMap } from '@material-ui/styles';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
@@ -29,6 +30,7 @@ interface CustomProps {
     type?: HTMLInputElement['type'];
     disabled?: boolean;
     classes?: Classes;
+    customClasses?: Classes;
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
 }
@@ -49,11 +51,15 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
     variant = 'raised',
     type = 'text',
     disabled,
-    classes: otherClasses = {},
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
     ...other
 }) => {
-    const classes = useStyles({ classes: otherClasses });
-
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });
     const InputComponent = multiline ? 'textarea' : 'input';
     return (
         <ContainerElement

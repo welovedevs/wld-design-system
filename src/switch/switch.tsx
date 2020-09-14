@@ -10,6 +10,7 @@ import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils
 import { dark, PaletteColors } from '../styles/palette';
 
 import { Classes, styles } from './switch_styles';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
@@ -33,6 +34,7 @@ interface Props {
     onMouseLeave?: (...params: any[]) => void;
     size?: 'small';
     classes?: Classes;
+    customClasses?: Classes;
 }
 export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     containerRef,
@@ -48,12 +50,17 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     onMouseEnter,
     onMouseLeave,
     size,
-    classes: customClasses = {},
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
+
     ...other
 }) => {
     const theme = useTheme();
-    const classes = useStyles({ classes: customClasses });
-    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
     const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
     const containerSpringProps = useSpring({
@@ -141,7 +148,6 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
             ref={containerRef}
             className={cn(
                 className,
-                customClasses.container,
                 classes.container,
                 disabled && classes.disabled,
                 sizeClasses && classes[sizeClasses]

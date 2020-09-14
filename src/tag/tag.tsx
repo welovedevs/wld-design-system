@@ -10,6 +10,7 @@ import { Typography, TypographyProps } from '../typography/typography';
 
 import { Classes, styles } from './tag_styles';
 import { PaletteColors } from '../styles/palette';
+import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
     color?: PaletteColors | 'default';
     typographyProps?: TypographyProps;
     style?: CSSProperties;
+    classes?: Classes;
     customClasses?: Classes;
 }
 export const Tag: React.FC<Props> = ({
@@ -29,11 +31,16 @@ export const Tag: React.FC<Props> = ({
     children,
     typographyProps,
     style: receivedStyle,
-    customClasses = {},
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
     ...other
 }) => {
     const theme = useTheme();
-    const classes = useStyles({ classes: customClasses });
+    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+        JSON.stringify(oldCustomClasses),
+        JSON.stringify(receivedClasses),
+    ]);
+    const classes = useStyles({ classes: mergedClasses });
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
     const springProps = useSpring({
@@ -50,7 +57,7 @@ export const Tag: React.FC<Props> = ({
     return (
         <Component
             ref={containerRef}
-            className={cn(className, classes.container, customClasses.container)}
+            className={cn(className, classes.container)}
             style={
                 {
                     ...receivedStyle,
@@ -60,7 +67,7 @@ export const Tag: React.FC<Props> = ({
             {...other}
         >
             <Typography
-                className={cn(classes.typography, customClasses.typography)}
+                className={classes.typography}
                 {...(withColor && {
                     color: 'light',
                 })}
