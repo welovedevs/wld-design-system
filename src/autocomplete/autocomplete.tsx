@@ -75,6 +75,11 @@ export function AutoComplete({
         setValue(propsValue);
     }, [propsValue]);
 
+    useEffect(() => {
+        const filter = suggestions.filter(filterFunction(value));
+        setFilteredSuggetions(filter.slice(0, maxLength));
+    }, [suggestions]);
+
     const renderSuggestion =
         renderSuggestionProps ||
         ((props) => (
