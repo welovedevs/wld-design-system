@@ -11,6 +11,7 @@ import { PopperCustomClasses, styles } from './popper_card_styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
+import omit from 'lodash/omit';
 
 const useStyles = makeStyles(styles);
 
@@ -45,7 +46,7 @@ export const PopperCard: React.FC<Props> = ({
     customClasses: oldCustomClasses = {},
     classes: receivedClasses = {},
     containerProps = {},
-    ...other
+    children,
 }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
@@ -91,10 +92,10 @@ export const PopperCard: React.FC<Props> = ({
                             dismissArrow,
                             onClickAway,
                             classes,
-                            customClasses: receivedClasses,
-                            ...other,
                         }}
-                    />
+                    >
+                        {children}
+                    </Content>
                 </Fade>
             )}
         </Popper>
@@ -166,7 +167,7 @@ const Content: React.FC<PopperContentProps> = ({
     onClickAway,
     structured,
     classes,
-    ...other
+    children,
 }) => {
     const handleClickAway = useCallback(
         (...parameters) => {
@@ -184,7 +185,7 @@ const Content: React.FC<PopperContentProps> = ({
                     <SpeechBubbleArrow />
                 </div>
             )}
-            <Card className={cn(className, classes.container, structured && classes.structured)} {...other} />
+            <Card className={cn(className, classes.container, structured && classes.structured)}>{children}</Card>
         </div>
     );
     if (onClickAway) {
