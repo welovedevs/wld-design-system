@@ -14,7 +14,7 @@ const useStyles = makeStyles(styles);
 
 export const Slider = ({
     color = 'primary',
-    disabled,
+    disabled = false,
     value = 0,
     min = 0,
     max = 100,
