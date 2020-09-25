@@ -1,4 +1,4 @@
-import React, { ExoticComponent, useCallback } from 'react';
+import React, {ExoticComponent, HTMLAttributes, useCallback} from 'react';
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +23,7 @@ interface Props {
     onMouseEnter?: (...args: any[]) => void;
     onMouseLeave?: (...args: any[]) => void;
 }
-export const ListItem: React.FC<Props> = ({
+export const ListItem: React.FC<Props & HTMLAttributes<any>> = ({
     component: Component = animated.li,
     className,
     typographyClassName,
