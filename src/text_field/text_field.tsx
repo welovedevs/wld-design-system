@@ -35,7 +35,7 @@ interface CustomProps {
     onBlur?: (...args: any[]) => void;
 }
 
-export type TextFieldProps = React.InputHTMLAttributes<any> & CustomProps;
+export type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & CustomProps;
 const TextFieldComponent: React.FC<TextFieldProps> = ({
     containerElement: ContainerElement = 'div',
     containerProps,
