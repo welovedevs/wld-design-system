@@ -1,4 +1,4 @@
-import React, {ExoticComponent, HTMLAttributes, useCallback} from 'react';
+import React, { ExoticComponent, HTMLAttributes, useCallback } from 'react';
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,7 +6,7 @@ import { animated, useSpring } from 'react-spring';
 
 import { Typography } from '../typography/typography';
 
-import { styles } from './list_item_styles';
+import { Classes, styles } from './list_item_styles';
 
 const useStyles = makeStyles(styles);
 
@@ -19,6 +19,7 @@ interface Props {
     className?: string;
     typographyClassName?: string;
     button?: boolean;
+    classes?: Classes;
     style?: any;
     onMouseEnter?: (...args: any[]) => void;
     onMouseLeave?: (...args: any[]) => void;
@@ -32,9 +33,10 @@ export const ListItem: React.FC<Props & HTMLAttributes<any>> = ({
     onMouseEnter,
     onMouseLeave,
     children,
+    classes: additionalClasses,
     ...other
 }) => {
-    const classes = useStyles();
+    const classes = useStyles({ classes: additionalClasses });
     const [springProps, setSpringProps] = useSpring(() => DEFAULT_SPRING_PROPS);
     const handleMouseEnter = useCallback(
         (...parameters) => {
@@ -70,7 +72,7 @@ export const ListItem: React.FC<Props & HTMLAttributes<any>> = ({
             })}
             {...other}
         >
-            <Typography className={cn(classes.typography)} color="dark">
+            <Typography className={cn(classes.typography, typographyClassName)} color="dark">
                 {children}
             </Typography>
         </Component>
