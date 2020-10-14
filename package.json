@@ -38,20 +38,21 @@
         "react-spring": "9.0.0-beta.33"
     },
     "devDependencies": {
-        "@storybook/addon-actions": "^5.3.1",
-        "@storybook/addon-docs": "^5.3.8",
-        "@storybook/addon-knobs": "^5.3.1",
-        "@storybook/addon-links": "^5.3.1",
-        "@storybook/addons": "^5.3.1",
-        "@storybook/react": "^5.3.1",
-        "@storybook/theming": "^5.3.1",
-        "@types/jss": "^10.0.0",
-        "@types/node": "12.12.6",
-        "@types/react-measure": "^2.0.6",
+        "@storybook/addon-actions": "^6.0.26",
+        "@storybook/addon-docs": "^6.0.26",
+        "@storybook/addon-knobs": "^6.0.26",
+        "@storybook/addon-links": "^6.0.26",
+        "@storybook/addons": "^6.0.26",
+        "@storybook/react": "^6.0.26",
+        "@storybook/theming": "^6.0.26",
         "@types/classnames": "^2.2.10",
         "@types/events": "^3.0.0",
+        "@types/jss": "^10.0.0",
         "@types/lodash": "^4.14.161",
+        "@types/node": "12.12.6",
         "@types/react-autosuggest": "^10.0.0",
+        "@types/react-measure": "^2.0.6",
+        "@babel/plugin-proposal-export-default-from": "^7.10.4",
         "cpy-cli": "^3.1.1",
         "eslint": "^6.8.0",
         "eslint-config-airbnb": "^18.0.1",
@@ -63,13 +64,16 @@
         "husky": "^4.0.7",
         "ora": "^4.0.3",
         "prettier": "^2.0.5",
-        "react-is": "^16.12.0",
         "readline-sync": "^1.4.10",
         "typescript": "^4.0.2",
         "yargs": "^15.1.0"
     },
     "eslintConfig": {
         "extends": "react-app"
+    },
+    "resolutions": {
+        "react" : "^16.13.1",
+        "react-dom" : "^16.13.1"
     },
     "husky": {
         "hooks": {

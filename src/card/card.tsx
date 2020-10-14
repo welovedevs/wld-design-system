@@ -12,6 +12,8 @@ import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
+export type CardVariant = 'flat';
+
 interface Props {
     component?: string;
     className?: string;
@@ -20,6 +22,7 @@ interface Props {
     style?: CSSProperties;
     classes?: Classes;
     customClasses?: Classes;
+    variant?: CardVariant;
 }
 const CardComponent: React.FC<Props> = ({
     component: Component = animated.div,
@@ -29,6 +32,7 @@ const CardComponent: React.FC<Props> = ({
     style,
     customClasses: oldCustomClasses = {},
     classes: receivedClasses = {},
+    variant,
     ...other
 }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
@@ -36,17 +40,26 @@ const CardComponent: React.FC<Props> = ({
         JSON.stringify(receivedClasses),
     ]);
     const classes = useStyles({ classes: mergedClasses });
+    const springPropsFromVariant = useMemo(() => {
+        if (!variant) {
+            return ELEVATION_SPRING_PROPS.regular;
+        }
+        return ELEVATION_SPRING_PROPS?.[variant];
+    }, [variant]);
     const springProps = useSpring({
-        ...ELEVATION_SPRING_PROPS[elevation],
+        ...springPropsFromVariant?.[elevation],
         config: config.default,
     });
+
+    // @ts-ignore
+    const variantClass = variant && classes[`variant_${variant}`];
     return (
         <Component
             ref={containerRef}
-            className={cn(classes.container, className)}
+            className={cn(classes.container, variantClass, className)}
             style={
                 {
-                    ...springProps,
+                    ...(springPropsFromVariant && springProps),
                     ...style,
                 } as any
             }

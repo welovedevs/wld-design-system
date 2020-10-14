@@ -14,4 +14,8 @@ export const styles = createStyles({
         padding: 20,
         fontFamily: 'Avenir Next, open sans, Roboto, Arial',
     },
+    variant_flat: {
+        backgroundColor: '#f9f9f9',
+        border: `1px solid #f0f0f0`,
+    },
 });
