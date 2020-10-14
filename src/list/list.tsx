@@ -8,7 +8,7 @@ import { Classes, styles } from './list_styles';
 
 const useStyles = makeStyles(styles);
 
-export const List: React.FC<{ className?: string; classes: Classes }> = ({
+export const List: React.FC<{ className?: string; classes?: Classes }> = ({
     className,
     classes: receivedClasses = {},
     ...other
