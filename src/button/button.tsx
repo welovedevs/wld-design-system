@@ -20,7 +20,7 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     config: config.stiff,
 };
 
-interface CustomProps {
+export interface ButtonProps {
     component?: string;
     className?: string;
     containerRef?: any;
@@ -41,7 +41,7 @@ interface CustomProps {
 }
 
 type SpringType = { opacity?: number; config?: typeof config.stiff };
-type Props = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
+type Props = ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>;
 const ButtonComponent: React.FC<Props> = ({
     component: Component = animated.button,
     className,
