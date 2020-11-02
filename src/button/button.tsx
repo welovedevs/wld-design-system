@@ -20,7 +20,7 @@ const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
     config: config.stiff,
 };
 
-export interface ButtonProps {
+interface CustomProps {
     component?: string;
     className?: string;
     containerRef?: any;
@@ -41,8 +41,8 @@ export interface ButtonProps {
 }
 
 type SpringType = { opacity?: number; config?: typeof config.stiff };
-type Props = ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>;
-const ButtonComponent: React.FC<Props> = ({
+export type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
+const ButtonComponent: React.FC<ButtonProps> = ({
     component: Component = animated.button,
     className,
     containerRef,
@@ -172,7 +172,7 @@ const ButtonComponent: React.FC<Props> = ({
     );
 };
 
-const ContainedButton: React.FC<Props> = (props) => {
+const ContainedButton: React.FC<ButtonProps> = (props) => {
     const theme = useTheme();
     const { color, disabled } = props;
     const springProps = useSpring({
@@ -186,7 +186,7 @@ const ContainedButton: React.FC<Props> = (props) => {
     return <ButtonComponent {...props} {...(!disabled && { style: springProps })} />;
 };
 
-export const Button: React.FC<Props> = forwardRef((props, containerRef) => {
+export const Button: React.FC<ButtonProps> = forwardRef((props, containerRef) => {
     const { variant = 'text', ...other } = props;
     if (variant === 'contained') {
         return <ContainedButton {...{ variant, containerRef }} {...other} />;
