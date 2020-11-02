@@ -1,7 +1,7 @@
 import { primary } from '../styles/palette';
 import { createStyles } from '@material-ui/core/styles';
 
-type StylesKeys = 'container';
+type StylesKeys = 'container' | 'input';
 
 export type Classes = {
     [key in StylesKeys]?: string;
@@ -16,7 +16,7 @@ export const styles = createStyles({
         alignItems: 'center',
         padding: 0,
         overflow: 'hidden',
-        border: "1px solid #f0f0f0",
+        border: '1px solid #f0f0f0',
     },
     multilineContainer: {
         padding: '17.5px 20px',
