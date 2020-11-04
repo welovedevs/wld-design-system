@@ -1,4 +1,10 @@
-import createStyles from "@material-ui/styles/createStyles";
+import createStyles from '@material-ui/styles/createStyles';
+
+type StylesKeys = 'container' | 'bar';
+
+export type Classes = {
+    [key in StylesKeys]?: string;
+};
 
 export const styles = createStyles({
     container: {
