@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo } from 'react';
+import React, {CSSProperties, HTMLAttributes, useMemo} from 'react';
 
 import cn from 'classnames';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -24,7 +24,7 @@ interface Props {
     customClasses?: Classes;
     variant?: CardVariant;
 }
-const CardComponent: React.FC<Props> = ({
+const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
     component: Component = animated.div,
     className,
     containerRef,
