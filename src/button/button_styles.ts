@@ -5,7 +5,7 @@ const { center } = flexUtils;
 import { createStyles } from '@material-ui/core/styles';
 
 type StylesKeys  = 'container' | 'typography';
-export type ButtonVariants = 'contained' | 'outlined' | 'text'
+export type ButtonVariants = 'contained' | 'outlined' | 'text' | 'raised'
 
 export type Classes = {
     [key in StylesKeys]?: string;
@@ -45,6 +45,12 @@ export const styles = createStyles({
         },
     },
     contained: {
+        backgroundColor: 'currentColor',
+        '&$withColor ': {
+            extend: 'lightenBrightLayerAndTypography',
+        },
+    },
+    raised: {
         backgroundColor: 'currentColor',
         '&$withColor ': {
             extend: 'lightenBrightLayerAndTypography',

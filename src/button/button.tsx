@@ -172,24 +172,24 @@ const ButtonComponent: React.FC<ButtonProps> = ({
     );
 };
 
-const ContainedButton: React.FC<ButtonProps> = (props) => {
+const RaisedButton: React.FC<ButtonProps> = (props) => {
     const theme = useTheme();
-    const { color, disabled } = props;
+    const { disabled ,color} = props;
     const springProps = useSpring({
+        config: config.stiff,
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
             Boolean(color),
             getHexFromTheme(theme, color, 200),
             disabled
         )}`,
-        config: config.stiff,
     });
     return <ButtonComponent {...props} {...(!disabled && { style: springProps })} />;
 };
 
 export const Button: React.FC<ButtonProps> = forwardRef((props, containerRef) => {
     const { variant = 'text', ...other } = props;
-    if (variant === 'contained') {
-        return <ContainedButton {...{ variant, containerRef }} {...other} />;
+    if (variant === 'raised') {
+        return <RaisedButton {...{ variant, containerRef }} {...other} />;
     }
     return <ButtonComponent {...{ variant, containerRef }} {...other} />;
 });
