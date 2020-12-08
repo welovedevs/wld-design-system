@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Measure from 'react-measure';
 
 import { animated, useSpring } from 'react-spring';
@@ -13,15 +13,15 @@ import { styles } from './slider_styles';
 const useStyles = makeStyles(styles);
 
 export const Slider = ({
-    color,
-    disabled,
+    color = 'primary',
+    disabled = false,
     value = 0,
     min = 0,
     max = 100,
     step = 1,
-    thumbChildren,
-    thumbReference,
-    thumbProps,
+    thumbChildren = null,
+    thumbReference = null,
+    thumbProps = {},
     classes: propsClasses = {},
     ...other
 }) => {

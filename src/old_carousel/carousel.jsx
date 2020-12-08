@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import cn from 'classnames';
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import SlickCarousel from 'react-slick';
 import { Twemoji } from 'react-emoji-render';
 import { animated, config, useSpring } from 'react-spring';
@@ -12,12 +12,11 @@ import { Dialog, useMediaQuery } from '@material-ui/core';
 import { Button } from '../button/button';
 import { Typography } from '../typography/typography';
 
-import SwipeIcon from '../assets/icons/swipe.svg';
-import ArrowIcon from '../assets/icons/arrow.svg';
-
 import { styles } from './carousel_styles';
 
 import './override_nuka.scss';
+import { SwipeIcon } from '../assets/icons/swipe_component';
+import { ArrowIcon } from '../assets/icons/arrow_component';
 
 const useStyles = makeStyles(styles);
 

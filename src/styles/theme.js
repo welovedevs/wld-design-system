@@ -1,4 +1,4 @@
-import { primary, secondary, tertiary, light, dark, safe, danger, warn } from './palettes';
+import { primary, secondary, tertiary, light, dark, safe, danger, warn } from './palette';
 
 export const DEFAULT_THEME = {
     palette: {

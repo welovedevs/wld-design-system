@@ -1,0 +1,47 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import { Spacing } from '../stories_helpers/spacing/spacing';
+import { Card } from '../../src/card/card';
+
+<Meta title="Components/Card" />
+
+# Card
+
+Use card to wrap your content in a nice container
+
+<Spacing value={4} />
+
+## Props
+
+<Props of={Card} />
+
+### Variant
+
+Different variants exists for different situations.
+This component have three main variants.
+
+#### ↳ _`text (default)`_
+
+Used by default, this variant should be used for less-pronounced actions.
+Usage example:
+
+-   Dialog Actions.
+-   Card Actions (including PopperCard).
+
+<Preview withSource="none">
+    <Story name="regular">
+        <Card>Regular Card</Card>
+    </Story>
+</Preview>
+
+#### ↳ _`flat`_
+
+This variant can be used
+Use it when its background is not plain or if displayed on shadowed surfaces.
+
+<Preview withSource="none">
+    <Story name="flat">
+        <Card variant="flat">Flat Card</Card>
+    </Story>
+</Preview>
+
