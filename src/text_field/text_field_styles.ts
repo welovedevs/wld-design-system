@@ -29,7 +29,7 @@ export const styles = createStyles({
         border: 'none',
         fontSize: 16,
         lineHeight: '24px',
-        fontFamily: 'Roboto, Open sans , Arial',
+        fontFamily: 'Avenir Next, Open sans , Arial',
         color: '#2f2f2f',
         display: 'flex',
         alignItems: 'center',
