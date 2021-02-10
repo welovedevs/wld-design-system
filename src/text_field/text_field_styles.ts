@@ -1,4 +1,4 @@
-import { primary } from '../styles/palette';
+import { primary } from '../styles';
 import { createStyles } from '@material-ui/core/styles';
 
 type StylesKeys = 'container' | 'input';
@@ -81,4 +81,13 @@ export const styles = createStyles({
     disabled: {
         cursor: 'not-allowed',
     },
+    passwordFieldContainer: {
+        display: "flex",
+        alignItems: "center"
+    },
+    icon: {
+        width: 50,
+        height: 50,
+        marginLeft: 8
+    }
 });

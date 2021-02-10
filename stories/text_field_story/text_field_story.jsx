@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
+import makeStyles from '@material-ui/styles/makeStyles';
 import { TextField } from '../../src/text_field/text_field';
 
 import styles from './text_field_story_styles';
@@ -15,13 +15,29 @@ const POSSIBLE_VARIANTS = {
 
 export default { title: 'Textfield' };
 
-const TextFieldStory = () => {
+const useStyles = makeStyles(styles);
+
+export const TextFieldStory = () => {
+    const classes = useStyles();
+
     const [value, setValue] = useState('');
     const handleInputChange = useCallback(event => {
         setValue(event.target.value);
     }, []);
     const variant = select('Variant', POSSIBLE_VARIANTS, 'raised');
-    return <TextField {...{ value, variant }} onChange={handleInputChange} />;
+
+    return <TextField {...{ value, variant  }} onChange={handleInputChange} />;
 };
 
-export default injectSheet(styles)(TextFieldStory);
+export const PasswordTextFieldStory = () => {
+    const [value, setValue] = useState('');
+    const handleInputChange = useCallback(event => {
+        setValue(event.target.value);
+    }, []);
+    const variant = select('Variant', POSSIBLE_VARIANTS, 'raised');
+
+
+    return <TextField {...{ value, variant, isPassword: true }} onChange={handleInputChange} />;
+}
+
+

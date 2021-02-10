@@ -1,0 +1,15 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import {PasswordTextFieldStory, TextFieldStory} from "./text_field_story";
+
+<Meta title="Textfield" component={TextFieldStory} />
+
+# Textfield
+
+<Preview withSource="none">
+    <Story name="variant">
+        <TextFieldStory />
+    </Story>
+    <Story name="password">
+        <PasswordTextFieldStory />
+    </Story>
+</Preview>

@@ -1,4 +1,4 @@
-import { Banner, Button, Checkbox, Slider, Switch, Tag, Typography } from '../../../src';
+import { Banner, Button, Checkbox, Slider, Switch, Tag, Typography, TextField } from '../../../src';
 import React from 'react';
 import { styles } from './all_the_things_styles';
 import { DEFAULT_THEME } from '../../../src/styles/theme';
@@ -100,14 +100,14 @@ export const AllTheThings = () => {
                     </ThemeProvider>
                 </>
             ))}
-            <ThemeProvider theme={DEFAULT_THEME}>
+          {/*  <ThemeProvider theme={DEFAULT_THEME}>
                 <Banner type="info">Without Theme</Banner>
                 <Banner type="success">Success</Banner>
                 <Banner type="warning">Warn</Banner>
             </ThemeProvider>
             <ThemeProvider theme={theme}>
                 <Banner type="info">With Theme</Banner>
-            </ThemeProvider>
+            </ThemeProvider>*/}
         </div>
     );
 };
