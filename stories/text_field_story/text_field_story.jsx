@@ -10,7 +10,7 @@ import styles from './text_field_story_styles';
 const POSSIBLE_VARIANTS = {
     Raised: 'raised',
     Flat: 'flat',
-    Underlined: 'underlined'
+    Underlined: 'underlined',
 };
 
 export default { title: 'Textfield' };
@@ -21,23 +21,20 @@ export const TextFieldStory = () => {
     const classes = useStyles();
 
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback(event => {
+    const handleInputChange = useCallback((event) => {
         setValue(event.target.value);
     }, []);
     const variant = select('Variant', POSSIBLE_VARIANTS, 'raised');
 
-    return <TextField {...{ value, variant  }} onChange={handleInputChange} />;
+    return <TextField {...{ value, variant }} onChange={handleInputChange} />;
 };
 
 export const PasswordTextFieldStory = () => {
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback(event => {
+    const handleInputChange = useCallback((event) => {
         setValue(event.target.value);
     }, []);
     const variant = select('Variant', POSSIBLE_VARIANTS, 'raised');
 
-
-    return <TextField {...{ value, variant, isPassword: true }} onChange={handleInputChange} />;
-}
-
-
+    return <TextField {...{ value, variant, type: 'password' }} onChange={handleInputChange} />;
+};
