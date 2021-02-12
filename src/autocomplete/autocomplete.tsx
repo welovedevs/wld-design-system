@@ -154,7 +154,7 @@ export function AutoComplete({
                                 children,
                             }}
                             className={cn(classes.popperCard)}
-                            popperCustomClasses={{ popper: receivedClasses.popper }}
+                            popperCustomClasses={{ popper: classes.popper }}
                             anchorElement={inputReference.current}
                         />
                     );

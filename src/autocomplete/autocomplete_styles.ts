@@ -7,6 +7,7 @@ export type Classes = {
 };
 
 export const styles = createStyles({
+    popper: {},
     popperCard: {
         maxWidth: 600,
         border: 'none',
