@@ -7,25 +7,23 @@ import React, {
     PropsWithChildren,
     useCallback,
     useEffect,
-    useMemo,
+    useMemo, useState,
 } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { animated, config, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
-import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
+import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
 
 import { Classes, styles } from './checkbox_styles';
 import { ClassNameMap } from '@material-ui/styles';
-import { PaletteColors } from '../styles/palette';
 import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
-const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
+const DEFAULT_BRIGHT_LAYER_MOTION_PROPS = {
     opacity: 0,
-    config: config.stiff,
 };
 
 interface Props {
@@ -50,7 +48,7 @@ type StyleKeys = ClassNameMap<
 const CheckboxComponent = forwardRef<any, CheckboxProps>(
     (
         {
-            component: Component = animated.div,
+            component: Component = motion.div,
             checked,
             disabled,
             color,
@@ -83,11 +81,10 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             theme,
         ]);
 
-        const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
-        const { color: colorSpring } = useSpring({
+        const [brightLayerMotionProps, setBrightLayerMotionProps] = useState(DEFAULT_BRIGHT_LAYER_MOTION_PROPS);
+        const { color: colorMotion } = {
             color: getComponentColor(checked, hexColor ?? null, disabled, defaultColor),
-            config: config.stiff,
-        } as any);
+        } as any;
 
         const handleChange = useCallback(
             (event: ChangeEvent) => {
@@ -102,13 +99,13 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
         );
         const showBrightLayer = useCallback(
             () =>
-                setBrightLayerSpringProps({
+                setBrightLayerMotionProps({
                     opacity: 0.3,
                 }),
             []
         );
 
-        const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
+        const dismissBrightLayer = useCallback(() => setBrightLayerMotionProps(DEFAULT_BRIGHT_LAYER_MOTION_PROPS), []);
 
         const handleMouseEnter = useCallback(
             (event: MouseEvent<any>) => {
@@ -161,13 +158,13 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                 )}
                 {...containerProps}
                 style={{
-                    color: colorSpring,
+                    color: colorMotion,
                     ...(containerProps && containerProps.style),
                 }}
                 {...{ ref }}
             >
                 <CheckIcon {...{ checked, classes }} />
-                <animated.div className={classes.brightLayer} style={brightLayerSpringProps as any} />
+                <motion.div className={classes.brightLayer} animate={brightLayerMotionProps}/>
                 <input
                     className={cn(classes.input, inputClassName)}
                     type="checkbox"
@@ -184,58 +181,51 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
     }
 );
 
-const DEFAULT_ICON_SPRING_PROPS = {
+const DEFAULT_ICON_PROPS = {
     scale: 0.5,
     opacity: 0,
-    config: config.wobbly,
 };
 
-const CHECKED_ICON_SPRING_PROPS = {
+const CHECKED_ICON_PROPS = {
     scale: 1,
     opacity: 1,
 };
 
 const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
-    const [springProps, setSpringProps] = useSpring(() => DEFAULT_ICON_SPRING_PROPS);
+    const [motionProps, setMotionProps] = useState(DEFAULT_ICON_PROPS);
     useEffect(() => {
-        setSpringProps(checked ? CHECKED_ICON_SPRING_PROPS : DEFAULT_ICON_SPRING_PROPS);
+        setMotionProps(checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS);
     }, [checked]);
     return (
-        <animated.svg
+        <motion.svg
             className={classes.checkIcon}
             viewBox="0 0 24 24"
             fill="#fff"
-            style={
-                {
-                    transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
-                    ...springProps,
-                } as any
-            }
+            animate={{...motionProps}}
         >
             <g>
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
             </g>
-        </animated.svg>
+        </motion.svg>
     );
 };
 
 const RaisedCheckbox: React.FC<CheckboxProps> = (props) => {
     const theme = useTheme();
     const { checked, color, disabled } = props;
-    const springProps = useSpring({
+    const motionProps = {
         boxShadow: `0 ${checked ? 5 : 10}px ${checked ? 15 : 20}px 0 ${getComponentColor(
             checked,
             getHexFromTheme(theme, color as any, 200),
             disabled,
             '#d6d6d6'
         )}`,
-        config: config.stiff,
-    } as any);
+    } as any;
     return (
         <CheckboxComponent
             containerProps={{
                 style: {
-                    ...springProps,
+                    ...motionProps,
                 },
             }}
             defaultColor="#fff"
