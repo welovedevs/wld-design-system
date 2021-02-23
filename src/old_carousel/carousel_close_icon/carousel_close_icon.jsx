@@ -2,13 +2,13 @@ import React from 'react';
 
 import { makeStyles } from "@material-ui/core/styles";
 import { FormattedMessage } from 'react-intl';
-import { animated, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
 import CloseIcon from '@material-ui/icons/Close';
 
 import { Tooltip } from '../../tooltip/tooltip';
 
-import { getComponentColor } from '../../../../style/js';
+import { getComponentColor } from '../../styles';
 
 import { styles } from './carousel_close_icon_styles';
 
@@ -16,21 +16,19 @@ const useStyles = makeStyles(styles);
 
 const CarouselCloseIconComponent = ({ onClose, color = 'dark' }) => {
     const classes = useStyles();
-    const colorSpringProps = useSpring({
-        color: getComponentColor(true, color, false, 500, color || '#000'),
-    });
+    const colorMotionProps = {color: getComponentColor(true, color, false, color || '#000')};
     return (
         <Tooltip title={<FormattedMessage id="Main.lang.close" defaultMessage="Fermer" />}>
-            <animated.button
+            <motion.button
                 className={classes.button}
                 type="button"
                 onClick={onClose}
-                style={{
-                    color: colorSpringProps.color,
+                animate={{
+                    color: colorMotionProps.color
                 }}
             >
                 <CloseIcon className={classes.icon} />
-            </animated.button>
+            </motion.button>
         </Tooltip>
     );
 };

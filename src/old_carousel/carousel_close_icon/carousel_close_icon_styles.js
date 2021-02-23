@@ -7,7 +7,7 @@ export const styles = createStyles({
         justifyContent: 'center',
         borderRadius: '50%',
         border: [1, 'solid', 'currentColor'],
-        padding: 8 * 1,
+        padding: 8,
         position: 'absolute',
         top: 8 * 2,
         right: 8 * 2,
