@@ -2,7 +2,6 @@ import React, { ExoticComponent, ReactChildren, useCallback, useMemo, useState }
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { animated, useSpring } from 'react-spring';
 
 import { Classes, styles } from './text_field_styles';
 import { ClassNameMap } from '@material-ui/styles';
@@ -14,7 +13,7 @@ import { Tooltip } from '../index';
 
 const useStyles = makeStyles(styles);
 
-const DEFAULT_SPRING_PROPS = {
+const DEFAULT_STYLE_PROPS = {
     boxShadow: '0 7.5px 15px 0 #e4e4e4',
 };
 
@@ -113,14 +112,14 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
 };
 
 const RaisedTextField: React.FC<TextFieldProps> = ({ onFocus, onBlur, containerProps, ...other }) => {
-    const [springProps, setSpringProps] = useSpring(() => DEFAULT_SPRING_PROPS);
+    const [styleProps, setStyleProps] = useState(DEFAULT_STYLE_PROPS);
 
     const handleFocus = useCallback(
         (...parameters) => {
             if (typeof onFocus === 'function') {
                 onFocus(...parameters);
             }
-            setSpringProps({ boxShadow: '0 10px 20px 0 #dadada' });
+            setStyleProps({ boxShadow: '0 10px 20px 0 #dadada' });
         },
         [onFocus]
     );
@@ -129,18 +128,18 @@ const RaisedTextField: React.FC<TextFieldProps> = ({ onFocus, onBlur, containerP
             if (typeof onBlur === 'function') {
                 onBlur(...parameters);
             }
-            setSpringProps(DEFAULT_SPRING_PROPS);
+            setStyleProps(DEFAULT_STYLE_PROPS);
         },
         [onBlur]
     );
     return (
         <TextFieldComponent
-            containerElement={animated.div}
+            containerElement='div'
             containerProps={{
                 ...containerProps,
                 style: {
                     ...(containerProps && containerProps.style),
-                    ...springProps,
+                    ...styleProps,
                 },
             }}
             onFocus={handleFocus}
