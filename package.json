@@ -28,6 +28,7 @@
         "@material-ui/icons": "^4.9.1",
         "@material-ui/styles": "^4.10.0",
         "classnames": "^2.2.6",
+        "framer-motion": "^3.6.7",
         "lodash": "^4.17.15",
         "react": "^16.13.1",
         "react-autosuggest": "^9.4.3",
@@ -38,6 +39,7 @@
         "react-spring": "9.0.0-beta.33"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-export-default-from": "^7.10.4",
         "@storybook/addon-actions": "^6.0.26",
         "@storybook/addon-docs": "^6.0.26",
         "@storybook/addon-knobs": "^6.0.26",
@@ -52,7 +54,6 @@
         "@types/node": "12.12.6",
         "@types/react-autosuggest": "^10.0.0",
         "@types/react-measure": "^2.0.6",
-        "@babel/plugin-proposal-export-default-from": "^7.10.4",
         "cpy-cli": "^3.1.1",
         "eslint": "^6.8.0",
         "eslint-config-airbnb": "^18.0.1",

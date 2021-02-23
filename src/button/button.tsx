@@ -1,23 +1,19 @@
-import React, { ButtonHTMLAttributes, forwardRef, ReactHTML, useCallback, useMemo } from 'react';
+import React, {ButtonHTMLAttributes, forwardRef, ReactHTML, useCallback, useMemo, useState} from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { animated, config, useSpring } from 'react-spring';
-
+import { motion } from 'framer-motion'
 import { Typography } from '../typography/typography';
 
-import { getComponentColor } from '../styles/utils/styles_utils';
+import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
 
-import { getHexFromTheme } from '../styles';
 import { ButtonVariants, Classes, styles } from './button_styles';
-import { PaletteColors } from '../styles/palette';
 import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
-const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
+const DEFAULT_BRIGHT_LAYER_PROPS = {
     opacity: 0,
-    config: config.stiff,
 };
 
 interface CustomProps {
@@ -40,10 +36,9 @@ interface CustomProps {
     style?: any;
 }
 
-type SpringType = { opacity?: number; config?: typeof config.stiff };
 export type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
 const ButtonComponent: React.FC<ButtonProps> = ({
-    component: Component = animated.button,
+    component: Component = motion.button,
     className,
     containerRef,
     disabled,
@@ -71,20 +66,17 @@ const ButtonComponent: React.FC<ButtonProps> = ({
     ]);
     const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
     const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
-    const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
-    const colorSpring = useSpring({
-        color: getComponentColor(true, hexColor, disabled),
-        config: config.stiff,
-    });
+    const [brightLayerProps, setBrightLayerProps] = useState(DEFAULT_BRIGHT_LAYER_PROPS);
+    const colorMotion = {color: getComponentColor(true, hexColor, disabled)};
     const showBrightLayer = useCallback(
         () =>
-            setBrightLayerSpringProps({
+            setBrightLayerProps({
                 opacity: variant !== 'contained' ? 0.1 : 0.2,
             }),
         [variant]
     );
 
-    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
+    const dismissBrightLayer = useCallback(() => setBrightLayerProps(DEFAULT_BRIGHT_LAYER_PROPS), []);
 
     const handleMouseEnter = useCallback(
         (...parameters) => {
@@ -154,7 +146,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             {...containerProps}
             style={{
                 ...propsStyle,
-                ...(withColor && colorSpring),
+                ...(withColor && colorMotion),
                 ...(containerProps && containerProps.style),
             }}
             onMouseEnter={handleMouseEnter}
@@ -164,7 +156,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             onClick={handleClick}
             {...other}
         >
-            <animated.div className={classes.brightLayer} style={brightLayerSpringProps as any} />
+            <motion.div className={classes.brightLayer} animate={brightLayerProps as any} />
             <Typography className={cn(classes.typography, oldCustomClasses.typography)} variant="button">
                 {children}
             </Typography>
@@ -175,15 +167,14 @@ const ButtonComponent: React.FC<ButtonProps> = ({
 const RaisedButton: React.FC<ButtonProps> = (props) => {
     const theme = useTheme();
     const { disabled ,color} = props;
-    const springProps = useSpring({
-        config: config.stiff,
+    const motionProps = {
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
             Boolean(color),
             getHexFromTheme(theme, color, 200),
             disabled
         )}`,
-    });
-    return <ButtonComponent {...props} {...(!disabled && { style: springProps })} />;
+    };
+    return <ButtonComponent {...props} {...(!disabled && { style: motionProps })} />;
 };
 
 export const Button: React.FC<ButtonProps> = forwardRef((props, containerRef) => {
