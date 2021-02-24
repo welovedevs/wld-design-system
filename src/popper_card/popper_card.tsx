@@ -2,7 +2,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { animated, config, useSpring } from 'react-spring';
 import { motion } from 'framer-motion';
 
 import { ClickAwayListener, Popper, PopperProps } from '@material-ui/core';
@@ -12,7 +11,6 @@ import { PopperCustomClasses, styles } from './popper_card_styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
-import omit from 'lodash/omit';
 
 const useStyles = makeStyles(styles);
 
