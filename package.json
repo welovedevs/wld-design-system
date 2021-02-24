@@ -35,8 +35,7 @@
         "react-dom": "^16.13.1",
         "react-emoji-render": "^1.2.1",
         "react-measure": "^2.3.0",
-        "react-slick": "^0.25.2",
-        "react-spring": "9.0.0-beta.33"
+        "react-slick": "^0.25.2"
     },
     "devDependencies": {
         "@babel/plugin-proposal-export-default-from": "^7.10.4",
@@ -74,8 +73,7 @@
     },
     "resolutions": {
         "react": "^16.13.1",
-        "react-dom": "^16.13.1",
-        "react-spring": "9.0.0-beta.33"
+        "react-dom": "^16.13.1"
     },
     "husky": {
         "hooks": {

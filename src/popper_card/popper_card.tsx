@@ -103,11 +103,10 @@ const Fade: React.FC<{
     in?: boolean;
     onEnter?: () => void;
     onExited?: () => void;
-    transition?: any;
     popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
     TransitionProps?: any;
 }> = (props, ref) => {
-    const { in: open, children, onEnter, onExited, transition, popperProps, ...other } = props;
+    const { in: open, children, onEnter, onExited, popperProps, ...other } = props;
     const getTranslationFromPlacement = useCallback((value) => {
         const placement = (popperProps && popperProps.placement) || 'bottom';
         if (['top', 'bottom'].some((key) => placement === key)) {

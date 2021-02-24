@@ -13,6 +13,9 @@ import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
+const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
+    opacity: 0,
+};
 
 interface Props {
     containerRef?: any;
@@ -57,7 +60,8 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     ]);
     const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
-    const containerSpringProps = {
+    const [brightLayerSpringProps, setBrightLayerSpringProps] = useState(DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
+    const containerStyleProps = {
         color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50)),
     };
     const [thumbWidth, setThumbWidth] = useState(null);
@@ -72,6 +76,55 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
             }
         },
         [disabled, onChange]
+    );
+    const showBrightLayer = useCallback(
+        () =>
+            setBrightLayerSpringProps({
+                opacity: 0.3,
+            }),
+        []
+    );
+
+    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
+
+    const handleMouseEnter = useCallback(
+        (...parameters) => {
+            if (typeof onMouseEnter === 'function') {
+                onMouseEnter(...parameters);
+            }
+            showBrightLayer();
+        },
+        [onMouseEnter]
+    );
+
+    const handleMouseLeave = useCallback(
+        (...parameters) => {
+            if (typeof onMouseLeave === 'function') {
+                onMouseLeave(...parameters);
+            }
+            dismissBrightLayer();
+        },
+        [onMouseLeave]
+    );
+
+    const handleFocus = useCallback(
+        (...parameters) => {
+            if (typeof onFocus === 'function') {
+                onFocus(...parameters);
+            }
+            showBrightLayer();
+        },
+        [onFocus]
+    );
+
+    const handleBlur = useCallback(
+        (...parameters) => {
+            if (typeof onBlur === 'function') {
+                onBlur(...parameters);
+            }
+            dismissBrightLayer();
+        },
+        [onBlur]
     );
 
     const handleThumbResize = useCallback(
@@ -97,7 +150,7 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
             )}
             style={{
                 ...get(containerProps, 'style'),
-                ...containerSpringProps,
+                ...containerStyleProps,
             }}
             {...containerProps}
         >
@@ -117,11 +170,15 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
                     )}
                 </Measure>
             </motion.div>
-            <motion.div className={classes.brightLayer} initial={{opacity: 0}} whileHover={{opacity: 0.3}}/>
+            <motion.div className={classes.brightLayer} animate={brightLayerSpringProps}/>
             <input
                 className={cn(classes.input, inputClassName)}
                 type="checkbox"
                 onChange={handleChange}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 {...{ checked }}
                 {...other}
             />
