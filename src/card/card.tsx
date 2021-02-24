@@ -1,9 +1,9 @@
-import React, {createRef, CSSProperties, HTMLAttributes, useMemo} from 'react';
+import React, {CSSProperties, HTMLAttributes, useMemo} from 'react';
 
 import cn from 'classnames';
 import makeStyles from '@material-ui/styles/makeStyles';
+
 import { ELEVATION_PROPS } from './card_elevation_props';
-import { motion } from 'framer-motion';
 
 import { Classes, styles } from './card_styles';
 import merge from 'lodash/merge';
@@ -23,7 +23,7 @@ interface Props {
     variant?: CardVariant;
 }
 const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
-                                                                    component: Component = motion.div,
+                                                                    component: Component = 'div',
                                                                     className,
                                                                     containerRef,
                                                                     elevation = 1,
@@ -44,18 +44,19 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
         }
         return ELEVATION_PROPS?.[variant];
     }, [variant]);
-    const styleProps = {...stylePropsFromVariant?.[elevation]};
+    const styleProps = {
+        ...stylePropsFromVariant?.[elevation],
+    };
+    // @ts-ignore
     const variantClass = variant && classes[`variant_${variant}`];
-    return (
-        <Component
-            ref={containerRef}
-            className={cn(classes.container, variantClass, className)}
-            style={{
-                ...(stylePropsFromVariant && styleProps),
-                ...style,
-            } as any}
-            {...other}
-        />
+    return React.createElement( Component || 'div',
+        {ref: containerRef,
+            className: cn(classes.container, variantClass, className),
+            style: {
+            ...(stylePropsFromVariant && styleProps),
+            ...style,
+        } as any,
+            ...other }
     );
 };
 

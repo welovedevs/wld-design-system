@@ -3,7 +3,6 @@ import React, { cloneElement, useMemo, useRef } from 'react';
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import get from 'lodash/get';
-import { config } from 'react-spring';
 
 import { PopperCard } from '../popper_card/popper_card';
 import { useOpenerState } from '../hooks/use_opener_state';
