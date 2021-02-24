@@ -29,12 +29,12 @@ interface TooltipProps {
     customClasses?: Classes;
 }
 const TooltipComponent: React.FC<TooltipProps> = ({
-    title,
-    placement,
-    children,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-}) => {
+                                                      title,
+                                                      placement,
+                                                      children,
+                                                      customClasses: oldCustomClasses = {},
+                                                      classes: receivedClasses = {},
+                                                  }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -97,9 +97,6 @@ const TooltipPopper: React.FC<TooltipPopperProps> = ({ title, open, anchorElemen
     <PopperCard
         dismissArrow
         {...{ open, anchorElement }}
-        springOptions={{
-            config: config.stiff,
-        }}
         classes={{
             popper: cn(classes.popper),
             container: cn(classes.container),

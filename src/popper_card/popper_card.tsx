@@ -3,6 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { animated, config, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
 import { ClickAwayListener, Popper, PopperProps } from '@material-ui/core';
 import { Card } from '../card/card';
@@ -24,7 +25,6 @@ interface Props {
     structured?: boolean;
     onClickAway?: () => void;
     dismissArrow?: boolean;
-    springOptions?: any;
     classes?: PopperCustomClasses;
     customClasses?: PopperCustomClasses;
     containerProps?: any;
@@ -32,22 +32,21 @@ interface Props {
 
 type ClassesRecord = ClassNameMap<
     'container' | 'popper' | 'closedPopper' | 'arrowContainer' | 'structured' | 'wrapper'
->;
+    >;
 export const PopperCard: React.FC<Props> = ({
-    className,
-    anchorElement,
-    open,
-    onClose,
-    popperProps,
-    structured,
-    onClickAway,
-    dismissArrow = false,
-    springOptions = {},
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-    containerProps = {},
-    children,
-}) => {
+                                                className,
+                                                anchorElement,
+                                                open,
+                                                onClose,
+                                                popperProps,
+                                                structured,
+                                                onClickAway,
+                                                dismissArrow = false,
+                                                customClasses: oldCustomClasses = {},
+                                                classes: receivedClasses = {},
+                                                containerProps = {},
+                                                children,
+                                            }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -83,7 +82,7 @@ export const PopperCard: React.FC<Props> = ({
             transition
         >
             {({ TransitionProps }) => (
-                <Fade {...TransitionProps} {...{ springOptions, popperProps }}>
+                <Fade {...TransitionProps} {... popperProps }>
                     <Content
                         {...{
                             className,
@@ -106,11 +105,11 @@ const Fade: React.FC<{
     in?: boolean;
     onEnter?: () => void;
     onExited?: () => void;
-    springOptions?: any;
+    transition?: any;
     popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
     TransitionProps?: any;
-}> = React.forwardRef((props, ref) => {
-    const { in: open, children, onEnter, onExited, springOptions, popperProps, ...other } = props;
+}> = (props, ref) => {
+    const { in: open, children, onEnter, onExited, transition, popperProps, ...other } = props;
     const getTranslationFromPlacement = useCallback((value) => {
         const placement = (popperProps && popperProps.placement) || 'bottom';
         if (['top', 'bottom'].some((key) => placement === key)) {
@@ -118,19 +117,7 @@ const Fade: React.FC<{
         }
         return `translate3d(-${value}px, 0, 0)`;
     }, []);
-    const style = useSpring({
-        from: {
-            opacity: 0,
-            pointerEvents: 'none',
-            transform: getTranslationFromPlacement(20),
-        },
-        to: {
-            opacity: open ? 1 : 0,
-            pointerEvents: open ? 'all' : 'none',
-            transform: getTranslationFromPlacement(open ? 0 : 20),
-        },
-        config: config.default,
-        ...springOptions,
+    const motionConfig = {
         onStart: () => {
             // This cause the following error: Cannot update a component from inside the function body of a different component.
             // It is a pattern documented in the Transition section of Material-UI docs, waiting for a possible update.
@@ -143,14 +130,28 @@ const Fade: React.FC<{
                 onExited();
             }
         },
-    });
+    };
 
     return (
-        <animated.div {...{ ref: ref as any, style }} {...other}>
+        <motion.div
+            {...{ ref: ref as any, motionConfig }}
+            initial={{
+                opacity: 0,
+                pointerEvents: 'none',
+                transform: getTranslationFromPlacement(20),
+            }}
+            animate={{
+                opacity: open ? 1 : 0,
+                pointerEvents: open ? 'all' : 'none',
+                transform: getTranslationFromPlacement(open ? 0 : 20),
+            }}
+            transition={{type: 'spring'}}
+            {...other}
+        >
             {children}
-        </animated.div>
+        </motion.div>
     );
-});
+};
 
 interface PopperContentProps {
     className?: string;
@@ -161,14 +162,14 @@ interface PopperContentProps {
     classes: ClassesRecord;
 }
 const Content: React.FC<PopperContentProps> = ({
-    className,
-    dismissArrow,
-    setArrowReference,
-    onClickAway,
-    structured,
-    classes,
-    children,
-}) => {
+                                                   className,
+                                                   dismissArrow,
+                                                   setArrowReference,
+                                                   onClickAway,
+                                                   structured,
+                                                   classes,
+                                                   children,
+                                               }) => {
     const handleClickAway = useCallback(
         (...parameters) => {
             if (typeof onClickAway === 'function') {
