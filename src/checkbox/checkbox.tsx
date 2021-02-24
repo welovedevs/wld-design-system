@@ -6,7 +6,6 @@ import React, {
     MouseEvent,
     PropsWithChildren,
     useCallback,
-    useEffect,
     useMemo, useState,
 } from 'react';
 
@@ -192,16 +191,13 @@ const CHECKED_ICON_PROPS = {
 };
 
 const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
-    const [motionProps, setMotionProps] = useState(DEFAULT_ICON_PROPS);
-    useEffect(() => {
-        setMotionProps(checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS);
-    }, [checked]);
     return (
         <motion.svg
             className={classes.checkIcon}
             viewBox="0 0 24 24"
             fill="#fff"
-            animate={{...motionProps}}
+            animate={checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS}
+            transition={{type: "spring", bounce: 0.6}}
         >
             <g>
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
