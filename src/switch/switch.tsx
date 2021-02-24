@@ -2,22 +2,17 @@ import React, { DOMAttributes, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { animated, config, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 import get from 'lodash/get';
 import Measure from 'react-measure';
 
-import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
-import { dark, PaletteColors } from '../styles/palette';
+import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
 
 import { Classes, styles } from './switch_styles';
 import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
-const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
-    opacity: 0,
-    config: config.stiff,
-};
 
 interface Props {
     containerRef?: any;
@@ -62,14 +57,10 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     ]);
     const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
-    const [brightLayerSpringProps, setBrightLayerSpringProps] = useSpring(() => DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
-    const containerSpringProps = useSpring({
+    const containerSpringProps = {
         color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50)),
-    });
+    };
     const [thumbWidth, setThumbWidth] = useState(null);
-    const thumbContainerSpringProps = useSpring({
-        translation: checked ? 0 : -100,
-    });
 
     const handleChange = useCallback(
         (...parameters) => {
@@ -82,55 +73,6 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
         },
         [disabled, onChange]
     );
-    const showBrightLayer = useCallback(
-        () =>
-            setBrightLayerSpringProps({
-                opacity: 0.3,
-            }),
-        []
-    );
-
-    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
-
-    const handleMouseEnter = useCallback(
-        (...parameters) => {
-            if (typeof onMouseEnter === 'function') {
-                onMouseEnter(...parameters);
-            }
-            showBrightLayer();
-        },
-        [onMouseEnter]
-    );
-
-    const handleMouseLeave = useCallback(
-        (...parameters) => {
-            if (typeof onMouseLeave === 'function') {
-                onMouseLeave(...parameters);
-            }
-            dismissBrightLayer();
-        },
-        [onMouseLeave]
-    );
-
-    const handleFocus = useCallback(
-        (...parameters) => {
-            if (typeof onFocus === 'function') {
-                onFocus(...parameters);
-            }
-            showBrightLayer();
-        },
-        [onFocus]
-    );
-
-    const handleBlur = useCallback(
-        (...parameters) => {
-            if (typeof onBlur === 'function') {
-                onBlur(...parameters);
-            }
-            dismissBrightLayer();
-        },
-        [onBlur]
-    );
 
     const handleThumbResize = useCallback(
         ({ bounds: { width } }) => {
@@ -142,9 +84,10 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     );
 
     const sizeClasses: 'size_small' | undefined = size && (`size_${size}` as 'size_small');
+    const isChecked = checked ? 0 : -100
 
     return (
-        <animated.div
+        <motion.div
             ref={containerRef}
             className={cn(
                 className,
@@ -158,14 +101,13 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
             }}
             {...containerProps}
         >
-            <animated.div
+            <motion.div
                 className={classes.thumbContainer}
-                style={{
-                    transform: thumbContainerSpringProps.translation.to(
-                        (value) => `translate3d(calc(${value}% + ${thumbWidth}px), 0, 0)`
-                    ),
+                animate={{
+                    x: `calc(${isChecked}% + ${thumbWidth}px)`,
                     width: `calc(100% - ${thumbWidth}px)`,
                 }}
+                transition={{type: "tween"}}
             >
                 <Measure bounds onResize={handleThumbResize}>
                     {({ measureRef }) => (
@@ -174,19 +116,15 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
                         </span>
                     )}
                 </Measure>
-            </animated.div>
-            <animated.div className={classes.brightLayer} style={brightLayerSpringProps as any} />
+            </motion.div>
+            <motion.div className={classes.brightLayer} initial={{opacity: 0}} whileHover={{opacity: 0.3}}/>
             <input
                 className={cn(classes.input, inputClassName)}
                 type="checkbox"
                 onChange={handleChange}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
                 {...{ checked }}
                 {...other}
             />
-        </animated.div>
+        </motion.div>
     );
 };

@@ -1,7 +1,8 @@
-import React, { CSSProperties, ExoticComponent, useMemo } from 'react';
+import React, {CSSProperties, ExoticComponent, useMemo, useRef} from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { motion } from 'framer-motion'
 
 import { getComponentColor, getHexFromTheme } from '../styles';
 
@@ -23,7 +24,7 @@ interface Props {
     customClasses?: Classes;
 }
 export const Tag: React.FC<Props> = ({
-    component: Component = 'div',
+    component: Component = motion.div,
     containerRef,
     className,
     color = 'default',
@@ -41,7 +42,6 @@ export const Tag: React.FC<Props> = ({
     ]);
     const classes = useStyles({ classes: mergedClasses });
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
-
     const styleProps = {
         color: getComponentColor(true, hexColor),
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
@@ -56,12 +56,10 @@ export const Tag: React.FC<Props> = ({
         <Component
             ref={containerRef}
             className={cn(className, classes.container)}
-            style={
-                {
+            animate={{
                     ...receivedStyle,
                     ...styleProps,
-                } as any
-            }
+                } as any}
             {...other}
         >
             <Typography

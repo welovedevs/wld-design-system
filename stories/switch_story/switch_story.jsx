@@ -1,11 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
 import { Switch } from '../../src/switch/switch';
-
-import styles from './switch_story_styles';
 
 const EXAMPLE_COLORS = Object.freeze({
     Primary: 'primary',
@@ -16,7 +13,7 @@ const EXAMPLE_COLORS = Object.freeze({
     None: null
 });
 
-const SwitchStory = () => {
+export const SwitchStory = () => {
     const [checked, setChecked] = useState(false);
     const handleChange = useCallback(event => {
         setChecked(event.target.checked);
@@ -26,4 +23,3 @@ const SwitchStory = () => {
     return <Switch {...{ checked }} color={checked ? checkedColor : baseColor} onChange={handleChange} />;
 };
 
-export default injectSheet(styles)(SwitchStory);
