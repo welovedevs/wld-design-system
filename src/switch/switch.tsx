@@ -13,7 +13,7 @@ import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
-const DEFAULT_BRIGHT_LAYER_SPRING_PROPS = {
+const DEFAULT_BRIGHT_LAYER_PROPS = {
     opacity: 0,
 };
 
@@ -60,7 +60,7 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     ]);
     const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
-    const [brightLayerSpringProps, setBrightLayerSpringProps] = useState(DEFAULT_BRIGHT_LAYER_SPRING_PROPS);
+    const [brightLayerProps, setBrightLayergProps] = useState(DEFAULT_BRIGHT_LAYER_PROPS);
     const containerStyleProps = {
         color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50)),
     };
@@ -79,13 +79,13 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     );
     const showBrightLayer = useCallback(
         () =>
-            setBrightLayerSpringProps({
+            setBrightLayergProps({
                 opacity: 0.3,
             }),
         []
     );
 
-    const dismissBrightLayer = useCallback(() => setBrightLayerSpringProps(DEFAULT_BRIGHT_LAYER_SPRING_PROPS), []);
+    const dismissBrightLayer = useCallback(() => setBrightLayergProps(DEFAULT_BRIGHT_LAYER_PROPS), []);
 
     const handleMouseEnter = useCallback(
         (...parameters) => {
@@ -170,7 +170,7 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
                     )}
                 </Measure>
             </motion.div>
-            <motion.div className={classes.brightLayer} animate={brightLayerSpringProps}/>
+            <motion.div className={classes.brightLayer} animate={brightLayerProps}/>
             <input
                 className={cn(classes.input, inputClassName)}
                 type="checkbox"
