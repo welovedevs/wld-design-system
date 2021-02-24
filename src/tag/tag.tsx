@@ -56,7 +56,7 @@ export const Tag: React.FC<Props> = ({
         <Component
             ref={containerRef}
             className={cn(className, classes.container)}
-            animate={{
+            style={{
                     ...receivedStyle,
                     ...styleProps,
                 } as any}
