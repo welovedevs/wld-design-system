@@ -46,7 +46,8 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const classes = useStyles({ classes: mergedClasses });
+    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
     const containerStyleProps = {
         color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50)),
@@ -75,7 +76,6 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     );
 
     const sizeClasses: 'size_small' | undefined = size && (`size_${size}` as 'size_small');
-    const isChecked = checked ? 0 : -100
 
     return (
         <motion.div
@@ -88,19 +88,19 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
             )}
             style={{
                 ...get(containerProps, 'style'),
-                ...containerStyleProps,
             }}
+            animate={{ ...containerStyleProps }}
+            {...containerProps}
             initial="initial"
             whileHover="hover"
-            {...containerProps}
         >
             <motion.div
                 className={classes.thumbContainer}
                 animate={{
-                    x: `calc(${isChecked}% + ${thumbWidth}px)`,
+                    x: `calc(${checked ? 0 : -100}% + ${thumbWidth}px)`,
                     width: `calc(100% - ${thumbWidth}px)`,
                 }}
-                transition={{type: "tween"}}
+                transition={{ type: 'tween' }}
             >
                 <Measure bounds onResize={handleThumbResize}>
                     {({ measureRef }) => (
@@ -110,7 +110,10 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
                     )}
                 </Measure>
             </motion.div>
-            <motion.div className={classes.brightLayer} variants={{initial: {opacity: 0}, hover: {opacity: 0.3}}}/>
+            <motion.div
+                className={classes.brightLayer}
+                variants={{ initial: { opacity: 0 }, hover: { opacity: 0.3 } }}
+            />
             <input
                 className={cn(classes.input, inputClassName)}
                 type="checkbox"
