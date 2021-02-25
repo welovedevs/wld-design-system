@@ -1,8 +1,8 @@
-import React, {ButtonHTMLAttributes, useCallback, useMemo} from 'react';
+import React, { ButtonHTMLAttributes, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 import { Typography } from '../typography/typography';
 
 import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
@@ -34,35 +34,36 @@ interface CustomProps {
 
 export type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
 const ButtonComponent: React.FC<ButtonProps> = ({
-                                                    component: Component = motion.button,
-                                                    className,
-                                                    containerRef,
-                                                    disabled,
-                                                    size,
-                                                    color = 'default',
-                                                    containerProps,
-                                                    // @deprecated please use classes.typography
-                                                    typographyClassName,
-                                                    variant,
-                                                    onMouseEnter,
-                                                    onMouseLeave,
-                                                    onFocus,
-                                                    onBlur,
-                                                    onClick,
-                                                    children,
-                                                    customClasses: oldCustomClasses = {},
-                                                    classes: receivedClasses = {},
-                                                    style: propsStyle,
-                                                    ...other
-                                                }) => {
+    component: Component = motion.button,
+    className,
+    containerRef,
+    disabled,
+    size,
+    color = 'default',
+    containerProps,
+    // @deprecated please use classes.typography
+    typographyClassName,
+    variant,
+    onMouseEnter,
+    onMouseLeave,
+    onFocus,
+    onBlur,
+    onClick,
+    children,
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
+    style: propsStyle,
+    ...other
+}) => {
     const theme = useTheme();
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const classes = useStyles({ classes: mergedClasses });
+    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
     const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
-    const colorMotion = {color: getComponentColor(true, hexColor, disabled)};
+    const colorMotion = { color: getComponentColor(true, hexColor, disabled) };
 
     const handleClick = useCallback(
         (...paramaters) => {
@@ -98,7 +99,11 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             onClick={handleClick}
             {...other}
         >
-            <motion.div className={classes.brightLayer}   initial={{opacity: 0}} whileHover={{opacity: variant !== 'contained' ? 0.1 : 0.2}}/>
+            <motion.div
+                className={classes.brightLayer}
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: variant !== 'contained' ? 0.1 : 0.2 }}
+            />
             <Typography className={cn(classes.typography, oldCustomClasses.typography)} variant="button">
                 {children}
             </Typography>
@@ -108,7 +113,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
 
 const RaisedButton: React.FC<ButtonProps> = (props) => {
     const theme = useTheme();
-    const { disabled ,color} = props;
+    const { disabled, color } = props;
     const motionProps = {
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
             Boolean(color),
@@ -116,7 +121,7 @@ const RaisedButton: React.FC<ButtonProps> = (props) => {
             disabled
         )}`,
     };
-    return <ButtonComponent {...props} {...(!disabled && { style: motionProps })} />;
+    return <ButtonComponent {...props} {...(!disabled && { animate: motionProps })} />;
 };
 
 export const Button: React.FC<ButtonProps> = (props, containerRef) => {
