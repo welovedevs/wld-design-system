@@ -21,10 +21,6 @@ import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
 
-const DEFAULT_BRIGHT_LAYER_MOTION_PROPS = {
-    opacity: 0,
-};
-
 interface Props {
     component?: string | ElementType;
     checked: boolean;
@@ -56,10 +52,6 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             inputClassName,
             containerProps,
             onChange,
-            onFocus,
-            onBlur,
-            onMouseEnter,
-            onMouseLeave,
             variant,
             isRadio,
             customClasses: oldCustomClasses = {},
@@ -80,7 +72,6 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             theme,
         ]);
 
-        const [brightLayerMotionProps, setBrightLayerMotionProps] = useState(DEFAULT_BRIGHT_LAYER_MOTION_PROPS);
         const { color: colorMotion } = {
             color: getComponentColor(checked, hexColor ?? null, disabled, defaultColor),
         } as any;
@@ -95,55 +86,6 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                 }
             },
             [disabled, onChange]
-        );
-        const showBrightLayer = useCallback(
-            () =>
-                setBrightLayerMotionProps({
-                    opacity: 0.3,
-                }),
-            []
-        );
-
-        const dismissBrightLayer = useCallback(() => setBrightLayerMotionProps(DEFAULT_BRIGHT_LAYER_MOTION_PROPS), []);
-
-        const handleMouseEnter = useCallback(
-            (event: MouseEvent<any>) => {
-                if (typeof onMouseEnter === 'function') {
-                    onMouseEnter(event);
-                }
-                showBrightLayer();
-            },
-            [onMouseEnter]
-        );
-
-        const handleMouseLeave = useCallback(
-            (event: MouseEvent<any>) => {
-                if (typeof onMouseLeave === 'function') {
-                    onMouseLeave(event);
-                }
-                dismissBrightLayer();
-            },
-            [onMouseLeave]
-        );
-
-        const handleFocus = useCallback(
-            (event: FocusEvent<any>) => {
-                if (typeof onFocus === 'function') {
-                    onFocus(event);
-                }
-                showBrightLayer();
-            },
-            [onFocus]
-        );
-
-        const handleBlur = useCallback(
-            (event: FocusEvent<any>) => {
-                if (typeof onBlur === 'function') {
-                    onBlur(event);
-                }
-                dismissBrightLayer();
-            },
-            [onBlur]
         );
 
         return (
@@ -160,18 +102,16 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                     color: colorMotion,
                     ...(containerProps && containerProps.style),
                 }}
+                initial="initial"
+                whileHover="hover"
                 {...{ ref }}
             >
                 <CheckIcon {...{ checked, classes }} />
-                <motion.div className={classes.brightLayer} animate={brightLayerMotionProps}/>
+                <motion.div className={classes.brightLayer}  variants={{initial: {opacity: 0}, hover: {opacity: 0.3}}}/>
                 <input
                     className={cn(classes.input, inputClassName)}
                     type="checkbox"
                     onChange={handleChange}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
                     {...{ checked }}
                     {...other}
                 />
