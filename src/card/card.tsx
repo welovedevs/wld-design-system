@@ -3,9 +3,7 @@ import React, {CSSProperties, HTMLAttributes, useMemo} from 'react';
 import cn from 'classnames';
 import makeStyles from '@material-ui/styles/makeStyles';
 
-import { animated, config, useSpring } from 'react-spring';
-
-import { ELEVATION_SPRING_PROPS } from './card_elevation_spring_props';
+import { ELEVATION_PROPS } from './card_elevation_props';
 
 import { Classes, styles } from './card_styles';
 import merge from 'lodash/merge';
@@ -25,46 +23,40 @@ interface Props {
     variant?: CardVariant;
 }
 const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
-    component: Component = animated.div,
-    className,
-    containerRef,
-    elevation = 1,
-    style,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-    variant,
-    ...other
-}) => {
+                                                                    component: Component = 'div',
+                                                                    className,
+                                                                    containerRef,
+                                                                    elevation = 1,
+                                                                    style,
+                                                                    customClasses: oldCustomClasses = {},
+                                                                    classes: receivedClasses = {},
+                                                                    variant,
+                                                                    ...other
+                                                                }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
     const classes = useStyles({ classes: mergedClasses });
-    const springPropsFromVariant = useMemo(() => {
+    const stylePropsFromVariant = useMemo(() => {
         if (!variant) {
-            return ELEVATION_SPRING_PROPS.regular;
+            return ELEVATION_PROPS.regular;
         }
-        return ELEVATION_SPRING_PROPS?.[variant];
+        return ELEVATION_PROPS?.[variant];
     }, [variant]);
-    const springProps = useSpring({
-        ...springPropsFromVariant?.[elevation],
-        config: config.default,
-    });
-
+    const styleProps = {
+        ...stylePropsFromVariant?.[elevation],
+    };
     // @ts-ignore
     const variantClass = variant && classes[`variant_${variant}`];
-    return (
-        <Component
-            ref={containerRef}
-            className={cn(classes.container, variantClass, className)}
-            style={
-                {
-                    ...(springPropsFromVariant && springProps),
-                    ...style,
-                } as any
-            }
-            {...other}
-        />
+    return React.createElement( Component || 'div',
+        {ref: containerRef,
+            className: cn(classes.container, variantClass, className),
+            style: {
+            ...(stylePropsFromVariant && styleProps),
+            ...style,
+        } as any,
+            ...other }
     );
 };
 

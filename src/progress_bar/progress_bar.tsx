@@ -2,12 +2,11 @@ import React, { useMemo } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { animated, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
-import { getComponentColor, getHexFromTheme } from '../styles';
+import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
 
 import { Classes, styles } from './progress_bar_styles';
-import { PaletteColors } from '../styles/palette';
 
 const useStyles = makeStyles(styles);
 
@@ -27,23 +26,17 @@ export const ProgressBar: React.FC<Props> = ({
     const classes = useStyles({ classes: receivedClasses });
     const theme = useTheme();
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const xValue = -100;
+    const xMotion = xValue + progressValue;
 
-    const { translation } = useSpring({
-        from: {
-            translation: -100,
-        },
-        to: {
-            translation: -100 + progressValue,
-        },
-    });
     return (
         <div className={cn(className, classes.container)}>
-            <animated.div
+            <motion.div
                 className={classes.bar}
-                style={{
-                    color: getComponentColor(true, hexColor, false) as any,
-                    transform: translation.to((value) => `translate3d(${value}%, 0, 0)`),
-                }}
+                style={{ color: getComponentColor(true, hexColor, false) as any }}
+                initial={{ x: `${xValue}%` }}
+                animate={{ x: `${xMotion}%` }}
+                transition={{ type: 'tween' }}
             />
         </div>
     );

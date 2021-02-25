@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Slider } from '../../src/slider/slider';
-import { PopperCard } from '../../src/popper_card/popper_card';
+import { Slider } from '../../src';
+import { PopperCard } from '../../src';
 
 import styles from './slider_story_styles';
 import makeStyles from '@material-ui/styles/makeStyles';

@@ -1,6 +1,6 @@
 import { CardVariant } from './card';
 
-export const ELEVATION_SPRING_PROPS: { [key in CardVariant | 'regular']: any } = {
+export const ELEVATION_PROPS: { [key in CardVariant | 'regular']: any } = {
     regular: {
         0: {
             boxShadow: '0 2px 10px 0 rgba(0,0,0,0.1)',

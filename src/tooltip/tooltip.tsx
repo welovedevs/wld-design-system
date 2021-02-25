@@ -1,9 +1,8 @@
-import React, { cloneElement, ReactChildren, ReactNode, useCallback, useMemo, useRef } from 'react';
+import React, { cloneElement, useMemo, useRef } from 'react';
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import get from 'lodash/get';
-import { config } from 'react-spring';
 
 import { PopperCard } from '../popper_card/popper_card';
 import { useOpenerState } from '../hooks/use_opener_state';
@@ -29,12 +28,12 @@ interface TooltipProps {
     customClasses?: Classes;
 }
 const TooltipComponent: React.FC<TooltipProps> = ({
-    title,
-    placement,
-    children,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-}) => {
+                                                      title,
+                                                      placement,
+                                                      children,
+                                                      customClasses: oldCustomClasses = {},
+                                                      classes: receivedClasses = {},
+                                                  }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -97,9 +96,6 @@ const TooltipPopper: React.FC<TooltipPopperProps> = ({ title, open, anchorElemen
     <PopperCard
         dismissArrow
         {...{ open, anchorElement }}
-        springOptions={{
-            config: config.stiff,
-        }}
         classes={{
             popper: cn(classes.popper),
             container: cn(classes.container),

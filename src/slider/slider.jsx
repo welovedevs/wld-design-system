@@ -4,9 +4,9 @@ import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Measure from 'react-measure';
 
-import { animated, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
-import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
+import { getComponentColor, getHexFromTheme } from '../styles';
 
 import { styles } from './slider_styles';
 
@@ -30,10 +30,6 @@ export const Slider = ({
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
 
     const [containerWidth, setContainerWidth] = useState(0);
-    const { translation, ...otherRailThumbSpringProps } = useSpring({
-        translation: containerWidth * (((value - min) * 100) / (max - min) / 100),
-        color: getComponentColor(true, hexColor, disabled),
-    });
 
     const handleMeasureChange = useCallback(
         ({ bounds: { width } }) => {
@@ -44,6 +40,7 @@ export const Slider = ({
         [containerWidth]
     );
 
+    console.log({ containerWidth, min, max, value, x: containerWidth * (value / max) });
     return (
         <Measure bounds onResize={handleMeasureChange}>
             {({ measureRef }) => (
@@ -52,22 +49,20 @@ export const Slider = ({
                     className={cn(classes.container, disabled && classes.disabled, propsClasses.container)}
                 >
                     <div className={classes.track}>
-                        <animated.div
+                        <motion.div
                             className={classes.rail}
-                            style={{
-                                transform: translation.to(
-                                    (translationValue) => `translate3d(${-containerWidth + translationValue}px, 0, 0)`
-                                ),
-                                ...otherRailThumbSpringProps,
+                            animate={{
+                                width: containerWidth * (value / (max - min)),
+                                color: getComponentColor(true, hexColor, disabled),
                             }}
                         />
                     </div>
                     <Thumb
                         {...{ thumbChildren, classes }}
                         ref={thumbReference}
-                        style={{
-                            transform: translation.to((translationValue) => `translate3d(${translationValue}px, 0, 0)`),
-                            ...otherRailThumbSpringProps,
+                        animate={{
+                            x: containerWidth * (value / (max - min)),
+                            color: getComponentColor(true, hexColor, disabled),
                         }}
                         {...thumbProps}
                     />
@@ -78,10 +73,10 @@ export const Slider = ({
     );
 };
 
-const Thumb = forwardRef(({ style, thumbChildren, classes, ...other }, ref) => (
-    <animated.div className={classes.thumb} {...other} {...{ style }}>
+const Thumb = forwardRef(({ animate, thumbChildren, classes, ...other }, ref) => (
+    <motion.div className={classes.thumb} {...other} {...{ animate }}>
         <div className={classes.thumbChildrenContainer} {...{ ref }}>
             {thumbChildren}
         </div>
-    </animated.div>
+    </motion.div>
 ));

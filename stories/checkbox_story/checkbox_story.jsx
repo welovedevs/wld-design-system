@@ -1,13 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
-import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
-import { Checkbox } from '../../src/checkbox/checkbox';
+import { Checkbox } from '../../src';
 
-import styles from './checkbox_story_styles';
-
-const CHECK_BOXES = Object.freeze({
+export const CHECK_BOXES = Object.freeze({
     primary: {
         checked: true,
         color: 'primary'
@@ -22,7 +19,7 @@ const CHECK_BOXES = Object.freeze({
     }
 });
 
-const CheckBoxStory = ({ classes }) => {
+export const CheckBoxStory = ({ classes }) => {
     const [checkboxes, setCheckboxes] = useState(CHECK_BOXES);
     const variant = select(
         'Variant',
@@ -33,7 +30,7 @@ const CheckBoxStory = ({ classes }) => {
         'raised'
     );
     return (
-        <div className={classes.container}>
+        <div style={{display: 'flex'}}>
             {Object.entries(checkboxes).map(([id, props]) => (
                 <CheckboxComponent
                     key={`checkbox_${id}`}
@@ -50,7 +47,7 @@ const CheckBoxStory = ({ classes }) => {
     );
 };
 
-const CheckboxComponent = ({ id, checkboxes, setCheckboxes, ...other }) => {
+export const CheckboxComponent = ({ id, checkboxes, setCheckboxes, ...other }) => {
     const handleChange = useCallback(event =>
         setCheckboxes({
             ...checkboxes,
@@ -62,4 +59,3 @@ const CheckboxComponent = ({ id, checkboxes, setCheckboxes, ...other }) => {
     return <Checkbox onChange={handleChange} {...other} />;
 };
 
-export default injectSheet(styles)(CheckBoxStory);

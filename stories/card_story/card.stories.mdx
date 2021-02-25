@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import { Spacing } from '../stories_helpers/spacing/spacing';
-import { Card } from '../../src/card/card';
+import { Card } from '../../src';
 
 <Meta title="Components/Card" />
 
@@ -30,7 +30,16 @@ Usage example:
 
 <Preview withSource="none">
     <Story name="regular">
-        <Card>Regular Card</Card>
+        <Card >Regular Card</Card>
+    </Story>
+    <Story name="elevation 0">
+        <Card elevation={0}>Regular Card</Card>
+    </Story>
+    <Story name="elevation 1">
+        <Card elevation={1}>Regular Card</Card>
+    </Story>
+    <Story name="drawer">
+        <Card elevation='drawer'>Regular Card</Card>
     </Story>
 </Preview>
 

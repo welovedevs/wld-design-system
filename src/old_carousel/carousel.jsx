@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import SlickCarousel from 'react-slick';
 import { Twemoji } from 'react-emoji-render';
-import { animated, config, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
 import { Dialog, useMediaQuery } from '@material-ui/core';
 
@@ -20,10 +20,6 @@ import { ArrowIcon } from '../assets/icons/arrow_component';
 
 const useStyles = makeStyles(styles);
 
-const DEFAULT_ARROW_SPRING_PROPS = Object.freeze({
-    scale: 1,
-});
-
 const NavigateButton = ({
     className,
     classes,
@@ -34,36 +30,22 @@ const NavigateButton = ({
     slideCount,
     arrowRole,
 }) => {
-    const [springProps, setSpringProps] = useSpring(() => DEFAULT_ARROW_SPRING_PROPS);
-    const handleMouseDown = useCallback(() => {
-        setSpringProps(() => ({
-            scale: 0.9,
-        }));
-    }, [setSpringProps]);
-    const handleMouseUp = useCallback(() => {
-        setSpringProps(() => DEFAULT_ARROW_SPRING_PROPS);
-    }, [setSpringProps]);
-    if (arrowRole === 'prev' && currentSlide === 0) {
+      if (arrowRole === 'prev' && currentSlide === 0) {
         return null;
     }
     if (arrowRole === 'next' && currentSlide === slideCount - 1) {
         return null;
     }
     return (
-        <animated.button
+        <motion.button
             onClick={onClick}
             className={cn(className, buttonClassName, classes.navigateButton, reverse && classes.reverseButton)}
             type="button"
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onFocus={handleMouseDown}
-            onBlur={handleMouseUp}
-            style={{
-                transform: springProps.scale.to((value) => `scale3d(${value}, ${value}, ${value})`),
-            }}
+            initial={{scale: 1}}
+            whileHover={{scale: 0.9}}
         >
             <ArrowIcon />
-        </animated.button>
+        </motion.button>
     );
 };
 
