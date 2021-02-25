@@ -6,7 +6,8 @@ import React, {
     MouseEvent,
     PropsWithChildren,
     useCallback,
-    useMemo, useState,
+    useMemo,
+    useState,
 } from 'react';
 
 import cn from 'classnames';
@@ -63,10 +64,11 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
     ) => {
         const theme = useTheme();
         const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });const hexColor = useMemo(() => getHexFromTheme(theme, color as any), [theme, color]);
+            JSON.stringify(oldCustomClasses),
+            JSON.stringify(receivedClasses),
+        ]);
+        const classes = useStyles({ classes: mergedClasses });
+        const hexColor = useMemo(() => getHexFromTheme(theme, color as any), [theme, color]);
         const defaultColor = useMemo(() => propsDefaultColor || getHexFromTheme(theme, 'dark', 500), [
             propsDefaultColor,
             theme,
@@ -99,15 +101,18 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                 )}
                 {...containerProps}
                 style={{
-                    color: colorMotion,
                     ...(containerProps && containerProps.style),
                 }}
+                animate={{ color: colorMotion }}
                 initial="initial"
                 whileHover="hover"
                 {...{ ref }}
             >
                 <CheckIcon {...{ checked, classes }} />
-                <motion.div className={classes.brightLayer}  variants={{initial: {opacity: 0}, hover: {opacity: 0.3}}}/>
+                <motion.div
+                    className={classes.brightLayer}
+                    variants={{ initial: { opacity: 0 }, hover: { opacity: 0.3 } }}
+                />
                 <input
                     className={cn(classes.input, inputClassName)}
                     type="checkbox"
@@ -137,7 +142,7 @@ const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked
             viewBox="0 0 24 24"
             fill="#fff"
             animate={checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS}
-            transition={{type: "spring", bounce: 0.6}}
+            transition={{ type: 'spring', bounce: 0.6 }}
         >
             <g>
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
