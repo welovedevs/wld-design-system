@@ -1,8 +1,8 @@
-import React, {CSSProperties, ExoticComponent, useMemo, useRef} from 'react';
+import React, { CSSProperties, ExoticComponent, useMemo, useRef } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 import { getComponentColor, getHexFromTheme } from '../styles';
 
@@ -42,24 +42,24 @@ export const Tag: React.FC<Props> = ({
     ]);
     const classes = useStyles({ classes: mergedClasses });
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
-    const styleProps = {
-        color: getComponentColor(true, hexColor),
+    const animationProps = {
+        scale: 1,
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
             Boolean(hexColor),
             hexColor,
             false,
             '#d6d6d6'
-        )}`
+        )}`,
     };
+    const styleProps = { color: getComponentColor(true, hexColor), ...receivedStyle };
     const withColor = color && color !== 'default';
     return (
         <Component
             ref={containerRef}
             className={cn(className, classes.container)}
-            style={{
-                    ...receivedStyle,
-                    ...styleProps,
-                } as any}
+            initial={{ scale: 0.8 }}
+            animate={animationProps}
+            style={styleProps}
             {...other}
         >
             <Typography
