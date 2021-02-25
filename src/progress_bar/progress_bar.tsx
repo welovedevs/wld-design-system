@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {motion, useMotionValue, useTransform} from 'framer-motion'
+import { motion } from 'framer-motion';
 
 import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
 
@@ -18,25 +18,25 @@ interface Props {
 }
 
 export const ProgressBar: React.FC<Props> = ({
-                                                 value: progressValue = 0,
-                                                 color = 'primary',
-                                                 className,
-                                                 classes: receivedClasses = {},
-                                             }) => {
+    value: progressValue = 0,
+    color = 'primary',
+    className,
+    classes: receivedClasses = {},
+}) => {
     const classes = useStyles({ classes: receivedClasses });
     const theme = useTheme();
     const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
-    const xValue = -100
-    const xMotion = xValue + progressValue
+    const xValue = -100;
+    const xMotion = xValue + progressValue;
 
     return (
         <div className={cn(className, classes.container)}>
             <motion.div
                 className={classes.bar}
-                style={{color: getComponentColor(true, hexColor, false) as any, }}
-                initial={{x : `${xValue}%`}}
-                animate={{x : `${xMotion}%`}}
-                transition={{type: "tween"}}
+                style={{ color: getComponentColor(true, hexColor, false) as any }}
+                initial={{ x: `${xValue}%` }}
+                animate={{ x: `${xMotion}%` }}
+                transition={{ type: 'tween' }}
             />
         </div>
     );

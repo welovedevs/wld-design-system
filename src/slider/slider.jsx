@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Measure from 'react-measure';
 
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { getComponentColor, getHexFromTheme } from '../styles';
 
@@ -40,6 +40,7 @@ export const Slider = ({
         [containerWidth]
     );
 
+    console.log({ containerWidth, min, max, value, x: containerWidth * (value / max) });
     return (
         <Measure bounds onResize={handleMeasureChange}>
             {({ measureRef }) => (
@@ -51,7 +52,7 @@ export const Slider = ({
                         <motion.div
                             className={classes.rail}
                             animate={{
-                                x: containerWidth * (((value - min) * 100) / (max - min) / 100),
+                                width: containerWidth * (value / (max - min)),
                                 color: getComponentColor(true, hexColor, disabled),
                             }}
                         />
@@ -60,7 +61,7 @@ export const Slider = ({
                         {...{ thumbChildren, classes }}
                         ref={thumbReference}
                         animate={{
-                            x: containerWidth * (((value - min) * 100) / (max - min) / 100),
+                            x: containerWidth * (value / (max - min)),
                             color: getComponentColor(true, hexColor, disabled),
                         }}
                         {...thumbProps}
