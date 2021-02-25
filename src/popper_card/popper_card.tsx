@@ -30,21 +30,21 @@ interface Props {
 
 type ClassesRecord = ClassNameMap<
     'container' | 'popper' | 'closedPopper' | 'arrowContainer' | 'structured' | 'wrapper'
-    >;
+>;
 export const PopperCard: React.FC<Props> = ({
-                                                className,
-                                                anchorElement,
-                                                open,
-                                                onClose,
-                                                popperProps,
-                                                structured,
-                                                onClickAway,
-                                                dismissArrow = false,
-                                                customClasses: oldCustomClasses = {},
-                                                classes: receivedClasses = {},
-                                                containerProps = {},
-                                                children,
-                                            }) => {
+    className,
+    anchorElement,
+    open,
+    onClose,
+    popperProps,
+    structured,
+    onClickAway,
+    dismissArrow = false,
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
+    containerProps = {},
+    children,
+}) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -80,7 +80,7 @@ export const PopperCard: React.FC<Props> = ({
             transition
         >
             {({ TransitionProps }) => (
-                <Fade {...TransitionProps} {... popperProps }>
+                <Fade {...TransitionProps} {...popperProps}>
                     <Content
                         {...{
                             className,
@@ -132,17 +132,16 @@ const Fade: React.FC<{
     return (
         <motion.div
             {...{ ref: ref as any, motionConfig }}
+            style={{ pointerEvents: open ? 'all' : 'none' }}
             initial={{
                 opacity: 0,
-                pointerEvents: 'none',
                 transform: getTranslationFromPlacement(20),
             }}
             animate={{
                 opacity: open ? 1 : 0,
-                pointerEvents: open ? 'all' : 'none',
                 transform: getTranslationFromPlacement(open ? 0 : 20),
             }}
-            transition={{type: 'spring'}}
+            transition={{ type: 'spring' }}
             {...other}
         >
             {children}
@@ -159,14 +158,14 @@ interface PopperContentProps {
     classes: ClassesRecord;
 }
 const Content: React.FC<PopperContentProps> = ({
-                                                   className,
-                                                   dismissArrow,
-                                                   setArrowReference,
-                                                   onClickAway,
-                                                   structured,
-                                                   classes,
-                                                   children,
-                                               }) => {
+    className,
+    dismissArrow,
+    setArrowReference,
+    onClickAway,
+    structured,
+    classes,
+    children,
+}) => {
     const handleClickAway = useCallback(
         (...parameters) => {
             if (typeof onClickAway === 'function') {
