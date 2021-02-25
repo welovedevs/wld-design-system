@@ -69,10 +69,10 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
         ]);
         const classes = useStyles({ classes: mergedClasses });
         const hexColor = useMemo(() => getHexFromTheme(theme, color as any), [theme, color]);
-        const defaultColor = useMemo(() => propsDefaultColor || getHexFromTheme(theme, 'dark', 500), [
-            propsDefaultColor,
-            theme,
-        ]);
+        const defaultColor = useMemo(
+            () => propsDefaultColor || (variant === 'raised' && '#fff') || getHexFromTheme(theme, 'dark', 500),
+            [propsDefaultColor, theme]
+        );
 
         const { color: colorMotion } = {
             color: getComponentColor(checked, hexColor ?? null, disabled, defaultColor),
@@ -151,36 +151,4 @@ const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked
     );
 };
 
-const RaisedCheckbox: React.FC<CheckboxProps> = (props) => {
-    const theme = useTheme();
-    const { checked, color, disabled } = props;
-    const motionProps = {
-        boxShadow: `0 ${checked ? 5 : 10}px ${checked ? 15 : 20}px 0 ${getComponentColor(
-            checked,
-            getHexFromTheme(theme, color as any, 200),
-            disabled,
-            '#d6d6d6'
-        )}`,
-    } as any;
-    return (
-        <CheckboxComponent
-            containerProps={{
-                style: {
-                    ...motionProps,
-                },
-            }}
-            defaultColor="#fff"
-            {...props}
-        />
-    );
-};
-
-const WithVariantCheckbox: React.FC<CheckboxProps> = (props) => {
-    const { variant = 'raised' } = props;
-    if (variant === 'raised') {
-        return <RaisedCheckbox {...{ variant }} {...props} />;
-    }
-    return <CheckboxComponent {...{ variant }} {...props} />;
-};
-
-export const Checkbox = WithVariantCheckbox;
+export const Checkbox = CheckboxComponent;
