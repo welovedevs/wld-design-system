@@ -1,6 +1,6 @@
 {
     "name": "@welovedevs/ui",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "WeLoveDevs.com UI components",
     "main": "index.js",
     "types": "index.d.ts",
