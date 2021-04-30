@@ -23,6 +23,10 @@
         "url": "https://github.com/welovedevs/wld-design-system/issues"
     },
     "homepage": "https://github.com/welovedevs/wld-design-system#readme",
+    "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0"
+    },
     "dependencies": {
         "@material-ui/core": "^4.11.0",
         "@material-ui/icons": "^4.9.1",
@@ -30,9 +34,7 @@
         "classnames": "^2.2.6",
         "framer-motion": "^3.6.7",
         "lodash": "^4.17.15",
-        "react": "^17.0.0",
         "react-autosuggest": "^9.4.3",
-        "react-dom": "^17.0.0",
         "react-emoji-render": "^1.2.1",
         "react-measure": "^2.3.0",
         "react-slick": "^0.25.2"
