@@ -38,7 +38,7 @@ export const styles = (theme: Theme) =>
         },
         heading: {
             color: dark[500],
-            margin: 0,
+            // margin: 0,
         },
         h1: {
             extend: 'heading',
