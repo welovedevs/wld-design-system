@@ -19,6 +19,8 @@ export const styles = createStyles({
         padding: 3,
         cursor: 'pointer',
         overflow: 'hidden',
+        boxShadow:
+            'rgba(0, 0, 0, 0.1) 0px -1px 1px 0px, rgba(0, 0, 0, 0.1) 1px 0px 1px 0px, rgba(0, 0, 0, 0.1) -1px 0px 1px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px',
         ...center,
     },
     raised: {
@@ -28,7 +30,7 @@ export const styles = createStyles({
         },
     },
     outlined: {
-        border: "1px solid currentColor",
+        border: '1px solid currentColor',
     },
     disabled: {
         cursor: 'not-allowed',

@@ -1,12 +1,60 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import {CheckBoxStory} from "./checkbox_story";
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Checkbox } from '../../src/checkbox/checkbox';
 
-<Meta title="Checkbox" component={CheckBoxStory} />
+export const Template = (args) => <Checkbox {...args} />;
+
+<Meta
+    title="Components/Checkbox"
+    component={Checkbox}
+    argTypes={{
+        color: {
+            options: ['primary', 'secondary', 'tertiary'],
+        },
+        variant: {
+            options: ['raised', 'outlined'],
+            defaultValue: 'raised',
+        },
+    }}
+/>
 
 # ListItem
 
-<Preview withSource="none">
-    <Story name="Default">
-        <CheckBoxStory/>
+<Canvas>
+    <Story
+        name="Unchecked"
+        args={{
+            checked: false,
+        }}
+    >
+        {Template.bind({})}
     </Story>
-</Preview>
+    <Story
+        name="Checked"
+        args={{
+            checked: true,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Secondary"
+        args={{
+            color: 'secondary',
+            checked: true,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Outlined"
+        args={{
+            color: 'secondary',
+            checked: true,
+            variant: 'outlined',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable of={Checkbox} />

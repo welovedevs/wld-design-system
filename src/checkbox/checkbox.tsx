@@ -136,12 +136,13 @@ const CHECKED_ICON_PROPS = {
 };
 
 const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
+    const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
     return (
         <motion.svg
             className={classes.checkIcon}
             viewBox="0 0 24 24"
             fill="#fff"
-            animate={checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS}
+            animate={spring}
             transition={{ type: 'spring', bounce: 0.6 }}
         >
             <g>
