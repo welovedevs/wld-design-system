@@ -38,6 +38,12 @@ export const styles = createStyles({
             color: '#afafaf',
         },
     },
+    small: {
+        padding: '8px 10px',
+        minHeight: 24,
+        lineHeight: '16px',
+        fontSize: '16px',
+    },
     multiline: {
         padding: '0 20px 0 0 ',
         '&::-webkit-scrollbar-track': {
@@ -82,12 +88,12 @@ export const styles = createStyles({
         cursor: 'not-allowed',
     },
     passwordFieldContainer: {
-        display: "flex",
-        alignItems: "center"
+        display: 'flex',
+        alignItems: 'center',
     },
     icon: {
         width: 50,
         height: 50,
-        marginLeft: 8
-    }
+        marginLeft: 8,
+    },
 });

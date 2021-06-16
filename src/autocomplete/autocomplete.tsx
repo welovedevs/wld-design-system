@@ -160,7 +160,7 @@ export function AutoComplete({
                     );
                 }}
                 onSuggestionSelected={suggestionSelected}
-                renderInputComponent={({ onChange, ...props }) => (
+                renderInputComponent={({ onChange, size, ...props }) => (
                     <TextField
                         {...props}
                         {...other}

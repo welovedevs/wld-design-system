@@ -34,6 +34,7 @@ interface CustomProps {
     disabled?: boolean;
     classes?: Classes;
     customClasses?: Classes;
+    size?: 'small';
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
     passwordLabels?: {
@@ -42,7 +43,8 @@ interface CustomProps {
     };
 }
 
-export type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & CustomProps;
+export type TextFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'size'> &
+    CustomProps;
 const TextFieldComponent: React.FC<TextFieldProps> = ({
     containerElement: ContainerElement = 'div',
     containerProps,
@@ -59,6 +61,7 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
     type = 'text',
     disabled,
     customClasses: oldCustomClasses = {},
+    size,
     classes: receivedClasses = {},
     ...other
 }) => {
@@ -96,7 +99,7 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
             {beforeChildren}
             <InputComponent
                 ref={inputRef}
-                className={cn(inputClassName, classes.input, multiline && classes.multiline)}
+                className={cn(inputClassName, classes.input, multiline && classes.multiline, size && classes[size])}
                 type={showHidePassword ? 'text' : type}
                 {...{ rows, disabled }}
                 {...other}
@@ -134,7 +137,7 @@ const RaisedTextField: React.FC<TextFieldProps> = ({ onFocus, onBlur, containerP
     );
     return (
         <TextFieldComponent
-            containerElement='div'
+            containerElement="div"
             containerProps={{
                 ...containerProps,
                 style: {
