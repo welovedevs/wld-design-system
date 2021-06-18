@@ -17,7 +17,7 @@ interface CustomProps {
     className?: string;
     containerRef?: any;
     disabled?: boolean;
-    size?: 'small';
+    size?: 'small' | 'xs';
     color?: PaletteColors | 'default';
     containerProps?: any;
     typographyClassName?: any;

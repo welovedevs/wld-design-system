@@ -1,6 +1,7 @@
 export const BUTTON_POSSIBLE_SIZES = {
     normal: 'Normal',
-    small: 'Small'
+    small: 'Small',
+    xs: 'Extra Small'
 };
 
 export const BUTTON_EXAMPLE_COLORS = {
