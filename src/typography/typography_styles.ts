@@ -33,12 +33,12 @@ export type TypographyVariants =
 export const styles = (theme: Theme) =>
     createStyles({
         container: {
-            fontFamily: 'Avenir Next, Roboto, Open sans, Arial',
+            fontFamily: 'Avenir Next, Open sans, Arial',
             color: dark[400],
         },
         heading: {
             color: dark[500],
-            margin: 0,
+            // margin: 0,
         },
         h1: {
             extend: 'heading',

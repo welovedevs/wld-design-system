@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { animated, config, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
 import { ClickAwayListener, Popper, PopperProps } from '@material-ui/core';
 import { Card } from '../card/card';
@@ -11,7 +11,6 @@ import { PopperCustomClasses, styles } from './popper_card_styles';
 import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
-import omit from 'lodash/omit';
 
 const useStyles = makeStyles(styles);
 
@@ -24,7 +23,6 @@ interface Props {
     structured?: boolean;
     onClickAway?: () => void;
     dismissArrow?: boolean;
-    springOptions?: any;
     classes?: PopperCustomClasses;
     customClasses?: PopperCustomClasses;
     containerProps?: any;
@@ -42,7 +40,6 @@ export const PopperCard: React.FC<Props> = ({
     structured,
     onClickAway,
     dismissArrow = false,
-    springOptions = {},
     customClasses: oldCustomClasses = {},
     classes: receivedClasses = {},
     containerProps = {},
@@ -83,7 +80,7 @@ export const PopperCard: React.FC<Props> = ({
             transition
         >
             {({ TransitionProps }) => (
-                <Fade {...TransitionProps} {...{ springOptions, popperProps }}>
+                <Fade {...TransitionProps} {...popperProps}>
                     <Content
                         {...{
                             className,
@@ -106,11 +103,10 @@ const Fade: React.FC<{
     in?: boolean;
     onEnter?: () => void;
     onExited?: () => void;
-    springOptions?: any;
     popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
     TransitionProps?: any;
-}> = React.forwardRef((props, ref) => {
-    const { in: open, children, onEnter, onExited, springOptions, popperProps, ...other } = props;
+}> = (props, ref) => {
+    const { in: open, children, onEnter, onExited, popperProps, ...other } = props;
     const getTranslationFromPlacement = useCallback((value) => {
         const placement = (popperProps && popperProps.placement) || 'bottom';
         if (['top', 'bottom'].some((key) => placement === key)) {
@@ -118,19 +114,7 @@ const Fade: React.FC<{
         }
         return `translate3d(-${value}px, 0, 0)`;
     }, []);
-    const style = useSpring({
-        from: {
-            opacity: 0,
-            pointerEvents: 'none',
-            transform: getTranslationFromPlacement(20),
-        },
-        to: {
-            opacity: open ? 1 : 0,
-            pointerEvents: open ? 'all' : 'none',
-            transform: getTranslationFromPlacement(open ? 0 : 20),
-        },
-        config: config.default,
-        ...springOptions,
+    const motionConfig = {
         onStart: () => {
             // This cause the following error: Cannot update a component from inside the function body of a different component.
             // It is a pattern documented in the Transition section of Material-UI docs, waiting for a possible update.
@@ -143,14 +127,27 @@ const Fade: React.FC<{
                 onExited();
             }
         },
-    });
+    };
 
     return (
-        <animated.div {...{ ref: ref as any, style }} {...other}>
+        <motion.div
+            {...{ ref: ref as any, motionConfig }}
+            style={{ pointerEvents: open ? 'all' : 'none' }}
+            initial={{
+                opacity: 0,
+                transform: getTranslationFromPlacement(20),
+            }}
+            animate={{
+                opacity: open ? 1 : 0,
+                transform: getTranslationFromPlacement(open ? 0 : 20),
+            }}
+            transition={{ type: 'spring' }}
+            {...other}
+        >
             {children}
-        </animated.div>
+        </motion.div>
     );
-});
+};
 
 interface PopperContentProps {
     className?: string;

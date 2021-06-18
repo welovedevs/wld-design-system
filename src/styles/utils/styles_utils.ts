@@ -17,9 +17,13 @@ export const getHexFromTheme = (
     color: PaletteColors | 'default' = 'primary',
     shade: PaletteShade = 500
 ) => {
-    const theme = Object.keys(inputTheme || {}).length ? inputTheme : DEFAULT_THEME;
     // @ts-ignore
-    return theme.palette?.[color]?.[shade];
+    const themeShadedColor = inputTheme?.palette?.[color]?.[shade];
+    if (!themeShadedColor) {
+        // @ts-ignore
+        return DEFAULT_THEME.palette[color]?.[shade];
+    }
+    return themeShadedColor;
 };
 export const getComponentColor = (
     active: boolean,

@@ -12,7 +12,7 @@ export const styles = createStyles({
         backgroundColor: '#fff',
         borderRadius: 5,
         padding: 20,
-        fontFamily: 'Avenir Next, open sans, Roboto, Arial',
+        fontFamily: 'Avenir Next, open sans, Arial',
     },
     variant_flat: {
         backgroundColor: '#f9f9f9',

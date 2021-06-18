@@ -7,7 +7,7 @@ export const theme = create({
     colorSecondary: '#220bab',
 
     // Typography
-    fontBase: '"Avenir Next", "Roboto", "open sans", "Raleway"',
+    fontBase: '"Avenir Next", "open sans", "Arial"',
 
     brandTitle: "WeLoveDevs' Storybook",
     brandUrl: 'https://welovedevs.com',

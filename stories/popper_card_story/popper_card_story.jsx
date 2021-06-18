@@ -1,18 +1,15 @@
 import React, { useCallback, useState } from 'react';
 
-import injectSheet from 'react-jss';
 import { select } from '@storybook/addon-knobs';
 
 import { Button } from '../../src/button/button';
 import { PopperCard } from '../../src/popper_card/popper_card';
 
-import styles from './popper_card_story_styles';
-
-const PopperCardComponent = () => {
+export const PopperCardStory = () => {
     const [anchorElement, setAnchorElement] = useState(null);
     const [open, setOpen] = useState(false);
     const handleButtonClick = useCallback(
-        e => {
+        (e) => {
             if (open) {
                 setOpen(false);
             } else {
@@ -28,7 +25,7 @@ const PopperCardComponent = () => {
             Bottom: 'bottom',
             Top: 'top',
             Right: 'right',
-            Left: 'left'
+            Left: 'left',
         },
         'bottom'
     );
@@ -37,10 +34,13 @@ const PopperCardComponent = () => {
             <PopperCard
                 {...{ anchorElement, open }}
                 popperProps={{
-                    placement
+                    placement,
                 }}
             >
                 <img src="https://cataas.com/cat/says/hello?size=50&color=red&width=300&height=300" alt="Le chat" />
+                <a href={'https://google.fr'} target="_blank">
+                    Link test FF
+                </a>
             </PopperCard>
             <Button color="primary" variant="contained" onClick={handleButtonClick}>
                 {!open ? 'Ouvrir' : 'Fermer'}
@@ -48,5 +48,3 @@ const PopperCardComponent = () => {
         </>
     );
 };
-
-export default injectSheet(styles)(PopperCardComponent);

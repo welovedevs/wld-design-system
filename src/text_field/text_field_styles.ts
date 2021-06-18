@@ -1,4 +1,4 @@
-import { primary } from '../styles/palette';
+import { primary } from '../styles';
 import { createStyles } from '@material-ui/core/styles';
 
 type StylesKeys = 'container' | 'input';
@@ -29,7 +29,7 @@ export const styles = createStyles({
         border: 'none',
         fontSize: 16,
         lineHeight: '24px',
-        fontFamily: 'Roboto, Open sans , Arial',
+        fontFamily: 'Avenir Next, Open sans , Arial',
         color: '#2f2f2f',
         display: 'flex',
         alignItems: 'center',
@@ -37,6 +37,12 @@ export const styles = createStyles({
         '&::placeholder': {
             color: '#afafaf',
         },
+    },
+    small: {
+        padding: '8px 10px',
+        minHeight: 24,
+        lineHeight: '16px',
+        fontSize: '16px',
     },
     multiline: {
         padding: '0 20px 0 0 ',
@@ -80,5 +86,14 @@ export const styles = createStyles({
     underlinedDisabled: {},
     disabled: {
         cursor: 'not-allowed',
+    },
+    passwordFieldContainer: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    icon: {
+        width: 50,
+        height: 50,
+        marginLeft: 8,
     },
 });
