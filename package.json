@@ -12,8 +12,8 @@
         "build-storybook": "build-storybook",
         "version:beta": "npm version prerelease --preid=beta",
         "version:release": "npm version ${VERSION:-patch}",
-        "postpublish": "npm run publish-npm",
-        "publish-npm": "npm publish --access public --ignore-scripts --@welovedevs:registry='https://registry.npmjs.org'"
+        "postpublish": "npm run publish-githubpackages",
+        "publish-githubpackages": "npm publish --access public --ignore-scripts --@welovedevs:registry='https://npm.pkg.github.com'"
     },
     "repository": {
         "type": "git",
