@@ -1,6 +1,6 @@
 {
     "name": "@welovedevs/ui",
-    "version": "1.2.7",
+    "version": "1.2.6",
     "description": "WeLoveDevs.com UI components",
     "main": "index.js",
     "types": "index.d.ts",
@@ -11,7 +11,9 @@
         "storybook": "start-storybook -p 6006 --ci",
         "build-storybook": "build-storybook",
         "version:beta": "npm version prerelease --preid=beta",
-        "version:release": "npm version ${VERSION:-patch}"
+        "version:release": "npm version ${VERSION:-patch}",
+        "postpublish": "npm run publish-npm",
+        "publish-npm": "npm publish --access public --ignore-scripts --@welovedevs:registry='https://registry.npmjs.org'"
     },
     "repository": {
         "type": "git",
