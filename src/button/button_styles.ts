@@ -71,6 +71,11 @@ export const styles = createStyles({
         '& > $typography': {
             fontSize: 12,
         },
+    },  size_xs: {
+        padding:"6px 8px",
+        '& > $typography': {
+            fontSize: 11,
+        },
     },
     brightLayer: {
         height: '100%',
