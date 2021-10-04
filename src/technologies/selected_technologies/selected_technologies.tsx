@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 import { styles } from './selected_technologies_styles';
-import last from 'lodash';
+import last from 'lodash/last';
 import { makeStyles } from '@material-ui/core/styles';
 import { Classes } from '../technologies_picker_styles';
 import { DevTechnology } from '../technologies/technology';
