@@ -42,11 +42,13 @@ const TechnologyRow = SortableElement(
         );
         const imgUrl = useMemo(() => {
             const matchingItem = technologies.find((techno) => techno.name === item.name);
-            const handle = matchingItem?.handle;
-            return `https://process.filestackapi.com/auto_image/${
-                matchingItem?.handle ?? handle ?? '4A5N89okRPW50jRcmkuM'
-            }`;
-        }, [technologies, item]);
+            if (matchingItem?.handle) {
+                return `https://process.filestackapi.com/auto_image/${matchingItem?.handle ?? '4A5N89okRPW50jRcmkuM'}`;
+            }
+            const handle = last(matchingItem?.url.split('/'));
+            return `https://process.filestackapi.com/auto_image/${handle ?? '4A5N89okRPW50jRcmkuM'}`;
+        }, [item, technologies]);
+
 
         return (
             <li className={classes.listItem} style={{ zIndex: itemsLength - technologyIndex }}>
