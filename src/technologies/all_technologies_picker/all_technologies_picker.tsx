@@ -31,7 +31,7 @@ const TechnologyItem = ({
     selectedItems: Array<DevTechnology>;
     item: Technology;
     onAdd: (name: string) => void;
-    onDelete: (id: string) => void;
+    onDelete: (name: string) => void;
 }) => {
     const classes = useStyles();
     const { technologies } = useContext(TechnologiesPickerContext);
@@ -42,7 +42,7 @@ const TechnologyItem = ({
             onAdd(item.name);
             return;
         }
-        onDelete(selectedItem.id);
+        onDelete(selectedItem.name);
     }, [selectedItem, onAdd, onDelete]);
 
     const imgUrl = useMemo(() => {
@@ -91,7 +91,7 @@ const TechnologyItem = ({
 
 interface Props {
     technologies: Technology[];
-    onDelete: (id: string) => void;
+    onDelete: (name: string) => void;
     classes?: Classes;
     onAdd: (name: string) => void;
     selectedItems: Array<DevTechnology>;

@@ -6,7 +6,8 @@ export interface Technology {
     tags: string[];
 }
 
-export interface DevTechnology extends Technology {
+export interface DevTechnology {
     value: number;
     index: number;
+    name: string;
 }

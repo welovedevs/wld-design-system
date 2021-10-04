@@ -26,7 +26,7 @@ const TechnologyRow = SortableElement(
     }: {
         id: string;
         item: DevTechnology;
-        onDelete: (id: string) => void;
+        onDelete: (name: string) => void;
         onChange: (id: DevTechnology) => void;
         technologyIndex: number;
         itemsLength: number;
@@ -53,7 +53,7 @@ const TechnologyRow = SortableElement(
                 <DragHandle classes={classes} />
                 <div className={classes.divider} />
                 <Tooltip title={translations.deleteLabel}>
-                    <button className={classes.removeButton} type="button" onClick={() => onRemove(item.id)}>
+                    <button className={classes.removeButton} type="button" onClick={() => onRemove(item.name)}>
                         <TrashIcon className={classes.removeIcon} />
                     </button>
                 </Tooltip>
@@ -77,7 +77,7 @@ const TechnologyRow = SortableElement(
                         </Typography>
                         <Slider
                             color="primary"
-                            name={`skill_value_${item.id}`}
+                            name={`skill_value_${item.name}`}
                             value={item.value}
                             onChange={sliderChange}
                             min={0}
@@ -115,9 +115,9 @@ const SortableTechnologies = SortableContainer(
             <List className={cn(classes.container, className)}>
                 {items.map((item, index) => (
                     <TechnologyRow
-                        key={`selected_technology_row_${item.id}`}
+                        key={`selected_technology_row_${item.name}`}
                         onDelete={onDelete}
-                        id={item.id}
+                        id={item.name}
                         onChange={onItemChange}
                         technologyIndex={index}
                         index={index}

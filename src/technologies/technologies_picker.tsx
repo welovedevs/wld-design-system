@@ -15,9 +15,9 @@ export interface TechnologiesPickerProps {
     isMobile?: boolean;
     selectedValues: Array<DevTechnology>;
     onAddItem: (technoName: string) => void;
-    onDeleteItem: (id: string) => void;
-    onArrayChange: (newArray: Array<Technology>) => void;
-    onArrayItemChange: (item: Technology) => void;
+    onDeleteItem: (technoName: string) => void;
+    onArrayChange: (newArray: Array<DevTechnology>) => void;
+    onArrayItemChange: (item: DevTechnology) => void;
     technologies: Technology[];
     translations: ContextType['translations'];
     content?: {
