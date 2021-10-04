@@ -12,6 +12,20 @@ export const flexUtils = {
     },
 };
 
+export const withCustomVerticalScrollbar = (color = '#c1c1c1') => ({
+    '&::-webkit-scrollbar-track': {
+        border: 0
+    },
+    '&::-webkit-scrollbar': {
+        width: '6px'
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: color
+    },
+    scrollbarWidth: 'thin',
+    scrollbarColor: `${color} transparent`
+});
+
 export const getHexFromTheme = (
     inputTheme: Theme,
     color: PaletteColors | 'default' = 'primary',

@@ -39,17 +39,18 @@
         "react-autosuggest": "^9.4.3",
         "react-emoji-render": "^1.2.1",
         "react-measure": "^2.3.0",
-        "react-slick": "^0.25.2"
+        "react-slick": "^0.25.2",
+        "react-sortable-hoc": "^2.0.0"
     },
     "devDependencies": {
         "@babel/plugin-proposal-export-default-from": "^7.10.4",
-        "@storybook/addon-actions": "^6.0.26",
-        "@storybook/addon-docs": "^6.0.26",
-        "@storybook/addon-knobs": "^6.0.26",
-        "@storybook/addon-links": "^6.0.26",
-        "@storybook/addons": "^6.0.26",
-        "@storybook/react": "^6.0.26",
-        "@storybook/theming": "^6.0.26",
+        "@storybook/addon-actions": "^6.3.9",
+        "@storybook/addon-docs": "^6.3.9",
+        "@storybook/addon-knobs": "^6.3.1",
+        "@storybook/addon-links": "^6.3.9",
+        "@storybook/addons": "^6.3.9",
+        "@storybook/react": "^6.3.9",
+        "@storybook/theming": "^6.3.9",
         "@types/classnames": "^2.2.10",
         "@types/events": "^3.0.0",
         "@types/jss": "^10.0.0",
@@ -70,7 +71,9 @@
         "prettier": "^2.0.5",
         "readline-sync": "^1.4.10",
         "typescript": "^4.0.2",
-        "yargs": "^15.1.0"
+        "yargs": "^15.1.0",
+        "react": "^16.8.0 || ^17.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0"
     },
     "eslintConfig": {
         "extends": "react-app"

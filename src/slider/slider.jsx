@@ -40,7 +40,7 @@ export const Slider = ({
         [containerWidth]
     );
 
-    console.log({ containerWidth, min, max, value, x: containerWidth * (value / max) });
+    // console.log({ containerWidth, min, max, value, x: containerWidth * (value / max) });
     return (
         <Measure bounds onResize={handleMeasureChange}>
             {({ measureRef }) => (
