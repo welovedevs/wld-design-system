@@ -70,7 +70,7 @@ export const styles = ({ spacing }: Theme) =>
         sliderValueContainer: {
             display: 'flex',
             alignItems: 'center',
-            marginTop: spacing,
+            marginTop: spacing(1),
         },
         sliderValue: {
             marginRight: spacing(2),
