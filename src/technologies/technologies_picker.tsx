@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Classes, styles } from './technologies_picker_styles';
 import { AllTechnologiesPicker } from './all_technologies_picker/all_technologies_picker';
 import { SelectedTechnologies } from './selected_technologies/selected_technologies';
-import { DevTechnology } from './technologies/technology';
+import { DevTechnology, Technology } from './technologies/technology';
 import { ContextType, TechnologiesPickerContext } from './technologies_picker_context';
 
 const useStyles = makeStyles(styles);
@@ -16,9 +16,9 @@ export interface TechnologiesPickerProps {
     selectedValues: Array<DevTechnology>;
     onAddItem: (technoName: string) => void;
     onDeleteItem: (id: string) => void;
-    onArrayChange: (newArray: Array<DevTechnology>) => void;
-    onArrayItemChange: (item: DevTechnology) => void;
-    technologies: DevTechnology[];
+    onArrayChange: (newArray: Array<Technology>) => void;
+    onArrayItemChange: (item: Technology) => void;
+    technologies: Technology[];
     translations: ContextType['translations'];
     content?: {
         noResults?: React.ReactElement;

@@ -90,7 +90,7 @@ const TechnologyItem = ({
 };
 
 interface Props {
-    technologies: DevTechnology[];
+    technologies: Technology[];
     onDelete: (id: string) => void;
     classes?: Classes;
     onAdd: (name: string) => void;
