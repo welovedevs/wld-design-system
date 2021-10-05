@@ -3,7 +3,8 @@ import { TechnologiesPicker, TechnologiesPickerProps } from '../../src/technolog
 import { technologies } from './technology_data';
 import { useState } from 'react';
 import { DevTechnology, Technology } from '../../src/technologies/technologies/technology';
-import {Card} from "@material-ui/core";
+import { Card } from '@material-ui/core';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 const Template = (args) => {
     const [items, setItems] = useState<Array<DevTechnology>>([]);
@@ -18,8 +19,8 @@ const Template = (args) => {
             onDeleteItem={(id) => setItems(items.filter((item) => item.id !== id))}
             onArrayChange={(newArray) => setItems(newArray)}
             content={{
-                noResults : <Card>Pas de contenu</Card>,
-                additionalInformations : <Card>Info Supplémentaire</Card>
+                noResults: <Card>Pas de contenu</Card>,
+                additionalInformations: <Card>Info Supplémentaire</Card>,
             }}
         />
     );
@@ -34,8 +35,22 @@ Picker.args = {
         deleteLabel: 'Supprimer',
     },
 } as Partial<TechnologiesPickerProps>;
+//👇 Each story then reuses that template
+export const MobilePicker = Template.bind({});
+MobilePicker.args = {
+    technologies,
+    isMobile: true,
+    translations: {
+        checkboxLabel: 'Label Checkbox',
+        deleteLabel: 'Supprimer',
+    },
+} as Partial<TechnologiesPickerProps>;
 
 export default {
     title: 'Picker',
     component: TechnologiesPicker,
+    viewport: {
+        //👇 The viewports you want to use
+        viewports: INITIAL_VIEWPORTS,
+    },
 };

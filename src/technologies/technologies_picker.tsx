@@ -38,7 +38,7 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
     translations,
     content,
 }) => {
-    const classes = useStyles({ classes: receivedClasses });
+    const classes = useStyles({ classes: receivedClasses, isMobile });
 
     const technoPickerContext = useMemo(
         () => ({
@@ -50,20 +50,19 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
     return (
         <TechnologiesPickerContext.Provider value={technoPickerContext}>
             <div className={classes.container}>
-                <div className={classes.allTechnologies}>
-                    <AllTechnologiesPicker
-                        isMobile={isMobile}
-                        technologies={technologies}
-                        selectedItems={selectedValues}
-                        onAdd={onAddItem}
-                        onDelete={onDeleteItem}
-                        noResultsElement={content?.noResults}
-                        classes={{
-                            container: classes.allTechnologies,
-                            technologiesList: classes.technologiesList,
-                        }}
-                    />
-                </div>
+                <AllTechnologiesPicker  
+                    isMobile={isMobile}
+                    technologies={technologies}
+                    selectedItems={selectedValues}
+                    onAdd={onAddItem}
+                    onDelete={onDeleteItem}
+                    noResultsElement={content?.noResults}
+                    additionalInformations={content?.additionalInformations}
+                    classes={{
+                        container: classes.allTechnologies,
+                        technologiesList: classes.technologiesList,
+                    }}
+                />
                 {!isMobile && <div className={classes.divider} />}
                 {!isMobile && (
                     <div className={classes.column}>

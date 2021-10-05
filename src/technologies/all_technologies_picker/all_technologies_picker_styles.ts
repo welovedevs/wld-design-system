@@ -10,44 +10,49 @@ export type Classes = {
 export const styles = ({ spacing }: Theme) =>
     createStyles({
         container: {
+            overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
         },
         textField: {
-            minHeight: 'fit-content',
+            minHeight: 60,
             minWidth: 400,
             marginBottom: spacing(3),
             '@media screen and (max-width: 500px)': {
                 minWidth: 'unset',
             },
         },
+        technologiesListWrapper: {
+            width: '100%',
+            overflow: 'auto',
+        },
         technologiesList: {
             display: 'flex',
             flexWrap: 'wrap',
-            marginLeft: spacing(-2),
             '@media screen and (max-width: 500px)': {
                 justifyContent: 'center',
                 marginLeft: 'unset',
             },
         },
-        technologyItem: {
-            width: 80,
-            maxWidth: 80,
+        technologyItem: ({ isMobile }: { isMobile?: boolean }) => ({
+            width: isMobile ? 60 : 80,
+            maxWidth: isMobile ? 60 : 80,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            margin: spacing(1, 2),
-            padding: spacing(1),
-        },
-        technologyImageContainer: {
+            margin: isMobile ? spacing(1) : spacing(1.5),
+        }),
+        technologyImageContainer: ({ isMobile }: { isMobile?: boolean }) => ({
+            width: isMobile ? 60 : 80,
+            maxWidth: isMobile ? 60 : 80,
+            height: isMobile ? 60 : 80,
+            maxHeight: isMobile ? 60 : 80,
+
             position: 'relative',
-            width: '100%',
-            minWidth: 80,
-            height: 80,
             padding: spacing(1.5),
             marginBottom: spacing(2),
             overflow: 'hidden',
-        },
+        }),
         technologyImage: {
             width: '100%',
             height: '100%',
@@ -55,6 +60,7 @@ export const styles = ({ spacing }: Theme) =>
         },
         typography: {
             textAlign: 'center',
+            linebreak: 'anywhere',
         },
         selectedTechnologyLayer: {
             zIndex: 2,

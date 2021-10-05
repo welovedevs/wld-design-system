@@ -14,6 +14,7 @@ import { useDebouncedValue } from '../../hooks/use_debounced_value';
 import { TechnologiesPickerContext } from '../technologies_picker_context';
 import cn from 'classnames';
 import { Card, Checkbox, TextField, Typography } from '../../index';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const DEFAULT_SPRING_TYPE = {
     type: 'spring',
@@ -27,13 +28,15 @@ const TechnologyItem = ({
     selectedItems = [],
     onAdd,
     onDelete,
+    isMobile,
 }: {
     selectedItems: Array<DevTechnology>;
     item: Technology;
     onAdd: (name: string) => void;
     onDelete: (name: string) => void;
+    isMobile?: boolean;
 }) => {
-    const classes = useStyles();
+    const classes = useStyles({ isMobile });
     const { technologies } = useContext(TechnologiesPickerContext);
     const selectedItem = useMemo(() => selectedItems.find(({ name }) => name === item.name), [selectedItems, item]);
 
@@ -100,8 +103,10 @@ interface Props {
     selectedItems: Array<DevTechnology>;
     isMobile?: boolean;
     noResultsElement?: React.ReactElement | null;
+    additionalInformations?: React.ReactElement | null;
 }
 
+const DISPLAYED_ITEMS = 30;
 export const AllTechnologiesPicker = ({
     selectedItems,
     onAdd,
@@ -109,14 +114,17 @@ export const AllTechnologiesPicker = ({
     classes: receivedClasses = {},
     isMobile,
     noResultsElement = null,
+    additionalInformations = null,
 }: Props) => {
-    const classes = useStyles({ classes: receivedClasses });
+    const classes = useStyles({ classes: receivedClasses, isMobile } as any);
     const [onlySelected, setOnlySelected] = useState<boolean>();
 
     const [query, setQuery] = useState<string>('');
     const debouncedQuery = useDebouncedValue(query, 200);
 
     const { technologies, translations } = useContext(TechnologiesPickerContext);
+    const [shownItems, setShownItems] = useState<number>(DISPLAYED_ITEMS);
+
     const displayedItems = useMemo(
         () =>
             technologies
@@ -132,7 +140,8 @@ export const AllTechnologiesPicker = ({
                 .sort(({ name: a }, { name: b }) => a.localeCompare(b)),
         [technologies, debouncedQuery, onlySelected]
     );
-
+    const slicedItems = useMemo(() => displayedItems.slice(0, shownItems), [displayedItems, shownItems]);
+    console.log({ slicedItems, displayedItems, shownItems, hasMore: displayedItems.length > shownItems });
     const handleTextFieldChange = useCallback((event) => setQuery(event.target.value), []);
 
     const toggleOtherPerk = useCallback(() => {
@@ -151,6 +160,7 @@ export const AllTechnologiesPicker = ({
                 onChange={handleTextFieldChange}
                 placeholder="Mobile, Javascript, etc..."
             />
+            {isMobile && additionalInformations}
             {isMobile && (
                 <button className={cn(classes.checkboxButton)} type="button" onClick={toggleOtherPerk}>
                     <Checkbox
@@ -163,19 +173,30 @@ export const AllTechnologiesPicker = ({
                     <Typography>{translations.checkboxLabel}</Typography>
                 </button>
             )}
-            <div className={classes.technologiesList}>
-                {!displayedItems.length && noResultsElement}
-                {displayedItems.map((item, index) => (
-                    <motion.div key={`technology_${item?.name}`} variants={ALL_TECHNOLOGIES_TRANSITIONS_PROPS}>
+            {!displayedItems.length && noResultsElement}
+            <div id="allTechnologiesPicker" className={classes.technologiesListWrapper}>
+                <InfiniteScroll
+                    scrollThreshold="200px"
+                    className={classes.technologiesList}
+                    dataLength={slicedItems.length}
+                    next={() => {
+                        setShownItems(shownItems + DISPLAYED_ITEMS);
+                    }}
+                    hasMore={displayedItems.length > shownItems}
+                    loader={null}
+                    scrollableTarget="allTechnologiesPicker"
+                >
+                    {slicedItems.map((item, index) => (
                         <TechnologyItem
                             key={`technology_${item.name}_${index}`}
                             selectedItems={selectedItems}
                             item={item}
                             onAdd={onAdd}
                             onDelete={onDelete}
+                            isMobile={isMobile}
                         />
-                    </motion.div>
-                ))}
+                    ))}
+                </InfiniteScroll>
             </div>
         </div>
     );

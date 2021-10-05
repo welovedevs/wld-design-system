@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { addDecorator, addParameters } from '@storybook/react';
-import StoryContainer from './story_container/story_container';
 import { DesignSystemProvider } from '../src/design_system_context/design_system_context';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { DEFAULT_THEME } from '../src/styles/theme';
 import { ELEVATION_PROPS } from '../src/card/card_elevation_props';
-import {createMuiTheme} from "@material-ui/core";
+import { createMuiTheme } from '@material-ui/core';
 
 export const theme = createMuiTheme({
     ...DEFAULT_THEME,
@@ -20,11 +19,9 @@ export const theme = createMuiTheme({
 });
 
 addDecorator((story) => (
-    <StoryContainer>
-        <ThemeProvider theme={theme}>
-            <DesignSystemProvider>{story()}</DesignSystemProvider>
-        </ThemeProvider>
-    </StoryContainer>
+    <ThemeProvider theme={theme}>
+        <DesignSystemProvider>{story()}</DesignSystemProvider>
+    </ThemeProvider>
 ));
 
 addParameters({
