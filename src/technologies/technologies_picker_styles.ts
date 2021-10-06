@@ -2,7 +2,7 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 import { dark } from '../styles/palettes';
 import { withCustomVerticalScrollbar } from '../styles';
 
-type StylesKeys = '';
+type StylesKeys = 'container';
 
 export type Classes = {
     [key in StylesKeys]?: string;
