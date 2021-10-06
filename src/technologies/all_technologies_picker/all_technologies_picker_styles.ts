@@ -28,6 +28,7 @@ export const styles = ({ spacing }: Theme) =>
         },
         technologiesList: {
             display: 'flex',
+            justifyContent: 'center',
             flexWrap: 'wrap',
             '@media screen and (max-width: 500px)': {
                 justifyContent: 'center',
