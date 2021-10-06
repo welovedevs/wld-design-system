@@ -7,6 +7,16 @@ export type Classes = {
     [key in StylesKeys]?: string;
 };
 
+export const technoCardsSizes = {
+    mobile: {
+        width: 60 + 1 * 8,
+        height: 80 + 1 * 8,
+    },
+    other: {
+        width: 80 + 1.5 * 8,
+        height: 120 + 1.5 * 8,
+    },
+} as const;
 export const styles = ({ spacing }: Theme) =>
     createStyles({
         container: {
@@ -27,6 +37,7 @@ export const styles = ({ spacing }: Theme) =>
             overflow: 'auto',
         },
         technologiesList: {
+            paddingRight:0,
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',

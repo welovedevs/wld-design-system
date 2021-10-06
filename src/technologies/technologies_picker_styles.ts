@@ -33,7 +33,6 @@ export const styles = ({ spacing }: Theme) =>
         technologiesList: {
             overflowY: 'auto',
             overflowX: 'hidden',
-            paddingRight: spacing(2),
             ...(withCustomVerticalScrollbar() as any),
         },
         selectedTechnologies: {

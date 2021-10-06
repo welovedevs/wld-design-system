@@ -43,10 +43,6 @@ export const styles = ({ spacing }: Theme) =>
             width: 24,
             height: 24,
         },
-        button: {
-            marginLeft: spacing,
-            padding: 8,
-        },
         divider: {
             margin: spacing(0, 2),
             height: 50,

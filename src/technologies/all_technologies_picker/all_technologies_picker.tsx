@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import {
@@ -6,7 +6,7 @@ import {
     SELECTED_ITEM_LAYER_TRANSITIONS_PROPS,
 } from './all_technologies_picker_props';
 
-import { Classes, styles } from './all_technologies_picker_styles';
+import { Classes, styles, technoCardsSizes } from './all_technologies_picker_styles';
 import { DevTechnology, Technology } from '../technologies/technology';
 import { makeStyles } from '@material-ui/core/styles';
 import last from 'lodash/last';
@@ -118,7 +118,7 @@ export const AllTechnologiesPicker = ({
 }: Props) => {
     const classes = useStyles({ classes: receivedClasses, isMobile } as any);
     const [onlySelected, setOnlySelected] = useState<boolean>();
-
+    const containerRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState<string>('');
     const debouncedQuery = useDebouncedValue(query, 200);
 
@@ -141,15 +141,28 @@ export const AllTechnologiesPicker = ({
         [technologies, debouncedQuery, onlySelected]
     );
     const slicedItems = useMemo(() => displayedItems.slice(0, shownItems), [displayedItems, shownItems]);
-    console.log({ slicedItems, displayedItems, shownItems, hasMore: displayedItems.length > shownItems });
     const handleTextFieldChange = useCallback((event) => setQuery(event.target.value), []);
+    useEffect(() => {
+        const { clientWidth: width, clientHeight: height } = containerRef?.current || {};
+        if (!width || !height) {
+            return;
+        }
+
+        const sizes = isMobile ? technoCardsSizes['mobile'] : technoCardsSizes['other'];
+        const itemsPerRow = Math.floor(width / sizes.width);
+        const rowsCount = Math.floor(height / sizes.height);
+
+        let itemsCount = Math.round(itemsPerRow * rowsCount);
+        console.log({ width, height, itemsPerRow, rowsCount, itemsCount });
+        setShownItems(itemsCount);
+    }, [containerRef.current]);
 
     const toggleOtherPerk = useCallback(() => {
         setOnlySelected(!onlySelected);
     }, [onlySelected]);
 
     return (
-        <div className={classes.container}>
+        <div className={classes.container} ref={containerRef}>
             <TextField
                 classes={{
                     container: classes.textField,
@@ -176,7 +189,6 @@ export const AllTechnologiesPicker = ({
             {!displayedItems.length && noResultsElement}
             <div id="allTechnologiesPicker" className={classes.technologiesListWrapper}>
                 <InfiniteScroll
-                    scrollThreshold="200px"
                     className={classes.technologiesList}
                     dataLength={slicedItems.length}
                     next={() => {

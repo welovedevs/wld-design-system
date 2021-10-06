@@ -10,19 +10,21 @@ const Template = (args) => {
     const [items, setItems] = useState<Array<DevTechnology>>([]);
     console.log({ items });
     return (
-        <TechnologiesPicker
-            {...args}
-            selectedValues={items}
-            onAddItem={(id) =>
-                setItems([...items, { name: id, value: 50, index: items.length, id: items.length + id }])
-            }
-            onDeleteItem={(id) => setItems(items.filter((item) => item.id !== id))}
-            onArrayChange={(newArray) => setItems(newArray)}
-            content={{
-                noResults: <Card>Pas de contenu</Card>,
-                additionalInformations: <Card>Info Supplémentaire</Card>,
-            }}
-        />
+        <div style={{ height: '98vh' }}>
+            <TechnologiesPicker
+                {...args}
+                selectedValues={items}
+                onAddItem={(id) =>
+                    setItems([...items, { name: id, value: 50, index: items.length, id: items.length + id }])
+                }
+                onDeleteItem={(id) => setItems(items.filter((item) => item.id !== id))}
+                onArrayChange={(newArray) => setItems(newArray)}
+                content={{
+                    noResults: <Card>Pas de contenu</Card>,
+                    additionalInformations: <Card>Info Supplémentaire</Card>,
+                }}
+            />
+        </div>
     );
 };
 
