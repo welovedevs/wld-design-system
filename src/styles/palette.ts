@@ -135,6 +135,20 @@ export const dark = {
     contrastDefaultColor: 'light',
 };
 
+export const darkblue = {
+    50: '#0c0380',
+    100: '#0a0273',
+    200: '#090266',
+    300: '#080259',
+    400: '#07014c',
+    500: '#060140',
+    600: '#040133',
+    700: '#030026',
+    800: '#020019',
+    900: '#01000c',
+    contrastDefaultColor: 'light',
+};
+
 export type PaletteColors =
     | 'primary'
     | 'secondary'
@@ -144,7 +158,9 @@ export type PaletteColors =
     | 'safe'
     | 'warn'
     | 'orange'
+    | 'darkblue'
     | 'light';
+
 export type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
 let palette: { [color in PaletteColors]: any } = {
@@ -154,6 +170,7 @@ let palette: { [color in PaletteColors]: any } = {
     dark,
     danger,
     safe,
+    darkblue,
     warn,
     orange,
     light,

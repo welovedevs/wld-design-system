@@ -1,6 +1,6 @@
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { withCustomVerticalScrollbar } from '../../styles';
-import { dark, danger } from '../../styles/palettes';
+import { dark, danger } from '../../styles/palette';
 
 type StylesKeys = '';
 

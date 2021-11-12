@@ -1,6 +1,6 @@
 import createStyles from "@material-ui/styles/createStyles";
 
-import { secondary } from '../../app/palettes';
+import { secondary } from '../../app/palette';
 import { flexUtils } from '../../../style/js';
 
 export const styles = createStyles({
