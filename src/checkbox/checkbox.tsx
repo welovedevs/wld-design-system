@@ -109,7 +109,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                 whileHover="hover"
                 {...{ ref }}
             >
-                <CheckIcon {...{ checked, classes }} />
+                {checked && <CheckIcon {...{ checked, classes }} />}
                 {partialCheck && <PartialCheckIcon {...{ checked: partialCheck, classes }} />}
                 <motion.div
                     className={classes.brightLayer}
