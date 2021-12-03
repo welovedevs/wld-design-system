@@ -168,3 +168,5 @@ const PartialCheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ 
         </motion.svg>
     );
 };
+
+export const Checkbox = CheckboxComponent;
