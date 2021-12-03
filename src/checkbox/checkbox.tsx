@@ -25,6 +25,7 @@ const useStyles = makeStyles(styles);
 interface Props {
     component?: string | ElementType;
     checked: boolean;
+    partialCheck?: boolean;
     disabled?: boolean;
     color?: PaletteColors;
     defaultColor?: string;
@@ -57,7 +58,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             isRadio,
             customClasses: oldCustomClasses = {},
             classes: receivedClasses = {},
-
+            partialCheck,
             ...other
         },
         ref
@@ -75,7 +76,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
         );
 
         const { color: colorMotion } = {
-            color: getComponentColor(checked, hexColor ?? null, disabled, defaultColor),
+            color: getComponentColor(checked ?? partialCheck, hexColor ?? null, disabled, defaultColor),
         } as any;
 
         const handleChange = useCallback(
@@ -109,6 +110,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                 {...{ ref }}
             >
                 <CheckIcon {...{ checked, classes }} />
+                {partialCheck && <PartialCheckIcon {...{ checked: partialCheck, classes }} />}
                 <motion.div
                     className={classes.brightLayer}
                     variants={{ initial: { opacity: 0 }, hover: { opacity: 0.3 } }}
@@ -152,4 +154,17 @@ const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked
     );
 };
 
-export const Checkbox = CheckboxComponent;
+const PartialCheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
+    const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
+    return (
+        <motion.svg
+            className={classes.checkIcon}
+            viewBox="0 0 24 24"
+            fill="#fff"
+            animate={spring}
+            transition={{ type: 'spring', bounce: 0.6 }}
+        >
+            <rect x="4" y="11" width="17" height="2" />
+        </motion.svg>
+    );
+};
