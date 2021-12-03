@@ -109,8 +109,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                 whileHover="hover"
                 {...{ ref }}
             >
-                {checked && <CheckIcon {...{ checked, classes }} />}
-                {partialCheck && <PartialCheckIcon {...{ checked: partialCheck, classes }} />}
+                <CheckIcon {...{ checked, partialCheck: !!partialCheck, classes }} />
                 <motion.div
                     className={classes.brightLayer}
                     variants={{ initial: { opacity: 0 }, hover: { opacity: 0.3 } }}
@@ -137,7 +136,12 @@ const CHECKED_ICON_PROPS = {
     opacity: 1,
 };
 
-const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
+const CheckIcon: React.FC<{ checked: boolean; partialCheck: boolean; classes: StyleKeys }> = ({
+    checked: propsChecked,
+    partialCheck,
+    classes,
+}) => {
+    const checked = propsChecked || partialCheck;
     const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
     return (
         <motion.svg
@@ -148,23 +152,9 @@ const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked
             transition={{ type: 'spring', bounce: 0.6 }}
         >
             <g>
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                {propsChecked && <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />}
+                {!propsChecked && partialCheck && <rect x="4" y="11" width="17" height="2" />}
             </g>
-        </motion.svg>
-    );
-};
-
-const PartialCheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
-    const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
-    return (
-        <motion.svg
-            className={classes.checkIcon}
-            viewBox="0 0 24 24"
-            fill="#fff"
-            animate={spring}
-            transition={{ type: 'spring', bounce: 0.6 }}
-        >
-            <rect x="4" y="11" width="17" height="2" />
         </motion.svg>
     );
 };
