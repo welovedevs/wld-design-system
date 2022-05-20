@@ -15,7 +15,6 @@ export type CardVariant = 'flat';
 interface Props {
     component?: string;
     className?: string;
-    ref?: any;
     containerRef?: any;
     elevation?: 0 | 1 | 'drawer';
     style?: CSSProperties;
@@ -23,18 +22,17 @@ interface Props {
     customClasses?: Classes;
     variant?: CardVariant;
 }
-const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
+const CardComponent = forwardRef< any, HTMLAttributes<any> & Props >(({
                                                                     component: Component = 'div',
                                                                     className,
                                                                     containerRef,
-                                                                    ref,
                                                                     elevation = 1,
                                                                     style,
                                                                     customClasses: oldCustomClasses = {},
                                                                     classes: receivedClasses = {},
                                                                     variant,
                                                                     ...other
-                                                                }) => {
+                                                                }, ref) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -60,6 +58,6 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
         } as any,
             ...other }
     );
-};
+});
 
-export const Card = forwardRef(CardComponent);
+export const Card = (CardComponent);
