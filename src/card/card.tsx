@@ -1,4 +1,4 @@
-import React, {CSSProperties, HTMLAttributes, useMemo} from 'react';
+import React, {CSSProperties, forwardRef, HTMLAttributes, useMemo} from 'react';
 
 import cn from 'classnames';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -15,6 +15,7 @@ export type CardVariant = 'flat';
 interface Props {
     component?: string;
     className?: string;
+    ref?: any;
     containerRef?: any;
     elevation?: 0 | 1 | 'drawer';
     style?: CSSProperties;
@@ -26,6 +27,7 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
                                                                     component: Component = 'div',
                                                                     className,
                                                                     containerRef,
+                                                                    ref,
                                                                     elevation = 1,
                                                                     style,
                                                                     customClasses: oldCustomClasses = {},
@@ -50,7 +52,7 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
     // @ts-ignore
     const variantClass = variant && classes[`variant_${variant}`];
     return React.createElement( Component || 'div',
-        {ref: containerRef,
+        {ref: containerRef || ref,
             className: cn(classes.container, variantClass, className),
             style: {
             ...(stylePropsFromVariant && styleProps),
@@ -60,4 +62,4 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
     );
 };
 
-export const Card = CardComponent;
+export const Card = forwardRef(CardComponent);
