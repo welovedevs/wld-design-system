@@ -1,4 +1,4 @@
-import React, {CSSProperties, HTMLAttributes, useMemo} from 'react';
+import React, {CSSProperties, forwardRef, HTMLAttributes, useMemo} from 'react';
 
 import cn from 'classnames';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -22,7 +22,7 @@ interface Props {
     customClasses?: Classes;
     variant?: CardVariant;
 }
-const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
+const CardComponent = forwardRef< any, HTMLAttributes<any> & Props >(({
                                                                     component: Component = 'div',
                                                                     className,
                                                                     containerRef,
@@ -32,7 +32,7 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
                                                                     classes: receivedClasses = {},
                                                                     variant,
                                                                     ...other
-                                                                }) => {
+                                                                }, ref) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -50,7 +50,7 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
     // @ts-ignore
     const variantClass = variant && classes[`variant_${variant}`];
     return React.createElement( Component || 'div',
-        {ref: containerRef,
+        {ref: containerRef || ref,
             className: cn(classes.container, variantClass, className),
             style: {
             ...(stylePropsFromVariant && styleProps),
@@ -58,6 +58,6 @@ const CardComponent: React.FC< HTMLAttributes<any> & Props > = ({
         } as any,
             ...other }
     );
-};
+});
 
-export const Card = CardComponent;
+export const Card = (CardComponent);
