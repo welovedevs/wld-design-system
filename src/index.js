@@ -18,19 +18,10 @@ import {TextFieldIcon} from './text_field_icon/text_field_icon';
 import {Tooltip} from './tooltip/tooltip';
 import {Typography} from './typography/typography';
 
-import {
-    primary,
-    secondary,
-    tertiary,
-    dark,
-    danger,
-    safe,
-    darkblue,
-    warn,
-    orange,
-    light
-} from './styles/palette'
 import style from './styles/tailwind.css';
+
+export * from './palette';
+export * from './utils/styles_utils';
 
 export {
     AutoComplete,
@@ -52,15 +43,5 @@ export {
     TextFieldIcon,
     Tooltip,
     Typography,
-    style,
-    primary,
-    secondary,
-    tertiary,
-    dark,
-    danger,
-    safe,
-    darkblue,
-    warn,
-    orange,
-    light
+    style
 };
