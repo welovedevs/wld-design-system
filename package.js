@@ -4,7 +4,6 @@ const fs = require('fs');
 const yargs = require('yargs').argv;
 const ora = require('ora');
 const rimraf = require('rimraf');
-require('colors');
 
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
 const TO_PRESERVE_DURING_CLEAN_UP = [
@@ -22,7 +21,7 @@ const run = async () => {
     const srcFiles = fs.readdirSync(srcPath);
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
-        await exec('npm build:library');
+        await exec('npm run build:library');
     } catch (error) {
         buildingPackageSpinner.fail('Package build failed.');
         if (isVerbose) {
@@ -31,15 +30,6 @@ const run = async () => {
         process.exit(-1);
     }
     buildingPackageSpinner.succeed('Package built.');
-
-    const postBuildCleanUpSpinner = ora('Doing post-build clean-up...').start();
-    const rootNewFiles = fs.readdirSync(__dirname);
-    rootNewFiles
-        .filter(name => !srcFiles.includes(name) && !TO_PRESERVE_DURING_CLEAN_UP.includes(name))
-        .forEach(fileName => {
-            rimraf.sync(__dirname + `/${fileName}`, {}, () => {});
-        });
-    postBuildCleanUpSpinner.succeed('Did post-build clean up.');
 };
 
 run();
