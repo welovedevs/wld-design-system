@@ -7,6 +7,8 @@ import { DEFAULT_THEME } from '../src/styles/theme';
 import { ELEVATION_PROPS } from '../src/card/card_elevation_props';
 import { createMuiTheme } from '@material-ui/core';
 
+import '../src/styles/main.css';
+
 export const theme = createMuiTheme({
     ...DEFAULT_THEME,
     shadows: ['none', ...new Array(40).fill(ELEVATION_PROPS[0])],
