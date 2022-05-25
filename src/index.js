@@ -18,9 +18,11 @@ export * from './text_field_icon/text_field_icon';
 export * from './tooltip/tooltip';
 export * from './typography/typography';
 export * from './technologies/technologies_picker';
-export * from './palette';
-export * from './utils/styles_utils';
 
+
+export * from './styles/theme';
+export * from './styles/palette';
+export * from './styles/utils/styles_utils';
 import style from './styles/tailwind.css';
 import palette from './styles/palette';
 
