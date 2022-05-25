@@ -18,7 +18,8 @@ import { TextFieldIcon } from './text_field_icon/text_field_icon';
 import { Tooltip } from './tooltip/tooltip';
 import { Typography } from './typography/typography';
 
-import './styles/tailwind.css';
+import Palette from './styles/palette'
+import style from './styles/tailwind.css';
 
 export {
     AutoComplete,
@@ -40,4 +41,6 @@ export {
     TextFieldIcon,
     Tooltip,
     Typography,
+    Palette,
+    style
 };

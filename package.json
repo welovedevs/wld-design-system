@@ -4,7 +4,7 @@
     "description": "WeLoveDevs.com UI components",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
-    "types": "dist/cjs/package/index.d.ts",
+    "types": "dist/cjs/index.d.ts",
     "scripts": {
         "package": "tsc",
         "postpackage": "cpy ./assets .. --parents --cwd=src",
