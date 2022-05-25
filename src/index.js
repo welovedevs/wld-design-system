@@ -17,6 +17,7 @@ import {TextField} from './text_field/text_field';
 import {TextFieldIcon} from './text_field_icon/text_field_icon';
 import {Tooltip} from './tooltip/tooltip';
 import {Typography} from './typography/typography';
+import { TechnologiesPicker } from './technologies/technologies_picker';
 
 import style from './styles/tailwind.css';
 import palette from './styles/palette';
@@ -40,6 +41,7 @@ export {
     Slider,
     Switch,
     Tag,
+    TechnologiesPicker,
     TextField,
     TextFieldIcon,
     Tooltip,
