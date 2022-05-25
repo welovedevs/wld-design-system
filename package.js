@@ -7,14 +7,22 @@ const rimraf = require('rimraf');
 require('colors');
 
 const isVerbose = yargs.verbose === 'true' || yargs.verbose === true;
-const TO_PRESERVE_DURING_CLEAN_UP = ['package.json', '.git', '.gitignore', 'node_modules', 'LICENSE.md',"index.d.ts", "index.d.ts.map", "svg.d.ts"];
+const TO_PRESERVE_DURING_CLEAN_UP = [
+    'dist',
+    'package.json',
+    '.git',
+    '.gitignore',
+    'node_modules',
+    'LICENSE.md',
+    'README.md',
+    'tailwind.config.js'];
 
 const run = async () => {
     const srcPath = __dirname + '/src';
     const srcFiles = fs.readdirSync(srcPath);
     const buildingPackageSpinner = ora(`Building fresh package...`).start();
     try {
-        await exec('npm run package');
+        await exec('npm build:library');
     } catch (error) {
         buildingPackageSpinner.fail('Package build failed.');
         if (isVerbose) {
