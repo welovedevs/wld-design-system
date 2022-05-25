@@ -19,6 +19,7 @@ import {Tooltip} from './tooltip/tooltip';
 import {Typography} from './typography/typography';
 
 import style from './styles/tailwind.css';
+import palette from './styles/palette';
 
 export * from './palette';
 export * from './utils/styles_utils';
@@ -43,5 +44,6 @@ export {
     TextFieldIcon,
     Tooltip,
     Typography,
-    style
+    style,
+    palette
 };
