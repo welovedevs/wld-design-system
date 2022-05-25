@@ -1,6 +1,5 @@
-import palettes from './src/styles/palette.ts';
 
-export default {
+module.exports = {
   mode: 'jit',
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
@@ -58,9 +57,8 @@ export default {
         reset: 'unset'
       },
       colors: {
-        ...palettes,
         white: '#FFF',
-        black: '#000'
+        black: '#000',
       }
     }
   },

@@ -1,14 +1,11 @@
 import React, {CSSProperties, forwardRef, HTMLAttributes, useMemo} from 'react';
 
 import cn from 'classnames';
-import makeStyles from '@material-ui/styles/makeStyles';
-
 import { ELEVATION_PROPS } from './card_elevation_props';
 
-import { Classes, styles } from './card_styles';
 import merge from 'lodash/merge';
+import {Classes} from "./card_styles";
 
-const useStyles = makeStyles(styles);
 
 export type CardVariant = 'flat';
 
@@ -37,7 +34,6 @@ const CardComponent = forwardRef< any, HTMLAttributes<any> & Props >(({
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });
     const stylePropsFromVariant = useMemo(() => {
         if (!variant) {
             return ELEVATION_PROPS.regular;
@@ -51,7 +47,7 @@ const CardComponent = forwardRef< any, HTMLAttributes<any> & Props >(({
     const variantClass = variant && classes[`variant_${variant}`];
     return React.createElement( Component || 'div',
         {ref: containerRef || ref,
-            className: cn('w-fit bg-white rounded p-3 avenir bg-primary-500 border border-solid border-grey-100 ', variantClass, className),
+            className: cn('w-fit bg-white rounded p-2.5 avenir', mergedClasses, variantClass, className),
             style: {
             ...(stylePropsFromVariant && styleProps),
             ...style,

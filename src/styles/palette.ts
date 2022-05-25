@@ -121,10 +121,6 @@ export const light = {
     contrastDefaultColor: 'dark',
 };
 
-export const grey = {
-    50: '#f9f9f9',
-    100: '#f0f0f0'
-}
 export const dark = {
     50: '#E6E6E6',
     100: '#C1C1C1',
