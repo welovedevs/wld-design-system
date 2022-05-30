@@ -4,7 +4,7 @@ import {Banner} from '../../src/banner/banner';
 import {BANNER_DATA} from '../../src/banner/banner_data';
 
 import {styles} from './banner_story_styles';
-import makeStyles from '@material-ui/styles/makeStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(styles);
 

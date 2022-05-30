@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from '@mui/styles/makeStyles';
 import { FormattedMessage } from 'react-intl';
 import { motion } from 'framer-motion';
 
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { Tooltip } from '../../tooltip/tooltip';
 

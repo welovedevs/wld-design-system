@@ -1,7 +1,9 @@
 import React, { CSSProperties, ExoticComponent, HTMLAttributes, ReactElement, useMemo } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
 

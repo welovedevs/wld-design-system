@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { select } from '@storybook/addon-knobs';
 
-import makeStyles from '@material-ui/styles/makeStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { TextField } from '../../src/text_field/text_field';
 
 import styles from './text_field_story_styles';

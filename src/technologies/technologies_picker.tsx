@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Classes, styles } from './technologies_picker_styles';
 import { AllTechnologiesPicker } from './all_technologies_picker/all_technologies_picker';

@@ -4,7 +4,7 @@ import { Slider } from '../../src';
 import { PopperCard } from '../../src';
 
 import styles from './slider_story_styles';
-import makeStyles from '@material-ui/styles/makeStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 const DEFAULT_COLOR = 'primary';
 const DEFAULT_MIN = 0;

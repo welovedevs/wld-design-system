@@ -2,8 +2,9 @@ import { Banner, Button, Checkbox, Slider, Switch, Tag, Typography, TextField } 
 import React from 'react';
 import { styles } from './all_the_things_styles';
 import { DEFAULT_THEME } from '../../../src/styles/theme';
-import makeStyles from '@material-ui/styles/makeStyles';
-import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import makeStyles from '@mui/styles/makeStyles';
+import ThemeProvider from '@mui/styles/ThemeProvider';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 const useStyles = makeStyles(styles);
 const theme = {
@@ -81,23 +82,25 @@ export const AllTheThings = () => {
                             ))
                         )}
                     </div>
-                    <ThemeProvider theme={theme}>
-                        <div key={`${Component.name}`} className={classes.container}>
-                            {Component.name}
-                            {colors.map((color) =>
-                                variants.map((variant, index) => (
-                                    <Component
-                                        {...props}
-                                        key={`${Component.name}_${variant}_${color}`}
-                                        color={color}
-                                        variant={variant}
-                                    >
-                                        {value}
-                                    </Component>
-                                ))
-                            )}
-                        </div>
-                    </ThemeProvider>
+                    <StyledEngineProvider injectFirst>
+                        <ThemeProvider theme={theme}>
+                            <div key={`${Component.name}`} className={classes.container}>
+                                {Component.name}
+                                {colors.map((color) =>
+                                    variants.map((variant, index) => (
+                                        <Component
+                                            {...props}
+                                            key={`${Component.name}_${variant}_${color}`}
+                                            color={color}
+                                            variant={variant}
+                                        >
+                                            {value}
+                                        </Component>
+                                    ))
+                                )}
+                            </div>
+                        </ThemeProvider>
+                    </StyledEngineProvider>
                 </>
             ))}
           {/*  <ThemeProvider theme={DEFAULT_THEME}>

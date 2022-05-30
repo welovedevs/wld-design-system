@@ -1,4 +1,4 @@
-import createStyles from "@material-ui/styles/createStyles";
+import createStyles from "@mui/styles/createStyles";
 
 import { secondary } from '../../app/palette';
 import { flexUtils } from '../../../style/js';

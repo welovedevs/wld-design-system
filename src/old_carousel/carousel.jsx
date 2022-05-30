@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import cn from 'classnames';
 
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import SlickCarousel from 'react-slick';
 import { Twemoji } from 'react-emoji-render';
 import { motion } from 'framer-motion';
 
-import { Dialog, useMediaQuery } from '@material-ui/core';
+import { Dialog, useMediaQuery } from '@mui/material';
 
 import { Button } from '../button/button';
 import { Typography } from '../typography/typography';

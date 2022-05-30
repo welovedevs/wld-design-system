@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 import { BANNER_DATA, BannerType } from './banner_data';
 

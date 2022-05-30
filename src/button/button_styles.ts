@@ -2,7 +2,7 @@ import { flexUtils } from '../styles/utils/styles_utils';
 
 const { center } = flexUtils;
 
-import { createStyles } from '@material-ui/core/styles';
+import createStyles from '@mui/styles/createStyles';
 
 type StylesKeys  = 'container' | 'typography';
 export type ButtonVariants = 'contained' | 'outlined' | 'text' | 'raised'

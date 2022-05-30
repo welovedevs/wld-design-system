@@ -1,7 +1,7 @@
 import React, { ExoticComponent, HTMLAttributes, useCallback } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { motion } from 'framer-motion'
 
 import { Typography } from '../typography/typography';

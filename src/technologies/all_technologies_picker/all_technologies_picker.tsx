@@ -8,7 +8,7 @@ import {
 
 import { Classes, styles, technoCardsSizes } from './all_technologies_picker_styles';
 import { DevTechnology, Technology } from '../technologies/technology';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import last from 'lodash/last';
 import { useDebouncedValue } from '../../hooks/use_debounced_value';
 import { TechnologiesPickerContext } from '../technologies_picker_context';

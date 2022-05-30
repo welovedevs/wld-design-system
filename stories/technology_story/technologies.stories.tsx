@@ -3,7 +3,7 @@ import { TechnologiesPicker, TechnologiesPickerProps } from '../../src/technolog
 import { technologies } from './technology_data';
 import { useState } from 'react';
 import { DevTechnology, Technology } from '../../src/technologies/technologies/technology';
-import { Card } from '@material-ui/core';
+import { Card } from '@mui/material';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 const Template = (args) => {

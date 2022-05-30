@@ -1,6 +1,6 @@
 import {flexUtils} from '../styles/utils/styles_utils';
 
-import {createStyles} from '@material-ui/core/styles';
+import createStyles from '@mui/styles/createStyles';
 
 type StylesKeys = 'container' | 'typography'
 

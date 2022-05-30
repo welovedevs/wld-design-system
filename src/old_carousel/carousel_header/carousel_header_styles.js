@@ -1,5 +1,5 @@
 import { flexUtils } from '../../../../style/js';
-import createStyles from "@material-ui/styles/createStyles";
+import createStyles from "@mui/styles/createStyles";
 
 const { center } = flexUtils;
 

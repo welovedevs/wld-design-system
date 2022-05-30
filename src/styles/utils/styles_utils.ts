@@ -1,7 +1,7 @@
 // Material Design's box-shadows (see: https://codepen.io/sdthornton/pen/wBZdXq)
 import { PaletteColors, PaletteShade } from '../palette';
 import { DEFAULT_THEME } from '../theme';
-import { Theme } from '@material-ui/core';
+import { Theme } from '@mui/material';
 
 // Flex utils
 export const flexUtils = {

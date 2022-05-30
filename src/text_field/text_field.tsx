@@ -1,14 +1,14 @@
 import React, { ExoticComponent, ReactChildren, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Classes, styles } from './text_field_styles';
-import { ClassNameMap } from '@material-ui/styles';
+import { ClassNameMap } from '@mui/styles';
 import merge from 'lodash/merge';
-import { IconButton } from '@material-ui/core';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import { IconButton } from '@mui/material';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Tooltip } from '../index';
 
 const useStyles = makeStyles(styles);
@@ -105,7 +105,11 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
                 {...other}
             />
             {isPassword && (
-                <IconButton title="Show/Hide password" className={classes.icon} onClick={togglePasswordVisiblity}>
+                <IconButton
+                    title="Show/Hide password"
+                    className={classes.icon}
+                    onClick={togglePasswordVisiblity}
+                    size="large">
                     {showHidePassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
             )}

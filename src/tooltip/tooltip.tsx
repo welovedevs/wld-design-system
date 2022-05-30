@@ -1,14 +1,14 @@
 import React, { cloneElement, useMemo, useRef } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import get from 'lodash/get';
 
 import { PopperCard } from '../popper_card/popper_card';
 import { useOpenerState } from '../hooks/use_opener_state';
 
 import { Classes, styles } from './tooltip_styles';
-import { PopperProps } from '@material-ui/core';
+import { PopperProps } from '@mui/material';
 import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);

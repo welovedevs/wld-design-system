@@ -1,14 +1,14 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from '@material-ui/core/styles';
+import { ClassNameMap } from '@mui/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { motion } from 'framer-motion';
 
-import { ClickAwayListener, Popper, PopperProps } from '@material-ui/core';
+import { ClickAwayListener, Popper, PopperProps } from '@mui/material';
 import { Card } from '../card/card';
 
 import { PopperCustomClasses, styles } from './popper_card_styles';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
 

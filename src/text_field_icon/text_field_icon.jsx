@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from '@mui/styles/makeStyles';
 
 import { styles } from './text_field_icon_styles';
 

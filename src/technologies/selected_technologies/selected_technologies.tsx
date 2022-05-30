@@ -6,7 +6,7 @@ import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'r
 
 import { styles } from './selected_technologies_styles';
 import last from 'lodash/last';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { Classes } from '../technologies_picker_styles';
 import { DevTechnology } from '../technologies/technology';
 import { TechnologiesPickerContext } from '../technologies_picker_context';

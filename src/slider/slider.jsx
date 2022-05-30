@@ -1,7 +1,8 @@
 import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import Measure from 'react-measure';
 
 import { motion } from 'framer-motion';

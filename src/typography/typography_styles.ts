@@ -1,6 +1,6 @@
 import { dark } from '../styles/palette';
-import createStyles from '@material-ui/styles/createStyles';
-import { Theme } from '@material-ui/core';
+import createStyles from '@mui/styles/createStyles';
+import { Theme } from '@mui/material';
 
 type StylesKeys = "container"
 

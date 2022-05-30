@@ -1,5 +1,5 @@
 import { primary } from '../styles';
-import { createStyles } from '@material-ui/core/styles';
+import createStyles from '@mui/styles/createStyles';
 
 type StylesKeys = 'container' | 'input';
 

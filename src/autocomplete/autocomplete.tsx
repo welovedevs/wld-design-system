@@ -3,7 +3,7 @@ import React, { ChangeEvent, ReactElement, useCallback, useEffect, useMemo, useR
 import cn from 'classnames';
 import Autosuggest, { SuggestionSelectedEventData } from 'react-autosuggest';
 
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { TextField, TextFieldProps } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
@@ -11,8 +11,8 @@ import { Typography } from '../typography/typography';
 import { ListItem } from '../list_item/list_item';
 
 import { Classes, styles } from './autocomplete_styles';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import { PopperProps } from '@material-ui/core/Popper';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { PopperProps } from '@mui/material/Popper';
 import { PopperCustomClasses } from '../popper_card/popper_card_styles';
 import merge from 'lodash/merge';
 

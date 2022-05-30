@@ -32,9 +32,11 @@
         "react-dom": "^16.8.0 || ^17.0.0"
     },
     "dependencies": {
-        "@material-ui/core": "^4.11.0",
-        "@material-ui/icons": "^4.9.1",
-        "@material-ui/styles": "^4.10.0",
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "@mui/icons-material": "^5.8.0",
+        "@mui/material": "^5.8.1",
+        "@mui/styles": "^5.8.0",
         "classnames": "^2.2.6",
         "framer-motion": "^3.6.7",
         "lodash": "^4.17.15",

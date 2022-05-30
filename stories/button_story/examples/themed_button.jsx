@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonExamples } from './button_examples';
-import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import ThemeProvider from '@mui/styles/ThemeProvider';
 
 const theme = {
     palette: {
@@ -49,8 +49,10 @@ const theme = {
 
 export const ThemedButtons = () => {
     return (
-        <ThemeProvider theme={theme}>
-            <ButtonExamples variant="contained" />
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+                <ButtonExamples variant="contained" />
+            </ThemeProvider>
+        </StyledEngineProvider>
     );
 };

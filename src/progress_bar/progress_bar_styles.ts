@@ -1,4 +1,4 @@
-import createStyles from '@material-ui/styles/createStyles';
+import createStyles from '@mui/styles/createStyles';
 
 type StylesKeys = 'container' | 'bar';
 
