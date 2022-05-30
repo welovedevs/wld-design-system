@@ -9,29 +9,29 @@ export type PopperCustomClasses = {
 export const styles = createStyles({
     popper: {
         zIndex: 100,
-        '&[x-placement*="bottom"] $container': {
+        '&[data-popper-placement="bottom"] $container': {
             top: 15,
         },
-        '&[x-placement*="bottom"] $arrowContainer': {
+        '&[data-popper-placement="bottom"] $arrowContainer': {
             top: 0,
             '& > svg': {
                 top: 1,
             },
         },
-        '&[x-placement*="top"] $container': {
+        '&[data-popper-placement="top"] $container': {
             bottom: 15,
         },
-        '&[x-placement*="top"] $arrowContainer': {
+        '&[data-popper-placement="top"] $arrowContainer': {
             bottom: 0,
             '& > svg': {
                 bottom: 1,
                 transform: 'scaleY(-1)',
             },
         },
-        '&[x-placement*="right"] $container': {
+        '&[data-popper-placement="right"] $container': {
             left: 15,
         },
-        '&[x-placement*="right"] $arrowContainer': {
+        '&[data-popper-placement="right"] $arrowContainer': {
             left: 0,
             width: 20,
             '& > svg': {
@@ -39,10 +39,10 @@ export const styles = createStyles({
                 transform: 'rotate(-90deg)',
             },
         },
-        '&[x-placement*="left"] $container': {
+        '&[data-popper-placement="left"] $container': {
             right: 15,
         },
-        '&[x-placement*="left"] $arrowContainer': {
+        '&[data-popper-placement="left"] $arrowContainer': {
             right: 0,
             width: 20,
             '& > svg': {
@@ -69,6 +69,7 @@ export const styles = createStyles({
     arrowContainer: {
         position: 'absolute',
         width: 'fit-content',
+        zIndex: 10,
         display: 'flex',
         '& > svg': {
             height: 15,

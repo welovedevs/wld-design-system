@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState, useRef} from 'react';
 
 import cn from 'classnames';
 import {ClassNameMap} from '@mui/styles';
@@ -22,7 +22,6 @@ interface Props {
     popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
     structured?: boolean;
     onClickAway?: () => void;
-    dismissArrow?: boolean;
     classes?: PopperCustomClasses;
     customClasses?: PopperCustomClasses;
     containerProps?: any;
@@ -49,10 +48,12 @@ export const PopperCard: React.FC<Props> = ({
     ]);
     const classes = useStyles({classes: mergedClasses});
     const [arrowReference, setArrowReference] = useState(null);
+    console.log({arrowReference})
     return (
         <Popper
-            {...{open}}
+            open={open}
             {...containerProps}
+            {...popperProps}
             className={cn(
                 classes.popper,
                 !open && classes.closedPopper,
@@ -60,20 +61,29 @@ export const PopperCard: React.FC<Props> = ({
                 containerProps.className
             )}
             anchorEl={anchorElement}
-            {...popperProps}
-            modifiers={
-                [{
+            modifiers={[
+                {
+                    name: 'flip',
+                    enabled: true,
+                },
+                {
                     name: 'preventOverflow',
+                    enabled: true,
                     options: {
                         altBoundary: true, // false by default
+                    },
+                },
+                {
+                    name: 'arrow',
+                    enabled: true,
+                    options: {
+                        element: arrowReference
                     }
-                }
-                ]}
-            transition
+                },
+                ...(popperProps && popperProps.modifiers || []),
+            ]}
         >
-            {({TransitionProps}) => (
-                <Fade {...TransitionProps} {...popperProps}>
-                    <Content
+                <Content
                         {...{
                             className,
                             setArrowReference,
@@ -85,61 +95,10 @@ export const PopperCard: React.FC<Props> = ({
                     >
                         {children}
                     </Content>
-                </Fade>
-            )}
         </Popper>
     );
 };
 
-const Fade: React.FC<{
-    in?: boolean;
-    onEnter?: () => void;
-    onExited?: () => void;
-    popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
-    TransitionProps?: any;
-}> = (props, ref) => {
-    const {in: open, children, onEnter, onExited, popperProps, ...other} = props;
-    const getTranslationFromPlacement = useCallback((value) => {
-        const placement = (popperProps && popperProps.placement) || 'bottom';
-        if (['top', 'bottom'].some((key) => placement === key)) {
-            return `translate3d(0, ${value}px, 0)`;
-        }
-        return `translate3d(-${value}px, 0, 0)`;
-    }, []);
-    const motionConfig = {
-        onStart: () => {
-            // This cause the following error: Cannot update a component from inside the function body of a different component.
-            // It is a pattern documented in the Transition section of Material-UI docs, waiting for a possible update.
-            if (open && onEnter) {
-                onEnter();
-            }
-        },
-        onRest: () => {
-            if (!open && onExited) {
-                onExited();
-            }
-        },
-    };
-
-    return (
-        <motion.div
-            {...{ref: ref as any, motionConfig}}
-            style={{pointerEvents: open ? 'all' : 'none'}}
-            initial={{
-                opacity: 0,
-                transform: getTranslationFromPlacement(20),
-            }}
-            animate={{
-                opacity: open ? 1 : 0,
-                transform: getTranslationFromPlacement(open ? 0 : 20),
-            }}
-            transition={{type: 'spring'}}
-            {...other}
-        >
-            {children}
-        </motion.div>
-    );
-};
 
 interface PopperContentProps {
     className?: string;
@@ -151,14 +110,14 @@ interface PopperContentProps {
 }
 
 const Content: React.FC<PopperContentProps> = ({
-                                                   className,
-                                                   dismissArrow,
-                                                   setArrowReference,
-                                                   onClickAway,
-                                                   structured,
-                                                   classes,
-                                                   children,
-                                               }) => {
+    className,
+    dismissArrow,
+    setArrowReference,
+    onClickAway,
+    structured,
+    classes,
+    children,
+}) => {
     const handleClickAway = useCallback(
         (...parameters) => {
             if (typeof onClickAway === 'function') {
@@ -172,7 +131,7 @@ const Content: React.FC<PopperContentProps> = ({
         <div className={classes.wrapper}>
             {!dismissArrow && (
                 <div className={cn(classes.arrowContainer)} ref={setArrowReference}>
-                    <SpeechBubbleArrow/>
+                    <SpeechBubbleArrow />
                 </div>
             )}
             <Card className={cn(className, classes.container, structured && classes.structured)}>{children}</Card>
