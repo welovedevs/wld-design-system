@@ -1,15 +1,15 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 
 import cn from 'classnames';
-import { ClassNameMap } from '@mui/styles';
+import {ClassNameMap} from '@mui/styles';
 import makeStyles from '@mui/styles/makeStyles';
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 
-import { ClickAwayListener, Popper, PopperProps } from '@mui/material';
-import { Card } from '../card/card';
+import {ClickAwayListener, Popper, PopperProps} from '@mui/material';
+import {Card} from '../card/card';
 
-import { PopperCustomClasses, styles } from './popper_card_styles';
-import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
+import {PopperCustomClasses, styles} from './popper_card_styles';
+import {SpeechBubbleArrow} from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
 
 const useStyles = makeStyles(styles);
@@ -28,32 +28,30 @@ interface Props {
     containerProps?: any;
 }
 
-type ClassesRecord = ClassNameMap<
-    'container' | 'popper' | 'closedPopper' | 'arrowContainer' | 'structured' | 'wrapper'
->;
+type ClassesRecord = ClassNameMap<'container' | 'popper' | 'closedPopper' | 'arrowContainer' | 'structured' | 'wrapper'>;
 export const PopperCard: React.FC<Props> = ({
-    className,
-    anchorElement,
-    open,
-    onClose,
-    popperProps,
-    structured,
-    onClickAway,
-    dismissArrow = false,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-    containerProps = {},
-    children,
-}) => {
+                                                className,
+                                                anchorElement,
+                                                open,
+                                                onClose,
+                                                popperProps,
+                                                structured,
+                                                onClickAway,
+                                                dismissArrow = false,
+                                                customClasses: oldCustomClasses = {},
+                                                classes: receivedClasses = {},
+                                                containerProps = {},
+                                                children,
+                                            }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });
+    const classes = useStyles({classes: mergedClasses});
     const [arrowReference, setArrowReference] = useState(null);
     return (
         <Popper
-            {...{ open }}
+            {...{open}}
             {...containerProps}
             className={cn(
                 classes.popper,
@@ -63,23 +61,17 @@ export const PopperCard: React.FC<Props> = ({
             )}
             anchorEl={anchorElement}
             {...popperProps}
-            modifiers={{
-                flip: {
-                    enabled: true,
-                },
-                preventOverflow: {
-                    enabled: true,
-                    boundariesElement: 'scrollParent',
-                },
-                arrow: {
-                    enabled: !dismissArrow,
-                    element: arrowReference,
-                },
-                ...(popperProps && popperProps.modifiers),
-            }}
+            modifiers={
+                [{
+                    name: 'preventOverflow',
+                    options: {
+                        altBoundary: true, // false by default
+                    }
+                }
+                ]}
             transition
         >
-            {({ TransitionProps }) => (
+            {({TransitionProps}) => (
                 <Fade {...TransitionProps} {...popperProps}>
                     <Content
                         {...{
@@ -106,7 +98,7 @@ const Fade: React.FC<{
     popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
     TransitionProps?: any;
 }> = (props, ref) => {
-    const { in: open, children, onEnter, onExited, popperProps, ...other } = props;
+    const {in: open, children, onEnter, onExited, popperProps, ...other} = props;
     const getTranslationFromPlacement = useCallback((value) => {
         const placement = (popperProps && popperProps.placement) || 'bottom';
         if (['top', 'bottom'].some((key) => placement === key)) {
@@ -131,8 +123,8 @@ const Fade: React.FC<{
 
     return (
         <motion.div
-            {...{ ref: ref as any, motionConfig }}
-            style={{ pointerEvents: open ? 'all' : 'none' }}
+            {...{ref: ref as any, motionConfig}}
+            style={{pointerEvents: open ? 'all' : 'none'}}
             initial={{
                 opacity: 0,
                 transform: getTranslationFromPlacement(20),
@@ -141,7 +133,7 @@ const Fade: React.FC<{
                 opacity: open ? 1 : 0,
                 transform: getTranslationFromPlacement(open ? 0 : 20),
             }}
-            transition={{ type: 'spring' }}
+            transition={{type: 'spring'}}
             {...other}
         >
             {children}
@@ -157,15 +149,16 @@ interface PopperContentProps {
     structured?: boolean;
     classes: ClassesRecord;
 }
+
 const Content: React.FC<PopperContentProps> = ({
-    className,
-    dismissArrow,
-    setArrowReference,
-    onClickAway,
-    structured,
-    classes,
-    children,
-}) => {
+                                                   className,
+                                                   dismissArrow,
+                                                   setArrowReference,
+                                                   onClickAway,
+                                                   structured,
+                                                   classes,
+                                                   children,
+                                               }) => {
     const handleClickAway = useCallback(
         (...parameters) => {
             if (typeof onClickAway === 'function') {
@@ -179,7 +172,7 @@ const Content: React.FC<PopperContentProps> = ({
         <div className={classes.wrapper}>
             {!dismissArrow && (
                 <div className={cn(classes.arrowContainer)} ref={setArrowReference}>
-                    <SpeechBubbleArrow />
+                    <SpeechBubbleArrow/>
                 </div>
             )}
             <Card className={cn(className, classes.container, structured && classes.structured)}>{children}</Card>

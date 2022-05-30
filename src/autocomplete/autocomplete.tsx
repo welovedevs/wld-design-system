@@ -205,6 +205,7 @@ const SuggestionsContainer: React.FC<SuggestionContainerProps> = ({
             open={Boolean(children)}
             popperProps={{
                 ...(popperPlacement && {placement: popperPlacement})
+                ],
             }}
             classes={popperCustomClasses}
             {...{anchorElement, containerProps}}

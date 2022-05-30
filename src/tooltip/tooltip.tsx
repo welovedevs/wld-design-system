@@ -103,12 +103,9 @@ const TooltipPopper: React.FC<TooltipPopperProps> = ({ title, open, anchorElemen
         popperProps={{
             placement,
             modifiers: {
-                preventOverflow: {
-                    boundariesElement: 'viewport',
-                },
-                arrow: {
-                    enabled: false,
-                },
+                [{
+                    name:'arrow'
+                }]
             },
         }}
     >
