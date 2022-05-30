@@ -22,6 +22,7 @@ interface Props {
     popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
     structured?: boolean;
     onClickAway?: () => void;
+    dismissArrow?: boolean;
     classes?: PopperCustomClasses;
     customClasses?: PopperCustomClasses;
     containerProps?: any;
