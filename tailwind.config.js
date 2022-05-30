@@ -2,6 +2,7 @@
 module.exports = {
   mode: 'jit',
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  prefix: 'ds-',
   theme: {
     fontFamily: {
       'avenir': ['Avenir Next', 'open sans', 'Arial']

@@ -47,7 +47,7 @@ const CardComponent = forwardRef< any, HTMLAttributes<any> & Props >(({
     const variantClass = variant && classes[`variant_${variant}`];
     return React.createElement( Component || 'div',
         {ref: containerRef || ref,
-            className: cn('w-fit bg-white rounded p-2.5 avenir', mergedClasses, variantClass, className),
+            className: cn('ds-w-fit ds-bg-white ds-rounded ds-p-2.5 ds-avenir', mergedClasses, variantClass, className),
             style: {
             ...(stylePropsFromVariant && styleProps),
             ...style,
