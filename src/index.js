@@ -34,3 +34,10 @@ export * from './styles/utils/styles_utils';
 
 export * from './styles/palette';
 
+import style from './styles/tailwind.css';
+import palette from './styles/palette';
+
+export {
+    palette,
+    style
+};
