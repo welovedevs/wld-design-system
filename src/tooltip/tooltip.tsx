@@ -102,11 +102,11 @@ const TooltipPopper: React.FC<TooltipPopperProps> = ({ title, open, anchorElemen
         }}
         popperProps={{
             placement,
-            modifiers: {
+            modifiers:
                 [{
                     name:'arrow'
                 }]
-            },
+            ,
         }}
     >
         {title}

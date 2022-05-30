@@ -94,13 +94,6 @@ export const NoResultsStory = ({}) => {
                 renderNoSuggestion={({ open, anchorElement }) => (
                     <PopperCard
                         open={open}
-                        popperProps={{
-                            modifiers: {
-                                preventOverflow: {
-                                    boundariesElement: 'viewport',
-                                },
-                            },
-                        }}
                         {...{ anchorElement }}
                     >
                         <Button

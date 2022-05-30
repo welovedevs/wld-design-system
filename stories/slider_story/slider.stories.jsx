@@ -87,14 +87,6 @@ const SliderWithPopper = ({
                     anchorElement={thumbReference.current}
                     popperProps={{
                         disablePortal: true,
-                        modifiers: {
-                            preventOverflow: {
-                                boundariesElement: 'viewport',
-                            },
-                            hide: {
-                                enabled: false,
-                            },
-                        },
                     }}
                     customClasses={{
                         container: classes.sliderPopperCard,
