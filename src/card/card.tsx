@@ -8,7 +8,7 @@ import merge from 'lodash/merge';
 export type CardVariant = 'flat';
 
 const variantClasses = {
-    variant_flat: 'bg-[#f9f9f9] border border-solid border-[#f0f0f0]',
+    variant_flat: 'ds-bg-[#f9f9f9] ds-border ds-border-solid ds-border-[#f0f0f0]',
 };
 interface Props {
     component?: string;
