@@ -8,13 +8,13 @@ import merge from 'lodash/merge';
 const useStyles = makeStyles(styles);
 
 
-interface TooltipProps {
+interface W3DTooltipProps {
     title?: TooltipProps['title'];
     placement?: PopperProps['placement'];
     classes?: Classes;
     customClasses?: Classes;
 }
-const TooltipComponent: React.FC<TooltipProps> = ({
+const TooltipComponent: React.FC<W3DTooltipProps> = ({
                                                       title,
                                                       children,
                                                       customClasses: oldCustomClasses = {},
