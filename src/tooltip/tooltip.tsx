@@ -9,7 +9,8 @@ const useStyles = makeStyles(styles);
 
 
 interface W3DTooltipProps {
-    title?: TooltipProps['title'];
+    title: TooltipProps['title'];
+    children: TooltipProps['children'];
     placement?: PopperProps['placement'];
     classes?: Classes;
     customClasses?: Classes;
