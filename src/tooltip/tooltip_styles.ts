@@ -1,12 +1,12 @@
 import createStyles from '@mui/styles/createStyles';
 
-type StylesKeys = 'container' | 'popper'
+type StylesKeys = 'tooltip' | 'popper'
 export type Classes = {
     [key in StylesKeys]?: string;
 };
 
 export const styles = createStyles({
-    container: {
+    tooltip: {
         lineHeight: 1.5,
         fontSize: 13,
         padding: '12.5px 15px',
