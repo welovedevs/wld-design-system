@@ -1,17 +1,10 @@
 import React, { CSSProperties, ExoticComponent, HTMLAttributes, ReactElement, useMemo } from 'react';
 
 import cn from 'classnames';
-import { useTheme } from '@mui/material/styles';
 
-import makeStyles from '@mui/styles/makeStyles';
-
-import { getComponentColor, getHexFromTheme } from '../styles/utils/styles_utils';
-
-import { Classes, styles, TypographyVariants } from './typography_styles';
-import { PaletteColors } from '../styles/palette';
+import {baseStyles, TypographyVariants, VariantStyles} from './typography_styles';
+import palette, { PaletteColors } from '../styles/palette';
 import merge from 'lodash/merge';
-
-const useStyles = makeStyles(styles);
 
 export interface TypographyProps {
     containerRef?: any;
@@ -20,11 +13,11 @@ export interface TypographyProps {
     component?: string | ExoticComponent | ((...params: any[]) => ReactElement);
     variant?: TypographyVariants;
     style?: CSSProperties;
-    classes?: Classes;
-    customClasses?: Classes;
+    classes?: { container?: string };
+    customClasses?: { container?: string };
 }
 
-const TypographyComponent: React.FC<TypographyProps & HTMLAttributes<any>> = ({
+export const Typography: React.FC<TypographyProps & HTMLAttributes<any>> = ({
     containerRef,
     className,
     color,
@@ -36,42 +29,39 @@ const TypographyComponent: React.FC<TypographyProps & HTMLAttributes<any>> = ({
 
     ...other
 }) => {
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+    const classes = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });const theme = useTheme();
-
     let style = useMemo<{ backgroundColor?: string; color: string } | null>(() => {
         if (color) {
-            const hex = getComponentColor(true, getHexFromTheme(theme, color), false);
             if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
                 if (color === 'secondary') {
                     return {
-                        backgroundColor: hex,
+                        backgroundColor: palette[color]?.[500],
                         color: '#fff',
                     };
                 }
                 if (color === 'tertiary') {
                     return {
-                        color: getComponentColor(true, getHexFromTheme(theme, 'primary'), false),
-                        backgroundColor: hex,
+                        color: palette.primary[500],
+                        backgroundColor: palette[color]?.[500],
                     };
                 }
                 return {
-                    color: getComponentColor(true, getHexFromTheme(theme, 'primary'), false),
+                    color: palette.primary[500],
                 };
             }
             return {
-                color: hex,
+                color: palette[color]?.[500],
             };
         }
         return null;
-    }, [variant, theme, color]);
+    }, [variant, color]);
 
     return (
         <Component
-            className={cn(classes.container, classes[variant], className)}
+            className={cn(baseStyles.container, variant && VariantStyles[variant],classes.container, className)}
             style={{
                 ...style,
                 ...receivedStyle,
@@ -82,4 +72,3 @@ const TypographyComponent: React.FC<TypographyProps & HTMLAttributes<any>> = ({
     );
 };
 
-export const Typography = TypographyComponent;

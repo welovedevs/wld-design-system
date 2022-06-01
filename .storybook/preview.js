@@ -13,6 +13,7 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import MuiProvider from '@mui/styles/StylesProvider';
 
 import '../src/styles/tailwind.css';
+import './style.css';
 
 const jssinstance = create(jssDefaultPreset());
 
