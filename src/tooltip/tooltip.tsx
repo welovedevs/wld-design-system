@@ -1,34 +1,19 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Tooltip as MuiTooltip, TooltipProps } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
-import { Classes, styles } from './tooltip_styles';
-import { PopperProps } from '@mui/material';
-import merge from 'lodash/merge';
 
-const useStyles = makeStyles(styles);
-
-
-interface W3DTooltipProps {
-    title: TooltipProps['title'];
-    children: TooltipProps['children'];
-    placement?: PopperProps['placement'];
-    classes?: Classes;
-    customClasses?: Classes;
-}
-const TooltipComponent: React.FC<W3DTooltipProps> = ({
-                                                      title,
-                                                      children,
-                                                      customClasses: oldCustomClasses = {},
-                                                      classes: receivedClasses = {},
-                                                  }) => {
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });
-
-    return <MuiTooltip classes={classes} title={title} children={children} />;
+export const Tooltip: React.FC<TooltipProps> = ({ children, classes, ...other }) => {
+    return (
+        <MuiTooltip
+            {...other}
+            classes={{
+                ...classes,
+                tooltip: `${
+                    classes?.tooltip ?? ''
+                } ds-leading-[1.5] ds-text-[13px] ds-px-[12px] ds-py-2 ds-bg-[black]/[0.85] ds-text-light-500 ds-font-medium ds-max-w-[375px]`,
+                popper: `${classes?.popper ?? ''} z-[10000]`,
+            }}
+        >
+            {children}
+        </MuiTooltip>
+    );
 };
-
-
-export const Tooltip = TooltipComponent;
