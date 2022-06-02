@@ -1,9 +1,13 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { TextField } from '../../src/text_field/text_field';
+import { useState } from 'react';
 
 <Meta title="Components/TextField" component={TextField} />
 
-export const Template = (args) => <TextField value="Textfield value" {...args} />;
+export const Template = (args) => {
+    const [value, setValue] = useState(args.value ?? 'Textfield value');
+    return <TextField value="Textfield value" {...args} onChange={(e) => setValue(e.target.value)} value={value} />;
+};
 
 # Regular
 
@@ -128,9 +132,9 @@ Test
         name="Added classes"
         args={{
             classes: {
-                container : 'ds-p-8',
-                input: 'ds-italic'
-            }
+                container: 'ds-p-8',
+                input: 'ds-italic',
+            },
         }}
     >
         {Template.bind({})}

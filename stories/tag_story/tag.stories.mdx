@@ -1,0 +1,24 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Tag } from '../../src/tag/tag';
+import palette from '../../src/styles/palette';
+
+<Meta title="Components/Tag" component={Tag} />
+
+export const Template = (args) => {
+    return (
+        <>
+            {Object.keys(palette).map((color) => (
+                <Tag {...args} color={color}>
+                    Ceci est un tag
+                </Tag>
+            ))}
+            <Tag {...args}>Ceci est un tag</Tag>
+        </>
+    );
+};
+
+# Regular
+
+<Canvas>
+    <Story name="Regular">{Template.bind({})}</Story>
+</Canvas>

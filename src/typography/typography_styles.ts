@@ -22,7 +22,7 @@ export const bodyStyles = {
 };
 
 export const componentStyles = {
-    tag: 'ds-text-[12px] ds-uppercase ds-font-bold ds-tracking-[1px]',
+    tag: 'ds-text-[11px] ds-uppercase ds-font-bold ds-tracking-[0.8px]',
     button: 'ds-text-[12px] ds-uppercase ds-font-medium ds-tracking-[0.8px]',
     helper: 'ds-text-[13px] ds-mt-2',
     label: `${bodyStyles.body2} ds-mb-1`,
