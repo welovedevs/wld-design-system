@@ -1,2 +1,13 @@
 @tailwind components;
 @tailwind utilities;
+
+.ds-scrollbar::-webkit-scrollbar-track {
+    border: 0;
+}
+.ds-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.ds-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    background-color: theme('colors.primary.300')
+}

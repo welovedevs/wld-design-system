@@ -1,23 +1,12 @@
-import React, { ExoticComponent, ReactChildren, useCallback, useMemo, useState } from 'react';
+import React, { ExoticComponent, ReactChildren, useState } from 'react';
 
 import cn from 'classnames';
-import makeStyles from '@mui/styles/makeStyles';
 
-import { Classes, styles } from './text_field_styles';
-import { ClassNameMap } from '@mui/styles';
-import merge from 'lodash/merge';
+import { baseStyles, inputStyles, sizeStyles, TextFieldVariants, variantStyles } from './text_field_styles';
 import { IconButton } from '@mui/material';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Tooltip } from '../index';
 
-const useStyles = makeStyles(styles);
-
-const DEFAULT_STYLE_PROPS = {
-    boxShadow: '0 7.5px 15px 0 #e4e4e4',
-};
-
-// Variant should be one of the following : ['raised', 'flat', 'underlined'].
 interface CustomProps {
     containerElement?: string | ExoticComponent;
     containerProps?: any;
@@ -29,11 +18,10 @@ interface CustomProps {
     beforeChildren?: ReactChildren;
     multiline?: boolean;
     rows?: number;
-    variant?: 'raised' | 'flat' | 'underlined';
+    variant?: TextFieldVariants;
     type?: HTMLInputElement['type'];
     disabled?: boolean;
-    classes?: Classes;
-    customClasses?: Classes;
+    classes?: { container?: string; input?: string };
     size?: 'small';
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
@@ -45,7 +33,7 @@ interface CustomProps {
 
 export type TextFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'size'> &
     CustomProps;
-const TextFieldComponent: React.FC<TextFieldProps> = ({
+export const TextField: React.FC<TextFieldProps> = ({
     containerElement: ContainerElement = 'div',
     containerProps,
     className,
@@ -60,16 +48,10 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
     variant = 'raised',
     type = 'text',
     disabled,
-    customClasses: oldCustomClasses = {},
     size,
-    classes: receivedClasses = {},
+    classes = {},
     ...other
 }) => {
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });
     const InputComponent = multiline ? 'textarea' : 'input';
     const isPassword = type === 'password';
 
@@ -83,12 +65,12 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
             ref={containerRef}
             className={cn(
                 className,
-                classes.container,
-                fullWidth && classes.fullWidth,
-                multiline && classes.multilineContainer,
-                classes[variant],
-                // @ts-ignore
-                disabled && classes[`${variant}Disabled` as any]
+                baseStyles.container,
+                fullWidth && 'w-full',
+                multiline && baseStyles.multilineContainer,
+                variant && variantStyles[variant],
+                disabled && variant && variantStyles[`${variant}Disabled`],
+                classes?.container
             )}
             {...(containerProps &&
                 containerProps.style && {
@@ -99,7 +81,16 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
             {beforeChildren}
             <InputComponent
                 ref={inputRef}
-                className={cn(inputClassName, classes.input, multiline && classes.multiline, size && classes[size])}
+                className={cn(
+                    inputClassName,
+                    baseStyles.input,
+                    multiline && baseStyles.multilineInput,
+                    size && sizeStyles[size],
+                    variant && inputStyles[variant],
+                    disabled && inputStyles.disabled,
+                    disabled && variant && inputStyles[`${variant}Disabled`],
+                    classes?.input
+                )}
                 type={showHidePassword ? 'text' : type}
                 {...{ rows, disabled }}
                 {...other}
@@ -107,9 +98,10 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
             {isPassword && (
                 <IconButton
                     title="Show/Hide password"
-                    className={classes.icon}
+                    className="ds-w-5 ds-h-5 ds-ml-1"
                     onClick={togglePasswordVisiblity}
-                    size="large">
+                    size="large"
+                >
                     {showHidePassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
             )}
@@ -117,51 +109,3 @@ const TextFieldComponent: React.FC<TextFieldProps> = ({
         </ContainerElement>
     );
 };
-
-const RaisedTextField: React.FC<TextFieldProps> = ({ onFocus, onBlur, containerProps, ...other }) => {
-    const [styleProps, setStyleProps] = useState(DEFAULT_STYLE_PROPS);
-
-    const handleFocus = useCallback(
-        (...parameters) => {
-            if (typeof onFocus === 'function') {
-                onFocus(...parameters);
-            }
-            setStyleProps({ boxShadow: '0 10px 20px 0 #dadada' });
-        },
-        [onFocus]
-    );
-    const handleBlur = useCallback(
-        (...parameters) => {
-            if (typeof onBlur === 'function') {
-                onBlur(...parameters);
-            }
-            setStyleProps(DEFAULT_STYLE_PROPS);
-        },
-        [onBlur]
-    );
-    return (
-        <TextFieldComponent
-            containerElement="div"
-            containerProps={{
-                ...containerProps,
-                style: {
-                    ...(containerProps && containerProps.style),
-                    ...styleProps,
-                },
-            }}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            {...other}
-        />
-    );
-};
-
-const WithVariantTextField: React.FC<TextFieldProps> = ({ variant = 'raised', ...other }) => {
-    if (variant === 'raised') {
-        return <RaisedTextField {...{ variant }} {...other} />;
-    }
-
-    return <TextFieldComponent {...{ variant }} {...other} />;
-};
-
-export const TextField = WithVariantTextField;

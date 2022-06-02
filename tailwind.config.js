@@ -164,7 +164,7 @@ let palette = {
 
 module.exports = {
     mode: 'jit',
-    content: ['./src/**/*.{js,jsx,ts,tsx}'],
+    content: ['./src/**/*.{js,jsx,ts,tsx}','./stories/**/*.{mdx,js,jsx,ts,tsx}'],
     prefix: 'ds-',
     theme: {
         fontFamily: {
@@ -225,6 +225,11 @@ module.exports = {
                 white: '#FFF',
                 black: '#000',
                 lightGray: '#efefef',
+            },
+            boxShadow: {
+                md: '0 7.5px 15px 0 #e4e4e4',
+                lg: '0 10px 20px 0 #dadada',
+                w3d: 'rgb(228, 228, 228) 0px 7.5px 15px 0px',
             },
         },
     },

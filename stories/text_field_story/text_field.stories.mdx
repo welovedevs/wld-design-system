@@ -1,19 +1,138 @@
-import { Meta, Story, Preview, Canvas } from '@storybook/addon-docs/blocks';
-import { PasswordTextFieldStory, TextFieldStory } from './text_field_story';
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { TextField } from '../../src/text_field/text_field';
 
-<Meta title="Textfield" component={TextFieldStory} />
+<Meta title="Components/TextField" component={TextField} />
 
-# Textfield
+export const Template = (args) => <TextField value="Textfield value" {...args} />;
 
-<Preview withSource="none">
-    <Story name="variant">
-        <TextFieldStory />
+# Regular
+
+Test
+
+<Canvas>
+    <Story name="Regular">{Template.bind({})}</Story>
+    <Story
+        name="Regular/Disabled"
+        args={{
+            disabled: true,
+        }}
+    >
+        {Template.bind({})}
     </Story>
-    <Story name="password">
-        <PasswordTextFieldStory />
+</Canvas>
+
+# Flat
+
+<Canvas>
+    <Story
+        name="Flat"
+        args={{
+            variant: 'flat',
+        }}
+    >
+        {Template.bind({})}
     </Story>
-    <Story name="small">
-        <TextField size="small" value="small" />
+    <Story
+        name="Disabled"
+        args={{
+            variant: 'flat',
+            disabled: true,
+        }}
+    >
+        {Template.bind({})}
     </Story>
-</Preview>
+</Canvas>
+
+# Underlined
+
+<Canvas>
+    <Story
+        name="Underlined"
+        args={{
+            variant: 'underlined',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Underlined/Disabled"
+        args={{
+            variant: 'underlined',
+            disabled: true,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+# Placeholder
+
+<Canvas>
+    <Story
+        name="Placeholder"
+        args={{
+            value: '',
+            placeholder: 'Placeholder',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+# Small
+
+<Canvas>
+    <Story
+        name="Small"
+        args={{
+            size: 'small',
+            variant: 'flat',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+# Password
+
+<Canvas>
+    <Story
+        name="Password"
+        args={{
+            type: 'password',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+# Multiline
+
+<Canvas>
+    <Story
+        name="Multiline"
+        args={{
+            multiline: true,
+            rows: 4,
+            value: 'Coucou\nCoucou\nCoucou\nCoucou\nCoucou\nCoucou\nCoucou\nCoucou\n',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+# Added classes
+
+<Canvas>
+    <Story
+        name="Added classes"
+        args={{
+            classes: {
+                container : 'ds-p-8',
+                input: 'ds-italic'
+            }
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

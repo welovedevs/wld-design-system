@@ -38,8 +38,4 @@ addDecorator((story) => (
     </MuiProvider>
 ));
 
-addParameters({
-    options: {
-        theme: theme,
-    },
-});
+
