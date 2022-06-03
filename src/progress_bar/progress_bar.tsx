@@ -1,18 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import cn from 'classnames';
-import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
-import { motion } from 'framer-motion';
 
-import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
+import { PaletteColors } from '../styles';
 
-import { Classes, styles } from './progress_bar_styles';
-
-const useStyles = makeStyles(styles);
+import { palette } from '../index';
 
 interface Props {
-    classes?: Classes;
+    classes?: { container?: string; bar?: string };
     className?: string;
     value?: number;
     color?: PaletteColors;
@@ -22,23 +17,18 @@ export const ProgressBar: React.FC<Props> = ({
     value: progressValue = 0,
     color = 'primary',
     className,
-    classes: receivedClasses = {},
-}) => {
-    const classes = useStyles({ classes: receivedClasses });
-    const theme = useTheme();
-    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
-    const xValue = -100;
-    const xMotion = xValue + progressValue;
-
-    return (
-        <div className={cn(className, classes.container)}>
-            <motion.div
-                className={classes.bar}
-                style={{ color: getComponentColor(true, hexColor, false) as any }}
-                initial={{ x: `${xValue}%` }}
-                animate={{ x: `${xMotion}%` }}
-                transition={{ type: 'tween' }}
-            />
-        </div>
-    );
-};
+    classes = {},
+}) => (
+    <div
+        className={cn(
+            className,
+            classes?.container,
+            'ds-w-full ds-h-[6px] ds-rounded-full ds-overflow-hidden ds-bg-lightGray ds-flex ds-items-center'
+        )}
+    >
+        <div
+            className={cn(`ds-block ds-h-full ds-rounded-full ds-bg-current ds-transition-all`, classes?.bar)}
+            style={{ width: `${progressValue}%`, color: palette[color]?.[500] ?? palette.dark[200] }}
+        />
+    </div>
+);
