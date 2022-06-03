@@ -85,7 +85,6 @@ const TechnologyRow = SortableElement(
                             min={0}
                             max={100}
                             step={5}
-                            debounce={50}
                             classes={{ container: classes.slider }}
                             popperCardProps={{
                                 classes: {
