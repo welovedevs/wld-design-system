@@ -164,7 +164,7 @@ let palette = {
 
 module.exports = {
     mode: 'jit',
-    content: ['./src/**/*.{js,jsx,ts,tsx}','./stories/**/*.{mdx,js,jsx,ts,tsx}'],
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './stories/**/*.{mdx,js,jsx,ts,tsx}'],
     prefix: 'ds-',
     theme: {
         fontFamily: {
@@ -239,5 +239,13 @@ module.exports = {
     corePlugins: {
         preflight: false,
     },
-    plugins: [],
+    plugins: [
+        function ({ addVariant, e }) {
+            addVariant('child-svg', ({ modifySelectors, separator }) => {
+                modifySelectors(({ className }) => {
+                    return `.${e(`child-svg${separator}${className}`)} > svg`;
+                });
+            });
+        },
+    ],
 };

@@ -1,0 +1,21 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { TextFieldIcon } from '../../src/text_field_icon/text_field_icon';
+import { useState } from 'react';
+import { ReactComponent as WarningIcon } from '../../src/assets/icons/warning.svg';
+
+
+
+<Meta title="Components/TextFieldIcon" component={TextFieldIcon} />
+
+export const Template = (args) => {
+console.log({WarningIcon})
+    return <TextFieldIcon>
+                 <WarningIcon />
+    </TextFieldIcon>;
+};
+
+# Regular
+
+<Canvas>
+    <Story name="Regular">{Template.bind({})}</Story>
+</Canvas>
