@@ -1,12 +1,16 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import {ListItemStory} from "./list_item_story";
+import { ListItem } from '../../src/list_item/list_item';
 
-<Meta title="ListItem" component={ListItemStory} />
+<Meta title="Components/ListItem" component={ListItem} />
+
+export const Template = (args) => (
+        <div style={{width: '100%', display: 'flex', justifyContent: 'space-around'}}>
+            {['Valentin', 'Vincent', 'Clément'].map(name => <ListItem>{name}</ListItem>)}
+        </div>
+    )
 
 # ListItem
 
-<Preview withSource="none">
-    <Story name="Default">
-        <ListItemStory />
-    </Story>
-</Preview>
+<Canvas>
+    <Story name="Regular">{Template.bind({})}</Story>
+</Canvas>
