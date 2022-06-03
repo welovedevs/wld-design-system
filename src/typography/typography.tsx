@@ -2,11 +2,11 @@ import React, { CSSProperties, ExoticComponent, HTMLAttributes, ReactElement, us
 
 import cn from 'classnames';
 
-import {baseStyles, TypographyVariants, VariantStyles} from './typography_styles';
+import { baseStyles, TypographyVariants, VariantStyles } from './typography_styles';
 import palette, { PaletteColors } from '../styles/palette';
 import merge from 'lodash/merge';
 
-export interface TypographyProps {
+interface ComponentProps {
     containerRef?: any;
     className?: string;
     color?: PaletteColors;
@@ -16,8 +16,9 @@ export interface TypographyProps {
     classes?: { container?: string };
     customClasses?: { container?: string };
 }
+export type TypographyProps = ComponentProps & HTMLAttributes<any>;
 
-export const Typography: React.FC<TypographyProps & HTMLAttributes<any>> = ({
+export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
     containerRef,
     className,
     color,
@@ -26,7 +27,6 @@ export const Typography: React.FC<TypographyProps & HTMLAttributes<any>> = ({
     style: receivedStyle,
     customClasses: oldCustomClasses = {},
     classes: receivedClasses = {},
-
     ...other
 }) => {
     const classes = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
@@ -61,7 +61,7 @@ export const Typography: React.FC<TypographyProps & HTMLAttributes<any>> = ({
 
     return (
         <Component
-            className={cn(baseStyles.container, variant && VariantStyles[variant],classes.container, className)}
+            className={cn(baseStyles.container, variant && VariantStyles[variant], classes.container, className)}
             style={{
                 ...style,
                 ...receivedStyle,
@@ -71,4 +71,3 @@ export const Typography: React.FC<TypographyProps & HTMLAttributes<any>> = ({
         />
     );
 };
-

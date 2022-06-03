@@ -1,4 +1,4 @@
-import React, { CSSProperties, ExoticComponent } from 'react';
+import React, { ComponentType, CSSProperties, ElementType, ExoticComponent } from 'react';
 
 import cn from 'classnames';
 import { motion } from 'framer-motion';
@@ -9,38 +9,28 @@ import { Typography, TypographyProps } from '../typography/typography';
 import { palette } from '../index';
 
 interface Props {
-    component?: string | ExoticComponent;
+    component?: string | React.ElementType;
     containerRef?: any;
     className?: string;
-    color?: PaletteColors | 'default';
-    typographyProps?: TypographyProps;
+    color?: PaletteColors;
+    typographyProps?: Omit<TypographyProps, 'children'>;
     style?: CSSProperties;
     classes?: { container?: string; typography?: string };
 }
 export const Tag: React.FC<Props> = ({
-    component: Component = "div",
+    component: Component = 'div',
     containerRef,
     className,
-    color = 'default',
+    color,
     children,
     typographyProps,
     style: receivedStyle,
     classes = {},
     ...other
 }) => {
-    // const theme = useTheme();
-    const hexColor = palette?.[color]?.[500];
-    // const animationProps = {
-    //     scale: 1,
-    //     boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
-    //         Boolean(hexColor),
-    //         hexColor,
-    //         false,
-    //         '#d6d6d6'
-    //     )}`,
-    // };
+    const hexColor = color && palette?.[color]?.[500];
     const styleProps = { color: hexColor, ...receivedStyle, boxShadow: `0 10px 20px 0 ${hexColor ?? '#d6d6d6'}` };
-    const withColor = color && color !== 'default';
+    const withColor = !!color;
     return (
         <Component
             ref={containerRef}
@@ -57,7 +47,7 @@ export const Tag: React.FC<Props> = ({
                 {...(withColor && {
                     color: 'light',
                 })}
-                {...typographyProps}
+                {...((typographyProps as any) ?? {})}
                 variant="tag"
             >
                 {children}
