@@ -1,12 +1,55 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import {SwitchStory} from "./switch_story";
+import { Switch } from '../../src/switch/switch';
+import palette from '../../src/styles/palette';
+import { useState } from 'react';
 
-<Meta title="Switch" component={SwitchStory} />
+<Meta title="Components/Switch" component={Switch} />
 
-# Switch
+export const Template = (args) => {
+    const [value, setValue] = useState(false);
+    console.log({ value });
+    return (
+        <>
+            {Object.keys(palette).map((paletteColor) => (
+                <Switch color={paletteColor} {...args} onChange={() => setValue(!value)} checked={value} />
+            ))}
+        </>
+    );
+};
 
-<Preview withSource="none">
-    <Story name="variant">
-        <SwitchStory />
+# Regular
+
+<Canvas>
+    <Story name="Regular">{Template.bind({})}</Story>
+</Canvas>
+
+# Disabled
+
+<Canvas>
+    <Story
+        name="Disabled"
+        args={{
+            disabled: true,
+        }}
+    >
+        {Template.bind({})}
     </Story>
-</Preview>
+</Canvas>
+
+# Small
+
+<Canvas>
+    <Story
+        name="Small"
+        args={{
+            size: 'small',
+        }}
+        parameters={{
+            color: {
+                values: Object.keys(palette),
+            },
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
