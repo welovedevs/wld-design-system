@@ -73,6 +73,7 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
             >
                 <div className={cn(baseStyles.thumb, size && sizeStyles[`thumb_size_${size}`])} />
             </div>
+            <div className={baseStyles.brightLayer}/>
             <input
                 className={cn(baseStyles.input, inputClassName, disabled && baseStyles.disabled)}
                 type="checkbox"

@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Checkbox } from '../../src/checkbox/checkbox';
-
-export const Template = (args) => <Checkbox {...args} />;
+import { useState } from 'react';
 
 <Meta
     title="Components/Checkbox"
@@ -17,7 +16,21 @@ export const Template = (args) => <Checkbox {...args} />;
     }}
 />
 
-# ListItem
+export const Template = (args) => {
+    const [checked, setChecked] = useState(args.checked);
+    return (
+        <Checkbox
+            {...args}
+            checked={checked}
+            onChange={() => {
+                console.log('clicked');
+                setChecked(!checked);
+            }}
+        />
+    );
+};
+
+# Checkbox
 
 <Canvas>
     <Story
@@ -29,18 +42,46 @@ export const Template = (args) => <Checkbox {...args} />;
         {Template.bind({})}
     </Story>
     <Story
-        name="Checked"
+        name="Secondary"
         args={{
+            color: 'secondary',
             checked: true,
         }}
     >
         {Template.bind({})}
     </Story>
     <Story
-        name="Secondary"
+        name="Disabled"
+        args={{
+            color: 'secondary',
+            disabled: true,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Disabled/Checked"
         args={{
             color: 'secondary',
             checked: true,
+            disabled: true,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Partial"
+        args={{
+            partialCheck: true,
+            checked: false,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Radio"
+        args={{
+            isRadio: true,
         }}
     >
         {Template.bind({})}

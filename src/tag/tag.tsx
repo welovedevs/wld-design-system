@@ -1,9 +1,8 @@
-import React, { ComponentType, CSSProperties, ElementType, ExoticComponent } from 'react';
+import React, { CSSProperties } from 'react';
 
 import cn from 'classnames';
-import { motion } from 'framer-motion';
 
-import { getComponentColor, PaletteColors } from '../styles';
+import { PaletteColors } from '../styles';
 
 import { Typography, TypographyProps } from '../typography/typography';
 import { palette } from '../index';

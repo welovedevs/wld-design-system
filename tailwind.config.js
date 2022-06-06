@@ -233,6 +233,7 @@ module.exports = {
                 md: '0 7.5px 15px 0 #e4e4e4',
                 lg: '0 10px 20px 0 #dadada',
                 w3d: 'rgb(228, 228, 228) 0px 7.5px 15px 0px',
+                slim: 'rgba(0, 0, 0, 0.1) 0px -1px 1px 0px, rgba(0, 0, 0, 0.1) 1px 0px 1px 0px, rgba(0, 0, 0, 0.1) -1px 0px 1px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px',
             },
         },
     },
