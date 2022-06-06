@@ -50,7 +50,6 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
     ) => {
         const handleChange = useCallback(
             (event: ChangeEvent) => {
-                console.log('changed');
                 if (disabled) {
                     return;
                 }

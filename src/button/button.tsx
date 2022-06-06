@@ -1,24 +1,28 @@
 import React, { ButtonHTMLAttributes, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
-import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import { motion } from 'framer-motion';
 import { Typography } from '../typography/typography';
 
-import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
+import { PaletteColors } from '../styles';
 
-import { ButtonVariants, Classes, styles } from './button_styles';
-import merge from 'lodash/merge';
-
-const useStyles = makeStyles(styles);
+import {
+    baseStyles,
+    ButtonVariants,
+    layerVariantStyles,
+    sizeStyles,
+    textVariantStyles,
+    typographysizeStyles,
+    variantStyles,
+} from './button_styles';
+import { palette } from '../index';
 
 interface CustomProps {
     component?: string;
     className?: string;
     containerRef?: any;
     disabled?: boolean;
-    size?: 'small' | 'xs';
+    size?: 'small' | 'xs' | 'regular';
     color?: PaletteColors | 'default';
     containerProps?: any;
     typographyClassName?: any;
@@ -28,8 +32,7 @@ interface CustomProps {
     onFocus?: any;
     onBlur?: any;
     onClick?: any;
-    customClasses?: Classes;
-    classes?: Classes;
+    classes?: { container?: string; typography?: string };
     style?: any;
 }
 
@@ -39,7 +42,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
     className,
     containerRef,
     disabled,
-    size,
+    size = 'regular',
     color = 'default',
     containerProps,
     // @deprecated please use classes.typography
@@ -50,21 +53,14 @@ const ButtonComponent: React.FC<ButtonProps> = ({
     onFocus,
     onBlur,
     onClick,
+    classes = {},
     children,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
     style: propsStyle,
     ...other
 }) => {
-    const theme = useTheme();
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });
-    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const hexColor = (color && color !== 'default' && palette?.[color]?.[500]) ?? palette?.dark[100];
     const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
-    const colorMotion = { color: getComponentColor(true, hexColor, disabled) };
+    const styles = { color: hexColor };
 
     const handleClick = useCallback(
         (...paramaters) => {
@@ -77,35 +73,34 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         },
         [onClick, disabled]
     );
-    const classesSizes: any = size && `size_${size}`;
     return (
         <Component
             ref={containerRef}
             className={cn(
                 className,
-                classes.container,
-                disabled && classes.disabled,
-                withColor && classes.withColor,
-                variant && classes[variant],
-                // @ts-ignore
-                classesSizes && classes[classesSizes],
-                oldCustomClasses.container
+                baseStyles.container,
+                (size && sizeStyles[size]) || sizeStyles.regular,
+                disabled && baseStyles.disabled,
+                variant && variantStyles[variant]
             )}
             {...containerProps}
             style={{
                 ...propsStyle,
-                ...(withColor && colorMotion),
+                ...(withColor && styles),
                 ...(containerProps && containerProps.style),
             }}
             onClick={handleClick}
             {...other}
         >
-            <motion.div
-                className={classes.brightLayer}
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: variant !== 'contained' ? 0.1 : 0.2 }}
-            />
-            <Typography className={cn(classes.typography, oldCustomClasses.typography)} variant="button">
+            {!disabled && <div className={cn(baseStyles.brightLayer, variant && layerVariantStyles[variant])} />}
+            <Typography
+                className={cn(
+                    baseStyles.typography,
+                    variant && textVariantStyles[variant],
+                    size && typographysizeStyles[size]
+                )}
+                variant="button"
+            >
                 {children}
             </Typography>
         </Component>
@@ -113,14 +108,10 @@ const ButtonComponent: React.FC<ButtonProps> = ({
 };
 
 const RaisedButton: React.FC<ButtonProps> = (props) => {
-    const theme = useTheme();
-    const { disabled, color } = props;
+    const { disabled, color: paletteColor } = props;
+    const color = disabled ? palette['dark'][100] : paletteColor && paletteColor !=='default' && palette?.[paletteColor]?.[500];
     const motionProps = {
-        boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
-            Boolean(color),
-            getHexFromTheme(theme, color, 200),
-            disabled
-        )}`,
+        boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${color}`,
     };
     return <ButtonComponent {...props} {...(!disabled && { animate: motionProps })} />;
 };
