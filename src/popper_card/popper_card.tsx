@@ -49,7 +49,6 @@ export const PopperCard: React.FC<Props> = ({
     ]);
     const classes = useStyles({classes: mergedClasses});
     const [arrowReference, setArrowReference] = useState(null);
-    console.log({arrowReference})
     return (
         <Popper
             open={open}

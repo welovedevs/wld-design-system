@@ -1,29 +1,20 @@
-import React, {ChangeEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, { ChangeEvent, ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import Autosuggest, { SuggestionSelectedEventData } from 'react-autosuggest';
 
-import cn from 'classnames';
-import Autosuggest, {SuggestionSelectedEventData} from 'react-autosuggest';
+import { TextField, TextFieldProps } from '../text_field/text_field';
+import { PopperCard } from '../popper_card/popper_card';
+import { Typography } from '../typography/typography';
+import { ListItem } from '../list_item/list_item';
 
-import makeStyles from '@mui/styles/makeStyles';
-
-import {TextField, TextFieldProps} from '../text_field/text_field';
-import {PopperCard} from '../popper_card/popper_card';
-import {Typography} from '../typography/typography';
-import {ListItem} from '../list_item/list_item';
-
-import {Classes, styles} from './autocomplete_styles';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-import {PopperProps} from '@mui/material/Popper';
-import {PopperCustomClasses} from '../popper_card/popper_card_styles';
-import merge from 'lodash/merge';
+import { PopperProps } from '@mui/material/Popper';
+import { PopperCustomClasses } from '../popper_card/popper_card_styles';
 
-const defaultGetSuggestionValue = ({value}: { value: any }) => value;
-const defaultFilterSuggestion = (inputValue: string) => ({value}: { value: any }) =>
+const defaultGetSuggestionValue = ({ value }: { value: any }) => value;
+const defaultFilterSuggestion = (inputValue: string) => ({ value }: { value: any }) =>
     inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 
-const useStyles = makeStyles(styles);
-
-const DEFAULT_FUNCTION = () => {
-};
+const DEFAULT_FUNCTION = () => {};
 
 interface Props {
     placeholder?: string;
@@ -39,35 +30,28 @@ interface Props {
     id?: string;
     name?: string;
     transformSuggestionValue?: (value: any) => any;
-    classes?: Classes;
-    customClasses?: Classes;
+    classes?: { popper?: string; field?: string };
     popperPlacement?: PopperProps['placement'];
 }
 
 export function AutoComplete({
-                                 placeholder,
-                                 suggestions,
-                                 onChange = DEFAULT_FUNCTION,
-                                 onSelect = DEFAULT_FUNCTION,
-                                 getSuggestionValue = defaultGetSuggestionValue,
-                                 renderSuggestion: renderSuggestionProps,
-                                 filterFunction = defaultFilterSuggestion,
-                                 renderNoSuggestion,
-                                 maxLength = 10,
-                                 value: propsValue = '',
-                                 id,
-                                 name,
-                                 transformSuggestionValue = (props: any) => props && props.value,
-                                 customClasses: oldCustomClasses = {},
-                                 classes: receivedClasses = {},
-                                 popperPlacement,
-                                 ...other
-                             }: Omit<TextFieldProps, 'onSelect' | 'onChange'> & Props) {
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({classes: mergedClasses});
+    placeholder,
+    suggestions,
+    onChange = DEFAULT_FUNCTION,
+    onSelect = DEFAULT_FUNCTION,
+    getSuggestionValue = defaultGetSuggestionValue,
+    renderSuggestion: renderSuggestionProps,
+    filterFunction = defaultFilterSuggestion,
+    renderNoSuggestion,
+    maxLength = 10,
+    value: propsValue = '',
+    id,
+    name,
+    transformSuggestionValue = (props: any) => props && props.value,
+    classes = {},
+    popperPlacement,
+    ...other
+}: Omit<TextFieldProps, 'onSelect' | 'onChange'> & Props) {
     const inputReference = useRef();
     const [filteredSuggestions, setFilteredSuggetions] = useState<any[]>([]);
     const [value, setValue] = useState(propsValue || '');
@@ -94,7 +78,7 @@ export function AutoComplete({
         ));
 
     const filterSuggestions = useCallback(
-        ({value: inputValue}) => {
+        ({ value: inputValue }) => {
             const filter = suggestions.filter(filterFunction(inputValue));
             setFilteredSuggetions(filter.slice(0, maxLength));
         },
@@ -106,7 +90,7 @@ export function AutoComplete({
     }, []);
 
     const valueChanged = useCallback(
-        (e: ChangeEvent, {newValue}) => {
+        (e: ChangeEvent, { newValue }) => {
             setValue(newValue || '');
             onChange(newValue);
         },
@@ -114,7 +98,7 @@ export function AutoComplete({
     );
     const suggestionSelected = useCallback(
         (_, newValue: SuggestionSelectedEventData<any>) => {
-            const {suggestionValue} = newValue;
+            const { suggestionValue } = newValue;
             setValue(suggestionValue);
             onChange && onChange(suggestionValue);
             onSelect && onSelect(newValue);
@@ -143,10 +127,13 @@ export function AutoComplete({
                 onSuggestionsClearRequested={clearSuggestions}
                 onSuggestionsFetchRequested={filterSuggestions}
                 renderSuggestion={renderSuggestion}
+                theme={{
+                    suggestionsList: 'ds-list-none ds-p-0 ds-m-0',
+                }}
                 renderSuggestionsContainer={(props) => {
-                    const {containerProps, children} = props;
+                    const { containerProps, children } = props;
                     if (value && !filteredSuggestions.length && typeof renderNoSuggestion === 'function') {
-                        return renderNoSuggestion({anchorElement: inputReference.current, open: focused});
+                        return renderNoSuggestion({ anchorElement: inputReference.current, open: focused });
                     }
                     return (
                         <SuggestionsContainer
@@ -155,23 +142,23 @@ export function AutoComplete({
                                 containerProps,
                                 children,
                             }}
-                            className={cn(classes.popperCard)}
-                            popperCustomClasses={{popper: classes.popper}}
+                            className={'ds-max-w-[600px]'}
+                            popperCustomClasses={{ popper: classes?.popper }}
                             anchorElement={inputReference.current}
                         />
                     );
                 }}
                 onSuggestionSelected={suggestionSelected}
-                renderInputComponent={({onChange, size, ...props}) => (
+                renderInputComponent={({ onChange, size, ...props }) => (
                     <TextField
                         {...props}
                         {...other}
                         inputRef={inputReference}
-                        className={classes.field}
+                        className={classes?.field ?? ''}
                         onChange={onChange as any}
                     />
                 )}
-                {...{inputProps}}
+                {...{ inputProps }}
             />
         </ClickAwayListener>
     );
@@ -186,13 +173,13 @@ interface SuggestionContainerProps {
 }
 
 const SuggestionsContainer: React.FC<SuggestionContainerProps> = ({
-                                                                      containerProps,
-                                                                      popperPlacement,
-                                                                      anchorElement,
-                                                                      children,
-                                                                      popperCustomClasses = {},
-                                                                      className,
-                                                                  }) => {
+    containerProps,
+    popperPlacement,
+    anchorElement,
+    children,
+    popperCustomClasses = {},
+    className,
+}) => {
     const lastChildrenRendered = useRef(children);
     useEffect(() => {
         if (children) {
@@ -204,20 +191,18 @@ const SuggestionsContainer: React.FC<SuggestionContainerProps> = ({
             className={className}
             open={Boolean(children)}
             popperProps={{
-                ...(popperPlacement && {placement: popperPlacement})
+                ...(popperPlacement && { placement: popperPlacement }),
             }}
             classes={popperCustomClasses}
-            {...{anchorElement, containerProps}}
+            {...{ anchorElement, containerProps }}
         >
             {children || lastChildrenRendered.current}
         </PopperCard>
     );
 };
 
-const DefaultSuggestionsRender: React.FC<{ value: string; classes: any }> = ({value, classes}) => (
-    <ListItem className={classes.listItem} key={`prediction_${value}`} button>
-        <Typography color="dark" classes={{container: classes.predictionListItem}}>
-            {value}
-        </Typography>
+const DefaultSuggestionsRender: React.FC<{ value: string }> = ({ value }) => (
+    <ListItem className={'ds-rounded-md'} key={`prediction_${value}`} button>
+        <Typography color="dark">{value}</Typography>
     </ListItem>
 );
