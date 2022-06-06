@@ -5,15 +5,13 @@ import makeStyles from '@mui/styles/makeStyles';
 
 import { Typography } from '../typography/typography';
 
-import { styles } from './popper_card_title_styles';
-
-const useStyles = makeStyles(styles);
-
-const PopperCardTitleComponent = ({ customClasses = {}, children }) => {
-    const classes = useStyles();
+export const PopperCardTitle: React.FC<{ classes?: { container?: string } }> = ({ classes = {}, children }) => {
     return (
         <Typography
-            className={cn(classes.container, customClasses.container)}
+            className={cn(
+                'ds-w-full ds-p-3 !ds-text-[20px] !ds-leading-[1.6] ds-font-medium ds-tracking-[unset]',
+                classes?.container
+            )}
             variant="body1"
             component="h2"
             color="dark"
@@ -22,5 +20,3 @@ const PopperCardTitleComponent = ({ customClasses = {}, children }) => {
         </Typography>
     );
 };
-
-export const PopperCardTitle = PopperCardTitleComponent;
