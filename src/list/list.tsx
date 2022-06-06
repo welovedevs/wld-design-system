@@ -1,18 +1,10 @@
 import React from 'react';
 
 import cn from 'classnames';
-
-import makeStyles from '@mui/styles/makeStyles';
-
-import { Classes, styles } from './list_styles';
-
-const useStyles = makeStyles(styles);
-
-export const List: React.FC<{ className?: string; classes?: Classes }> = ({
+export const List: React.FC<{ className?: string; classes?: { container?: string } }> = ({
     className,
-    classes: receivedClasses = {},
+    classes,
     ...other
 }) => {
-    const classes = useStyles({ classes: receivedClasses });
-    return <ul className={cn(classes.container, className)} {...other} />;
+    return <ul className={cn(classes?.container,'ds-p-0 ds-m-0 ds-list-none', className)} {...other} />;
 };
