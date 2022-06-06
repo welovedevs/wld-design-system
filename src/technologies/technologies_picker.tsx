@@ -1,17 +1,12 @@
 import React, { useMemo } from 'react';
 
-import makeStyles from '@mui/styles/makeStyles';
-
-import { Classes, styles } from './technologies_picker_styles';
 import { AllTechnologiesPicker } from './all_technologies_picker/all_technologies_picker';
 import { SelectedTechnologies } from './selected_technologies/selected_technologies';
 import { DevTechnology, Technology } from './technologies/technology';
 import { ContextType, TechnologiesPickerContext } from './technologies_picker_context';
 
-const useStyles = makeStyles(styles);
-
 export interface TechnologiesPickerProps {
-    classes?: Classes;
+    classes?: { container?: string };
     isMobile?: boolean;
     selectedValues: Array<DevTechnology>;
     onAddItem: (technoName: string) => void;
@@ -34,11 +29,11 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
     onArrayChange,
     onArrayItemChange,
     technologies,
-    classes: receivedClasses = {},
+    classes = {},
     translations,
     content,
 }) => {
-    const classes = useStyles({ classes: receivedClasses, isMobile });
+    // const classes = useStyles({ classes: receivedClasses, isMobile });
 
     const technoPickerContext = useMemo(
         () => ({
@@ -49,8 +44,8 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
     );
     return (
         <TechnologiesPickerContext.Provider value={technoPickerContext}>
-            <div className={classes.container}>
-                <AllTechnologiesPicker  
+            <div className={'ds-flex ds-h-full' + (classes?.container ?? '')}>
+                <AllTechnologiesPicker
                     isMobile={isMobile}
                     technologies={technologies}
                     selectedItems={selectedValues}
@@ -59,16 +54,16 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
                     noResultsElement={content?.noResults}
                     additionalInformations={content?.additionalInformations}
                     classes={{
-                        container: classes.allTechnologies,
-                        technologiesList: classes.technologiesList,
+                        container: `ds-flex-[125%] ${isMobile ? '' : 'ds-ml-2'} sm:ds-w-full`,
+                        technologiesList: 'ds-scrollbar ds-overflow-x-hidden ds-overflow-y-auto',
                     }}
                 />
-                {!isMobile && <div className={classes.divider} />}
+                {!isMobile && <div className={'ds-bg-dark-100 ds-mr-2 ds-ml-4 '} />}
                 {!isMobile && (
-                    <div className={classes.column}>
+                    <div className={'ds-flex-auto ds-flex ds-flex-col'}>
                         {content?.additionalInformations}
                         <SelectedTechnologies
-                            className={classes.selectedTechnologies}
+                            className={'ds-flex-1'}
                             items={selectedValues}
                             onDelete={onDeleteItem}
                             onChange={onArrayChange}
