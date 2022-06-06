@@ -100,6 +100,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
                     size && typographysizeStyles[size]
                 )}
                 variant="button"
+                color={variant === 'raised' || variant === 'contained' ? 'light' : (color as any)}
             >
                 {children}
             </Typography>
@@ -109,7 +110,9 @@ const ButtonComponent: React.FC<ButtonProps> = ({
 
 const RaisedButton: React.FC<ButtonProps> = (props) => {
     const { disabled, color: paletteColor } = props;
-    const color = disabled ? palette['dark'][100] : paletteColor && paletteColor !=='default' && palette?.[paletteColor]?.[500];
+    const color = disabled
+        ? palette['dark'][100]
+        : paletteColor && paletteColor !== 'default' && palette?.[paletteColor]?.[500];
     const motionProps = {
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${color}`,
     };
