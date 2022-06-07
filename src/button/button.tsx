@@ -85,7 +85,8 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
                     baseStyles.container,
                     (size && sizeStyles[size]) || sizeStyles.regular,
                     disabled && baseStyles.disabled,
-                    variant && variantStyles[variant]
+                    variant && variantStyles[variant],
+                    classes?.container
                 )}
                 {...containerProps}
                 style={{
@@ -101,7 +102,8 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
                     className={cn(
                         baseStyles.typography,
                         variant && textVariantStyles[variant],
-                        size && typographysizeStyles[size]
+                        size && typographysizeStyles[size],
+                        classes?.typography
                     )}
                     variant="button"
                     color={variant === 'raised' || variant === 'contained' ? 'light' : (color as any)}
