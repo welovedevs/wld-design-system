@@ -64,14 +64,14 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             <Component
                 className={cn(
                     baseClasses.container,
-                    disabled && 'ds-cursor-not-allowed ds-bg-dark-100',
                     isRadio ? 'ds-rounded-full' : 'ds-rounded-md',
+                    disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]',
                     checked && !disabled && variant === 'raised' && 'ds-bg-current',
                     variant && variantClasses[variant],
                     className
                 )}
                 style={{
-                    color: disabled ? '' : (color && palette?.[color]?.[500]) ?? propsDefaultColor,
+                    color: disabled ? palette?.dark[200] : (color && palette?.[color]?.[500]) ?? propsDefaultColor,
                 }}
                 {...containerProps}
                 {...{ ref }}

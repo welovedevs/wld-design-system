@@ -1,14 +1,4 @@
-import { flexUtils } from '../styles/utils/styles_utils';
-
-const { center } = flexUtils;
-import createStyles from '@mui/styles/createStyles';
 import { CheckboxProps } from './checkbox';
-
-type StylesKeys = 'container' | 'input';
-
-export type Classes = {
-    [key in StylesKeys]?: string;
-};
 
 export const baseClasses = {
     container:

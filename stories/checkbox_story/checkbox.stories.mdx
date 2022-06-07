@@ -96,6 +96,17 @@ export const Template = (args) => {
     >
         {Template.bind({})}
     </Story>
+    <Story
+        name="Outlined-Disabled"
+        args={{
+            color: 'secondary',
+            checked: true,
+            disabled: true,
+            variant: 'outlined',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
 </Canvas>
 
 <ArgsTable of={Checkbox} />
