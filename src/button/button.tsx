@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, useCallback, useMemo } from 'react';
+import React, { ButtonHTMLAttributes, forwardRef, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
 import { motion } from 'framer-motion';
@@ -37,78 +37,83 @@ interface CustomProps {
 }
 
 export type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
-const ButtonComponent: React.FC<ButtonProps> = ({
-    component: Component = motion.button,
-    className,
-    containerRef,
-    disabled,
-    size = 'regular',
-    color = 'default',
-    containerProps,
-    // @deprecated please use classes.typography
-    typographyClassName,
-    variant,
-    onMouseEnter,
-    onMouseLeave,
-    onFocus,
-    onBlur,
-    onClick,
-    classes = {},
-    children,
-    style: propsStyle,
-    ...other
-}) => {
-    const hexColor = (color && color !== 'default' && palette?.[color]?.[500]) ?? palette?.dark[100];
-    const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
-    const styles = { color: hexColor };
-
-    const handleClick = useCallback(
-        (...paramaters) => {
-            if (disabled) {
-                return;
-            }
-            if (typeof onClick === 'function') {
-                onClick(...paramaters);
-            }
+const ButtonComponent: React.FC<ButtonProps> = forwardRef(
+    (
+        {
+            component: Component = motion.button,
+            className,
+            containerRef,
+            disabled,
+            size = 'regular',
+            color = 'default',
+            containerProps,
+            // @deprecated please use classes.typography
+            typographyClassName,
+            variant,
+            onMouseEnter,
+            onMouseLeave,
+            onFocus,
+            onBlur,
+            onClick,
+            classes = {},
+            children,
+            style: propsStyle,
+            ...other
         },
-        [onClick, disabled]
-    );
-    return (
-        <Component
-            ref={containerRef}
-            className={cn(
-                className,
-                baseStyles.container,
-                (size && sizeStyles[size]) || sizeStyles.regular,
-                disabled && baseStyles.disabled,
-                variant && variantStyles[variant]
-            )}
-            {...containerProps}
-            style={{
-                ...propsStyle,
-                ...(withColor && styles),
-                ...(containerProps && containerProps.style),
-            }}
-            onClick={handleClick}
-            {...other}
-        >
-            {!disabled && <div className={cn(baseStyles.brightLayer, variant && layerVariantStyles[variant])} />}
-            <Typography
-                className={cn(
-                    baseStyles.typography,
-                    variant && textVariantStyles[variant],
-                    size && typographysizeStyles[size]
-                )}
-                variant="button"
-                color={variant === 'raised' || variant === 'contained' ? 'light' : (color as any)}
-            >
-                {children}
-            </Typography>
-        </Component>
-    );
-};
+        ref
+    ) => {
+        const hexColor = (color && color !== 'default' && palette?.[color]?.[500]) ?? palette?.dark[100];
+        const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
+        const styles = { color: hexColor };
 
-const RaisedButton: React.FC<ButtonProps> = (props) => {
+        const handleClick = useCallback(
+            (...paramaters) => {
+                if (disabled) {
+                    return;
+                }
+                if (typeof onClick === 'function') {
+                    onClick(...paramaters);
+                }
+            },
+            [onClick, disabled]
+        );
+        return (
+            <Component
+                ref={ref || containerRef}
+                className={cn(
+                    className,
+                    baseStyles.container,
+                    (size && sizeStyles[size]) || sizeStyles.regular,
+                    disabled && baseStyles.disabled,
+                    variant && variantStyles[variant]
+                )}
+                {...containerProps}
+                style={{
+                    ...propsStyle,
+                    ...(withColor && styles),
+                    ...(containerProps && containerProps.style),
+                }}
+                onClick={handleClick}
+                {...other}
+            >
+                {!disabled && <div className={cn(baseStyles.brightLayer, variant && layerVariantStyles[variant])} />}
+                <Typography
+                    className={cn(
+                        baseStyles.typography,
+                        variant && textVariantStyles[variant],
+                        size && typographysizeStyles[size]
+                    )}
+                    variant="button"
+                    color={variant === 'raised' || variant === 'contained' ? 'light' : (color as any)}
+                >
+                    {children}
+                </Typography>
+            </Component>
+        );
+    }
+);
+
+const RaisedButton: React.FC<ButtonProps> = forwardRef((props, ref) => {
     const { disabled, color: paletteColor } = props;
     const color = disabled
         ? palette['dark'][100]
@@ -116,13 +121,13 @@ const RaisedButton: React.FC<ButtonProps> = (props) => {
     const motionProps = {
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${color}`,
     };
-    return <ButtonComponent {...props} {...(!disabled && { animate: motionProps })} />;
-};
+    return <ButtonComponent {...props} {...{ ref }} {...(!disabled && { animate: motionProps })} />;
+});
 
-export const Button: React.FC<ButtonProps> = (props, containerRef) => {
+export const Button: React.FC<ButtonProps> = forwardRef((props, ref) => {
     const { variant = 'text', ...other } = props;
     if (variant === 'raised') {
-        return <RaisedButton {...{ variant, containerRef }} {...other} />;
+        return <RaisedButton {...{ variant, ref }} {...other} />;
     }
-    return <ButtonComponent {...{ variant, containerRef }} {...other} />;
-};
+    return <ButtonComponent {...{ variant, ref }} {...other} />;
+});

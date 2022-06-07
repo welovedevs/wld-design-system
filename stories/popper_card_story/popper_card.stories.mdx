@@ -1,13 +1,23 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
 import { PopperCardStory } from './popper_card_story';
 import { PopperCard } from '../../src';
 
 <Meta title="Components/PopperCard" component={PopperCard} />
 
-# ListItem
+# Popper
 
-<Preview withSource="none">
+<Canvas>
     <Story name="Default">
-        <PopperCardStory />
+        <div className="ds-flex ds-items-center ds-flex-wrap">
+            <PopperCardStory />
+            <PopperCardStory popperProps={{ placement: 'bottom' }} />
+            <PopperCardStory popperProps={{ placement: 'left' }} />
+            <PopperCardStory popperProps={{ placement: 'right' }} />
+            <PopperCardStory popperProps={{ placement: 'top' }} />
+        </div>
+    </Story>   <Story name="Structured">
+        <div className="ds-flex ds-items-center ds-flex-wrap">
+            <PopperCardStory structured />
+        </div>
     </Story>
-</Preview>
+</Canvas>
