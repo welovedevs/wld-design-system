@@ -12,7 +12,7 @@ export type Classes = {
 
 export const baseClasses = {
     container:
-        'ds-group ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-relative ds-margin-1 ds-p-1/2 ds cursor-pointer ds-overflow-hidden  ds-flex ds-items-center ds-justify-center',
+        'ds-group ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-relative ds-margin-1 ds-p-1/2 ds cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center',
     icon: 'ds-w-full ds-h-full ds-fill-current',
     input:
         'ds-h-full ds-w-full ds-absolute ds-top-0 ds-bottom-0 ds-right-0 ds-left-0 ds-cursor-[inherit] ds-p-0 ds-m-0 ds-z-10 ds-opacity-0',
