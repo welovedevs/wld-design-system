@@ -198,6 +198,15 @@ module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}', './stories/**/*.{mdx,js,jsx,ts,tsx}'],
     prefix: 'ds-',
     theme: {
+        screens: {
+            '2xl': { max: '1535px' },
+            xl: { max: '1279px' },
+            lg: { max: '1023px' },
+            md: { max: '768px' },
+            profileMobile: { max: '700px' },
+            sm: { max: '500px' },
+            xs: { max: '400px' },
+        },
         fontFamily: {
             avenir: ['Avenir Next', 'open sans', 'Arial'],
         },
@@ -233,7 +242,8 @@ module.exports = {
                 md: '0 7.5px 15px 0 #e4e4e4',
                 lg: '0 10px 20px 0 #dadada',
                 w3d: 'rgb(228, 228, 228) 0px 7.5px 15px 0px',
-                slim: 'rgba(0, 0, 0, 0.1) 0px -1px 1px 0px, rgba(0, 0, 0, 0.1) 1px 0px 1px 0px, rgba(0, 0, 0, 0.1) -1px 0px 1px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px',
+                slim:
+                    'rgba(0, 0, 0, 0.1) 0px -1px 1px 0px, rgba(0, 0, 0, 0.1) 1px 0px 1px 0px, rgba(0, 0, 0, 0.1) -1px 0px 1px 0px, rgba(0, 0, 0, 0.1) 0px 1px 1px 0px',
             },
         },
     },
@@ -245,6 +255,12 @@ module.exports = {
     },
     plugins: [
         function ({ addVariant, e }) {
+            addVariant('children', ({ modifySelectors, separator }) => {
+                modifySelectors(({ className }) => {
+                    return `.${e(`children${separator}${className}`)} > *`;
+                });
+            });
+
             addVariant('child-svg', ({ modifySelectors, separator }) => {
                 modifySelectors(({ className }) => {
                     return `.${e(`child-svg${separator}${className}`)} > svg`;

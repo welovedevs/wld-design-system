@@ -1,55 +1,39 @@
 import React, { useMemo } from 'react';
 
 import cn from 'classnames';
-import { useTheme } from '@mui/material/styles';
-
-import makeStyles from '@mui/styles/makeStyles';
 
 import { BANNER_DATA, BannerType } from './banner_data';
 
-import { Classes, styles } from './banner_styles';
-import { getComponentColor, getHexFromTheme } from '../styles';
-import merge from 'lodash/merge';
-
-const useStyles = makeStyles(styles);
+import { baseStyles } from './banner_styles';
+import { palette } from '../index';
 
 interface Props {
     type?: BannerType;
     icon?: any;
-    classes?: Classes;
-    customClasses?: Classes;
+    classes?: { container?: string };
 }
-const BannerComponent: React.FC<Props> = ({
+export const Banner: React.FC<Props> = ({
     type = 'warning',
     icon: receivedIcon,
     classes: receivedClasses = {},
-    customClasses: oldCustomClasses = {},
     children,
 }) => {
-    const theme = useTheme();
-
     const { icon, color } = useMemo(() => {
         const typeConfig = BANNER_DATA[type];
         if (!typeConfig) {
-            return BANNER_DATA.default;
+            return { ...BANNER_DATA.default, color: palette.primary[500] };
         }
         return {
             ...typeConfig,
-            color: getComponentColor(true, getHexFromTheme(theme, typeConfig.color), false),
+            color: palette[typeConfig.color]?.[500],
         };
-    }, [type, theme]);
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });
+    }, [type]);
     const Icon = receivedIcon || icon;
+
     return (
-        <div className={cn(classes.container)} style={{ color }}>
-            <span className={classes.iconContainer}>{Icon && <Icon />}</span>
+        <div className={cn(baseStyles.container, baseStyles.background)} style={{ color }}>
+            <span className={'ds-flex ds-mr-2 sm:ds-display-none'}>{Icon && <Icon className="ds-w-6 ds-h-6" />}</span>
             {children}
         </div>
     );
 };
-
-export const Banner = BannerComponent;

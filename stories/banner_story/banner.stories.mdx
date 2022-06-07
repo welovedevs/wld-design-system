@@ -1,0 +1,56 @@
+import { Meta, Story, Canvas, Props } from '@storybook/addon-docs/blocks';
+
+import { Banner } from '../../src/banner/banner';
+import { Spacing } from '../stories_helpers/spacing/spacing';
+
+<Meta title="Components/Banner" />
+
+export const Template = (args) => {
+    return <Banner {...args} className="ds-w-full">This is the banner content !</Banner>;
+};
+
+# Banner
+
+<Canvas>
+    <Story name="regular">{Template.bind({})}</Story>
+    <Story
+        name="warning"
+        args={{
+            type: 'warning',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="error"
+        args={{
+            type: 'error',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="success"
+        args={{
+            type: 'success',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="info"
+        args={{
+            type: 'info',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="default"
+        args={{
+            type: 'default',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
