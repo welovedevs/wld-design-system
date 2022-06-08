@@ -37,23 +37,17 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
         if (color) {
             if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
                 const paletteColor = palette[color];
+                if (color === 'primary') {
+                    return {
+                        backgroundColor: '#fff',
+                        color: paletteColor.primary[500],
+                    };
+                }
                 if (paletteColor) {
                     const constrastColor = palette[paletteColor.contrastDefaultColor as PaletteColors];
                     return {
                         backgroundColor: paletteColor[500],
                         color: constrastColor?.[500] ?? '#fff',
-                    };
-                }
-                if (color === 'secondary') {
-                    return {
-                        backgroundColor: palette[color]?.[500],
-                        color: '#fff',
-                    };
-                }
-                if (color === 'tertiary') {
-                    return {
-                        color: palette.primary[500],
-                        backgroundColor: palette[color]?.[500],
                     };
                 }
                 return {
