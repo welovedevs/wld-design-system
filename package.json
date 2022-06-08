@@ -108,7 +108,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm run test-build --scripts-prepend-node-path && rimraf ./test_build"
+            "pre-commit": "npm run test-build --scripts-prepend-node-path && rimraf ./test_build && npx tailwindcss build -o ./src/styles/tailwind.css --minify"
         }
     }
 }
