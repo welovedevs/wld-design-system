@@ -58,15 +58,13 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                 color: palette?.[color]?.[500],
             };
         }
-        return {
-            color: palette?.dark[400],
-        };
+        return null;
     }, [variant, color]);
 
     const componentClassName = useMemo(() => {
         const classText = cn(baseStyles.container, variant && VariantStyles[variant], classes.container, className);
         if (!classText.includes('ds-text')) {
-            return classText + ' ds-text-dark-500';
+            return classText + ' ds-text-dark-400';
         }
         return classText;
     }, [variant, className]);
