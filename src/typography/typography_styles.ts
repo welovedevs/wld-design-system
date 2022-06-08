@@ -28,12 +28,12 @@ export const componentStyles = {
     label: `${bodyStyles.body2} ds-mb-1`,
 };
 export const wldStyles = {
-    wld1: `${baseStyles.wld} ds-text-[54px] ds-leading-[62px] ds-px-[12px] ds-py-[28px]`,
-    wld2: `${baseStyles.wld} ds-text-[40px] ds-leading-[50px] ds-px-[12px] ds-py-[24px]`,
-    wld3: `${baseStyles.wld} ds-text-[30px] ds-leading-[44px] ds-px-[11px] ds-py-[22px]`,
-    wld4: `${baseStyles.wld} ds-text-[22px] ds-leading-[38px] ds-px-[10px] ds-py-[20px]`,
-    wld5: `${baseStyles.wld} ds-text-[16px] ds-leading-[30px] ds-px-[9px] ds-py-[18px]`,
-    wld6: `${baseStyles.wld} ds-text-[13px] ds-leading-[26px] ds-px-1 ds-py-2`,
+    wld1: `${baseStyles.wld} ds-text-[54px] ds-leading-[62px] ds-py-[12px] ds-px-[28px]`,
+    wld2: `${baseStyles.wld} ds-text-[40px] ds-leading-[50px] ds-py-[12px] ds-px-[24px]`,
+    wld3: `${baseStyles.wld} ds-text-[30px] ds-leading-[44px] ds-py-[11px] ds-px-[22px]`,
+    wld4: `${baseStyles.wld} ds-text-[22px] ds-leading-[38px] ds-py-[10px] ds-px-[20px]`,
+    wld5: `${baseStyles.wld} ds-text-[16px] ds-leading-[30px] ds-py-[9px] ds-px-[18px]`,
+    wld6: `${baseStyles.wld} ds-text-[13px] ds-leading-[26px] ds-py-1 ds-px-2`,
 };
 
 export const VariantStyles = {
