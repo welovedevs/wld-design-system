@@ -43,7 +43,7 @@ const yellow = {
     700: '#F6E014',
     800: '#F5DD11',
     900: '#F3D709',
-    contrastDefaultColor: 'dark',
+    contrastDefaultColor: 'primary',
 };
 
 export const tertiary = yellow;
@@ -163,7 +163,7 @@ export type PaletteColors =
 
 export type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
-let palette: { [color in PaletteColors]: any } = {
+const palette: { [color in PaletteColors]: any } = {
     primary,
     secondary,
     tertiary,

@@ -1,6 +1,6 @@
 
 export const baseStyles = {
-    container: 'ds-font-avenir ds-text-dark-500',
+    container: 'ds-font-avenir',
     heading: 'ds-font-avenir ds-text-dark-400',
     wld:
         'ds-width-fit ds-px-1 ds-py-2 ds-rounded-lg ds-text-center ds-uppercase ds-font-black ds-bg-light ds-skew-y-[-5deg] ds-origin-bottom-left',

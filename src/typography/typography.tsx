@@ -36,6 +36,14 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
     let style = useMemo<{ backgroundColor?: string; color: string } | null>(() => {
         if (color) {
             if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
+                const paletteColor = palette[color];
+                if (paletteColor) {
+                    const constrastColor = palette[paletteColor.contrastDefaultColor as PaletteColors];
+                    return {
+                        backgroundColor: paletteColor[500],
+                        color: constrastColor?.[500] ?? '#fff',
+                    };
+                }
                 if (color === 'secondary') {
                     return {
                         backgroundColor: palette[color]?.[500],
@@ -49,7 +57,7 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                     };
                 }
                 return {
-                    color: palette.primary[500],
+                    color: (color && palette[color][500]) ?? palette.primary[500],
                 };
             }
             return {
@@ -59,9 +67,17 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
         return null;
     }, [variant, color]);
 
+    const componentClassName = useMemo(() => {
+        const classText = cn(baseStyles.container, variant && VariantStyles[variant], classes.container, className);
+        if (!classText.includes('ds-text')) {
+            return classText + ' ds-text-dark-500';
+        }
+        return classText;
+    }, [variant, className]);
+
     return (
         <Component
-            className={cn(baseStyles.container, variant && VariantStyles[variant], classes.container, className)}
+            className={componentClassName}
             style={{
                 ...style,
                 ...receivedStyle,
