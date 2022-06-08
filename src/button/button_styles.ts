@@ -26,11 +26,12 @@ export const typographysizeStyles: { [key in Exclude<ButtonProps['size'], undefi
     xs: 'ds-text-[11px]',
 };
 
-export const variantStyles: { [key in Exclude<ButtonProps['variant'], undefined>]: string } = {
-    contained: 'ds-bg-current ',
-    raised: 'ds-bg-current ',
+export const variantStyles: { [key in Exclude<ButtonProps['variant'], undefined> | 'default']: string } = {
+    contained: 'ds-bg-current',
+    raised: 'ds-bg-current',
     outlined: 'ds-border-current ds-border ds-border-solid',
     text: '',
+    default: 'ds-bg-current'
 };
 export const layerVariantStyles: { [key in Exclude<ButtonProps['variant'], undefined>]: string } = {
     contained: 'ds-bg-light-500 ',

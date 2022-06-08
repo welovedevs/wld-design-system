@@ -23,7 +23,7 @@ interface CustomProps {
     containerRef?: any;
     disabled?: boolean;
     size?: 'small' | 'xs' | 'regular';
-    color?: PaletteColors | 'default';
+    color?: PaletteColors;
     containerProps?: any;
     typographyClassName?: any;
     variant?: ButtonVariants;
@@ -45,7 +45,7 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
             containerRef,
             disabled,
             size = 'regular',
-            color = 'default',
+            color,
             containerProps,
             // @deprecated please use classes.typography
             typographyClassName,
@@ -62,9 +62,13 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
         },
         ref
     ) => {
-        const hexColor = (color && color !== 'default' && palette?.[color]?.[500]) ?? palette?.dark[100];
-        const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
-        const styles = { color: hexColor };
+        const hexColor = useMemo(() => {
+            if (disabled) {
+                return (color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100];
+            }
+            const paletteColor = color && palette?.[color]?.[500];
+            return paletteColor || palette?.dark[200];
+        }, [disabled, color]);
 
         const handleClick = useCallback(
             (...paramaters) => {
@@ -77,21 +81,24 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
             },
             [onClick, disabled]
         );
+
+        console.log({ variant, variantStyles: variantStyles[variant ?? 'default'] });
         return (
             <Component
                 ref={ref || containerRef}
+                {...containerProps}
                 className={cn(
-                    className,
                     baseStyles.container,
                     (size && sizeStyles[size]) || sizeStyles.regular,
                     disabled && baseStyles.disabled,
-                    variant && variantStyles[variant],
+                    variantStyles[variant ?? 'default'],
+                    className,
                     classes?.container
                 )}
-                {...containerProps}
                 style={{
+                    color: hexColor,
                     ...propsStyle,
-                    ...(withColor && styles),
+                    // ...(withColor && { }),
                     ...(containerProps && containerProps.style),
                 }}
                 onClick={handleClick}
@@ -116,13 +123,20 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
 );
 
 const RaisedButton: React.FC<ButtonProps> = forwardRef((props, ref) => {
-    const { disabled, color: paletteColor } = props;
-    const color = disabled
-        ? palette['dark'][100]
-        : paletteColor && paletteColor !== 'default' && palette?.[paletteColor]?.[500];
+    const { disabled, color: propsColor } = props;
+
+    const color = useMemo(() => {
+        if (disabled) {
+            return (propsColor && palette?.[propsColor]?.[100]) ?? palette?.['dark']?.[100];
+        }
+        const paletteColor = propsColor && palette?.[propsColor]?.[500];
+        return paletteColor || palette?.dark[200];
+    }, [disabled, propsColor]);
+
     const motionProps = {
         boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${color}`,
     };
+
     return <ButtonComponent {...props} {...{ ref }} {...(!disabled && { animate: motionProps })} />;
 });
 
