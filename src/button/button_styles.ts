@@ -40,8 +40,8 @@ export const layerVariantStyles: { [key in Exclude<ButtonProps['variant'], undef
     text: 'ds-bg-current',
 };
 export const textVariantStyles: { [key in Exclude<ButtonProps['variant'], undefined>]: string } = {
-    contained: '!ds-text-light-500 ',
-    raised: '!ds-text-light-500 ',
+    contained: '',
+    raised: '',
     outlined: '!ds-text-current',
     text: '!ds-text-current',
 };
