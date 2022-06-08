@@ -67,7 +67,7 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
                 return (color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100];
             }
             const paletteColor = color && palette?.[color]?.[500];
-            return paletteColor || palette?.dark[200];
+            return paletteColor || palette?.primary[300];
         }, [disabled, color]);
 
         const handleClick = useCallback(
@@ -83,6 +83,15 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
         );
 
         console.log({ variant, variantStyles: variantStyles[variant ?? 'default'] });
+        let textColor = useMemo(() => {
+            if (variant === 'raised' || variant === 'contained') {
+                if (color === 'light') {
+                    return 'primary';
+                }
+                return 'light';
+            }
+            return color;
+        }, [variant, color]);
         return (
             <Component
                 ref={ref || containerRef}
@@ -113,7 +122,7 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
                         classes?.typography
                     )}
                     variant="button"
-                    color={variant === 'raised' || variant === 'contained' ? 'light' : (color as any)}
+                    color={textColor}
                 >
                     {children}
                 </Typography>

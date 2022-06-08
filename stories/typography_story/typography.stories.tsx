@@ -14,9 +14,9 @@ export default {
 const Template = (args) => {
     return (
         <>
-            {Object.keys(palette).map((paletteColor) => (
+            {[...Object.keys(palette), 'default'].map((paletteColor) => (
                 <Typography component="div" color={paletteColor as any} {...args}>
-                    {args.variant} : The quick brown fox jumps over the lazy dog
+                    {args.variant} / {paletteColor} : The quick brown fox jumps over the lazy dog
                 </Typography>
             ))}
         </>

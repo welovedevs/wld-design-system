@@ -58,7 +58,9 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                 color: palette?.[color]?.[500],
             };
         }
-        return null;
+        return {
+            color: palette?.dark[400],
+        };
     }, [variant, color]);
 
     const componentClassName = useMemo(() => {
