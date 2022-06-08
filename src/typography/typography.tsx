@@ -40,7 +40,7 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                 if (color === 'primary') {
                     return {
                         backgroundColor: '#fff',
-                        color: paletteColor.primary[500],
+                        color: paletteColor?.[500],
                     };
                 }
                 if (paletteColor) {
@@ -51,11 +51,11 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                     };
                 }
                 return {
-                    color: (color && palette[color][500]) ?? palette.primary[500],
+                    color: (color && palette?.[color]?.[500]) ?? palette.primary[500],
                 };
             }
             return {
-                color: palette[color]?.[500],
+                color: palette?.[color]?.[500],
             };
         }
         return null;
