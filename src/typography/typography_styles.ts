@@ -1,9 +1,8 @@
-
 export const baseStyles = {
     container: 'ds-font-avenir',
     heading: 'ds-font-avenir ds-text-dark-400',
     wld:
-        'ds-width-fit ds-px-1 ds-py-2 ds-rounded-lg ds-text-center ds-uppercase ds-font-black ds-bg-light ds-skew-y-[-5deg] ds-origin-bottom-left',
+        'ds-width-fit ds-rounded-lg ds-text-center ds-uppercase ds-font-black ds-bg-light ds-skew-y-[-5deg] ds-origin-bottom-left',
 };
 
 export const headingStyles = {
@@ -34,6 +33,7 @@ export const wldStyles = {
     wld4: `${baseStyles.wld} ds-text-[22px] ds-leading-[38px] ds-py-[10px] ds-px-[20px]`,
     wld5: `${baseStyles.wld} ds-text-[16px] ds-leading-[30px] ds-py-[9px] ds-px-[18px]`,
     wld6: `${baseStyles.wld} ds-text-[13px] ds-leading-[26px] ds-py-1 ds-px-2`,
+    wld: `${baseStyles.wld} ds-py-1 ds-px-2`,
 };
 
 export const VariantStyles = {
@@ -41,7 +41,6 @@ export const VariantStyles = {
     ...bodyStyles,
     ...componentStyles,
     ...wldStyles,
-    wld: baseStyles.wld,
 } as const;
 
-export type TypographyVariants = keyof typeof VariantStyles
+export type TypographyVariants = keyof typeof VariantStyles;
