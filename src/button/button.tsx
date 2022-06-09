@@ -82,7 +82,6 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
             [onClick, disabled]
         );
 
-        console.log({ variant, variantStyles: variantStyles[variant ?? 'default'] });
         let textColor = useMemo(() => {
             if (variant === 'raised' || variant === 'contained') {
                 if (color === 'light') {

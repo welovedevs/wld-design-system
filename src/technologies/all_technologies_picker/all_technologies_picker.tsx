@@ -167,7 +167,6 @@ export const AllTechnologiesPicker = ({
         const rowsCount = Math.ceil(height / sizes.height);
 
         let itemsCount = Math.round(itemsPerRow * rowsCount);
-        console.log({ width, height, itemsPerRow, rowsCount, itemsCount });
         setShownItems(itemsCount);
     }, [containerRef.current]);
 
