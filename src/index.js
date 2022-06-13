@@ -36,6 +36,8 @@ export * from './styles/palette';
 
 import palette from './styles/palette';
 
+import './styles/styles.css';
+
 export {
     palette,
 };

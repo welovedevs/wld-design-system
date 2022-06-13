@@ -15,9 +15,9 @@ export const headingStyles = {
 };
 
 export const bodyStyles = {
-    body1: 'ds-text-[16px] ds-leading-[20px]',
-    body2: 'ds-text-[14px] ds-leading-[18px]',
-    body3: 'ds-text-[12px] ds-leading-[16px]',
+    body1: 'text-base',
+    body2: 'text-sm',
+    body3: 'text-xs',
 };
 
 export const componentStyles = {
