@@ -1,15 +1,15 @@
 export const baseStyles = {
-    container: 'ds-font-avenir ds-text-dark-400',
-    heading: 'ds-font-avenir ds-text-dark-400',
+    container: 'ds-font-avenir ds-text-dark-500',
+    heading: 'ds-font-avenir ds-text-dark-500',
     wld:
         'ds-width-fit ds-rounded-lg ds-text-center ds-uppercase ds-font-black ds-bg-light ds-skew-y-[-5deg] ds-origin-bottom-left',
 };
 
 export const headingStyles = {
-    h1: `${baseStyles.heading} ds-text-[54px] ds-leading-[72px] ds-font-black`,
-    h2: `${baseStyles.heading} ds-text-[40px] ds-leading-[52px] ds-font-bold`,
-    h3: `${baseStyles.heading} ds-text-[22px] ds-leading-[27px] ds-font-medium`,
-    h4: `${baseStyles.heading} ds-text-[18px] ds-leading-[24px] ds-font-normal`,
+    h1: `${baseStyles.heading} ds-text-3xl ds-font-black`,
+    h2: `${baseStyles.heading} ds-text-2xl ds-font-bold`,
+    h3: `${baseStyles.heading} ds-text-xl ds-font-medium`,
+    h4: `${baseStyles.heading} ds-text-lg ds-font-normal`,
     h5: `${baseStyles.heading} ds-font-normal`,
     h6: `${baseStyles.heading} ds-font-normal`,
 };
