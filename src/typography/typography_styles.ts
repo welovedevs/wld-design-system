@@ -6,7 +6,7 @@ export const baseStyles = {
 };
 
 export const headingStyles = {
-    h1: `${baseStyles.heading} ds-text-3xl ds-font-black`,
+    h1: `${baseStyles.heading} ds-text-4xl ds-font-black`,
     h2: `${baseStyles.heading} ds-text-2xl ds-font-bold`,
     h3: `${baseStyles.heading} ds-text-xl ds-font-medium`,
     h4: `${baseStyles.heading} ds-text-lg ds-font-normal`,
