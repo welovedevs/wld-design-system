@@ -70,8 +70,8 @@ const TechnologyItem = ({
             <Card
                 classes={{
                     container: `${
-                        isMobile ? ' ds-h-7 ds-max-h-7 !ds-p-1 ' : 'ds-h-10 ds-max-h-10 !ds-p-2'
-                    } ds-w-full ds-overflow-hidden ds-mb-2 ds-relative`,
+                        isMobile ? '  ds-h-7 ds-max-h-7 !ds-p-1 ' : 'ds-h-10 ds-max-h-10 !ds-p-2'
+                    } !ds-w-full ds-overflow-hidden ds-mb-2 ds-relative`,
                 }}
             >
                 <img src={imgUrl} alt={item.name} className={`ds-w-full ds-h-full ds-object-contain`} />

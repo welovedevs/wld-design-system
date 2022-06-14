@@ -44,7 +44,7 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
     );
     return (
         <TechnologiesPickerContext.Provider value={technoPickerContext}>
-            <div className={'ds-flex ds-h-full' + (classes?.container ?? '')}>
+            <div className={`ds-flex ds-h-full ${classes?.container ?? ''}`}>
                 <AllTechnologiesPicker
                     isMobile={isMobile}
                     technologies={technologies}

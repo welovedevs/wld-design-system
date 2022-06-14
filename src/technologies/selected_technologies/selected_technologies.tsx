@@ -108,7 +108,7 @@ const SortableTechnologies = SortableContainer(
         itemsLength: number;
     }) => {
         return (
-            <List className={cn(classes?.container, 'ds-pr-6 ds-h-full ds-scrollbar', className)}>
+            <List className={cn(classes?.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto', className)}>
                 {items.map((item, index) => (
                     <TechnologyRow
                         key={`selected_technology_row_${item.name}`}

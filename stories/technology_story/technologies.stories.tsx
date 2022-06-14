@@ -14,10 +14,18 @@ const Template = (args) => {
     const [items, setItems] = useState<Array<DevTechnology>>([
         { name: 'Akka', index: 0, value: 50, id: 1 },
         { name: 'Angular', index: 1, value: 50, id: 2 },
+        { name: 'Drupal', index: 1, value: 50, id: 2 },
+        { name: 'Erlang', index: 1, value: 50, id: 2 },
+        { name: 'Git', index: 1, value: 50, id: 2 },
+        { name: 'Gitlab', index: 1, value: 50, id: 2 },
+        { name: 'Gradle', index: 1, value: 50, id: 2 },
+        { name: 'Gulp', index: 1, value: 50, id: 2 },
+        { name: 'Java', index: 1, value: 50, id: 2 },
+        { name: 'Jeet', index: 1, value: 50, id: 2 }
     ]);
     console.log({ items });
     return (
-        <div style={{ height: '98vh' }}>
+        <div style={{ height: '95vh' }}>
             <TechnologiesPicker
                 {...args}
                 selectedValues={items}
