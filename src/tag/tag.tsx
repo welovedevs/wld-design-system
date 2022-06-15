@@ -1,56 +1,83 @@
-import React, { CSSProperties } from 'react';
-
-import cn from 'classnames';
+import React, { useMemo, useState } from 'react';
 
 import { PaletteColors } from '../styles';
 
 import { Typography, TypographyProps } from '../typography/typography';
-import { palette } from '../index';
+import { baseStyles, ButtonProps, palette, sizeStyles, variantStyles } from '../index';
+import { Close } from '@mui/icons-material';
+import cn from 'classnames';
 
 interface Props {
     component?: string | React.ElementType;
     containerRef?: any;
     className?: string;
     color?: PaletteColors;
-    typographyProps?: Omit<TypographyProps, 'children'>;
-    style?: CSSProperties;
     classes?: { container?: string; typography?: string };
+    onClick?: () => void;
+    onDelete?: () => void;
+    size?: 'small' | 'xs' | 'regular';
 }
 export const Tag: React.FC<Props> = ({
     component: Component = 'div',
     containerRef,
     className,
-    color,
+    color = 'primary',
     children,
-    typographyProps,
-    style: receivedStyle,
-    classes = {},
+    onClick,
+    onDelete,
+    classes,
+    size = 'regular',
     ...other
 }) => {
-    const hexColor = color && palette?.[color]?.[500];
-    const styleProps = { color: hexColor, ...receivedStyle, boxShadow: `0 10px 20px 0 ${hexColor ?? '#d6d6d6'}` };
-    const withColor = !!color;
+    const textColor = color && palette?.[color]?.[800];
+    const bgColor = color && palette?.[color]?.[100];
+    const bgColorHover = (onClick || onDelete || true) && bgColor && palette?.[color]?.[200];
+    const sizeClasses = {
+        container: {
+            regular: 'ds-px-2.5 ds-py-3/4 ',
+            small: 'ds-px-1.5 ds-py-3/4',
+            xs: 'ds-px-1 ds-py-0.5',
+        },
+    };
+    const [hover, setHover] = useState(false);
     return (
         <Component
             ref={containerRef}
             className={cn(
+                'ds-inline-flex ds-items-center ds-rounded-md',
+                onClick || onDelete ? 'ds-cursor-pointer' : '',
                 className,
-                'ds-w-fit ds-h-fit ds-rounded-full ds-m-1 ds-py-1 ds-px-1.5 ds ds-text-light-500 ds-bg-current ds-flex ds-items-center ds-justify-center ds-shadow-sm '
+                sizeClasses.container[size] || sizeClasses.container.regular,
+                classes?.container
             )}
-            initial={{ scale: 0.8 }}
-            style={styleProps}
+            onMouseEnter={() => {
+                setHover(true);
+            }}
+            onMouseLeave={() => {
+                setHover(false);
+            }}
+            onClick={onDelete || onClick}
+            style={{
+                background: hover && (onClick || onDelete) ? bgColorHover : bgColor,
+            }}
             {...other}
         >
             <Typography
-                className={cn(`ds-flex ds-items-center `, classes?.typography)}
-                {...(withColor && {
-                    color: 'light',
-                })}
-                {...((typographyProps as any) ?? {})}
-                variant="tag"
+                style={{
+                    color: textColor,
+                }}
+                className={cn('ds-font-medium ds-text-xs', classes?.typography)}
             >
                 {children}
             </Typography>
+            {onDelete && (
+                <Close
+                    className="ds-max-h-[14px] ds-max-w-[14px] ds-ml-1"
+                    style={{
+                        color: textColor,
+                    }}
+                />
+            )}
         </Component>
     );
 };
