@@ -1,24 +1,42 @@
-import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import { TagExamples } from './examples/tag_examples';
 import { Tag } from '../../src/tag/tag';
-import palette from '../../src/styles/palette';
+import { Spacing } from '../stories_helpers/spacing/spacing';
 
-<Meta title="Components/Tag" component={Tag} />
+<Meta title="Components/Tag" />
 
-export const Template = (args) => {
-    return (
-        <>
-            {Object.keys(palette).map((color) => (
-                <Tag {...args} color={color}>
-                    Ceci est un tag
-                </Tag>
-            ))}
-            <Tag {...args}>Ceci est un tag</Tag>
-        </>
-    );
-};
+# Tag
 
-# Regular
+Tags are elements that display key data.
+It is important to choose the right props for any given application.
 
-<Canvas>
-    <Story name="Regular">{Template.bind({})}</Story>
-</Canvas>
+<Spacing value={4} />
+
+## Props
+
+<Props of={Tag} />
+
+- basic tags
+
+<Preview withSource="none">
+    <Story name="Basic">
+      <TagExamples />
+    </Story>
+</Preview>
+
+- onClick tags
+
+<Preview withSource="none">
+    <Story name="onClick">
+      <TagExamples onClick={() => alert('clicked !')} />
+    </Story>
+</Preview>
+
+- onDelete tags
+
+<Preview withSource="none">
+    <Story name="onDelete">
+      <TagExamples onDelete={() => alert('clicked !')} />
+    </Story>
+</Preview>

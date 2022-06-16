@@ -43,6 +43,7 @@ const yellow = {
     700: '#F6E014',
     800: '#F5DD11',
     900: '#F3D709',
+    1000: '#713e12',
     contrastDefaultColor: 'dark',
 };
 
@@ -149,6 +150,20 @@ const darkblue = {
     contrastDefaultColor: 'light',
 };
 
+const indigo = {
+    50: '#eef2ff',
+    100: '#e0e7ff',
+    200: '#c7d2fe',
+    300: '#a5b3fc',
+    400: '#818df8',
+    500: '#6365f1',
+    600: '#4e46e5',
+    700: '#4438ca',
+    800: '#3830a3',
+    900: '#312e81',
+    contrastDefaultColor: 'light',
+};
+
 let palette = {
     primary,
     secondary,
@@ -160,6 +175,7 @@ let palette = {
     warn,
     orange,
     light,
+    indigo,
 };
 
 let sizes = {
