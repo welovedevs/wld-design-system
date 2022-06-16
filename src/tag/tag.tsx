@@ -102,7 +102,7 @@ export const Tag: React.FC<Props> = ({
             </Typography>
             {onDelete && (
                 <Cancel
-                    className={`ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ${onDelete ? 'ds-cursor-pointer' : ''}`}
+                    className="ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ds-cursor-pointer"
                     style={{
                         color: textColor,
                     }}
