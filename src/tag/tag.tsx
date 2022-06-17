@@ -50,7 +50,7 @@ export const Tag: React.FC<Props> = forwardRef(
                 case 'tertiary':
                     return palette?.tertiary?.[1000];
                 default:
-                    return color && palette?.[color]?.[900];
+                    return color && palette?.[color]?.[800];
             }
         }, [color, palette]);
         const bgColor = useMemo(() => {

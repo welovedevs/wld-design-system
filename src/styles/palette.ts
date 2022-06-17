@@ -164,6 +164,19 @@ export const indigo = {
     contrastDefaultColor: 'light',
 };
 
+export const purple = {
+    50: '#faf5ff',
+    100: '#f3e8ff',
+    200: '#e9d5ff',
+    300: '#d8b4fe',
+    400: '#c084fc',
+    500: '#a955f7',
+    600: '#9333ea',
+    700: '#7e22ce',
+    800: '#6b21a8',
+    900: '#591c87',
+};
+
 export type PaletteColors =
     | 'primary'
     | 'secondary'
@@ -175,6 +188,7 @@ export type PaletteColors =
     | 'orange'
     | 'darkblue'
     | 'indigo'
+    | 'purple'
     | 'light';
 
 export type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
@@ -191,5 +205,6 @@ const palette: { [color in PaletteColors]: any } = {
     orange,
     light,
     indigo,
+    purple,
 };
 export default palette;
