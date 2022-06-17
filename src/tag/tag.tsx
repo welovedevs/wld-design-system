@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { forwardRef, useMemo, useState } from 'react';
 
 import { PaletteColors } from '../styles';
 
@@ -17,93 +17,98 @@ interface Props {
     onDelete?: () => void;
     size?: 'small' | 'xs' | 'regular';
 }
-export const Tag: React.FC<Props> = ({
-    component: Component = 'div',
-    containerRef,
-    className,
-    color = 'primary',
-    children,
-    onClick,
-    onDelete,
-    classes,
-    size = 'regular',
-    ...other
-}) => {
-    const containerSize = {
-        regular: 'ds-px-2 ds-py-3/4 ',
-        small: 'ds-px-1.5 ds-py-1/2',
-        xs: 'ds-px-1 ds-py-0.5',
-    };
-    const typographyVariant = {
-        regular: 'body2',
-        small: 'body2',
-        xs: 'body3',
-    } as const;
-    const textColor = useMemo(() => {
-        switch (color) {
-            case 'darkblue':
-                return palette?.light?.[500];
-            case 'tertiary':
-                return palette?.tertiary?.[1000];
-            default:
-                return color && palette?.[color]?.[900];
-        }
-    }, [color, palette]);
-    const bgColor = useMemo(() => {
-        switch (color) {
-            case 'light':
-                return {
-                    normal: palette?.dark?.[100],
-                    hover: palette?.dark?.[200],
-                };
-            default:
-                return {
-                    normal: color && palette?.[color]?.[100],
-                    hover: color && palette?.[color]?.[200],
-                };
-        }
-    }, [color, palette]);
-    const [hover, setHover] = useState(false);
-    return (
-        <Component
-            ref={containerRef}
-            className={cn(
-                'ds-inline-flex ds-items-center ds-rounded-md',
-                onClick ? 'ds-cursor-pointer' : '',
-                className,
-                containerSize[size] || containerSize.regular,
-                classes?.container
-            )}
-            onMouseEnter={() => {
-                setHover(true);
-            }}
-            onMouseLeave={() => {
-                setHover(false);
-            }}
-            onClick={onClick}
-            style={{
-                background: hover && onClick ? bgColor.hover : bgColor.normal,
-            }}
-            {...other}
-        >
-            <Typography
-                style={{
-                    color: textColor,
+export const Tag: React.FC<Props> = forwardRef(
+    (
+        {
+            component: Component = 'div',
+            containerRef,
+            className,
+            color = 'primary',
+            children,
+            onClick,
+            onDelete,
+            classes,
+            size = 'regular',
+            ...other
+        },
+        ref
+    ) => {
+        const containerSize = {
+            regular: 'ds-px-2 ds-py-3/4 ',
+            small: 'ds-px-1.5 ds-py-1/2',
+            xs: 'ds-px-1 ds-py-0.5',
+        };
+        const typographyVariant = {
+            regular: 'body2',
+            small: 'body2',
+            xs: 'body3',
+        } as const;
+        const textColor = useMemo(() => {
+            switch (color) {
+                case 'darkblue':
+                    return palette?.light?.[500];
+                case 'tertiary':
+                    return palette?.tertiary?.[1000];
+                default:
+                    return color && palette?.[color]?.[900];
+            }
+        }, [color, palette]);
+        const bgColor = useMemo(() => {
+            switch (color) {
+                case 'light':
+                    return {
+                        normal: palette?.dark?.[100],
+                        hover: palette?.dark?.[200],
+                    };
+                default:
+                    return {
+                        normal: color && palette?.[color]?.[100],
+                        hover: color && palette?.[color]?.[200],
+                    };
+            }
+        }, [color, palette]);
+        const [hover, setHover] = useState(false);
+        return (
+            <Component
+                ref={ref || containerRef}
+                className={cn(
+                    'ds-inline-flex ds-items-center ds-rounded-md',
+                    onClick ? 'ds-cursor-pointer' : '',
+                    className,
+                    containerSize[size] || containerSize.regular,
+                    classes?.container
+                )}
+                onMouseEnter={() => {
+                    setHover(true);
                 }}
-                className={cn('ds-font-medium', classes?.typography)}
-                variant={typographyVariant[size] || typographyVariant.regular}
+                onMouseLeave={() => {
+                    setHover(false);
+                }}
+                onClick={onClick}
+                style={{
+                    background: hover && onClick ? bgColor.hover : bgColor.normal,
+                }}
+                {...other}
             >
-                {children}
-            </Typography>
-            {onDelete && (
-                <Cancel
-                    className={`ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ds-cursor-pointer`}
+                <Typography
                     style={{
                         color: textColor,
                     }}
-                    onClick={onDelete}
-                />
-            )}
-        </Component>
-    );
-};
+                    className={cn('ds-font-medium', classes?.typography)}
+                    variant={typographyVariant[size] || typographyVariant.regular}
+                >
+                    {children}
+                </Typography>
+                {onDelete && (
+                    <Cancel
+                        className={`ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ds-cursor-pointer`}
+                        style={{
+                            color: textColor,
+                        }}
+                        onClick={onDelete}
+                    />
+                )}
+            </Component>
+        );
+    }
+);
