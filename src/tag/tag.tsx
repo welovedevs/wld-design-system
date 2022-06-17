@@ -29,18 +29,16 @@ export const Tag: React.FC<Props> = ({
     size = 'regular',
     ...other
 }) => {
-    const sizeClasses = {
-        container: {
-            regular: 'ds-px-2 ds-py-3/4 ',
-            small: 'ds-px-1.5 ds-py-3/4',
-            xs: 'ds-px-1 ds-py-0.5',
-        },
-        typography: {
-            regular: 'text-sm',
-            small: 'text-sm',
-            xs: 'text-xs',
-        },
+    const containerSize = {
+        regular: 'ds-px-2 ds-py-3/4 ',
+        small: 'ds-px-1.5 ds-py-1/2',
+        xs: 'ds-px-1 ds-py-0.5',
     };
+    const typographyVariant = {
+        regular: 'body2',
+        small: 'body2',
+        xs: 'body3',
+    } as const;
     const textColor = useMemo(() => {
         switch (color) {
             case 'darkblue':
@@ -73,7 +71,7 @@ export const Tag: React.FC<Props> = ({
                 'ds-inline-flex ds-items-center ds-rounded-md',
                 onClick ? 'ds-cursor-pointer' : '',
                 className,
-                sizeClasses.container[size] || sizeClasses.container.regular,
+                containerSize[size] || containerSize.regular,
                 classes?.container
             )}
             onMouseEnter={() => {
@@ -92,11 +90,8 @@ export const Tag: React.FC<Props> = ({
                 style={{
                     color: textColor,
                 }}
-                className={cn(
-                    'ds-font-medium ds-text-xs',
-                    classes?.typography,
-                    sizeClasses.typography[size] || sizeClasses.typography.regular
-                )}
+                className={cn('ds-font-medium ds-text-xs', classes?.typography)}
+                variant={typographyVariant[size] || typographyVariant.regular}
             >
                 {children}
             </Typography>
