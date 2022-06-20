@@ -94,7 +94,7 @@ export const Tag: React.FC<Props> = forwardRef(
                     style={{
                         color: textColor,
                     }}
-                    className={cn('ds-font-medium', classes?.typography)}
+                    className={cn('ds-font-medium ds-flex ds-items-center', classes?.typography)}
                     variant={typographyVariant[size] || typographyVariant.regular}
                 >
                     {children}
