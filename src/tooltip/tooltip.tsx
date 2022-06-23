@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Tooltip as MuiTooltip, TooltipProps } from '@mui/material';
 
-export const Tooltip: React.FC<TooltipProps> = ({ children, classes, ...other }) => {
+export const Tooltip: React.FC<TooltipProps> = forwardRef(({ children, classes, ...other }, ref) => {
     return (
         <MuiTooltip
+            ref={ref}
             {...other}
             classes={{
                 ...classes,
@@ -16,4 +17,4 @@ export const Tooltip: React.FC<TooltipProps> = ({ children, classes, ...other })
             {children}
         </MuiTooltip>
     );
-};
+});

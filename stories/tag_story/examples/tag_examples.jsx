@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { Tag, palette } from '../../../src';
 
 import { TAG_POSSIBLE_SIZES } from '../helpers/tags_sizes';
+import { Tooltip } from '@mui/material';
 
 const COLORS_DISABLED = {
     ...[...Object.keys(palette), ''].reduce((acc, color) => {

@@ -49,6 +49,8 @@ export const Tag: React.FC<Props> = forwardRef(
                     return palette?.light?.[500];
                 case 'tertiary':
                     return palette?.tertiary?.[1000];
+                case 'safe':
+                    return palette?.safe?.[1000];
                 default:
                     return color && palette?.[color]?.[800];
             }
@@ -81,7 +83,7 @@ export const Tag: React.FC<Props> = forwardRef(
                 onMouseEnter={() => {
                     setHover(true);
                 }}
-                onMouseLeave={() => {
+                onMouseOut={() => {
                     setHover(false);
                 }}
                 onClick={onClick}
@@ -96,6 +98,12 @@ export const Tag: React.FC<Props> = forwardRef(
                     }}
                     className={cn('ds-font-medium ds-flex ds-items-center', classes?.typography)}
                     variant={typographyVariant[size] || typographyVariant.regular}
+                    onMouseEnter={() => {
+                        setHover(true);
+                    }}
+                    onMouseLeave={() => {
+                        setHover(true);
+                    }}
                 >
                     {children}
                 </Typography>
