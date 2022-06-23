@@ -13,8 +13,8 @@ interface Props {
     className?: string;
     color?: PaletteColors;
     classes?: { container?: string; typography?: string };
-    onClick?: () => void;
-    onDelete?: () => void;
+    onClick?: (e: any) => void;
+    onDelete?: (e: any) => void;
     size?: 'small' | 'xs' | 'regular';
 }
 export const Tag: React.FC<Props> = forwardRef(
