@@ -83,7 +83,7 @@ export const Tag: React.FC<Props> = forwardRef(
                 onMouseEnter={() => {
                     setHover(true);
                 }}
-                onMouseOut={() => {
+                onMouseLeave={() => {
                     setHover(false);
                 }}
                 onClick={onClick}
@@ -98,11 +98,8 @@ export const Tag: React.FC<Props> = forwardRef(
                     }}
                     className={cn('ds-font-medium ds-flex ds-items-center', classes?.typography)}
                     variant={typographyVariant[size] || typographyVariant.regular}
-                    onMouseEnter={() => {
-                        setHover(true);
-                    }}
                     onMouseLeave={() => {
-                        setHover(true);
+                        setHover(false);
                     }}
                 >
                     {children}
