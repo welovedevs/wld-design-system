@@ -32,7 +32,7 @@ export const Banner: React.FC<Props> = ({
 
     return (
         <div className={cn(classes?.container, baseStyles.container, baseStyles.background)} style={{ color }}>
-            <span className={'ds-flex ds-mr-2 sm:ds-display-none'}>{Icon && <Icon className="ds-w-6 ds-h-6" />}</span>
+            <span className={'ds-flex ds-mr-2 sm:ds-hidden'}>{Icon && <Icon className="ds-w-6 ds-h-6" />}</span>
             {children}
         </div>
     );
