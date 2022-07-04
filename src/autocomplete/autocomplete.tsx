@@ -50,6 +50,7 @@ export function AutoComplete({
     transformSuggestionValue = (props: any) => props && props.value,
     classes = {},
     popperPlacement,
+
     ...other
 }: Omit<TextFieldProps, 'onSelect' | 'onChange'> & Props) {
     const inputReference = useRef();
@@ -79,6 +80,10 @@ export function AutoComplete({
 
     const filterSuggestions = useCallback(
         ({ value: inputValue }) => {
+            if (!inputValue) {
+                setFilteredSuggetions(suggestions);
+                return;
+            }
             const filter = suggestions.filter(filterFunction(inputValue));
             setFilteredSuggetions(filter.slice(0, maxLength));
         },
@@ -86,7 +91,7 @@ export function AutoComplete({
     );
 
     const clearSuggestions = useCallback(() => {
-        setFilteredSuggetions([]);
+        setFilteredSuggetions(suggestions);
     }, []);
 
     const valueChanged = useCallback(
@@ -126,9 +131,10 @@ export function AutoComplete({
                 getSuggestionValue={getSuggestionValue}
                 onSuggestionsClearRequested={clearSuggestions}
                 onSuggestionsFetchRequested={filterSuggestions}
+                shouldRenderSuggestions={() => true}
                 renderSuggestion={renderSuggestion}
                 theme={{
-                    suggestionsList: 'ds-list-none ds-p-0 ds-m-0',
+                    suggestionsList: 'ds-list-none ds-p-0 ds-m-0 overflow-auto',
                 }}
                 renderSuggestionsContainer={(props) => {
                     const { containerProps, children } = props;
@@ -143,7 +149,10 @@ export function AutoComplete({
                                 children,
                             }}
                             className={'ds-max-w-[600px]'}
-                            popperCustomClasses={{ popper: classes?.popper }}
+                            popperCustomClasses={{
+                                popper: `${classes?.popper}`,
+                                container: 'ds-overflow-auto ds-scrollbar ds-max-h-[400px]',
+                            }}
                             anchorElement={inputReference.current}
                         />
                     );

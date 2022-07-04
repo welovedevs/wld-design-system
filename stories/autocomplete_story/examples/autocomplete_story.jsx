@@ -14,7 +14,39 @@ export const DefaultStory = ({}) => {
     const defaultSuggestions = [
         { value: 'Autocomplete' },
         { value: 'Butocomplete' },
-        { name: 'Batocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' },
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
         { value: 'Cutocomplete' },
     ];
     const [value, setValue] = useState('');
@@ -29,7 +61,12 @@ export const DefaultStory = ({}) => {
             <Typography component="h4" variant="h4">
                 {`Autocomplete value: ${value}`}
             </Typography>
-            <AutoComplete {...{ value }} onChange={handleInputChange} suggestions={defaultSuggestions} />
+            <AutoComplete
+                {...{ value }}
+                onChange={handleInputChange}
+                suggestions={defaultSuggestions}
+                alwaysRenderSuggestions
+            />
         </div>
     );
 };
@@ -55,6 +92,7 @@ export const CustomDataStory = ({}) => {
                 {`Autocomplete value: ${value}`}
             </Typography>
             <AutoComplete
+                alwaysRenderSuggestions
                 value={value}
                 onChange={handleInputChange}
                 suggestions={defaultSuggestions}
@@ -92,10 +130,7 @@ export const NoResultsStory = ({}) => {
                 suggestions={defaultSuggestions}
                 getSuggestionValue={({ name }) => name}
                 renderNoSuggestion={({ open, anchorElement }) => (
-                    <PopperCard
-                        open={open}
-                        {...{ anchorElement }}
-                    >
+                    <PopperCard open={open} {...{ anchorElement }}>
                         <Button
                             color="primary"
                             onClick={() => {
@@ -108,9 +143,10 @@ export const NoResultsStory = ({}) => {
                 )}
                 renderSuggestion={({ name }) => <div className={classes.suggestionEntry}>{name}</div>}
                 filterFunction={(needle) => ({ name }) => {
-                    let matches = needle && name && name.toLowerCase().includes(needle.toLowerCase());
-                    console.log({ needle, name, matches });
-                    return matches;
+                    if (!needle) {
+                        return true;
+                    }
+                    return needle && name && name.toLowerCase().includes(needle.toLowerCase());
                 }}
             />
         </>
