@@ -27,8 +27,12 @@ export const Banner: React.FC<Props> = ({ type = 'warning', icon: receivedIcon, 
 
     return (
         <div className={cn(classes?.container, baseStyles.container, baseStyles.background)} style={{ color }}>
-            <span className={'ds-flex ds-mr-2 md:ds-absolute md:-ds-top-1.5 md:-ds-left-1.5'}>
-                {Icon && <Icon className="ds-w-6 ds-h-6 md:ds-w-3 md:ds-h-3" />}
+            <span
+                className={
+                    'ds-flex ds-mr-2 ds-items-center ds-justify-center   md:ds-absolute md:-ds-top-1.5 md:ds-p-[4px] md:ds-shadow-slim md:-ds-left-1.5 md:ds-rounded-full md:ds-bg-light-500'
+                }
+            >
+                {Icon && <Icon className="ds-w-6 ds-h-6 md:ds-w-2 md:ds-h-2 " />}
             </span>
             {children}
         </div>
