@@ -12,12 +12,7 @@ interface Props {
     icon?: any;
     classes?: { container?: string };
 }
-export const Banner: React.FC<Props> = ({
-    type = 'warning',
-    icon: receivedIcon,
-    classes = {},
-    children,
-}) => {
+export const Banner: React.FC<Props> = ({ type = 'warning', icon: receivedIcon, classes = {}, children }) => {
     const { icon, color } = useMemo(() => {
         const typeConfig = BANNER_DATA[type];
         if (!typeConfig) {
@@ -32,7 +27,9 @@ export const Banner: React.FC<Props> = ({
 
     return (
         <div className={cn(classes?.container, baseStyles.container, baseStyles.background)} style={{ color }}>
-            <span className={'ds-flex ds-mr-2 sm:ds-hidden'}>{Icon && <Icon className="ds-w-6 ds-h-6" />}</span>
+            <span className={'ds-flex ds-mr-2 md:ds-absolute md:-ds-top-1.5 md:-ds-left-1.5'}>
+                {Icon && <Icon className="ds-w-6 ds-h-6 md:ds-w-3 md:ds-h-3" />}
+            </span>
             {children}
         </div>
     );
