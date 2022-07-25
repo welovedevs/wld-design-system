@@ -18,7 +18,7 @@ export const baseStyles = {
 export const sizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
     regular: 'ds-p-1.5 ',
     small: 'ds-p-1 ds-text-[12px]',
-    xs: 'ds-p-1/2 ds-text-[11px]',
+    xs: 'ds-py-1/2 ds-px-1 ds-text-[11px]',
 };
 export const typographysizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
     regular: '',
