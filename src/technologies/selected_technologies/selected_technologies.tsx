@@ -7,7 +7,7 @@ import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'r
 import last from 'lodash/last';
 import { DevTechnology } from '../technologies/technology';
 import { TechnologiesPickerContext } from '../technologies_picker_context';
-import { Card, List, Slider, Tooltip, Typography } from '../../index';
+import { Card, Slider, Tooltip, Typography } from '../../index';
 import { TrashIcon } from '../../assets/icons/trash';
 import { MoveIcon } from '../../assets/icons/move';
 
@@ -45,7 +45,7 @@ const TechnologyRow = SortableElement(
 
         let divider = <div className="ds-bg-dark-50 ds-w-[1px] ds-h-6 ds-mx-2" />;
         return (
-            <li
+            <div
                 className={'ds flex ds-flex ds-items-center ds-w-full ds-p-0 ds-my-2 ds-relative ds-z-[1400]'}
                 style={{ zIndex: itemsLength - technologyIndex }}
             >
@@ -91,7 +91,7 @@ const TechnologyRow = SortableElement(
                         />
                     </div>
                 </div>
-            </li>
+            </div>
         );
     }
 );
@@ -108,7 +108,7 @@ const SortableTechnologies = SortableContainer(
         itemsLength: number;
     }) => {
         return (
-            <List className={cn(classes?.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto', className)}>
+            <div className={cn(classes?.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto', className)}>
                 {items.map((item, index) => (
                     <TechnologyRow
                         key={`selected_technology_row_${item.name}`}
@@ -121,7 +121,7 @@ const SortableTechnologies = SortableContainer(
                         itemsLength={itemsLength}
                     />
                 ))}
-            </List>
+            </div>
         );
     }
 );
