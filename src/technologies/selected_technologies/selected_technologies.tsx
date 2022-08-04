@@ -138,6 +138,7 @@ const SortableTechnologies = ({
                                   onSortEnd
                               }: Props & {
     itemsLength: number;
+    onSortEnd: (props: { newIndex: any; oldIndex: any; }) => any;
 }) => {
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -150,38 +151,41 @@ const SortableTechnologies = ({
         const {active, over} = event;
 
         if (active.id !== over.id) {
-            const oldIndex = items.indexOf(items.find(({id}) => id === active.id));
-            const newIndex = items.indexOf(items.find(({id}) => id === over.id));
+            const oldItem = items.find(({id}) => id === active.id);
+            const newItem = items.find(({id}) => id === over.id);
+            const oldIndex = oldItem && items.indexOf(oldItem);
+            const newIndex = newItem && items.indexOf(newItem);
             return onSortEnd({oldIndex, newIndex});
         }
     }, [items]);
 
 
     return (
-
-        <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-        >
-            <SortableContext
-                items={items}
-                strategy={verticalListSortingStrategy}
+        <div
+            className={cn(classes?.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto !ds-z-[1301]', className)}>
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
             >
-                {items.map((item, index) => (
-                    <TechnologyRow
-                        key={`selected_technology_row_${item.name}_${index}`}
-                        onDelete={onDelete}
-                        id={item.id}
-                        onChange={onItemChange}
-                        technologyIndex={index}
-                        index={index}
-                        item={item}
-                        itemsLength={itemsLength}
-                    />
-                ))}
-            </SortableContext>
-        </DndContext>
+                <SortableContext
+                    items={items}
+                    strategy={verticalListSortingStrategy}
+                >
+                    {items.map((item, index) => (
+                        <TechnologyRow
+                            key={`selected_technology_row_${item.name}_${index}`}
+                            onDelete={onDelete}
+                            id={item.id}
+                            onChange={onItemChange}
+                            technologyIndex={index}
+                            item={item}
+                            itemsLength={itemsLength}
+                        />
+                    ))}
+                </SortableContext>
+            </DndContext>
+        </div>
 
     );
 }
@@ -194,7 +198,6 @@ interface Props {
     className?: string;
     onItemChange: (technology: DevTechnology) => void;
     classes?: { container?: string };
-    onSortEnd: (props: { newIndex: any; oldIndex: any; }) => any
 }
 
 export const SelectedTechnologies: React.FC<Props> = ({
@@ -218,14 +221,9 @@ export const SelectedTechnologies: React.FC<Props> = ({
 
     return (
         <SortableTechnologies
-            lockToContainerEdges
             className={className ?? ''}
-            helperClass={'!ds-z-[1301]'}
             items={items}
             onSortEnd={move}
-            distance={20}
-            useDragHandle
-            lockAxis="y"
             onItemChange={onItemChange}
             onDelete={onDelete}
             itemsLength={itemsLength}
