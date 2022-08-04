@@ -147,12 +147,13 @@ const SortableTechnologies = ({
         })
     );
 
+    const itemsWithId = useMemo(() => items.map(item => ({...item, id: item.name})), [items])
     const handleDragEnd = useCallback((event) => {
         const {active, over} = event;
 
         if (active.id !== over.id) {
-            const oldItem = items.find(({id}) => id === active.id);
-            const newItem = items.find(({id}) => id === over.id);
+            const oldItem = items.find(({name}) => name === active.id);
+            const newItem = items.find(({name}) => name === over.id);
             const oldIndex = oldItem && items.indexOf(oldItem);
             const newIndex = newItem && items.indexOf(newItem);
             return onSortEnd({oldIndex, newIndex});
@@ -169,10 +170,10 @@ const SortableTechnologies = ({
                 onDragEnd={handleDragEnd}
             >
                 <SortableContext
-                    items={items}
+                    items={itemsWithId}
                     strategy={verticalListSortingStrategy}
                 >
-                    {items.map((item, index) => (
+                    {itemsWithId.map((item, index) => (
                         <TechnologyRow
                             key={`selected_technology_row_${item.name}_${index}`}
                             onDelete={onDelete}
@@ -192,7 +193,7 @@ const SortableTechnologies = ({
 
 
 interface Props {
-    items: Array<DevTechnology & { id: string }>;
+    items: Array<DevTechnology>;
     onChange: (newArrayValue: Array<DevTechnology>) => void;
     onDelete: (id: string) => void;
     className?: string;
