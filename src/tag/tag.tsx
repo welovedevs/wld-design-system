@@ -12,11 +12,13 @@ interface Props {
     containerRef?: any;
     className?: string;
     color?: PaletteColors;
+    style?: any;
     classes?: { container?: string; typography?: string };
     onClick?: (e: any) => void;
     onDelete?: (e: any) => void;
     size?: 'small' | 'xs' | 'regular';
 }
+
 export const Tag: React.FC<Props> = forwardRef(
     (
         {
@@ -28,6 +30,7 @@ export const Tag: React.FC<Props> = forwardRef(
             onClick,
             onDelete,
             classes,
+            style = {},
             size = 'regular',
             ...other
         },
@@ -88,6 +91,7 @@ export const Tag: React.FC<Props> = forwardRef(
                 }}
                 onClick={onClick}
                 style={{
+                    ...style,
                     background: hover && onClick ? bgColor.hover : bgColor.normal,
                 }}
                 {...other}
