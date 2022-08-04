@@ -111,7 +111,7 @@ const SortableTechnologies = SortableContainer(
             <div className={cn(classes?.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto', className)}>
                 {items.map((item, index) => (
                     <TechnologyRow
-                        key={`selected_technology_row_${item.name}`}
+                        key={`selected_technology_row_${item.name}_${index}`}
                         onDelete={onDelete}
                         id={item.name}
                         onChange={onItemChange}
