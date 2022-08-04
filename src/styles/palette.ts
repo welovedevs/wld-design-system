@@ -176,6 +176,7 @@ export const purple = {
     700: '#7e22ce',
     800: '#6b21a8',
     900: '#591c87',
+    contrastDefaultColor: 'light'
 };
 
 export type PaletteColors =
