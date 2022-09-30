@@ -28,7 +28,7 @@ export const Slider: React.FC<
                 root: `ds-h-[3px] ${classes?.container ?? 3}`,
                 thumb: 'ds-w-2 ds-h-2 !ds-shadow-none',
                 valueLabel:
-                    'ds-bg-light-500 ds-rounded-sm ds-text-dark-500 ds-font-avenir ds-shadow-lg ds-border ds-border-solid ds-border-dark-50',
+                    'ds-bg-light-500 ds-rounded-sm ds-text-dark-500 ds-font-w3d ds-shadow-lg ds-border ds-border-solid ds-border-dark-50',
             }}
             style={{
                 color: !other.disabled && palette?.[color]?.[500],
