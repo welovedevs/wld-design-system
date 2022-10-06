@@ -1,8 +1,7 @@
 export const baseStyles = {
     container: 'ds-font-w3d ds-text-dark-500',
     heading: 'ds-font-w3d ds-text-dark-500',
-    wld:
-        'ds-width-fit ds-rounded-lg ds-text-center ds-uppercase ds-font-black ds-bg-light ds-skew-y-[-5deg] ds-origin-bottom-left',
+    wld: 'ds-width-fit ds-rounded-lg ds-text-center ds-uppercase ds-font-black ds-bg-light ds-origin-bottom-left',
 };
 
 export const headingStyles = {
