@@ -6,13 +6,13 @@ export const baseStyles = {
         'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-lightGray',
     multilineContainer: '',
     input:
-        'ds-bg-transparent ds-w-full ds-min-h-[40px] ds-px-2 ds-py-2.5 ds-border-0 ds-text-[16px] ds-leading-[24px] ds-font-avenir ds-text-dark-400 ds-flex ds-items-center',
+        'ds-bg-transparent ds-w-full ds-min-h-[40px] ds-px-1.5 ds-py-1.5 ds-border-0 ds-text-[16px] ds-leading-[24px] ds-font-w3d ds-text-dark-400 ds-flex ds-items-center',
     multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar',
     disabled: 'ds-cursor-not-allowed ',
 };
 
 export const sizeStyles = {
-    small: 'ds-px-1 ds-py-1 ds-min-h-3 ds-leading-[16px] ds-text-[12px]',
+    small: 'ds-px-1 ds-py-1/2 ds-min-h-3 ds-leading-[16px] ds-text-[12px]',
 };
 
 export const variantStyles: { [key in TextFieldVariants | TextFieldDisabledVariants]: string } = {

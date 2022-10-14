@@ -52,7 +52,7 @@ const CardComponent = forwardRef<any, HTMLAttributes<any> & Props>(
         return React.createElement(Component || 'div', {
             ref: containerRef || ref,
             className: cn(
-                'ds-w-fit ds-bg-white ds-rounded ds-p-2.5 ds-avenir',
+                'ds-w-fit ds-bg-white ds-rounded ds-p-2.5 ds-font-w3d',
                 mergedClasses.container,
                 variantClass,
                 className
