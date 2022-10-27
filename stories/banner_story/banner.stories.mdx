@@ -6,7 +6,22 @@ import { Spacing } from '../stories_helpers/spacing/spacing';
 <Meta title="Components/Banner" />
 
 export const Template = (args) => {
-    return <Banner {...args} className="ds-w-full">This is the banner content !This is the banner content !This is the banner content !This is the banner content !This is the banner content !This is the banner content !This is the banner content !This is the banner content !This is the banner content !</Banner>;
+    return (
+        <div className="ds-flex ds-flex-col">
+            Regular
+            <Banner {...args} className="ds-w-full ds-mb-3">
+                This is the banner content !This is the banner content !This is the banner content !This is the banner
+                content !This is the banner content !This is the banner content !This is the banner content !This is the
+                banner content !This is the banner content !
+            </Banner>
+            Small
+            <Banner {...args} className="ds-w-full " size="small">
+                This is the banner content !This is the banner content !This is the banner content !This is the banner
+                content !This is the banner content !This is the banner content !This is the banner content !This is the
+                banner content !This is the banner content !
+            </Banner>
+        </div>
+    );
 };
 
 # Banner

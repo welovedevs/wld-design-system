@@ -4,15 +4,24 @@ import cn from 'classnames';
 
 import { BANNER_DATA, BannerType } from './banner_data';
 
-import { baseStyles } from './banner_styles';
+import { baseStyles, iconStyles } from './banner_styles';
 import { palette } from '../index';
 
 interface Props {
     type?: BannerType;
     icon?: any;
+    className?: string;
     classes?: { container?: string };
+    size?: 'small';
 }
-export const Banner: React.FC<Props> = ({ type = 'warning', icon: receivedIcon, classes = {}, children }) => {
+export const Banner: React.FC<Props> = ({
+    type = 'warning',
+    className,
+    icon: receivedIcon,
+    classes = {},
+    children,
+    size,
+}) => {
     const { icon, color } = useMemo(() => {
         const typeConfig = BANNER_DATA[type];
         if (!typeConfig) {
@@ -26,14 +35,20 @@ export const Banner: React.FC<Props> = ({ type = 'warning', icon: receivedIcon, 
     const Icon = receivedIcon || icon;
 
     return (
-        <div className={cn(classes?.container, baseStyles.container, baseStyles.background)} style={{ color }}>
-            <span
-                className={
-                    'ds-flex ds-mr-2 ds-items-center ds-justify-center   md:ds-absolute md:-ds-top-1.5 md:ds-p-[4px] md:ds-shadow-slim md:-ds-left-1.5 md:ds-rounded-full md:ds-bg-light-500'
-                }
-            >
-                {Icon && <Icon className="ds-w-6 ds-h-6 md:ds-w-2 md:ds-h-2 " />}
-            </span>
+        <div
+            className={cn(
+                className ?? '',
+                classes?.container,
+                baseStyles.container[size || 'regular'] ?? baseStyles.container.regular,
+                baseStyles.background[size || 'regular'] ?? baseStyles.background.regular
+            )}
+            style={{ color }}
+        >
+            {Icon && (
+                <span className={iconStyles.container[size || 'regular'] ?? iconStyles.container.regular}>
+                    <Icon className={iconStyles.icon[size || 'regular'] ?? iconStyles.icon.regular} />
+                </span>
+            )}
             {children}
         </div>
     );
