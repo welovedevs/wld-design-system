@@ -37,8 +37,8 @@ export const Tag: React.FC<Props> = forwardRef(
         ref
     ) => {
         const containerSize = {
-            regular: 'ds-px-2 ds-py-3/4 ',
-            small: 'ds-px-1.5 ds-py-1/2',
+            regular: 'ds-px-2 ds-py-3/4 sm:ds-px-1.5 sm:ds-py-1/2',
+            small: 'ds-px-1.5 ds-py-1/2 sm:ds-px-1 sm:ds-py-1/4',
             xs: 'ds-px-1 ds-py-0.5',
         };
         const typographyVariant = {
