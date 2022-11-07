@@ -22,7 +22,7 @@ interface CustomProps {
     type?: HTMLInputElement['type'];
     disabled?: boolean;
     classes?: { container?: string; input?: string };
-    size?: 'small';
+    size?: 'small' | 'regular';
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
     passwordLabels?: {
@@ -50,7 +50,7 @@ export const TextField = forwardRef<HTMLElement, PropsWithChildren<TextFieldProp
             variant = 'raised',
             type = 'text',
             disabled,
-            size,
+            size = 'regular',
             classes = {},
             ...other
         },

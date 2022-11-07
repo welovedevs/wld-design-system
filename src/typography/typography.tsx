@@ -34,7 +34,7 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
         JSON.stringify(receivedClasses),
     ]);
     let style = useMemo<{ backgroundColor?: string; color: string } | null>(() => {
-        if (color) {
+        if (color && palette[color]) {
             if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
                 const paletteColor = palette[color];
                 if (color === 'primary') {
@@ -58,7 +58,9 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                 color: palette?.[color]?.[500],
             };
         }
-        return null;
+        return {
+            color: palette.dark[500],
+        };
     }, [variant, color]);
 
     return (

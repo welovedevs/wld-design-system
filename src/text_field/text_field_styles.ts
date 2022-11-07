@@ -5,14 +5,14 @@ export const baseStyles = {
     container:
         'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-lightGray',
     multilineContainer: '',
-    input:
-        'ds-bg-transparent ds-w-full ds-min-h-[40px] ds-px-1.5 ds-py-1.5 ds-border-0 ds-text-[16px] ds-leading-[24px] ds-font-w3d ds-text-dark-400 ds-flex ds-items-center',
+    input: 'ds-bg-transparent ds-w-full  ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center',
     multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar',
     disabled: 'ds-cursor-not-allowed ',
 };
 
 export const sizeStyles = {
     small: 'ds-px-1 ds-py-1/2 ds-min-h-3 ds-leading-[16px] ds-text-[12px]',
+    regular: 'ds-px-1.5 ds-py-1.5 ds-min-h-[40px] ds-text-[16px] ds-leading-[24px] ',
 };
 
 export const variantStyles: { [key in TextFieldVariants | TextFieldDisabledVariants]: string } = {
