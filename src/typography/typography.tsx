@@ -58,9 +58,7 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                 color: palette?.[color]?.[500],
             };
         }
-        return {
-            color: palette.dark[500],
-        };
+        return null;
     }, [variant, color]);
 
     return (
