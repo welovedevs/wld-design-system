@@ -1,4 +1,4 @@
-import React, { CSSProperties, ExoticComponent, HTMLAttributes, ReactElement, useMemo } from 'react';
+import React, { CSSProperties, ExoticComponent, forwardRef, HTMLAttributes, ReactElement, useMemo } from 'react';
 
 import cn from 'classnames';
 
@@ -18,7 +18,7 @@ interface ComponentProps {
 }
 export type TypographyProps = ComponentProps & HTMLAttributes<any>;
 
-export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
+export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = forwardRef(({
     containerRef,
     className,
     color,
@@ -28,7 +28,7 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
     customClasses: oldCustomClasses = {},
     classes: receivedClasses = {},
     ...other
-}) => {
+}, ref) => {
     const classes = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -69,7 +69,7 @@ export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = ({
                 ...receivedStyle,
             }}
             {...other}
-            {...({ ref: containerRef } as any)}
+            {...({ ref: ref || containerRef } as any)}
         />
     );
-};
+});
