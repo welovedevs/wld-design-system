@@ -26,7 +26,7 @@ interface Props {
     };
 }
 
-export type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color'> & Props>;
+export type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color' | 'size'> & Props>;
 const CheckboxComponent = forwardRef<any, CheckboxProps>(
     (
         {
