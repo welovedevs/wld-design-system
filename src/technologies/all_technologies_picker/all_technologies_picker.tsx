@@ -1,7 +1,4 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-
-import { SELECTED_ITEM_LAYER_TRANSITIONS_PROPS } from './all_technologies_picker_props';
 
 import { DevTechnology, Technology } from '../technologies/technology';
 import last from 'lodash/last';
@@ -11,10 +8,6 @@ import cn from 'classnames';
 import { Card, Checkbox, TextField, Typography } from '../../index';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const DEFAULT_SPRING_TYPE = {
-    type: 'spring',
-    damping: 18,
-};
 const technoCardsSizes = {
     mobile: {
         width: 56 + 2 * 1 * 8,
@@ -75,25 +68,18 @@ const TechnologyItem = ({
                 }}
             >
                 <img src={imgUrl} alt={item.name} className={`ds-w-full ds-h-full ds-object-contain`} />
-                <AnimatePresence>
-                    {selectedItem && (
-                        <motion.div
-                            key={`selected_item_layer_${selectedItem?.name}`}
-                            className={
-                                'ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center'
-                            }
-                            variants={SELECTED_ITEM_LAYER_TRANSITIONS_PROPS}
-                            initial="initial"
-                            animate="animate"
-                            exit="exit"
-                            transition={DEFAULT_SPRING_TYPE}
-                        >
-                            <Typography color="light" variant="h3">
-                                {selectedItem?.index + 1}
-                            </Typography>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                {selectedItem && (
+                    <div
+                        key={`selected_item_layer_${selectedItem?.name}`}
+                        className={
+                            'ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center'
+                        }
+                    >
+                        <Typography color="light" variant="h3">
+                            {selectedItem?.index + 1}
+                        </Typography>
+                    </div>
+                )}
             </Card>
             <Typography
                 variant="body3"
@@ -220,7 +206,7 @@ export const AllTechnologiesPicker = ({
                             item={item}
                             onAdd={onAdd}
                             onDelete={onDelete}
-                            isMobile={isMobile}
+                            isMobile={!!isMobile}
                         />
                     ))}
                 </InfiniteScroll>

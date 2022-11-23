@@ -2,12 +2,16 @@ import { CheckboxProps } from './checkbox';
 
 export const baseClasses = {
     container:
-        'ds-group ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-relative ds-margin-1 ds-p-1/2 ds cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center',
+        'ds-relative ds-margin-1 cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center',
     icon: 'ds-w-full ds-h-full ds-fill-current',
     input:
         'ds-h-full ds-w-full ds-absolute ds-top-0 ds-bottom-0 ds-right-0 ds-left-0 ds-cursor-[inherit] ds-p-0 ds-m-0 ds-z-10 ds-opacity-0',
     layer:
         'ds-w-full ds-w-full ds-absolute  ds-top-0 ds-bottom-0 ds-right-0 ds-left-0  ds-z-[5] ds-opacity-0 group-hover:ds-opacity-[.20] ds-transition-all',
+    size: {
+        regular: 'ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-p-1/2',
+        small: 'ds-w-2 ds-h-2 ds-min-w-2 ds-min-h-2 ds-p-[1.5px]',
+    },
 };
 export const variantClasses: { [key in Exclude<CheckboxProps['variant'], undefined>]: string } = {
     raised: 'ds-shadow-slim',

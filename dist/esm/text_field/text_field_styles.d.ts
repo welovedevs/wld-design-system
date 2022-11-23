@@ -9,6 +9,7 @@ export declare const baseStyles: {
 };
 export declare const sizeStyles: {
     small: string;
+    regular: string;
 };
 export declare const variantStyles: {
     [key in TextFieldVariants | TextFieldDisabledVariants]: string;

@@ -4,6 +4,10 @@ export declare const baseClasses: {
     icon: string;
     input: string;
     layer: string;
+    size: {
+        regular: string;
+        small: string;
+    };
 };
 export declare const variantClasses: {
     [key in Exclude<CheckboxProps['variant'], undefined>]: string;

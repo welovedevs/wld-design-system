@@ -1,7 +1,6 @@
 import React, { ButtonHTMLAttributes, forwardRef, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
-import { motion } from 'framer-motion';
 import { Typography } from '../typography/typography';
 
 import { PaletteColors } from '../styles';
@@ -40,7 +39,7 @@ export type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
 const ButtonComponent: React.FC<ButtonProps> = forwardRef(
     (
         {
-            component: Component = motion.button,
+            component: Component = 'button',
             className,
             containerRef,
             disabled,
@@ -141,11 +140,10 @@ const RaisedButton: React.FC<ButtonProps> = forwardRef((props, ref) => {
         return paletteColor || palette?.dark[200];
     }, [disabled, propsColor]);
 
-    const motionProps = {
-        boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${color}`,
-    };
-
-    return <ButtonComponent {...props} {...{ ref }} {...(!disabled && { animate: motionProps })} />;
+    const shadow = useMemo(() => {
+        return color ? 'ds-shadow-[0_5px_15px_0]' : 'ds-shadow-[0_10px_20px_0]';
+    }, [color]);
+    return <ButtonComponent {...props} {...{ ref }} className={`${!disabled && shadow}`} />;
 });
 
 export const Button: React.FC<ButtonProps> = forwardRef((props, ref) => {

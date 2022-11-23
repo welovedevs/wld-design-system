@@ -1,10 +1,8 @@
 import React, { ChangeEvent, ElementType, forwardRef, PropsWithChildren, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
-import { useTheme } from '@mui/material/styles';
-import { motion } from 'framer-motion';
 
-import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
+import { PaletteColors } from '../styles';
 
 import { baseClasses, iconClasses, layerClasses, variantClasses } from './checkbox_styles';
 import { palette } from '../index';
@@ -21,6 +19,7 @@ interface Props {
     containerProps?: any;
     variant?: 'raised' | 'outlined';
     isRadio?: Boolean;
+    size?: 'regular' | 'small';
     classes?: {
         container?: string;
         input?: string;
@@ -31,7 +30,7 @@ export type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any
 const CheckboxComponent = forwardRef<any, CheckboxProps>(
     (
         {
-            component: Component = motion.div,
+            component: Component = 'div',
             checked,
             disabled,
             color,
@@ -44,6 +43,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             isRadio,
             classes = {},
             partialCheck,
+            size = 'regular',
             ...other
         },
         ref
@@ -63,6 +63,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
         return (
             <Component
                 className={cn(
+                    baseClasses.size[size as 'regular' | 'small'],
                     baseClasses.container,
                     isRadio ? 'ds-rounded-full' : 'ds-rounded-md',
                     disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]',
@@ -117,18 +118,12 @@ const CheckIcon: React.FC<{ checked: boolean; partialCheck: boolean; classes: { 
     const checked = propsChecked || partialCheck;
     const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
     return (
-        <motion.svg
-            className={classes.checkIcon}
-            viewBox="0 0 24 24"
-            fill="#fff"
-            animate={spring}
-            transition={{ type: 'spring', bounce: 0.6 }}
-        >
+        <svg className={classes.checkIcon} viewBox="0 0 24 24" fill="#fff">
             <g>
                 {propsChecked && <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />}
                 {!propsChecked && partialCheck && <rect x="4" y="11" width="17" height="2" />}
             </g>
-        </motion.svg>
+        </svg>
     );
 };
 

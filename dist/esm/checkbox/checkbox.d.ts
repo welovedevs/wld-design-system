@@ -12,6 +12,7 @@ interface Props {
     containerProps?: any;
     variant?: 'raised' | 'outlined';
     isRadio?: Boolean;
+    size?: 'regular' | 'small';
     classes?: {
         container?: string;
         input?: string;

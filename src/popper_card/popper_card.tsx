@@ -3,7 +3,6 @@ import React, { useCallback, useMemo, useState, useRef } from 'react';
 import cn from 'classnames';
 import { ClassNameMap } from '@mui/styles';
 import makeStyles from '@mui/styles/makeStyles';
-import { motion } from 'framer-motion';
 
 import { ClickAwayListener, Popper, PopperProps } from '@mui/material';
 import { Card } from '../card/card';

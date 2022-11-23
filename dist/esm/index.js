@@ -12,7 +12,6 @@ import ClickAwayListener$1 from '@mui/material/ClickAwayListener';
 import CheckIcon$1 from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
-import { motion, AnimatePresence } from 'framer-motion';
 import MuiSlider from '@mui/material/Slider';
 import get from 'lodash/get';
 import last from 'lodash/last';
@@ -51,12 +50,13 @@ function __rest(s, e) {
 const baseStyles$4 = {
     container: 'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-lightGray',
     multilineContainer: '',
-    input: 'ds-bg-transparent ds-w-full ds-min-h-[40px] ds-px-1.5 ds-py-1.5 ds-border-0 ds-text-[16px] ds-leading-[24px] ds-font-w3d ds-text-dark-400 ds-flex ds-items-center',
+    input: 'ds-bg-transparent ds-w-full  ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center',
     multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar',
     disabled: 'ds-cursor-not-allowed ',
 };
 const sizeStyles$2 = {
     small: 'ds-px-1 ds-py-1/2 ds-min-h-3 ds-leading-[16px] ds-text-[12px]',
+    regular: 'ds-px-1.5 ds-py-1.5 ds-min-h-[40px] ds-text-[16px] ds-leading-[24px] ',
 };
 const variantStyles$1 = {
     flat: 'ds-border ds-border-solid ds-border-dark-50 ds-bg-[#f9f9f9]',
@@ -77,7 +77,7 @@ const inputStyles = {
 };
 
 const TextField = forwardRef((_a, ref) => {
-    var { containerElement: ContainerElement = 'div', containerProps, className, inputClassName, fullWidth, inputRef, containerRef, beforeChildren = null, multiline, rows, children, variant = 'raised', type = 'text', disabled, size, classes = {} } = _a, other = __rest(_a, ["containerElement", "containerProps", "className", "inputClassName", "fullWidth", "inputRef", "containerRef", "beforeChildren", "multiline", "rows", "children", "variant", "type", "disabled", "size", "classes"]);
+    var { containerElement: ContainerElement = 'div', containerProps, className, inputClassName, fullWidth, inputRef, containerRef, beforeChildren = null, multiline, rows, children, variant = 'raised', type = 'text', disabled, size = 'regular', classes = {} } = _a, other = __rest(_a, ["containerElement", "containerProps", "className", "inputClassName", "fullWidth", "inputRef", "containerRef", "beforeChildren", "multiline", "rows", "children", "variant", "type", "disabled", "size", "classes"]);
     const InputComponent = multiline ? 'textarea' : 'input';
     const isPassword = type === 'password';
     const [showHidePassword, changeShowHidePassword] = useState(false);
@@ -456,7 +456,19 @@ const purple = {
     700: '#7e22ce',
     800: '#6b21a8',
     900: '#591c87',
-    contrastDefaultColor: 'light'
+    contrastDefaultColor: 'light',
+};
+const red = {
+    50: '#fef2f2',
+    100: '#fee2e2',
+    200: '#fecaca',
+    300: '#fca5a5',
+    400: '#f87171',
+    500: '#ef4444',
+    600: '#dc2626',
+    700: '#b91c1c',
+    800: '#991b1b',
+    900: '#7f1d1d',
 };
 const palette = {
     primary,
@@ -471,9 +483,10 @@ const palette = {
     light,
     indigo,
     purple,
+    red,
 };
 
-const Typography = (_a) => {
+const Typography = forwardRef((_a, ref) => {
     var { containerRef, className, color, component: Component = 'span', variant = 'body1', style: receivedStyle, customClasses: oldCustomClasses = {}, classes: receivedClasses = {} } = _a, other = __rest(_a, ["containerRef", "className", "color", "component", "variant", "style", "customClasses", "classes"]);
     const classes = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
@@ -481,7 +494,7 @@ const Typography = (_a) => {
     ]);
     let style = useMemo(() => {
         var _a, _b, _c, _d;
-        if (color) {
+        if (color && palette[color]) {
             if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
                 const paletteColor = palette[color];
                 if (color === 'primary') {
@@ -507,8 +520,8 @@ const Typography = (_a) => {
         }
         return null;
     }, [variant, color]);
-    return (jsx(Component, Object.assign({ className: cn(baseStyles$3.container, variant && VariantStyles[variant], classes.container, className), style: Object.assign(Object.assign({}, style), receivedStyle) }, other, { ref: containerRef })));
-};
+    return (jsx(Component, Object.assign({ className: cn(baseStyles$3.container, variant && VariantStyles[variant], classes.container, className), style: Object.assign(Object.assign({}, style), receivedStyle) }, other, { ref: ref || containerRef })));
+});
 
 const ListItem = (_a) => {
     var { component: Component = 'li', className, typographyClassName, button, style, children, classes } = _a, other = __rest(_a, ["component", "className", "typographyClassName", "button", "style", "children", "classes"]);
@@ -702,7 +715,7 @@ const textVariantStyles = {
 };
 
 const ButtonComponent = forwardRef((_a, ref) => {
-    var { component: Component = motion.button, className, containerRef, disabled, size = 'regular', color, containerProps, 
+    var { component: Component = 'button', className, containerRef, disabled, size = 'regular', color, containerProps, 
     // @deprecated please use classes.typography
     typographyClassName, variant, onMouseEnter, onMouseLeave, onFocus, onBlur, onClick, classes = {}, children, style: propsStyle } = _a, other = __rest(_a, ["component", "className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "classes", "children", "style"]);
     const hexColor = useMemo(() => {
@@ -742,10 +755,10 @@ const RaisedButton = forwardRef((props, ref) => {
         const paletteColor = propsColor && ((_d = palette === null || palette === void 0 ? void 0 : palette[propsColor]) === null || _d === void 0 ? void 0 : _d[500]);
         return paletteColor || (palette === null || palette === void 0 ? void 0 : palette.dark[200]);
     }, [disabled, propsColor]);
-    const motionProps = {
-        boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${color}`,
-    };
-    return jsx(ButtonComponent, Object.assign({}, props, { ref }, (!disabled && { animate: motionProps })));
+    const shadow = useMemo(() => {
+        return color ? 'ds-shadow-[0_5px_15px_0]' : 'ds-shadow-[0_10px_20px_0]';
+    }, [color]);
+    return jsx(ButtonComponent, Object.assign({}, props, { ref }, { className: `${!disabled && shadow}` }));
 });
 const Button = forwardRef((props, ref) => {
     const { variant = 'text' } = props, other = __rest(props, ["variant"]);
@@ -756,10 +769,14 @@ const Button = forwardRef((props, ref) => {
 });
 
 const baseClasses = {
-    container: 'ds-group ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-relative ds-margin-1 ds-p-1/2 ds cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center',
+    container: 'ds-relative ds-margin-1 cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center',
     icon: 'ds-w-full ds-h-full ds-fill-current',
     input: 'ds-h-full ds-w-full ds-absolute ds-top-0 ds-bottom-0 ds-right-0 ds-left-0 ds-cursor-[inherit] ds-p-0 ds-m-0 ds-z-10 ds-opacity-0',
     layer: 'ds-w-full ds-w-full ds-absolute  ds-top-0 ds-bottom-0 ds-right-0 ds-left-0  ds-z-[5] ds-opacity-0 group-hover:ds-opacity-[.20] ds-transition-all',
+    size: {
+        regular: 'ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-p-1/2',
+        small: 'ds-w-2 ds-h-2 ds-min-w-2 ds-min-h-2 ds-p-[1.5px]',
+    },
 };
 const variantClasses = {
     raised: 'ds-shadow-slim',
@@ -777,7 +794,7 @@ const layerClasses = {
 
 const CheckboxComponent = forwardRef((_a, ref) => {
     var _b, _c;
-    var { component: Component = motion.div, checked, disabled, color, defaultColor: propsDefaultColor = palette === null || palette === void 0 ? void 0 : palette.primary[400], className, inputClassName, containerProps, onChange, variant = 'outlined', isRadio, classes = {}, partialCheck } = _a, other = __rest(_a, ["component", "checked", "disabled", "color", "defaultColor", "className", "inputClassName", "containerProps", "onChange", "variant", "isRadio", "classes", "partialCheck"]);
+    var { component: Component = 'div', checked, disabled, color, defaultColor: propsDefaultColor = palette === null || palette === void 0 ? void 0 : palette.primary[400], className, inputClassName, containerProps, onChange, variant = 'outlined', isRadio, classes = {}, partialCheck, size = 'regular' } = _a, other = __rest(_a, ["component", "checked", "disabled", "color", "defaultColor", "className", "inputClassName", "containerProps", "onChange", "variant", "isRadio", "classes", "partialCheck", "size"]);
     const handleChange = useCallback((event) => {
         if (disabled) {
             return;
@@ -786,7 +803,7 @@ const CheckboxComponent = forwardRef((_a, ref) => {
             onChange(event);
         }
     }, [disabled, onChange]);
-    return (jsxs(Component, Object.assign({ className: cn(baseClasses.container, isRadio ? 'ds-rounded-full' : 'ds-rounded-md', disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]', checked && !disabled && variant === 'raised' && 'ds-bg-current', variant && variantClasses[variant], className), style: {
+    return (jsxs(Component, Object.assign({ className: cn(baseClasses.size[size], baseClasses.container, isRadio ? 'ds-rounded-full' : 'ds-rounded-md', disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]', checked && !disabled && variant === 'raised' && 'ds-bg-current', variant && variantClasses[variant], className), style: {
             color: disabled ? palette === null || palette === void 0 ? void 0 : palette.dark[200] : (_c = (color && ((_b = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _b === void 0 ? void 0 : _b[500]))) !== null && _c !== void 0 ? _c : propsDefaultColor,
         } }, containerProps, { ref }, { children: [jsx(CheckIcon, Object.assign({}, { checked, partialCheck: !!partialCheck }, { classes: {
                     checkIcon: cn(baseClasses.icon, checked && variant && iconClasses[variant], partialCheck && iconClasses['partial']),
@@ -802,8 +819,8 @@ const CHECKED_ICON_PROPS = {
 };
 const CheckIcon = ({ checked: propsChecked, partialCheck, classes, }) => {
     const checked = propsChecked || partialCheck;
-    const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
-    return (jsx(motion.svg, Object.assign({ className: classes.checkIcon, viewBox: "0 0 24 24", fill: "#fff", animate: spring, transition: { type: 'spring', bounce: 0.6 } }, { children: jsxs("g", { children: [propsChecked && jsx("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" }), !propsChecked && partialCheck && jsx("rect", { x: "4", y: "11", width: "17", height: "2" })] }) })));
+    useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
+    return (jsx("svg", Object.assign({ className: classes.checkIcon, viewBox: "0 0 24 24", fill: "#fff" }, { children: jsxs("g", { children: [propsChecked && jsx("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" }), !propsChecked && partialCheck && jsx("rect", { x: "4", y: "11", width: "17", height: "2" })] }) })));
 };
 const Checkbox = CheckboxComponent;
 
@@ -999,21 +1016,6 @@ const Tooltip = forwardRef((_a, ref) => {
     return (jsx(Tooltip$1, Object.assign({ ref: ref }, other, { classes: Object.assign(Object.assign({}, classes), { tooltip: `${(_b = classes === null || classes === void 0 ? void 0 : classes.tooltip) !== null && _b !== void 0 ? _b : ''} ds-leading-[1.5] ds-text-[13px] ds-px-[12px] ds-py-2 ds-bg-[black]/[0.85] ds-text-light-500 ds-font-medium ds-max-w-[375px]`, popper: `${(_c = classes === null || classes === void 0 ? void 0 : classes.popper) !== null && _c !== void 0 ? _c : ''} z-[10000]` }) }, { children: children })));
 });
 
-const SELECTED_ITEM_LAYER_TRANSITIONS_PROPS = {
-    initial: {
-        opacity: 0,
-        x: '-100%'
-    },
-    animate: {
-        opacity: 1,
-        x: 0
-    },
-    exit: {
-        opacity: 0,
-        x: '100%'
-    }
-};
-
 const useDebouncedValue = (value, duration = 500) => {
     const timerRef = useRef(null);
     const [returnValue, setReturnValue] = useState(value);
@@ -1039,10 +1041,6 @@ const useDebouncedValue = (value, duration = 500) => {
 
 const TechnologiesPickerContext = createContext({ technologies: [], translations: {} });
 
-const DEFAULT_SPRING_TYPE = {
-    type: 'spring',
-    damping: 18,
-};
 const technoCardsSizes = {
     mobile: {
         width: 56 + 2 * 1 * 8,
@@ -1074,7 +1072,7 @@ const TechnologyItem = ({ item, selectedItems = [], onAdd, onDelete, isMobile, }
     }, [item, technologies]);
     return (jsxs("button", Object.assign({ className: `${isMobile ? 'ds-w-7 ds-max-w-7 ds-m-1' : 'ds-w-10 ds-max-w-10 ds-m-1.5'} ds-flex ds-flex-col ds-items-center`, type: "button", onClick: onClick }, { children: [jsxs(Card, Object.assign({ classes: {
                     container: `${isMobile ? '  ds-h-7 ds-max-h-7 !ds-p-1 ' : 'ds-h-10 ds-max-h-10 !ds-p-2'} !ds-w-full ds-overflow-hidden ds-mb-2 ds-relative`,
-                } }, { children: [jsx("img", { src: imgUrl, alt: item.name, className: `ds-w-full ds-h-full ds-object-contain` }), jsx(AnimatePresence, { children: selectedItem && (jsx(motion.div, Object.assign({ className: 'ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center', variants: SELECTED_ITEM_LAYER_TRANSITIONS_PROPS, initial: "initial", animate: "animate", exit: "exit", transition: DEFAULT_SPRING_TYPE }, { children: jsx(Typography, Object.assign({ color: "light", variant: "h3" }, { children: (selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.index) + 1 })) }), `selected_item_layer_${selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.name}`)) })] })), jsx(Typography, Object.assign({ variant: "body3", classes: {
+                } }, { children: [jsx("img", { src: imgUrl, alt: item.name, className: `ds-w-full ds-h-full ds-object-contain` }), selectedItem && (jsx("div", Object.assign({ className: 'ds-animate-[bounce_1s_linear_infinite] ds-animate-[spin_.1s_linear_infinite] ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center' }, { children: jsx(Typography, Object.assign({ color: "light", variant: "h3" }, { children: (selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.index) + 1 })) }), `selected_item_layer_${selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.name}`))] })), jsx(Typography, Object.assign({ variant: "body3", classes: {
                     container: 'ds-text-center ds-break-all',
                 } }, { children: item.name }))] })));
 };

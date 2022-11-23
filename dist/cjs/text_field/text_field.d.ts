@@ -18,7 +18,7 @@ interface CustomProps {
         container?: string;
         input?: string;
     };
-    size?: 'small';
+    size?: 'small' | 'regular';
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
     passwordLabels?: {
