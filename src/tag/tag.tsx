@@ -15,6 +15,7 @@ interface Props {
     style?: any;
     classes?: { container?: string; typography?: string };
     onClick?: (e: any) => void;
+    clickable?: boolean;
     onDelete?: (e: any) => void;
     size?: 'small' | 'xs' | 'regular';
 }
@@ -28,6 +29,7 @@ export const Tag: React.FC<Props> = forwardRef(
             color = 'primary',
             children,
             onClick,
+            clickable,
             onDelete,
             classes,
             style = {},
@@ -73,12 +75,13 @@ export const Tag: React.FC<Props> = forwardRef(
             }
         }, [color, palette]);
         const [hover, setHover] = useState(false);
+        const isClickable = !!(onClick || clickable);
         return (
             <Component
                 ref={ref || containerRef}
                 className={cn(
                     'ds-inline-flex ds-items-center ds-rounded-md',
-                    onClick ? 'ds-cursor-pointer' : '',
+                    isClickable ? 'ds-cursor-pointer' : '',
                     className,
                     containerSize[size] || containerSize.regular,
                     classes?.container
@@ -92,7 +95,7 @@ export const Tag: React.FC<Props> = forwardRef(
                 onClick={onClick}
                 style={{
                     ...style,
-                    background: hover && onClick ? bgColor.hover : bgColor.normal,
+                    background: hover && isClickable ? bgColor.hover : bgColor.normal,
                 }}
                 {...other}
             >
