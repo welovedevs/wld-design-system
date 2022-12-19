@@ -57,6 +57,7 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
             classes = {},
             children,
             style: propsStyle,
+            type,
             ...other
         },
         ref
@@ -94,6 +95,7 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
             <Component
                 ref={ref || containerRef}
                 {...containerProps}
+                type={type ?? 'button'}
                 className={cn(
                     baseStyles.container,
                     (size && sizeStyles[size]) || sizeStyles.regular,
