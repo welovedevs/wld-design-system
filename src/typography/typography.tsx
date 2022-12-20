@@ -18,58 +18,63 @@ interface ComponentProps {
 }
 export type TypographyProps = ComponentProps & HTMLAttributes<any>;
 
-export const Typography: React.FC<ComponentProps & HTMLAttributes<any>> = forwardRef(({
-    containerRef,
-    className,
-    color,
-    component: Component = 'span',
-    variant = 'body1',
-    style: receivedStyle,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-    ...other
-}, ref) => {
-    const classes = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    let style = useMemo<{ backgroundColor?: string; color: string } | null>(() => {
-        if (color && palette[color]) {
-            if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
-                const paletteColor = palette[color];
-                if (color === 'primary') {
+export const Typography = forwardRef<unknown, ComponentProps & Omit<HTMLAttributes<any>, 'color'>>(
+    (
+        {
+            containerRef,
+            className,
+            color,
+            component: Component = 'span',
+            variant = 'body1',
+            style: receivedStyle,
+            customClasses: oldCustomClasses = {},
+            classes: receivedClasses = {},
+            ...other
+        },
+        ref
+    ) => {
+        const classes = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
+            JSON.stringify(oldCustomClasses),
+            JSON.stringify(receivedClasses),
+        ]);
+        let style = useMemo<{ backgroundColor?: string; color: string } | null>(() => {
+            if (color && palette[color]) {
+                if (['wld1', 'wld2', 'wld3', 'wld4', 'wld5', 'wld6'].some((key) => variant === key)) {
+                    const paletteColor = palette[color];
+                    if (color === 'primary') {
+                        return {
+                            backgroundColor: '#fff',
+                            color: paletteColor?.[500],
+                        };
+                    }
+                    if (paletteColor) {
+                        const constrastColor = palette[paletteColor.contrastDefaultColor as PaletteColors];
+                        return {
+                            backgroundColor: paletteColor[500],
+                            color: constrastColor?.[500] ?? '#fff',
+                        };
+                    }
                     return {
-                        backgroundColor: '#fff',
-                        color: paletteColor?.[500],
-                    };
-                }
-                if (paletteColor) {
-                    const constrastColor = palette[paletteColor.contrastDefaultColor as PaletteColors];
-                    return {
-                        backgroundColor: paletteColor[500],
-                        color: constrastColor?.[500] ?? '#fff',
+                        color: (color && palette?.[color]?.[500]) ?? palette.primary[500],
                     };
                 }
                 return {
-                    color: (color && palette?.[color]?.[500]) ?? palette.primary[500],
+                    color: palette?.[color]?.[500],
                 };
             }
-            return {
-                color: palette?.[color]?.[500],
-            };
-        }
-        return null;
-    }, [variant, color]);
+            return null;
+        }, [variant, color]);
 
-    return (
-        <Component
-            className={cn(baseStyles.container, variant && VariantStyles[variant], classes.container, className)}
-            style={{
-                ...style,
-                ...receivedStyle,
-            }}
-            {...other}
-            {...({ ref: ref || containerRef } as any)}
-        />
-    );
-});
+        return (
+            <Component
+                className={cn(baseStyles.container, variant && VariantStyles[variant], classes.container, className)}
+                style={{
+                    ...style,
+                    ...receivedStyle,
+                }}
+                {...other}
+                {...({ ref: ref || containerRef } as any)}
+            />
+        );
+    }
+);

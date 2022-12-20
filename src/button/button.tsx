@@ -36,7 +36,7 @@ interface CustomProps {
 }
 
 export type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
-const ButtonComponent: React.FC<ButtonProps> = forwardRef(
+export const Button = forwardRef<unknown, ButtonProps>(
     (
         {
             component: Component = 'button',
@@ -70,6 +70,13 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
             return paletteColor || palette?.primary[300];
         }, [disabled, color]);
 
+        const shadow = useMemo(() => {
+            if (variant === 'raised') {
+                return hexColor ? 'ds-shadow-[0_5px_15px_0]' : 'ds-shadow-[0_10px_20px_0]';
+            }
+            return null;
+        }, [hexColor]);
+
         const handleClick = useCallback(
             (...paramaters) => {
                 if (disabled) {
@@ -82,7 +89,7 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
             [onClick, disabled]
         );
 
-        let textColor = useMemo(() => {
+        const textColor: PaletteColors | undefined = useMemo(() => {
             if (variant === 'raised' || variant === 'contained') {
                 if (color === 'light') {
                     return 'primary';
@@ -100,6 +107,7 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
                     baseStyles.container,
                     (size && sizeStyles[size]) || sizeStyles.regular,
                     disabled && baseStyles.disabled,
+                    !disabled && shadow,
                     variantStyles[variant ?? 'default'],
                     className,
                     classes?.container
@@ -130,28 +138,3 @@ const ButtonComponent: React.FC<ButtonProps> = forwardRef(
         );
     }
 );
-
-const RaisedButton: React.FC<ButtonProps> = forwardRef((props, ref) => {
-    const { disabled, color: propsColor } = props;
-
-    const color = useMemo(() => {
-        if (disabled) {
-            return (propsColor && palette?.[propsColor]?.[100]) ?? palette?.['dark']?.[100];
-        }
-        const paletteColor = propsColor && palette?.[propsColor]?.[500];
-        return paletteColor || palette?.dark[200];
-    }, [disabled, propsColor]);
-
-    const shadow = useMemo(() => {
-        return color ? 'ds-shadow-[0_5px_15px_0]' : 'ds-shadow-[0_10px_20px_0]';
-    }, [color]);
-    return <ButtonComponent {...props} {...{ ref }} className={`${!disabled && shadow}`} />;
-});
-
-export const Button: React.FC<ButtonProps> = forwardRef((props, ref) => {
-    const { variant = 'text', ...other } = props;
-    if (variant === 'raised') {
-        return <RaisedButton {...{ variant, ref }} {...other} />;
-    }
-    return <ButtonComponent {...{ variant, ref }} {...other} />;
-});
