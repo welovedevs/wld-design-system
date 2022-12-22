@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { useMediaQuery } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 type Handlers = {
     onClick?: (...parameters: any) => void;

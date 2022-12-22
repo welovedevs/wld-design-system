@@ -4,7 +4,8 @@ import cn from 'classnames';
 import { ClassNameMap } from '@mui/styles';
 import makeStyles from '@mui/styles/makeStyles';
 
-import { ClickAwayListener, Popper, PopperProps } from '@mui/material';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Popper, { PopperProps } from '@mui/material/Popper';
 import { Card } from '../card/card';
 
 import { PopperCustomClasses, styles } from './popper_card_styles';

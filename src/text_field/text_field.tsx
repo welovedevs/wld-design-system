@@ -3,7 +3,7 @@ import React, { ExoticComponent, forwardRef, PropsWithChildren, ReactNode, useSt
 import cn from 'classnames';
 
 import { baseStyles, inputStyles, sizeStyles, TextFieldVariants, variantStyles } from './text_field_styles';
-import { IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
