@@ -4,7 +4,7 @@ import { PaletteColors } from '../styles';
 
 import { Typography } from '../typography/typography';
 import { palette } from '../index';
-import { Cancel, Close } from '@mui/icons-material';
+import Cancel from '@mui/icons-material/Cancel';
 import cn from 'classnames';
 
 interface Props {
