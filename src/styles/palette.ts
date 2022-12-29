@@ -190,6 +190,7 @@ const red = {
     700: '#b91c1c',
     800: '#991b1b',
     900: '#7f1d1d',
+    contrastDefaultColor: 'light',
 };
 
 export type PaletteColors =
