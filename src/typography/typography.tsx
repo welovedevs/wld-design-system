@@ -6,19 +6,19 @@ import { baseStyles, TypographyVariants, VariantStyles } from './typography_styl
 import palette, { PaletteColors } from '../styles/palette';
 import merge from 'lodash/merge';
 
-interface ComponentProps {
-    containerRef?: any;
-    className?: string;
-    color?: PaletteColors;
-    component?: string | ExoticComponent | ((...params: any[]) => ReactElement);
-    variant?: TypographyVariants;
-    style?: CSSProperties;
-    classes?: { container?: string };
-    customClasses?: { container?: string };
-}
-export type TypographyProps = ComponentProps & HTMLAttributes<any>;
-
-export const Typography = forwardRef<unknown, ComponentProps & Omit<HTMLAttributes<any>, 'color'>>(
+export const Typography = forwardRef<
+    unknown,
+    {
+        containerRef?: any;
+        className?: string;
+        color?: PaletteColors;
+        component?: string | ExoticComponent | ((...params: any[]) => ReactElement);
+        variant?: TypographyVariants;
+        style?: CSSProperties;
+        classes?: { container?: string };
+        customClasses?: { container?: string };
+    } & Omit<HTMLAttributes<any>, 'color'>
+>(
     (
         {
             containerRef,
@@ -78,3 +78,5 @@ export const Typography = forwardRef<unknown, ComponentProps & Omit<HTMLAttribut
         );
     }
 );
+
+export type TypographyProps = React.ComponentProps<typeof Typography>;
