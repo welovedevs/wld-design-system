@@ -3,9 +3,10 @@ type TextFieldDisabledVariants = `${TextFieldVariants}Disabled`;
 
 export const baseStyles = {
     container:
-        'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-lightGray',
+        'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-lightGray focus-within:ds-border-indigo-500 focus-within:ds-ring-2',
     multilineContainer: '',
-    input: 'ds-bg-transparent ds-w-full  ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center',
+    input:
+        'ds-bg-transparent ds-w-full  ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center focus-visible:ds-outline-none focus-visible:ds-ring-0 focus-visible:ds-border-0',
     multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar',
     disabled: 'ds-cursor-not-allowed ',
 };

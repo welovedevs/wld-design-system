@@ -71,9 +71,9 @@ function __rest(s, e) {
 }
 
 const baseStyles$4 = {
-    container: 'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-lightGray',
+    container: 'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-lightGray focus-within:ds-border-indigo-500 focus-within:ds-ring-2',
     multilineContainer: '',
-    input: 'ds-bg-transparent ds-w-full  ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center',
+    input: 'ds-bg-transparent ds-w-full  ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center focus-visible:ds-outline-none focus-visible:ds-ring-0 focus-visible:ds-border-0',
     multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar',
     disabled: 'ds-cursor-not-allowed ',
 };
@@ -792,7 +792,7 @@ const Button = React.forwardRef((props, ref) => {
 });
 
 const baseClasses = {
-    container: 'ds-relative ds-margin-1 cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center',
+    container: 'ds-relative ds-margin-1 ds-cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center ds-group',
     icon: 'ds-w-full ds-h-full ds-fill-current',
     input: 'ds-h-full ds-w-full ds-absolute ds-top-0 ds-bottom-0 ds-right-0 ds-left-0 ds-cursor-[inherit] ds-p-0 ds-m-0 ds-z-10 ds-opacity-0',
     layer: 'ds-w-full ds-w-full ds-absolute  ds-top-0 ds-bottom-0 ds-right-0 ds-left-0  ds-z-[5] ds-opacity-0 group-hover:ds-opacity-[.20] ds-transition-all',
@@ -975,7 +975,7 @@ const Switch = (_a) => {
 };
 
 const Tag = React.forwardRef((_a, ref) => {
-    var { component: Component = 'div', containerRef, className, color = 'primary', children, onClick, onDelete, classes, style = {}, size = 'regular' } = _a, other = __rest(_a, ["component", "containerRef", "className", "color", "children", "onClick", "onDelete", "classes", "style", "size"]);
+    var { component: Component = 'div', containerRef, className, color = 'primary', children, onClick, clickable, onDelete, classes, style = {}, size = 'regular' } = _a, other = __rest(_a, ["component", "containerRef", "className", "color", "children", "onClick", "clickable", "onDelete", "classes", "style", "size"]);
     const containerSize = {
         regular: 'ds-px-2 ds-py-3/4 sm:ds-px-1.5 sm:ds-py-1/2',
         small: 'ds-px-1.5 ds-py-1/2 sm:ds-px-1 sm:ds-py-1/4',
@@ -1015,11 +1015,12 @@ const Tag = React.forwardRef((_a, ref) => {
         }
     }, [color, palette]);
     const [hover, setHover] = React.useState(false);
-    return (jsxRuntime.jsxs(Component, Object.assign({ ref: ref || containerRef, className: cn__default["default"]('ds-inline-flex ds-items-center ds-rounded-md', onClick ? 'ds-cursor-pointer' : '', className, containerSize[size] || containerSize.regular, classes === null || classes === void 0 ? void 0 : classes.container), onMouseEnter: () => {
+    const isClickable = !!(onClick || clickable);
+    return (jsxRuntime.jsxs(Component, Object.assign({ ref: ref || containerRef, className: cn__default["default"]('ds-inline-flex ds-items-center ds-rounded-md', isClickable ? 'ds-cursor-pointer' : '', className, containerSize[size] || containerSize.regular, classes === null || classes === void 0 ? void 0 : classes.container), onMouseEnter: () => {
             setHover(true);
         }, onMouseLeave: () => {
             setHover(false);
-        }, onClick: onClick, style: Object.assign(Object.assign({}, style), { background: hover && onClick ? bgColor.hover : bgColor.normal }) }, other, { children: [jsxRuntime.jsx(Typography, Object.assign({ style: {
+        }, onClick: onClick, style: Object.assign(Object.assign({}, style), { background: hover && isClickable ? bgColor.hover : bgColor.normal }) }, other, { children: [jsxRuntime.jsx(Typography, Object.assign({ style: {
                     color: textColor,
                 }, className: cn__default["default"]('ds-font-medium ds-flex ds-items-center', classes === null || classes === void 0 ? void 0 : classes.typography), variant: typographyVariant[size] || typographyVariant.regular, onMouseLeave: () => {
                     setHover(false);
@@ -1095,7 +1096,7 @@ const TechnologyItem = ({ item, selectedItems = [], onAdd, onDelete, isMobile, }
     }, [item, technologies]);
     return (jsxRuntime.jsxs("button", Object.assign({ className: `${isMobile ? 'ds-w-7 ds-max-w-7 ds-m-1' : 'ds-w-10 ds-max-w-10 ds-m-1.5'} ds-flex ds-flex-col ds-items-center`, type: "button", onClick: onClick }, { children: [jsxRuntime.jsxs(Card, Object.assign({ classes: {
                     container: `${isMobile ? '  ds-h-7 ds-max-h-7 !ds-p-1 ' : 'ds-h-10 ds-max-h-10 !ds-p-2'} !ds-w-full ds-overflow-hidden ds-mb-2 ds-relative`,
-                } }, { children: [jsxRuntime.jsx("img", { src: imgUrl, alt: item.name, className: `ds-w-full ds-h-full ds-object-contain` }), selectedItem && (jsxRuntime.jsx("div", Object.assign({ className: 'ds-animate-[bounce_1s_linear_infinite] ds-animate-[spin_.1s_linear_infinite] ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center' }, { children: jsxRuntime.jsx(Typography, Object.assign({ color: "light", variant: "h3" }, { children: (selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.index) + 1 })) }), `selected_item_layer_${selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.name}`))] })), jsxRuntime.jsx(Typography, Object.assign({ variant: "body3", classes: {
+                } }, { children: [jsxRuntime.jsx("img", { src: imgUrl, alt: item.name, className: `ds-w-full ds-h-full ds-object-contain` }), selectedItem && (jsxRuntime.jsx("div", Object.assign({ className: 'ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center' }, { children: jsxRuntime.jsx(Typography, Object.assign({ color: "light", variant: "h3" }, { children: (selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.index) + 1 })) }), `selected_item_layer_${selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.name}`))] })), jsxRuntime.jsx(Typography, Object.assign({ variant: "body3", classes: {
                     container: 'ds-text-center ds-break-all',
                 } }, { children: item.name }))] })));
 };
@@ -1137,7 +1138,7 @@ const AllTechnologiesPicker = ({ selectedItems, onAdd, onDelete, classes = {}, i
                     container: 'ds-mb-3 ds-w-[400px] sm:ds-w-[unset] ds-min-h-[60px]',
                 }, fullWidth: isMobile, variant: "flat", value: query, onChange: handleTextFieldChange, placeholder: "Mobile, Javascript, etc..." }), isMobile && additionalInformations, isMobile && (jsxRuntime.jsxs("button", Object.assign({ className: cn__default["default"]('ds-flex ds-items-center ds-text-left'), type: "button", onClick: toggleOtherPerk }, { children: [jsxRuntime.jsx(Checkbox, { variant: "outlined", color: "secondary", checked: !!onlySelected, onChange: toggleOtherPerk, className: 'ds-mr-1' }), jsxRuntime.jsx(Typography, Object.assign({ variant: "body2" }, { children: translations.checkboxLabel }))] }))), !displayedItems.length && noResultsElement, jsxRuntime.jsx("div", Object.assign({ id: "allTechnologiesPicker", className: 'ds-w-full ds-overflow-auto ds-scrollbar' }, { children: jsxRuntime.jsx(InfiniteScroll__default["default"], Object.assign({ className: `ds-pr-0 ds-flex ds-justify-center ds-flex-wrap sm:ds-ml-[unset]  ${(_b = classes === null || classes === void 0 ? void 0 : classes.technologiesList) !== null && _b !== void 0 ? _b : ''}`, dataLength: slicedItems.length, next: () => {
                         setShownItems(shownItems + DISPLAYED_ITEMS);
-                    }, hasMore: displayedItems.length > shownItems, loader: null, scrollableTarget: "allTechnologiesPicker" }, { children: slicedItems.map((item, index) => (jsxRuntime.jsx(TechnologyItem, { selectedItems: selectedItems, item: item, onAdd: onAdd, onDelete: onDelete, isMobile: isMobile }, `technology_${item.name}_${index}`))) })) }))] })));
+                    }, hasMore: displayedItems.length > shownItems, loader: null, scrollableTarget: "allTechnologiesPicker" }, { children: slicedItems.map((item, index) => (jsxRuntime.jsx(TechnologyItem, { selectedItems: selectedItems, item: item, onAdd: onAdd, onDelete: onDelete, isMobile: !!isMobile }, `technology_${item.name}_${index}`))) })) }))] })));
 };
 
 const CSS = /*#__PURE__*/Object.freeze({

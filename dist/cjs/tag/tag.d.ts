@@ -11,6 +11,7 @@ interface Props {
         typography?: string;
     };
     onClick?: (e: any) => void;
+    clickable?: boolean;
     onDelete?: (e: any) => void;
     size?: 'small' | 'xs' | 'regular';
 }
