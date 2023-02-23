@@ -19,6 +19,7 @@ export interface TechnologiesPickerProps {
         noResults?: React.ReactElement;
         additionalInformations?: React.ReactElement;
     };
+    hideSlider?: boolean;
 }
 
 export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
@@ -32,6 +33,7 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
     classes = {},
     translations,
     content,
+    hideSlider= false
 }) => {
     // const classes = useStyles({ classes: receivedClasses, isMobile });
 
@@ -68,6 +70,7 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
                             onDelete={onDeleteItem}
                             onChange={onArrayChange}
                             onItemChange={onArrayItemChange}
+                            hideSlider={hideSlider}
                         />
                     </div>
                 )}

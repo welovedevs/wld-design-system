@@ -27,6 +27,7 @@ const TechnologyRow = ({
     onChange,
     itemsLength,
     technologyIndex,
+    hideSlider
 }: {
     id: string;
     item: DevTechnology;
@@ -34,6 +35,7 @@ const TechnologyRow = ({
     onChange: (id: DevTechnology) => void;
     technologyIndex: number;
     itemsLength: number;
+    hideSlider?: boolean;
 }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
     const style = {
@@ -82,6 +84,7 @@ const TechnologyRow = ({
                 <Typography color="dark" variant="label">
                     {item.name}
                 </Typography>
+                {!hideSlider && (
                 <div className="ds-flex ds-items-center">
                     <Typography
                         classes={{
@@ -92,22 +95,23 @@ const TechnologyRow = ({
                     >
                         <span className="ds-font-medium">{item.value}</span>%
                     </Typography>
-                    <Slider
-                        color="primary"
-                        name={`skill_value_${item.name}`}
-                        value={item.value}
-                        onChange={sliderChange}
-                        min={0}
-                        max={100}
-                        step={5}
-                        classes={{ container: 'ds-w-12 ds-mr-1' }}
-                        popperCardProps={{
-                            classes: {
-                                popper: 'ds-z-[1302]',
-                            },
-                        }}
-                    />
+                        <Slider
+                            color="primary"
+                            name={`skill_value_${item.name}`}
+                            value={item.value}
+                            onChange={sliderChange}
+                            min={0}
+                            max={100}
+                            step={5}
+                            classes={{ container: 'ds-w-12 ds-mr-1' }}
+                            popperCardProps={{
+                                classes: {
+                                    popper: 'ds-z-[1302]',
+                                },
+                            }}
+                        />
                 </div>
+                    )}
             </div>
         </div>
     );
@@ -121,9 +125,11 @@ const SortableTechnologies = ({
     className,
     itemsLength,
     onSortEnd,
+    hideSlider
 }: Props & {
     itemsLength: number;
     onSortEnd: (props: { newIndex: any; oldIndex: any }) => any;
+    hideSlider?: boolean;
 }) => {
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -167,6 +173,7 @@ const SortableTechnologies = ({
                             technologyIndex={index}
                             item={item}
                             itemsLength={itemsLength}
+                            hideSlider={hideSlider}
                         />
                     ))}
                 </SortableContext>
@@ -182,6 +189,7 @@ interface Props {
     className?: string;
     onItemChange: (technology: DevTechnology) => void;
     classes?: { container?: string };
+    hideSlider?: boolean;
 }
 
 export const SelectedTechnologies: React.FC<Props> = ({
@@ -191,6 +199,7 @@ export const SelectedTechnologies: React.FC<Props> = ({
     className,
     onItemChange,
     classes = {},
+    hideSlider
 }) => {
     const itemsLength = useMemo(() => items.length, [items]);
 
@@ -213,6 +222,7 @@ export const SelectedTechnologies: React.FC<Props> = ({
             itemsLength={itemsLength}
             onChange={onChange}
             classes={classes}
+            hideSlider={hideSlider}
         />
     );
 };
