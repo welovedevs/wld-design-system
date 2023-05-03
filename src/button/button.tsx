@@ -49,10 +49,6 @@ export const Button = forwardRef<unknown, ButtonProps>(
             // @deprecated please use classes.typography
             typographyClassName,
             variant = 'text',
-            onMouseEnter,
-            onMouseLeave,
-            onFocus,
-            onBlur,
             onClick,
             classes = {},
             children,
