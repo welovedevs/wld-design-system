@@ -1,5 +1,5 @@
 import { PaletteColors, PaletteShade } from '../palette';
-import { Theme } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 export declare const flexUtils: {
     center: {
         display: string;

@@ -56,6 +56,12 @@ export const Tag: React.FC<Props> = forwardRef(
                     return palette?.tertiary?.[1000];
                 case 'safe':
                     return palette?.safe?.[1000];
+                case 'red':
+                    return palette?.red?.[900];
+                case 'orange':
+                    return palette?.orange?.[900];
+                case 'warn':
+                    return palette?.warn?.[2000];
                 default:
                     return color && palette?.[color]?.[800];
             }

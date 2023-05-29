@@ -1,5 +1,5 @@
 import React from 'react';
-import { PopperProps } from '@mui/material';
+import { PopperProps } from '@mui/material/Popper';
 import { PopperCustomClasses } from './popper_card_styles';
 interface Props {
     className?: string;

@@ -9,6 +9,7 @@ interface Props {
     classes?: {
         container?: string;
     };
+    hideSlider?: boolean;
 }
 export declare const SelectedTechnologies: React.FC<Props>;
 export {};

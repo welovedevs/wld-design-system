@@ -17,5 +17,6 @@ export interface TechnologiesPickerProps {
         noResults?: React.ReactElement;
         additionalInformations?: React.ReactElement;
     };
+    hideSlider?: boolean;
 }
 export declare const TechnologiesPicker: React.FC<TechnologiesPickerProps>;

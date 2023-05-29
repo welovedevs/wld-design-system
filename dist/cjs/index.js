@@ -6,42 +6,48 @@ var jsxRuntime = require('react/jsx-runtime');
 var React = require('react');
 var Autosuggest = require('react-autosuggest');
 var cn = require('classnames');
-var material = require('@mui/material');
+var IconButton = require('@mui/material/IconButton');
 var VisibilityOffIcon = require('@mui/icons-material/VisibilityOff');
 var VisibilityIcon = require('@mui/icons-material/Visibility');
 var makeStyles = require('@mui/styles/makeStyles');
+var ClickAwayListener = require('@mui/material/ClickAwayListener');
+var Popper = require('@mui/material/Popper');
 var merge = require('lodash/merge');
 var createStyles = require('@mui/styles/createStyles');
-var ClickAwayListener = require('@mui/material/ClickAwayListener');
 var CheckIcon$1 = require('@mui/icons-material/CheckCircle');
 var ErrorIcon = require('@mui/icons-material/Error');
 var InfoIcon = require('@mui/icons-material/Info');
 var MuiSlider = require('@mui/material/Slider');
 var get = require('lodash/get');
+var MuiTooltip = require('@mui/material/Tooltip');
 var last = require('lodash/last');
 var InfiniteScroll = require('react-infinite-scroll-component');
 var core = require('@dnd-kit/core');
 var sortable = require('@dnd-kit/sortable');
-var iconsMaterial = require('@mui/icons-material');
+var Cancel = require('@mui/icons-material/Cancel');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var Autosuggest__default = /*#__PURE__*/_interopDefaultLegacy(Autosuggest);
 var cn__default = /*#__PURE__*/_interopDefaultLegacy(cn);
+var IconButton__default = /*#__PURE__*/_interopDefaultLegacy(IconButton);
 var VisibilityOffIcon__default = /*#__PURE__*/_interopDefaultLegacy(VisibilityOffIcon);
 var VisibilityIcon__default = /*#__PURE__*/_interopDefaultLegacy(VisibilityIcon);
 var makeStyles__default = /*#__PURE__*/_interopDefaultLegacy(makeStyles);
+var ClickAwayListener__default = /*#__PURE__*/_interopDefaultLegacy(ClickAwayListener);
+var Popper__default = /*#__PURE__*/_interopDefaultLegacy(Popper);
 var merge__default = /*#__PURE__*/_interopDefaultLegacy(merge);
 var createStyles__default = /*#__PURE__*/_interopDefaultLegacy(createStyles);
-var ClickAwayListener__default = /*#__PURE__*/_interopDefaultLegacy(ClickAwayListener);
 var CheckIcon__default = /*#__PURE__*/_interopDefaultLegacy(CheckIcon$1);
 var ErrorIcon__default = /*#__PURE__*/_interopDefaultLegacy(ErrorIcon);
 var InfoIcon__default = /*#__PURE__*/_interopDefaultLegacy(InfoIcon);
 var MuiSlider__default = /*#__PURE__*/_interopDefaultLegacy(MuiSlider);
 var get__default = /*#__PURE__*/_interopDefaultLegacy(get);
+var MuiTooltip__default = /*#__PURE__*/_interopDefaultLegacy(MuiTooltip);
 var last__default = /*#__PURE__*/_interopDefaultLegacy(last);
 var InfiniteScroll__default = /*#__PURE__*/_interopDefaultLegacy(InfiniteScroll);
+var Cancel__default = /*#__PURE__*/_interopDefaultLegacy(Cancel);
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -81,7 +87,7 @@ const sizeStyles$2 = {
     small: 'ds-px-1 ds-py-1/2 ds-min-h-3 ds-leading-[16px] ds-text-[12px]',
     regular: 'ds-px-1.5 ds-py-1.5 ds-min-h-[40px] ds-text-[16px] ds-leading-[24px] ',
 };
-const variantStyles$1 = {
+const variantStyles = {
     flat: 'ds-border ds-border-solid ds-border-dark-50 ds-bg-[#f9f9f9]',
     raised: 'ds-bg-light-500 ds-shadow-md hover:ds-shadow-lg',
     underlined: 'ds-bg-transparent ds-border-0 ds-border-b-2 ds-border-solid ds-border-[#e8e8e8] ds-rounded-none',
@@ -107,10 +113,10 @@ const TextField = React.forwardRef((_a, ref) => {
     const togglePasswordVisiblity = () => {
         changeShowHidePassword(!showHidePassword);
     };
-    return (jsxRuntime.jsxs(ContainerElement, Object.assign({ ref: ref || containerRef, className: cn__default["default"](className, baseStyles$4.container, fullWidth && 'w-full', multiline && baseStyles$4.multilineContainer, variant && variantStyles$1[variant], disabled && variant && variantStyles$1[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.container) }, (containerProps &&
+    return (jsxRuntime.jsxs(ContainerElement, Object.assign({ ref: ref || containerRef, className: cn__default["default"](className, baseStyles$4.container, fullWidth && 'w-full', multiline && baseStyles$4.multilineContainer, variant && variantStyles[variant], disabled && variant && variantStyles[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.container) }, (containerProps &&
         containerProps.style && {
         style: containerProps.style,
-    }), containerProps, { children: [beforeChildren, jsxRuntime.jsx(InputComponent, Object.assign({ ref: inputRef, className: cn__default["default"](inputClassName, baseStyles$4.input, multiline && baseStyles$4.multilineInput, size && sizeStyles$2[size], variant && inputStyles[variant], disabled && inputStyles.disabled, disabled && variant && inputStyles[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.input), type: showHidePassword ? 'text' : type }, { rows, disabled }, other)), isPassword && (jsxRuntime.jsx(material.IconButton, Object.assign({ title: "Show/Hide password", className: "ds-w-5 ds-h-5 ds-ml-1", onClick: togglePasswordVisiblity, size: "large" }, { children: showHidePassword ? jsxRuntime.jsx(VisibilityOffIcon__default["default"], {}) : jsxRuntime.jsx(VisibilityIcon__default["default"], {}) }))), children] })));
+    }), containerProps, { children: [beforeChildren, jsxRuntime.jsx(InputComponent, Object.assign({ ref: inputRef, className: cn__default["default"](inputClassName, baseStyles$4.input, multiline && baseStyles$4.multilineInput, size && sizeStyles$2[size], variant && inputStyles[variant], disabled && inputStyles.disabled, disabled && variant && inputStyles[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.input), type: showHidePassword ? 'text' : type }, { rows, disabled }, other)), isPassword && (jsxRuntime.jsx(IconButton__default["default"], Object.assign({ title: "Show/Hide password", className: "ds-w-5 ds-h-5 ds-ml-1", onClick: togglePasswordVisiblity, size: "large" }, { children: showHidePassword ? jsxRuntime.jsx(VisibilityOffIcon__default["default"], {}) : jsxRuntime.jsx(VisibilityIcon__default["default"], {}) }))), children] })));
 });
 
 const ELEVATION_PROPS = {
@@ -236,7 +242,7 @@ const PopperCard = ({ className, anchorElement, open, onClose, popperProps, stru
     ]);
     const classes = useStyles({ classes: mergedClasses });
     const [arrowReference, setArrowReference] = React.useState(null);
-    return (jsxRuntime.jsx(material.Popper, Object.assign({ open: open }, containerProps, popperProps, { className: cn__default["default"](classes.popper, !open && classes.closedPopper, receivedClasses.popper, containerProps.className), anchorEl: anchorElement, modifiers: [
+    return (jsxRuntime.jsx(Popper__default["default"], Object.assign({ open: open }, containerProps, popperProps, { className: cn__default["default"](classes.popper, !open && classes.closedPopper, receivedClasses.popper, containerProps.className), anchorEl: anchorElement, modifiers: [
             {
                 name: 'flip',
                 enabled: true,
@@ -273,7 +279,7 @@ const Content = ({ className, dismissArrow, setArrowReference, onClickAway, stru
     }, [onClickAway]);
     const content = (jsxRuntime.jsxs("div", Object.assign({ className: classes.wrapper }, { children: [!dismissArrow && (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"](classes.arrowContainer), ref: setArrowReference }, { children: jsxRuntime.jsx(SpeechBubbleArrow, {}) }))), jsxRuntime.jsx(Card, Object.assign({ className: cn__default["default"](className, classes.container, structured && classes.structured) }, { children: children }))] })));
     if (onClickAway) {
-        return jsxRuntime.jsx(material.ClickAwayListener, Object.assign({ onClickAway: handleClickAway }, { children: content }));
+        return jsxRuntime.jsx(ClickAwayListener__default["default"], Object.assign({ onClickAway: handleClickAway }, { children: content }));
     }
     return content;
 };
@@ -492,6 +498,7 @@ const red = {
     700: '#b91c1c',
     800: '#991b1b',
     900: '#7f1d1d',
+    contrastDefaultColor: 'light',
 };
 const palette = {
     primary,
@@ -702,9 +709,8 @@ const Banner = ({ type = 'warning', className, icon: receivedIcon, classes = {},
 };
 
 const baseStyles$1 = {
-    container: 'ds-relative ds-group ds-m-1 ds-w-fit ds-h-fit ds-rounded-md ds-relative ds-overflow-hidden ds-flex ds-items-center ds-justify-center',
-    brightLayer: 'ds-absolute ds-h-full ds-w-full ds-top-0 ds-bottom-0 ds-left-0 ds-right-0 ds-opacity-0 ds-transition-all group-hover:ds-opacity-[0.25] ds-z-[1]',
-    typography: 'ds-flex ds-items-center ds-z-[2]',
+    container: 'ds-group ds-m-1 ds-w-fit ds-h-fit ds-rounded-md ds-relative ds-overflow-hidden ds-flex ds-items-center ds-justify-center focus:ds-outline',
+    typography: 'ds-flex ds-items-center',
     disabled: 'ds-cursor-not-allowed',
 };
 const sizeStyles$1 = {
@@ -712,35 +718,26 @@ const sizeStyles$1 = {
     small: 'ds-p-1 ds-text-[12px]',
     xs: 'ds-py-1/2 ds-px-1 ds-text-[11px]',
 };
-const typographysizeStyles = {
+const typographySizeStyles = {
     regular: '',
     small: 'ds-text-[12px]',
     xs: 'ds-text-[11px]',
 };
-const variantStyles = {
-    contained: 'ds-bg-current',
-    raised: 'ds-bg-current',
-    outlined: 'ds-border-current ds-border ds-border-solid',
-    text: '',
-    default: 'ds-bg-current'
-};
-const layerVariantStyles = {
-    contained: 'ds-bg-light-500 ',
-    raised: 'ds-bg-light-500 ',
-    outlined: 'ds-bg-current',
-    text: 'ds-bg-current',
-};
-const textVariantStyles = {
-    contained: '',
-    raised: '',
-    outlined: '!ds-text-current',
-    text: '!ds-text-current',
-};
 
-const ButtonComponent = React.forwardRef((_a, ref) => {
+const Button = React.forwardRef((_a, ref) => {
     var { component: Component = 'button', className, containerRef, disabled, size = 'regular', color, containerProps, 
     // @deprecated please use classes.typography
-    typographyClassName, variant, onMouseEnter, onMouseLeave, onFocus, onBlur, onClick, classes = {}, children, style: propsStyle } = _a, other = __rest(_a, ["component", "className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onMouseEnter", "onMouseLeave", "onFocus", "onBlur", "onClick", "classes", "children", "style"]);
+    typographyClassName, variant = 'text', onClick, classes = {
+        container: '',
+        typography: '',
+    }, children, style: propsStyle, type } = _a, other = __rest(_a, ["component", "className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onClick", "classes", "children", "style", "type"]);
+    const [isHovered, setIsHovered] = React.useState(false);
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
     const hexColor = React.useMemo(() => {
         var _a, _b, _c, _d;
         if (disabled) {
@@ -749,46 +746,93 @@ const ButtonComponent = React.forwardRef((_a, ref) => {
         const paletteColor = color && ((_d = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _d === void 0 ? void 0 : _d[500]);
         return paletteColor || (palette === null || palette === void 0 ? void 0 : palette.primary[300]);
     }, [disabled, color]);
-    const handleClick = React.useCallback((...paramaters) => {
+    const shadow = React.useMemo(() => {
+        if (variant === 'raised') {
+            return hexColor ? 'ds-shadow-[0_5px_15px_0]' : 'ds-shadow-[0_10px_20px_0]';
+        }
+        return null;
+    }, [hexColor]);
+    const handleClick = React.useCallback((...parameters) => {
         if (disabled) {
             return;
         }
         if (typeof onClick === 'function') {
-            onClick(...paramaters);
+            onClick(...parameters);
         }
     }, [onClick, disabled]);
-    let textColor = React.useMemo(() => {
-        if (variant === 'raised' || variant === 'contained') {
-            if (color === 'light') {
-                return 'primary';
-            }
-            return 'light';
-        }
-        return color;
-    }, [variant, color]);
-    return (jsxRuntime.jsxs(Component, Object.assign({ ref: ref || containerRef }, containerProps, { className: cn__default["default"](baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, variantStyles[variant !== null && variant !== void 0 ? variant : 'default'], className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign({ color: hexColor }, propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: [!disabled && jsxRuntime.jsx("div", { className: cn__default["default"](baseStyles$1.brightLayer, variant && layerVariantStyles[variant]) }), jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"](baseStyles$1.typography, variant && textVariantStyles[variant], size && typographysizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", color: textColor }, { children: children }))] })));
-});
-const RaisedButton = React.forwardRef((props, ref) => {
-    const { disabled, color: propsColor } = props;
-    const color = React.useMemo(() => {
+    const buttonStyle = React.useMemo(() => {
         var _a, _b, _c, _d;
-        if (disabled) {
-            return (_b = (propsColor && ((_a = palette === null || palette === void 0 ? void 0 : palette[propsColor]) === null || _a === void 0 ? void 0 : _a[100]))) !== null && _b !== void 0 ? _b : (_c = palette === null || palette === void 0 ? void 0 : palette['dark']) === null || _c === void 0 ? void 0 : _c[100];
+        const disabledColor = disabled && ((_b = (color && ((_a = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _a === void 0 ? void 0 : _a[100]))) !== null && _b !== void 0 ? _b : (_c = palette === null || palette === void 0 ? void 0 : palette['dark']) === null || _c === void 0 ? void 0 : _c[100]);
+        const paletteColor = color ? palette === null || palette === void 0 ? void 0 : palette[color] : palette === null || palette === void 0 ? void 0 : palette.indigo;
+        switch (variant) {
+            case 'text':
+                return {
+                    color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
+                    outlineColor: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[300],
+                };
+            case 'outlined':
+                return {
+                    color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
+                    outlineColor: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[300],
+                    backgroundColor: isHovered && !disabledColor ? (_d = paletteColor[100]) !== null && _d !== void 0 ? _d : palette === null || palette === void 0 ? void 0 : palette.indigo[100] : 'transparent',
+                };
+            case 'raised':
+            case 'contained':
+                return {
+                    color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[500],
+                    backgroundColor: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[400] : paletteColor[500],
+                    outlineColor: color === 'primary' ||
+                        color === 'secondary' ||
+                        color === 'tertiary' ||
+                        color === 'danger' ||
+                        color === 'safe'
+                        ? paletteColor[200]
+                        : paletteColor[300],
+                };
+            case 'soft':
+                return {
+                    color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[50],
+                    backgroundColor: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[100] : paletteColor[50],
+                    outlineColor: paletteColor[300],
+                };
         }
-        const paletteColor = propsColor && ((_d = palette === null || palette === void 0 ? void 0 : palette[propsColor]) === null || _d === void 0 ? void 0 : _d[500]);
-        return paletteColor || (palette === null || palette === void 0 ? void 0 : palette.dark[200]);
-    }, [disabled, propsColor]);
-    const shadow = React.useMemo(() => {
-        return color ? 'ds-shadow-[0_5px_15px_0]' : 'ds-shadow-[0_10px_20px_0]';
-    }, [color]);
-    return jsxRuntime.jsx(ButtonComponent, Object.assign({}, props, { ref }, { className: `${!disabled && shadow}` }));
-});
-const Button = React.forwardRef((props, ref) => {
-    const { variant = 'text' } = props, other = __rest(props, ["variant"]);
-    if (variant === 'raised') {
-        return jsxRuntime.jsx(RaisedButton, Object.assign({}, { variant, ref }, other));
-    }
-    return jsxRuntime.jsx(ButtonComponent, Object.assign({}, { variant, ref }, other));
+    }, [color, variant, disabled, isHovered]);
+    const textStyle = React.useMemo(() => {
+        var _a, _b, _c, _d, _e, _f;
+        const disabledColor = disabled && ((_b = (color && ((_a = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _a === void 0 ? void 0 : _a[100]))) !== null && _b !== void 0 ? _b : (_c = palette === null || palette === void 0 ? void 0 : palette['dark']) === null || _c === void 0 ? void 0 : _c[100]);
+        const paletteColor = color ? palette === null || palette === void 0 ? void 0 : palette[color] : palette === null || palette === void 0 ? void 0 : palette.indigo;
+        switch (variant) {
+            case 'soft': {
+                return color === 'light'
+                    ? {
+                        color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : palette === null || palette === void 0 ? void 0 : palette['primary'][600],
+                    }
+                    : {
+                        color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
+                    };
+            }
+            case 'text':
+            case 'outlined': {
+                return {
+                    color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
+                };
+            }
+            case 'raised':
+            case 'contained':
+            default: {
+                return color === 'light'
+                    ? {
+                        color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered)
+                            ? (_d = palette === null || palette === void 0 ? void 0 : palette['primary']) === null || _d === void 0 ? void 0 : _d[600]
+                            : (_e = palette === null || palette === void 0 ? void 0 : palette['primary']) === null || _e === void 0 ? void 0 : _e[500],
+                    }
+                    : {
+                        color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : (_f = palette === null || palette === void 0 ? void 0 : palette['light']) === null || _f === void 0 ? void 0 : _f[500],
+                    };
+            }
+        }
+    }, [variant, color, disabled]);
+    return (jsxRuntime.jsx(Component, Object.assign({ ref: ref || containerRef }, containerProps, { type: type !== null && type !== void 0 ? type : 'button', onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave, className: cn__default["default"](baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, !disabled && shadow, variant === 'outlined' && 'ds-border-current ds-border ds-border-solid', variant === 'soft' && 'ds-shadow-sm', variant === 'contained' ? 'ds-outline-2' : 'ds-outline-4', className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign(Object.assign({}, buttonStyle), propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"](baseStyles$1.typography, size && typographySizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", style: Object.assign({}, textStyle) }, { children: children })) })));
 });
 
 const baseClasses = {
@@ -987,7 +1031,7 @@ const Tag = React.forwardRef((_a, ref) => {
         xs: 'body3',
     };
     const textColor = React.useMemo(() => {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         switch (color) {
             case 'darkblue':
                 return (_a = palette === null || palette === void 0 ? void 0 : palette.light) === null || _a === void 0 ? void 0 : _a[500];
@@ -995,8 +1039,10 @@ const Tag = React.forwardRef((_a, ref) => {
                 return (_b = palette === null || palette === void 0 ? void 0 : palette.tertiary) === null || _b === void 0 ? void 0 : _b[1000];
             case 'safe':
                 return (_c = palette === null || palette === void 0 ? void 0 : palette.safe) === null || _c === void 0 ? void 0 : _c[1000];
+            case 'red':
+                return (_d = palette === null || palette === void 0 ? void 0 : palette.red) === null || _d === void 0 ? void 0 : _d[900];
             default:
-                return color && ((_d = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _d === void 0 ? void 0 : _d[800]);
+                return color && ((_e = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _e === void 0 ? void 0 : _e[800]);
         }
     }, [color, palette]);
     const bgColor = React.useMemo(() => {
@@ -1024,7 +1070,7 @@ const Tag = React.forwardRef((_a, ref) => {
                     color: textColor,
                 }, className: cn__default["default"]('ds-font-medium ds-flex ds-items-center', classes === null || classes === void 0 ? void 0 : classes.typography), variant: typographyVariant[size] || typographyVariant.regular, onMouseLeave: () => {
                     setHover(false);
-                } }, { children: children })), onDelete && (jsxRuntime.jsx(iconsMaterial.Cancel, { className: `ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ds-cursor-pointer`, style: {
+                } }, { children: children })), onDelete && (jsxRuntime.jsx(Cancel__default["default"], { className: `ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ds-cursor-pointer`, style: {
                     color: textColor,
                 }, onClick: onDelete }))] })));
 });
@@ -1037,7 +1083,7 @@ const TextFieldIcon = React.forwardRef((_a, ref) => {
 const Tooltip = React.forwardRef((_a, ref) => {
     var _b, _c;
     var { children, classes } = _a, other = __rest(_a, ["children", "classes"]);
-    return (jsxRuntime.jsx(material.Tooltip, Object.assign({ ref: ref }, other, { classes: Object.assign(Object.assign({}, classes), { tooltip: `${(_b = classes === null || classes === void 0 ? void 0 : classes.tooltip) !== null && _b !== void 0 ? _b : ''} ds-leading-[1.5] ds-text-[13px] ds-px-[12px] ds-py-2 ds-bg-[black]/[0.85] ds-text-light-500 ds-font-medium ds-max-w-[375px]`, popper: `${(_c = classes === null || classes === void 0 ? void 0 : classes.popper) !== null && _c !== void 0 ? _c : ''} z-[10000]` }) }, { children: children })));
+    return (jsxRuntime.jsx(MuiTooltip__default["default"], Object.assign({ ref: ref }, other, { classes: Object.assign(Object.assign({}, classes), { tooltip: `${(_b = classes === null || classes === void 0 ? void 0 : classes.tooltip) !== null && _b !== void 0 ? _b : ''} ds-leading-[1.5] ds-text-[13px] ds-px-[12px] ds-py-2 ds-bg-[black]/[0.85] ds-text-light-500 ds-font-medium ds-max-w-[375px]`, popper: `${(_c = classes === null || classes === void 0 ? void 0 : classes.popper) !== null && _c !== void 0 ? _c : ''} z-[10000]` }) }, { children: children })));
 });
 
 const useDebouncedValue = (value, duration = 500) => {
@@ -1196,7 +1242,7 @@ const TrashIcon = ({ className }) => (jsxRuntime.jsx("svg", Object.assign({ clas
 
 const MoveIcon = ({ className }) => (jsxRuntime.jsx("svg", Object.assign({ className: className, version: "1.1", viewBox: "0 0 40 40", xmlns: "http://www.w3.org/2000/svg" }, { children: jsxRuntime.jsxs("g", Object.assign({ transform: "scale(1.6667)", fill: "none", stroke: "#000", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5" }, { children: [jsxRuntime.jsx("path", { d: "m9 3.748 3-3 3 3" }), jsxRuntime.jsx("path", { d: "m15 20.248-3 3-3-3" }), jsxRuntime.jsx("path", { d: "m12 0.748v22.5" }), jsxRuntime.jsx("path", { d: "m3.75 14.998-3-3 3-3" }), jsxRuntime.jsx("path", { d: "m20.25 8.998 3 3-3 3" }), jsxRuntime.jsx("path", { d: "m0.75 11.998h22.5" })] })) })));
 
-const TechnologyRow = ({ id, item, onDelete: onRemove, onChange, itemsLength, technologyIndex, }) => {
+const TechnologyRow = ({ id, item, onDelete: onRemove, onChange, itemsLength, technologyIndex, hideSlider }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = sortable.useSortable({ id });
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -1216,15 +1262,15 @@ const TechnologyRow = ({ id, item, onDelete: onRemove, onChange, itemsLength, te
         return `https://process.filestackapi.com/auto_image/${handle !== null && handle !== void 0 ? handle : '4A5N89okRPW50jRcmkuM'}`;
     }, [item, technologies]);
     let divider = jsxRuntime.jsx("div", { className: "ds-bg-dark-50 ds-w-[1px] ds-h-6 ds-mx-2" });
-    return (jsxRuntime.jsxs("div", Object.assign({ ref: setNodeRef, className: 'ds flex ds-flex ds-items-center ds-w-full ds-p-0 ds-my-2 ds-relative ds-z-[1400]', style: Object.assign(Object.assign({}, style), { zIndex: itemsLength - technologyIndex }) }, { children: [jsxRuntime.jsx("button", Object.assign({}, attributes, listeners, { className: "ds-flex", type: "button" }, { children: jsxRuntime.jsx(MoveIcon, { className: "ds-w-2.5 ds-h-2.5" }) })), divider, jsxRuntime.jsx(Tooltip, Object.assign({ title: translations.deleteLabel }, { children: jsxRuntime.jsx("button", Object.assign({ className: "ds-flex", type: "button", onClick: () => onRemove(item.name) }, { children: jsxRuntime.jsx(TrashIcon, { className: "ds-fill-danger-500 ds-w-3 ds-h-3" }) })) })), divider, jsxRuntime.jsx(Card, Object.assign({ className: "ds-w-5 ds-h-5 !ds-p-1 ds-mx-1" }, { children: jsxRuntime.jsx("img", { className: 'ds-object-contain ds-w-full ds-h-full', alt: item.name, src: imgUrl }) })), jsxRuntime.jsxs("div", Object.assign({ className: "ds-flex-1" }, { children: [jsxRuntime.jsx(Typography, Object.assign({ color: "dark", variant: "label" }, { children: item.name })), jsxRuntime.jsxs("div", Object.assign({ className: "ds-flex ds-items-center" }, { children: [jsxRuntime.jsxs(Typography, Object.assign({ classes: {
+    return (jsxRuntime.jsxs("div", Object.assign({ ref: setNodeRef, className: 'ds flex ds-flex ds-items-center ds-w-full ds-p-0 ds-my-2 ds-relative ds-z-[1400]', style: Object.assign(Object.assign({}, style), { zIndex: itemsLength - technologyIndex }) }, { children: [jsxRuntime.jsx("button", Object.assign({}, attributes, listeners, { className: "ds-flex", type: "button" }, { children: jsxRuntime.jsx(MoveIcon, { className: "ds-w-2.5 ds-h-2.5" }) })), divider, jsxRuntime.jsx(Tooltip, Object.assign({ title: translations.deleteLabel }, { children: jsxRuntime.jsx("button", Object.assign({ className: "ds-flex", type: "button", onClick: () => onRemove(item.name) }, { children: jsxRuntime.jsx(TrashIcon, { className: "ds-fill-danger-500 ds-w-3 ds-h-3" }) })) })), divider, jsxRuntime.jsx(Card, Object.assign({ className: "ds-w-5 ds-h-5 !ds-p-1 ds-mx-1" }, { children: jsxRuntime.jsx("img", { className: 'ds-object-contain ds-w-full ds-h-full', alt: item.name, src: imgUrl }) })), jsxRuntime.jsxs("div", Object.assign({ className: "ds-flex-1" }, { children: [jsxRuntime.jsx(Typography, Object.assign({ color: "dark", variant: "label" }, { children: item.name })), !hideSlider && (jsxRuntime.jsxs("div", Object.assign({ className: "ds-flex ds-items-center" }, { children: [jsxRuntime.jsxs(Typography, Object.assign({ classes: {
                                     container: 'ds-w-5 ds-mb-0',
                                 }, color: "dark", variant: "body3" }, { children: [jsxRuntime.jsx("span", Object.assign({ className: "ds-font-medium" }, { children: item.value })), "%"] })), jsxRuntime.jsx(Slider, { color: "primary", name: `skill_value_${item.name}`, value: item.value, onChange: sliderChange, min: 0, max: 100, step: 5, classes: { container: 'ds-w-12 ds-mr-1' }, popperCardProps: {
                                     classes: {
                                         popper: 'ds-z-[1302]',
                                     },
-                                } })] }))] }))] })));
+                                } })] })))] }))] })));
 };
-const SortableTechnologies = ({ items, onDelete, onItemChange, classes, className, itemsLength, onSortEnd, }) => {
+const SortableTechnologies = ({ items, onDelete, onItemChange, classes, className, itemsLength, onSortEnd, hideSlider }) => {
     const sensors = core.useSensors(core.useSensor(core.PointerSensor), core.useSensor(core.KeyboardSensor, {
         coordinateGetter: sortable.sortableKeyboardCoordinates,
     }));
@@ -1239,19 +1285,19 @@ const SortableTechnologies = ({ items, onDelete, onItemChange, classes, classNam
             return onSortEnd({ oldIndex, newIndex });
         }
     }, [items]);
-    return (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"](classes === null || classes === void 0 ? void 0 : classes.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto !ds-z-[1301]', className) }, { children: jsxRuntime.jsx(core.DndContext, Object.assign({ sensors: sensors, collisionDetection: core.closestCenter, onDragEnd: handleDragEnd }, { children: jsxRuntime.jsx(sortable.SortableContext, Object.assign({ items: itemsWithId, strategy: sortable.verticalListSortingStrategy }, { children: itemsWithId.map((item, index) => (jsxRuntime.jsx(TechnologyRow, { onDelete: onDelete, id: item.id, onChange: onItemChange, technologyIndex: index, item: item, itemsLength: itemsLength }, `selected_technology_row_${item.name}_${index}`))) })) })) })));
+    return (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"](classes === null || classes === void 0 ? void 0 : classes.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto !ds-z-[1301]', className) }, { children: jsxRuntime.jsx(core.DndContext, Object.assign({ sensors: sensors, collisionDetection: core.closestCenter, onDragEnd: handleDragEnd }, { children: jsxRuntime.jsx(sortable.SortableContext, Object.assign({ items: itemsWithId, strategy: sortable.verticalListSortingStrategy }, { children: itemsWithId.map((item, index) => (jsxRuntime.jsx(TechnologyRow, { onDelete: onDelete, id: item.id, onChange: onItemChange, technologyIndex: index, item: item, itemsLength: itemsLength, hideSlider: hideSlider }, `selected_technology_row_${item.name}_${index}`))) })) })) })));
 };
-const SelectedTechnologies = ({ items, onChange, onDelete, className, onItemChange, classes = {}, }) => {
+const SelectedTechnologies = ({ items, onChange, onDelete, className, onItemChange, classes = {}, hideSlider }) => {
     const itemsLength = React.useMemo(() => items.length, [items]);
     const move = React.useCallback(({ oldIndex, newIndex }) => {
         if (typeof onChange === 'function') {
             onChange(sortable.arrayMove(items, oldIndex, newIndex).map((data, index) => (Object.assign(Object.assign({}, data), { index }))));
         }
     }, [items, onChange]);
-    return (jsxRuntime.jsx(SortableTechnologies, { className: className !== null && className !== void 0 ? className : '', items: items, onSortEnd: move, onItemChange: onItemChange, onDelete: onDelete, itemsLength: itemsLength, onChange: onChange, classes: classes }));
+    return (jsxRuntime.jsx(SortableTechnologies, { className: className !== null && className !== void 0 ? className : '', items: items, onSortEnd: move, onItemChange: onItemChange, onDelete: onDelete, itemsLength: itemsLength, onChange: onChange, classes: classes, hideSlider: hideSlider }));
 };
 
-const TechnologiesPicker = ({ isMobile, selectedValues = [], onAddItem, onDeleteItem, onArrayChange, onArrayItemChange, technologies, classes = {}, translations, content, }) => {
+const TechnologiesPicker = ({ isMobile, selectedValues = [], onAddItem, onDeleteItem, onArrayChange, onArrayItemChange, technologies, classes = {}, translations, content, hideSlider = false }) => {
     // const classes = useStyles({ classes: receivedClasses, isMobile });
     var _a;
     const technoPickerContext = React.useMemo(() => ({
@@ -1261,7 +1307,7 @@ const TechnologiesPicker = ({ isMobile, selectedValues = [], onAddItem, onDelete
     return (jsxRuntime.jsx(TechnologiesPickerContext.Provider, Object.assign({ value: technoPickerContext }, { children: jsxRuntime.jsxs("div", Object.assign({ className: `ds-flex ds-h-full ${(_a = classes === null || classes === void 0 ? void 0 : classes.container) !== null && _a !== void 0 ? _a : ''}` }, { children: [jsxRuntime.jsx(AllTechnologiesPicker, { isMobile: isMobile, technologies: technologies, selectedItems: selectedValues, onAdd: onAddItem, onDelete: onDeleteItem, noResultsElement: content === null || content === void 0 ? void 0 : content.noResults, additionalInformations: content === null || content === void 0 ? void 0 : content.additionalInformations, classes: {
                         container: `ds-flex-[125%] ${isMobile ? '' : 'ds-ml-2'} sm:ds-w-full`,
                         technologiesList: 'ds-scrollbar ds-overflow-x-hidden ds-overflow-y-auto',
-                    } }), !isMobile && jsxRuntime.jsx("div", { className: 'ds-bg-dark-100 ds-mr-2 ds-ml-4 ' }), !isMobile && (jsxRuntime.jsxs("div", Object.assign({ className: 'ds-flex-auto ds-flex ds-flex-col' }, { children: [content === null || content === void 0 ? void 0 : content.additionalInformations, jsxRuntime.jsx(SelectedTechnologies, { className: 'ds-flex-1', items: selectedValues, onDelete: onDeleteItem, onChange: onArrayChange, onItemChange: onArrayItemChange })] })))] })) })));
+                    } }), !isMobile && jsxRuntime.jsx("div", { className: 'ds-bg-dark-100 ds-mr-2 ds-ml-4 ' }), !isMobile && (jsxRuntime.jsxs("div", Object.assign({ className: 'ds-flex-auto ds-flex ds-flex-col' }, { children: [content === null || content === void 0 ? void 0 : content.additionalInformations, jsxRuntime.jsx(SelectedTechnologies, { className: 'ds-flex-1', items: selectedValues, onDelete: onDeleteItem, onChange: onArrayChange, onItemChange: onArrayItemChange, hideSlider: hideSlider })] })))] })) })));
 };
 
 const DEFAULT_THEME = {
@@ -1278,16 +1324,16 @@ const flexUtils = {
 };
 const withCustomVerticalScrollbar = (color = '#c1c1c1') => ({
     '&::-webkit-scrollbar-track': {
-        border: 0
+        border: 0,
     },
     '&::-webkit-scrollbar': {
-        width: '6px'
+        width: '6px',
     },
     '&::-webkit-scrollbar-thumb': {
-        backgroundColor: color
+        backgroundColor: color,
     },
     scrollbarWidth: 'thin',
-    scrollbarColor: `${color} transparent`
+    scrollbarColor: `${color} transparent`,
 });
 const getHexFromTheme = (inputTheme, color = 'primary', shade = 500) => {
     var _a, _b, _c;
@@ -1374,7 +1420,6 @@ exports.getComponentColor = getComponentColor;
 exports.getHexFromTheme = getHexFromTheme;
 exports.headingStyles = headingStyles;
 exports.indigo = indigo;
-exports.layerVariantStyles = layerVariantStyles;
 exports.light = light;
 exports.orange = orange;
 exports.palette = palette;
@@ -1384,9 +1429,7 @@ exports.safe = safe;
 exports.secondary = secondary;
 exports.sizeStyles = sizeStyles$1;
 exports.tertiary = tertiary;
-exports.textVariantStyles = textVariantStyles;
-exports.typographysizeStyles = typographysizeStyles;
-exports.variantStyles = variantStyles;
+exports.typographySizeStyles = typographySizeStyles;
 exports.warn = warn;
 exports.withCustomVerticalScrollbar = withCustomVerticalScrollbar;
 exports.wldStyles = wldStyles;

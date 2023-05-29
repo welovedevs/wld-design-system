@@ -1,19 +1,11 @@
-import React, { ButtonHTMLAttributes, forwardRef, useCallback, useMemo } from 'react';
+import React, { ButtonHTMLAttributes, forwardRef, useCallback, useMemo, useState } from 'react';
 
 import cn from 'classnames';
 import { Typography } from '../typography/typography';
 
 import { PaletteColors } from '../styles';
 
-import {
-    baseStyles,
-    ButtonVariants,
-    layerVariantStyles,
-    sizeStyles,
-    textVariantStyles,
-    typographysizeStyles,
-    variantStyles,
-} from './button_styles';
+import { baseStyles, ButtonVariants, sizeStyles, typographySizeStyles } from './button_styles';
 import { palette } from '../index';
 
 interface CustomProps {
@@ -50,7 +42,10 @@ export const Button = forwardRef<unknown, ButtonProps>(
             typographyClassName,
             variant = 'text',
             onClick,
-            classes = {},
+            classes = {
+                container: '',
+                typography: '',
+            },
             children,
             style: propsStyle,
             type,
@@ -58,6 +53,15 @@ export const Button = forwardRef<unknown, ButtonProps>(
         },
         ref
     ) => {
+        const [isHovered, setIsHovered] = useState<boolean>(false);
+
+        const handleMouseEnter = () => {
+            setIsHovered(true);
+        };
+
+        const handleMouseLeave = () => {
+            setIsHovered(false);
+        };
         const hexColor = useMemo(() => {
             if (disabled) {
                 return (color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100];
@@ -74,42 +78,107 @@ export const Button = forwardRef<unknown, ButtonProps>(
         }, [hexColor]);
 
         const handleClick = useCallback(
-            (...paramaters) => {
+            (...parameters) => {
                 if (disabled) {
                     return;
                 }
                 if (typeof onClick === 'function') {
-                    onClick(...paramaters);
+                    onClick(...parameters);
                 }
             },
             [onClick, disabled]
         );
 
-        const textColor: PaletteColors | undefined = useMemo(() => {
-            if (variant === 'raised' || variant === 'contained') {
-                if (color === 'light') {
-                    return 'primary';
-                }
-                return 'light';
+        const buttonStyle = useMemo(() => {
+            const disabledColor = disabled && ((color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100]);
+            const paletteColor = color ? palette?.[color] : palette?.indigo;
+            switch (variant) {
+                case 'text':
+                    return {
+                        color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
+                        outlineColor: disabledColor ?? paletteColor[300],
+                    };
+                case 'outlined':
+                    return {
+                        color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
+                        outlineColor: disabledColor ?? paletteColor[300],
+                        backgroundColor:
+                            isHovered && !disabledColor ? paletteColor[100] ?? palette?.indigo[100] : 'transparent',
+                    };
+                case 'raised':
+                case 'contained':
+                    return {
+                        color: disabledColor ?? paletteColor[500],
+                        backgroundColor: disabledColor ?? isHovered ? paletteColor[400] : paletteColor[500],
+                        outlineColor:
+                            color && ['primary', 'secondary', 'tertiary', 'danger', 'safe'].includes(color)
+                                ? paletteColor[200]
+                                : paletteColor[300],
+                    };
+                case 'soft':
+                    return {
+                        color: disabledColor ?? paletteColor[50],
+                        backgroundColor: disabledColor ?? isHovered ? paletteColor[100] : paletteColor[50],
+                        outlineColor: paletteColor[300],
+                    };
             }
-            return color;
-        }, [variant, color]);
+        }, [color, variant, disabled, isHovered]);
+        const textStyle = useMemo(() => {
+            const disabledColor = disabled && ((color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100]);
+            const paletteColor = color ? palette?.[color] : palette?.indigo;
+            switch (variant) {
+                case 'soft': {
+                    return color === 'light'
+                        ? {
+                              color: disabledColor ?? palette?.['primary'][600],
+                          }
+                        : {
+                              color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
+                          };
+                }
+                case 'text':
+                case 'outlined': {
+                    return {
+                        color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
+                    };
+                }
+                case 'raised':
+                case 'contained':
+                default: {
+                    return color === 'light'
+                        ? {
+                              color:
+                                  disabledColor ?? isHovered
+                                      ? palette?.['primary']?.[600]
+                                      : palette?.['primary']?.[500],
+                          }
+                        : {
+                              color: disabledColor ?? palette?.['light']?.[500],
+                          };
+                }
+            }
+        }, [variant, color, disabled, isHovered]);
+        const variantStaticClasses = `${variant === 'outlined' && 'ds-border-current ds-border ds-border-solid'} ${
+            variant === 'soft' && 'ds-shadow-sm'
+        } ${variant === 'contained' || variant === 'raised' ? 'ds-outline-4' : 'ds-outline-2'}`;
         return (
             <Component
                 ref={ref || containerRef}
                 {...containerProps}
                 type={type ?? 'button'}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 className={cn(
                     baseStyles.container,
                     (size && sizeStyles[size]) || sizeStyles.regular,
                     disabled && baseStyles.disabled,
                     !disabled && shadow,
-                    variantStyles[variant ?? 'default'],
+                    variantStaticClasses,
                     className,
                     classes?.container
                 )}
                 style={{
-                    color: hexColor,
+                    ...buttonStyle,
                     ...propsStyle,
                     // ...(withColor && { }),
                     ...(containerProps && containerProps.style),
@@ -117,16 +186,11 @@ export const Button = forwardRef<unknown, ButtonProps>(
                 onClick={handleClick}
                 {...other}
             >
-                {!disabled && <div className={cn(baseStyles.brightLayer, variant && layerVariantStyles[variant])} />}
                 <Typography
-                    className={cn(
-                        baseStyles.typography,
-                        variant && textVariantStyles[variant],
-                        size && typographysizeStyles[size],
-                        classes?.typography
-                    )}
+                    className={cn(baseStyles.typography, size && typographySizeStyles[size], classes?.typography)}
                     variant="button"
-                    color={textColor}
+                    style={{ ...textStyle }}
+                    ref={ref}
                 >
                     {children}
                 </Typography>

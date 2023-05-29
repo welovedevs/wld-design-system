@@ -23,5 +23,5 @@ interface CustomProps {
     style?: any;
 }
 export declare type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
-export declare const Button: React.FC<ButtonProps>;
+export declare const Button: React.ForwardRefExoticComponent<CustomProps & React.ButtonHTMLAttributes<HTMLButtonElement> & React.RefAttributes<unknown>>;
 export {};
