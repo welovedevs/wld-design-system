@@ -384,6 +384,7 @@ const warn = {
     700: '#f57c00',
     800: '#ef6c00',
     900: '#e65100',
+    2000: '#451A03',
     A100: '#ffd180',
     A200: '#ffab40',
     A400: '#ff9100',
@@ -683,18 +684,18 @@ const Banner = ({ type = 'warning', className, icon: receivedIcon, classes = {},
 
 const baseStyles$1 = {
     container: 'ds-group ds-m-1 ds-w-fit ds-h-fit ds-rounded-md ds-relative ds-overflow-hidden ds-flex ds-items-center ds-justify-center focus:ds-outline',
-    typography: 'ds-flex ds-items-center',
+    typography: 'ds-flex ds-items-center ds-normal-case !ds-font-semibold !ds-tracking-[0.5px]',
     disabled: 'ds-cursor-not-allowed',
 };
 const sizeStyles$1 = {
-    regular: 'ds-p-1.5 ',
-    small: 'ds-p-1 ds-text-[12px]',
-    xs: 'ds-py-1/2 ds-px-1 ds-text-[11px]',
+    regular: 'ds-px-1.5 ds-py-1 ds-text-base',
+    small: 'ds-px-1 ds-py-1 ds-text-sm',
+    xs: 'ds-px-1 ds-py-1/2 ds-text-xs',
 };
 const typographySizeStyles = {
     regular: '',
-    small: 'ds-text-[12px]',
-    xs: 'ds-text-[11px]',
+    small: 'ds-text-sm',
+    xs: 'ds-text-xs',
 };
 
 const Button = forwardRef((_a, ref) => {
@@ -754,11 +755,7 @@ const Button = forwardRef((_a, ref) => {
                 return {
                     color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[500],
                     backgroundColor: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[400] : paletteColor[500],
-                    outlineColor: color === 'primary' ||
-                        color === 'secondary' ||
-                        color === 'tertiary' ||
-                        color === 'danger' ||
-                        color === 'safe'
+                    outlineColor: color && ['primary', 'secondary', 'tertiary', 'danger', 'safe'].includes(color)
                         ? paletteColor[200]
                         : paletteColor[300],
                 };
@@ -804,8 +801,9 @@ const Button = forwardRef((_a, ref) => {
                     };
             }
         }
-    }, [variant, color, disabled]);
-    return (jsx(Component, Object.assign({ ref: ref || containerRef }, containerProps, { type: type !== null && type !== void 0 ? type : 'button', onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave, className: cn(baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, !disabled && shadow, variant === 'outlined' && 'ds-border-current ds-border ds-border-solid', variant === 'soft' && 'ds-shadow-sm', variant === 'contained' ? 'ds-outline-2' : 'ds-outline-4', className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign(Object.assign({}, buttonStyle), propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: jsx(Typography, Object.assign({ className: cn(baseStyles$1.typography, size && typographySizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", style: Object.assign({}, textStyle) }, { children: children })) })));
+    }, [variant, color, disabled, isHovered]);
+    const variantStaticClasses = `${variant === 'outlined' && 'ds-border-current ds-border ds-border-solid'} ${variant === 'soft' && 'ds-shadow-sm'} ${variant === 'contained' || variant === 'raised' ? 'ds-outline-4' : 'ds-outline-2'}`;
+    return (jsx(Component, Object.assign({ ref: ref || containerRef }, containerProps, { type: type !== null && type !== void 0 ? type : 'button', onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave, className: cn(baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, !disabled && shadow, variantStaticClasses, className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign(Object.assign({}, buttonStyle), propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: jsx(Typography, Object.assign({ className: cn(baseStyles$1.typography, size && typographySizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", style: Object.assign({}, textStyle), ref: ref }, { children: children })) })));
 });
 
 const baseClasses = {
@@ -1004,7 +1002,7 @@ const Tag = forwardRef((_a, ref) => {
         xs: 'body3',
     };
     const textColor = useMemo(() => {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f, _g;
         switch (color) {
             case 'darkblue':
                 return (_a = palette === null || palette === void 0 ? void 0 : palette.light) === null || _a === void 0 ? void 0 : _a[500];
@@ -1014,8 +1012,12 @@ const Tag = forwardRef((_a, ref) => {
                 return (_c = palette === null || palette === void 0 ? void 0 : palette.safe) === null || _c === void 0 ? void 0 : _c[1000];
             case 'red':
                 return (_d = palette === null || palette === void 0 ? void 0 : palette.red) === null || _d === void 0 ? void 0 : _d[900];
+            case 'orange':
+                return (_e = palette === null || palette === void 0 ? void 0 : palette.orange) === null || _e === void 0 ? void 0 : _e[900];
+            case 'warn':
+                return (_f = palette === null || palette === void 0 ? void 0 : palette.warn) === null || _f === void 0 ? void 0 : _f[2000];
             default:
-                return color && ((_e = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _e === void 0 ? void 0 : _e[800]);
+                return color && ((_g = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _g === void 0 ? void 0 : _g[800]);
         }
     }, [color, palette]);
     const bgColor = useMemo(() => {

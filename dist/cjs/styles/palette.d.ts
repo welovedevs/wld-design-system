@@ -88,6 +88,7 @@ export declare const warn: {
     700: string;
     800: string;
     900: string;
+    2000: string;
     A100: string;
     A200: string;
     A400: string;

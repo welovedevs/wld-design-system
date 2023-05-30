@@ -14,12 +14,12 @@ export const baseStyles = {
     disabled: 'ds-cursor-not-allowed',
 };
 export const sizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
-    regular: 'ds-p-1.5 ',
-    small: 'ds-p-1 ds-text-[12px]',
-    xs: 'ds-py-1/2 ds-px-1 ds-text-[11px]',
+    regular: 'ds-px-1.5 ds-py-1 ds-text-sm',
+    small: 'ds-px-1 ds-py-1/2 ds-text-sm',
+    xs: 'ds-px-1 ds-py-1/2 ds-text-xs',
 };
 export const typographySizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
-    regular: '',
-    small: 'ds-text-[12px]',
-    xs: 'ds-text-[11px]',
+    regular: 'ds-text-base',
+    small: 'ds-text-sm',
+    xs: 'ds-text-xs',
 };
