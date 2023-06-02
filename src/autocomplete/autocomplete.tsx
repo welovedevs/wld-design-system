@@ -20,9 +20,9 @@ interface Props {
     onChange: (value: any) => void;
     onSelect: (data: SuggestionSelectedEventData<any>) => void;
     getSuggestionValue: (value: any) => any;
-    renderSuggestion: (value: any) => 'string' | ReactElement | JSX.Element;
-    renderSuggestionsContainer: (value: any) => 'string' | ReactElement | JSX.Element;
-    renderInputComponent: (value: any) => 'string' | ReactElement | JSX.Element;
+    renderSuggestion?: (value: any) => 'string' | ReactElement | JSX.Element;
+    renderSuggestionsContainer?: (value: any) => 'string' | ReactElement | JSX.Element;
+    renderInputComponent?: (value: any) => 'string' | ReactElement | JSX.Element;
     filterFunction?: (input: string) => (value: any) => boolean;
     renderNoSuggestion?: (...attibutes: any[]) => 'string' | ReactElement | JSX.Element;
     maxLength?: number;
