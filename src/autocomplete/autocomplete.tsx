@@ -14,6 +14,7 @@ import { Checkbox } from '../checkbox/checkbox';
 
 interface Props {
     multiple?: boolean;
+    selectedSuggestions?: string[];
     placeholder?: string;
     suggestions: any[];
     onChange: (value: any) => void;
@@ -31,16 +32,6 @@ interface Props {
     transformSuggestionValue?: (value: any) => any;
     classes?: { popper?: string; field?: string };
     popperPlacement?: PopperProps['placement'];
-}
-
-interface MultipleProps {
-    multiple: true;
-    selectedSuggestions: string[];
-}
-
-interface NotMultipleProps {
-    multiple?: false | undefined;
-    selectedSuggestions?: never;
 }
 
 const defaultGetSuggestionValue = ({ value }: { value: any }) => value;
@@ -125,7 +116,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     popperPlacement,
     ...other
 }) => {
-    const inputReference = useRef();
+    const inputReference = useRef<any>();
 
     const [filteredSuggestions, setFilteredSuggetions] = useState<any[]>([]);
     const [value, setValue] = useState(propsValue || '');
@@ -275,10 +266,10 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
 };
 
 const MultipleAutoComplete: React.FC<
-    Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props & MultipleProps
+    Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props
 > = ({
     renderSuggestion: renderSuggestionProps,
-    selectedSuggestions: selectedSuggestionsProps,
+    selectedSuggestions: selectedSuggestionsProps = [],
     classes = {},
     transformSuggestionValue = (props: any) => props && props.value,
     onSelect: onSelectProps,
@@ -320,7 +311,7 @@ const MultipleAutoComplete: React.FC<
 };
 
 const WithMultipleAutoComplete: React.FC<
-    Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props & (MultipleProps | NotMultipleProps)
+    Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props
 > = ({ multiple = false, ...other }) => {
     if (multiple) {
         return <MultipleAutoComplete {...{ multiple }} {...other} />;
