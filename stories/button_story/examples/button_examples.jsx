@@ -28,7 +28,6 @@ const ButtonExamplesComponent = ({ variant }) => {
                 key={`button_${variant}_${size}_${id}`}
                 className={''}
                 onClick={handleClick}
-                disabled={true}
                 {...{ variant, size }}
                 {...otherProps}
             >
