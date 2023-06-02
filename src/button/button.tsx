@@ -63,7 +63,7 @@ export const Button = forwardRef<unknown, ButtonProps>(
             setIsHovered(false);
         };
         const hexColor = useMemo(() => {
-            if (disabled) {
+            if (!!disabled) {
                 return (color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100];
             }
             const paletteColor = color && palette?.[color]?.[500];
@@ -79,7 +79,7 @@ export const Button = forwardRef<unknown, ButtonProps>(
 
         const handleClick = useCallback(
             (...parameters) => {
-                if (disabled) {
+                if (!!disabled) {
                     return;
                 }
                 if (typeof onClick === 'function') {
@@ -90,7 +90,7 @@ export const Button = forwardRef<unknown, ButtonProps>(
         );
 
         const buttonStyle = useMemo(() => {
-            const disabledColor = disabled && ((color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100]);
+            const disabledColor = !!disabled && ((color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100]);
             const paletteColor = color ? palette?.[color] : palette?.indigo;
             switch (variant) {
                 case 'text':
@@ -124,22 +124,22 @@ export const Button = forwardRef<unknown, ButtonProps>(
             }
         }, [color, variant, disabled, isHovered]);
         const textStyle = useMemo(() => {
-            const disabledColor = disabled && ((color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100]);
+            const disabledColor = disabled && ((color && palette?.[color]?.[100]) ?? palette?.['dark']?.[300]);
             const paletteColor = color ? palette?.[color] : palette?.indigo;
             switch (variant) {
                 case 'soft': {
                     return color === 'light'
                         ? {
-                              color: disabledColor ?? palette?.['primary'][600],
+                              color: disabled ? disabledColor : palette?.['primary'][600],
                           }
                         : {
-                              color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
+                              color: disabled ? disabledColor : isHovered ? paletteColor[800] : paletteColor[600],
                           };
                 }
                 case 'text':
                 case 'outlined': {
                     return {
-                        color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
+                        color: disabled ? disabledColor : isHovered ? paletteColor[800] : paletteColor[600],
                     };
                 }
                 case 'raised':
@@ -147,13 +147,14 @@ export const Button = forwardRef<unknown, ButtonProps>(
                 default: {
                     return color === 'light'
                         ? {
-                              color:
-                                  disabledColor ?? isHovered
-                                      ? palette?.['primary']?.[600]
-                                      : palette?.['primary']?.[500],
+                              color: disabled
+                                  ? disabledColor
+                                  : isHovered
+                                  ? palette?.['primary']?.[600]
+                                  : palette?.['primary']?.[500],
                           }
                         : {
-                              color: disabledColor ?? palette?.['light']?.[500],
+                              color: disabled ? disabledColor : palette?.['light']?.[500],
                           };
                 }
             }
