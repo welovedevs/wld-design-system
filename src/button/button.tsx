@@ -90,36 +90,71 @@ export const Button = forwardRef<unknown, ButtonProps>(
         );
 
         const buttonStyle = useMemo(() => {
-            const disabledColor = !!disabled && ((color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100]);
+            const disabledColor = (color && palette?.[color]) ?? palette?.['dark'];
             const paletteColor = color ? palette?.[color] : palette?.indigo;
             switch (variant) {
                 case 'text':
                     return {
-                        color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
-                        outlineColor: disabledColor ?? paletteColor[300],
+                        color: disabled ? disabledColor : isHovered ? paletteColor[800] : paletteColor[600],
+                        outlineColor: disabled
+                            ? disabledColor[100]
+                            : color === 'light'
+                            ? palette['light'][500]
+                            : paletteColor[300],
                     };
                 case 'outlined':
                     return {
-                        color: disabledColor ?? isHovered ? paletteColor[800] : paletteColor[600],
-                        outlineColor: disabledColor ?? paletteColor[300],
+                        color: disabled
+                            ? disabledColor[100]
+                            : color === 'light'
+                            ? palette['light'][500]
+                            : isHovered
+                            ? paletteColor[800]
+                            : paletteColor[600],
+                        outlineColor: disabled
+                            ? disabledColor[100]
+                            : color === 'light'
+                            ? palette['light'][500]
+                            : paletteColor[300],
                         backgroundColor:
-                            isHovered && !disabledColor ? paletteColor[100] ?? palette?.indigo[100] : 'transparent',
+                            isHovered && !disabled
+                                ? color === 'light'
+                                    ? 'rgba(240, 240, 240, 0.5)'
+                                    : paletteColor[100] ?? palette?.indigo[100]
+                                : 'transparent',
                     };
                 case 'raised':
                 case 'contained':
                     return {
-                        color: disabledColor ?? paletteColor[500],
-                        backgroundColor: disabledColor ?? isHovered ? paletteColor[400] : paletteColor[500],
-                        outlineColor:
-                            color && ['primary', 'secondary', 'tertiary', 'danger', 'safe'].includes(color)
-                                ? paletteColor[200]
-                                : paletteColor[300],
+                        color: disabled ? disabledColor[100] : paletteColor[500],
+                        backgroundColor: disabled
+                            ? disabledColor[100]
+                            : isHovered
+                            ? paletteColor[400]
+                            : paletteColor[500],
+                        outlineColor: disabled
+                            ? disabledColor[200]
+                            : color === 'light'
+                            ? palette['indigo'][300]
+                            : color && ['primary', 'secondary', 'tertiary', 'danger', 'safe'].includes(color)
+                            ? paletteColor[200]
+                            : paletteColor[300],
                     };
                 case 'soft':
                     return {
-                        color: disabledColor ?? paletteColor[50],
-                        backgroundColor: disabledColor ?? isHovered ? paletteColor[100] : paletteColor[50],
-                        outlineColor: paletteColor[300],
+                        color: disabled ? disabledColor : paletteColor[50],
+                        backgroundColor: disabled
+                            ? disabledColor
+                            : isHovered
+                            ? color === 'light'
+                                ? palette['indigo'][50]
+                                : paletteColor[100]
+                            : paletteColor[50],
+                        outlineColor: disabled
+                            ? disabledColor[100]
+                            : color === 'light'
+                            ? palette['indigo'][300]
+                            : paletteColor[300],
                     };
             }
         }, [color, variant, disabled, isHovered]);
@@ -139,7 +174,13 @@ export const Button = forwardRef<unknown, ButtonProps>(
                 case 'text':
                 case 'outlined': {
                     return {
-                        color: disabled ? disabledColor : isHovered ? paletteColor[800] : paletteColor[600],
+                        color: disabled
+                            ? disabledColor
+                            : color === 'light'
+                            ? palette['light'][500]
+                            : isHovered
+                            ? paletteColor[800]
+                            : paletteColor[600],
                     };
                 }
                 case 'raised':
