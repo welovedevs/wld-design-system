@@ -161,6 +161,17 @@ export const Button = forwardRef<unknown, ButtonProps>(
         const variantStaticClasses = `${variant === 'outlined' && 'ds-border-current ds-border ds-border-solid'} ${
             variant === 'soft' && 'ds-shadow-sm'
         } ${variant === 'contained' || variant === 'raised' ? 'ds-outline-4' : 'ds-outline-2'}`;
+
+        const textColor: PaletteColors | undefined = useMemo(() => {
+            if (variant === 'raised' || variant === 'contained') {
+                if (color === 'light') {
+                    return 'primary';
+                }
+                return 'light';
+            }
+            return color;
+        }, [variant, color]);
+
         return (
             <Component
                 ref={ref || containerRef}
@@ -191,6 +202,7 @@ export const Button = forwardRef<unknown, ButtonProps>(
                     variant="button"
                     style={{ ...textStyle }}
                     ref={ref}
+                    color={textColor}
                 >
                     {children}
                 </Typography>
