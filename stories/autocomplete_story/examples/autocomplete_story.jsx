@@ -6,7 +6,8 @@ import { Typography } from '../../../src/typography/typography';
 import { AutoComplete } from '../../../src/autocomplete/autocomplete';
 import styles from './autocomplete_story_styles';
 import { Button, PopperCard } from '../../../src';
-import { omit } from 'lodash';
+import { Checkbox, ListItem, MenuItem } from '@mui/material';
+import { CheckBoxOutlineBlank, CheckBoxRounded } from '@mui/icons-material';
 
 const useStyles = makeStyles(styles);
 
@@ -78,7 +79,7 @@ export const MultipleStory = ({}) => {
         { value: 'Autocomplete' },
         { value: 'Butocomplete' },
         { value: 'Batocomplete' },
-        { value: 'Cutocomplete' }
+        { value: 'Cutocomplete' },
     ];
     const [value, setValue] = useState('');
     const [selectedSuggestions, setSelectedSuggestions] = useState([]);
@@ -86,13 +87,18 @@ export const MultipleStory = ({}) => {
         setValue(autocompleteValue);
     }, []);
 
-    const handleSelect = useCallback(({suggestionValue}) => {
-        if (selectedSuggestions.includes(suggestionValue)) {
-            setSelectedSuggestions((selectedSuggestions) => selectedSuggestions.filter((selectedSuggestion) => selectedSuggestion !== suggestionValue));
-        } else {
-            setSelectedSuggestions((selectedSuggestions) => [...selectedSuggestions, suggestionValue])
-        }
-    }, [selectedSuggestions])
+    const handleSelect = useCallback(
+        ({ suggestionValue }) => {
+            if (selectedSuggestions.includes(suggestionValue)) {
+                setSelectedSuggestions((selectedSuggestions) =>
+                    selectedSuggestions.filter((selectedSuggestion) => selectedSuggestion !== suggestionValue)
+                );
+            } else {
+                setSelectedSuggestions((selectedSuggestions) => [...selectedSuggestions, suggestionValue]);
+            }
+        },
+        [selectedSuggestions]
+    );
 
     return (
         <div className={classes.default}>
@@ -112,7 +118,7 @@ export const MultipleStory = ({}) => {
                 onSelect={handleSelect}
                 multiple
                 selectedSuggestions={selectedSuggestions}
-                />
+            />
         </div>
     );
 };

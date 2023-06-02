@@ -129,7 +129,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     useEffect(() => {
         const filter = suggestions.filter(filterFunction(value));
         setFilteredSuggetions(filter.slice(0, maxLength));
-    }, [suggestions]);
+    }, []);
 
     const renderSuggestion =
         renderSuggestionProps ||
@@ -179,7 +179,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     const filterSuggestions = useCallback(
         (data) => {
             const { value: inputValue, reason } = data;
-            if (multiple && reason === "'suggestion-selected") {
+            if (multiple && reason === "suggestion-selected") {
                 return;
             }
             if (!inputValue) {
@@ -247,6 +247,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     return (
         <ClickAwayListener onClickAway={setIsNotFocused}>
             <Autosuggest
+                alwaysRenderSuggestions={multiple ?? false}
                 suggestions={filteredSuggestions}
                 focusInputOnSuggestionClick={multiple ?? false}
                 getSuggestionValue={getSuggestionValue}
