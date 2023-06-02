@@ -6,6 +6,7 @@ import { Typography } from '../../../src/typography/typography';
 import { AutoComplete } from '../../../src/autocomplete/autocomplete';
 import styles from './autocomplete_story_styles';
 import { Button, PopperCard } from '../../../src';
+import { omit } from 'lodash';
 
 const useStyles = makeStyles(styles);
 
@@ -67,6 +68,51 @@ export const DefaultStory = ({}) => {
                 suggestions={defaultSuggestions}
                 alwaysRenderSuggestions
             />
+        </div>
+    );
+};
+
+export const MultipleStory = ({}) => {
+    const classes = useStyles();
+    const defaultSuggestions = [
+        { value: 'Autocomplete' },
+        { value: 'Butocomplete' },
+        { value: 'Batocomplete' },
+        { value: 'Cutocomplete' }
+    ];
+    const [value, setValue] = useState('');
+    const [selectedSuggestions, setSelectedSuggestions] = useState([]);
+    const handleInputChange = useCallback((autocompleteValue) => {
+        setValue(autocompleteValue);
+    }, []);
+
+    const handleSelect = useCallback(({suggestionValue}) => {
+        if (selectedSuggestions.includes(suggestionValue)) {
+            setSelectedSuggestions((selectedSuggestions) => selectedSuggestions.filter((selectedSuggestion) => selectedSuggestion !== suggestionValue));
+        } else {
+            setSelectedSuggestions((selectedSuggestions) => [...selectedSuggestions, suggestionValue])
+        }
+    }, [selectedSuggestions])
+
+    return (
+        <div className={classes.default}>
+            <Typography component="h1" variant="h1">
+                Multiple behaviour
+            </Typography>
+            <Typography component="h4" variant="h4">
+                {`Autocomplete value: ${value}`}
+            </Typography>
+            <Typography component="h4" variant="h4">
+                {`Selected values: ${JSON.stringify(selectedSuggestions)}`}
+            </Typography>
+            <AutoComplete
+                {...{ value }}
+                onChange={handleInputChange}
+                suggestions={defaultSuggestions}
+                onSelect={handleSelect}
+                multiple
+                selectedSuggestions={selectedSuggestions}
+                />
         </div>
     );
 };

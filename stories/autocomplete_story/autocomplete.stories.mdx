@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import {DefaultStory,  CustomDataStory, NoResultsStory} from './examples/autocomplete_story';
+import { DefaultStory, CustomDataStory, NoResultsStory, MultipleStory } from './examples/autocomplete_story';
 
 <Meta title="Components/Autocomplete" />
 
@@ -9,7 +9,15 @@ import {DefaultStory,  CustomDataStory, NoResultsStory} from './examples/autocom
 
 <Preview withSource="none">
     <Story name="Default">
-        <DefaultStory/>
+        <DefaultStory />
+    </Story>
+</Preview>
+
+## Multiple
+
+<Preview withSource="none">
+    <Story name="Multiple">
+        <MultipleStory />
     </Story>
 </Preview>
 
@@ -17,7 +25,7 @@ import {DefaultStory,  CustomDataStory, NoResultsStory} from './examples/autocom
 
 <Preview withSource="none">
     <Story name="Custom">
-       <CustomDataStory/>
+        <CustomDataStory />
     </Story>
 </Preview>
 
@@ -25,6 +33,6 @@ import {DefaultStory,  CustomDataStory, NoResultsStory} from './examples/autocom
 
 <Preview withSource="none">
     <Story name="No results">
-       <NoResultsStory/>
+        <NoResultsStory />
     </Story>
 </Preview>
