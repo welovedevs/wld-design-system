@@ -31,7 +31,7 @@ interface Props {
     name?: string;
     transformSuggestionValue?: (value: any) => any;
     classes?: { popper?: string; field?: string };
-    popperPlacement?: PopperProps['placement'];
+    popperProps: PopperProps;
 }
 
 const defaultGetSuggestionValue = ({ value }: { value: any }) => value;
@@ -42,16 +42,17 @@ const DEFAULT_FUNCTION = () => {};
 
 interface SuggestionContainerProps {
     containerProps?: any;
-    popperPlacement?: PopperProps['placement'];
-    anchorElement?: PopperProps['anchorEl'];
+    popperProps?: PopperProps;
+    anchorElement: PopperProps['anchorEl'];
     popperCustomClasses?: PopperCustomClasses;
     className: string;
 }
+
 const SuggestionsContainer: React.FC<SuggestionContainerProps> = ({
     containerProps,
-    popperPlacement,
-    anchorElement,
+    popperProps,
     children,
+    anchorElement,
     popperCustomClasses = {},
     className,
 }) => {
@@ -65,11 +66,10 @@ const SuggestionsContainer: React.FC<SuggestionContainerProps> = ({
         <PopperCard
             className={className}
             open={Boolean(children)}
-            popperProps={{
-                ...(popperPlacement && { placement: popperPlacement }),
-            }}
+            popperProps={popperProps}
             classes={popperCustomClasses}
-            {...{ anchorElement, containerProps }}
+            anchorElement={anchorElement}
+            {...{ containerProps }}
         >
             {children || lastChildrenRendered.current}
         </PopperCard>
@@ -113,7 +113,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     name,
     transformSuggestionValue = (props: any) => props && props.value,
     classes = {},
-    popperPlacement,
+    popperProps,
     ...other
 }) => {
     const inputReference = useRef<any>();
@@ -150,8 +150,9 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
             }
             return (
                 <SuggestionsContainer
+                    anchorElement={inputReference.current}
+                    popperProps={{ ...popperProps }}
                     {...{
-                        popperPlacement,
                         containerProps,
                         children,
                     }}
@@ -160,7 +161,6 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
                         popper: `${classes?.popper}`,
                         container: 'ds-overflow-auto ds-scrollbar ds-max-h-[400px]',
                     }}
-                    anchorElement={inputReference.current}
                 />
             );
         });
@@ -179,7 +179,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     const filterSuggestions = useCallback(
         (data) => {
             const { value: inputValue, reason } = data;
-            if (multiple && reason === "suggestion-selected") {
+            if (multiple && reason === 'suggestion-selected') {
                 return;
             }
             if (!inputValue) {
@@ -266,9 +266,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     );
 };
 
-const MultipleAutoComplete: React.FC<
-    Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props
-> = ({
+const MultipleAutoComplete: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props> = ({
     renderSuggestion: renderSuggestionProps,
     selectedSuggestions: selectedSuggestionsProps = [],
     classes = {},
@@ -311,9 +309,10 @@ const MultipleAutoComplete: React.FC<
     return <AutoCompleteComponent {...{ renderSuggestion, onSelect: handleSelectSuggestion }} {...other} />;
 };
 
-const WithMultipleAutoComplete: React.FC<
-    Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props
-> = ({ multiple = false, ...other }) => {
+const WithMultipleAutoComplete: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props> = ({
+    multiple = false,
+    ...other
+}) => {
     if (multiple) {
         return <MultipleAutoComplete {...{ multiple }} {...other} />;
     }
