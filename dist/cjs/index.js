@@ -87,7 +87,7 @@ const sizeStyles$2 = {
     small: 'ds-px-1 ds-py-1/2 ds-min-h-3 ds-leading-[16px] ds-text-[12px]',
     regular: 'ds-px-1.5 ds-py-1.5 ds-min-h-[40px] ds-text-[16px] ds-leading-[24px] ',
 };
-const variantStyles = {
+const variantStyles$1 = {
     flat: 'ds-border ds-border-solid ds-border-dark-50 ds-bg-[#f9f9f9]',
     raised: 'ds-bg-light-500 ds-shadow-md hover:ds-shadow-lg',
     underlined: 'ds-bg-transparent ds-border-0 ds-border-b-2 ds-border-solid ds-border-[#e8e8e8] ds-rounded-none',
@@ -113,7 +113,7 @@ const TextField = React.forwardRef((_a, ref) => {
     const togglePasswordVisiblity = () => {
         changeShowHidePassword(!showHidePassword);
     };
-    return (jsxRuntime.jsxs(ContainerElement, Object.assign({ ref: ref || containerRef, className: cn__default["default"](className, baseStyles$4.container, fullWidth && 'w-full', multiline && baseStyles$4.multilineContainer, variant && variantStyles[variant], disabled && variant && variantStyles[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.container) }, (containerProps &&
+    return (jsxRuntime.jsxs(ContainerElement, Object.assign({ ref: ref || containerRef, className: cn__default["default"](className, baseStyles$4.container, fullWidth && 'w-full', multiline && baseStyles$4.multilineContainer, variant && variantStyles$1[variant], disabled && variant && variantStyles$1[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.container) }, (containerProps &&
         containerProps.style && {
         style: containerProps.style,
     }), containerProps, { children: [beforeChildren, jsxRuntime.jsx(InputComponent, Object.assign({ ref: inputRef, className: cn__default["default"](inputClassName, baseStyles$4.input, multiline && baseStyles$4.multilineInput, size && sizeStyles$2[size], variant && inputStyles[variant], disabled && inputStyles.disabled, disabled && variant && inputStyles[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.input), type: showHidePassword ? 'text' : type }, { rows, disabled }, other)), isPassword && (jsxRuntime.jsx(IconButton__default["default"], Object.assign({ title: "Show/Hide password", className: "ds-w-5 ds-h-5 ds-ml-1", onClick: togglePasswordVisiblity, size: "large" }, { children: showHidePassword ? jsxRuntime.jsx(VisibilityOffIcon__default["default"], {}) : jsxRuntime.jsx(VisibilityIcon__default["default"], {}) }))), children] })));
@@ -304,7 +304,7 @@ const bodyStyles = {
 };
 const componentStyles = {
     tag: 'ds-text-[11px] ds-uppercase ds-font-bold ds-tracking-[0.8px]',
-    button: 'ds-text-[12px] ds-uppercase ds-font-medium ds-tracking-[0.8px]',
+    button: 'ds-font-semibold',
     helper: 'ds-text-[13px] ds-mt-2',
     label: `${bodyStyles.body2} ds-mb-1`,
 };
@@ -432,7 +432,15 @@ const orange = {
     contrastDefaultColor: 'light',
 };
 const light = {
+    50: '#fff',
+    100: '#fff',
+    200: '#fff',
+    300: '#fff',
+    400: '#fff',
     500: '#fff',
+    600: '#fff',
+    700: '#fff',
+    800: '#fff',
     900: '#fff',
     contrastDefaultColor: 'dark',
 };
@@ -561,79 +569,65 @@ const ListItem = (_a) => {
     }), other, { children: jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"]('ds-flex ds-items-center', classes === null || classes === void 0 ? void 0 : classes.typography, typographyClassName), color: "dark" }, { children: children })) })));
 };
 
+const baseClasses = {
+    container: 'ds-relative ds-margin-1 ds-cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center ds-group',
+    icon: 'ds-w-full ds-h-full ds-fill-current',
+    input: 'ds-h-full ds-w-full ds-absolute ds-top-0 ds-bottom-0 ds-right-0 ds-left-0 ds-cursor-[inherit] ds-p-0 ds-m-0 ds-z-10 ds-opacity-0',
+    layer: 'ds-w-full ds-w-full ds-absolute  ds-top-0 ds-bottom-0 ds-right-0 ds-left-0  ds-z-[5] ds-opacity-0 group-hover:ds-opacity-[.20] ds-transition-all',
+    size: {
+        regular: 'ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-p-1/2',
+        small: 'ds-w-2 ds-h-2 ds-min-w-2 ds-min-h-2 ds-p-[1.5px]',
+    },
+};
+const variantClasses = {
+    raised: 'ds-shadow-slim',
+    outlined: 'ds-border ds-border-solid ds-border-current',
+};
+const iconClasses = {
+    raised: 'ds-fill-[#fff] ',
+    outlined: '',
+    partial: 'ds-fill-current ',
+};
+const layerClasses = {
+    raised: 'ds-bg-[#fff]',
+    outlined: 'ds-bg-current',
+};
+
+const CheckboxComponent = React.forwardRef((_a, ref) => {
+    var _b, _c;
+    var { component: Component = 'div', checked, disabled, color, defaultColor: propsDefaultColor = palette === null || palette === void 0 ? void 0 : palette.primary[400], className, inputClassName, containerProps, onChange, variant = 'outlined', isRadio, classes = {}, partialCheck, size = 'regular' } = _a, other = __rest(_a, ["component", "checked", "disabled", "color", "defaultColor", "className", "inputClassName", "containerProps", "onChange", "variant", "isRadio", "classes", "partialCheck", "size"]);
+    const handleChange = React.useCallback((event) => {
+        if (disabled) {
+            return;
+        }
+        if (typeof onChange === 'function') {
+            onChange(event);
+        }
+    }, [disabled, onChange]);
+    return (jsxRuntime.jsxs(Component, Object.assign({ className: cn__default["default"](baseClasses.size[size], baseClasses.container, isRadio ? 'ds-rounded-full' : 'ds-rounded-md', disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]', checked && !disabled && variant === 'raised' && 'ds-bg-current', variant && variantClasses[variant], className), style: {
+            color: disabled ? palette === null || palette === void 0 ? void 0 : palette.dark[200] : (_c = (color && ((_b = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _b === void 0 ? void 0 : _b[500]))) !== null && _c !== void 0 ? _c : propsDefaultColor,
+        } }, containerProps, { ref }, { children: [jsxRuntime.jsx(CheckIcon, Object.assign({}, { checked, partialCheck: !!partialCheck }, { classes: {
+                    checkIcon: cn__default["default"](baseClasses.icon, checked && variant && iconClasses[variant], partialCheck && iconClasses['partial']),
+                } })), jsxRuntime.jsx("div", { className: cn__default["default"](baseClasses.layer, variant && layerClasses[variant]) }), jsxRuntime.jsx("input", Object.assign({ className: cn__default["default"](baseClasses.input, inputClassName), type: "checkbox", onChange: handleChange }, { checked }, other))] })));
+});
+const DEFAULT_ICON_PROPS = {
+    scale: 0.5,
+    opacity: 0,
+};
+const CHECKED_ICON_PROPS = {
+    scale: 1,
+    opacity: 1,
+};
+const CheckIcon = ({ checked: propsChecked, partialCheck, classes, }) => {
+    const checked = propsChecked || partialCheck;
+    React.useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
+    return (jsxRuntime.jsx("svg", Object.assign({ className: classes.checkIcon, viewBox: "0 0 24 24", fill: "#fff" }, { children: jsxRuntime.jsxs("g", { children: [propsChecked && jsxRuntime.jsx("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" }), !propsChecked && partialCheck && jsxRuntime.jsx("rect", { x: "4", y: "11", width: "17", height: "2" })] }) })));
+};
+const Checkbox = CheckboxComponent;
+
 const defaultGetSuggestionValue = ({ value }) => value;
 const defaultFilterSuggestion = (inputValue) => ({ value }) => inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 const DEFAULT_FUNCTION = () => { };
-function AutoComplete(_a) {
-    var { placeholder, suggestions, onChange = DEFAULT_FUNCTION, onSelect = DEFAULT_FUNCTION, getSuggestionValue = defaultGetSuggestionValue, renderSuggestion: renderSuggestionProps, filterFunction = defaultFilterSuggestion, renderNoSuggestion, maxLength = 10, value: propsValue = '', id, name, transformSuggestionValue = (props) => props && props.value, classes = {}, popperPlacement } = _a, other = __rest(_a, ["placeholder", "suggestions", "onChange", "onSelect", "getSuggestionValue", "renderSuggestion", "filterFunction", "renderNoSuggestion", "maxLength", "value", "id", "name", "transformSuggestionValue", "classes", "popperPlacement"]);
-    const inputReference = React.useRef();
-    const [filteredSuggestions, setFilteredSuggetions] = React.useState([]);
-    const [value, setValue] = React.useState(propsValue || '');
-    const [focused, setFocused] = React.useState(false);
-    React.useEffect(() => {
-        setValue(propsValue);
-    }, [propsValue]);
-    React.useEffect(() => {
-        const filter = suggestions.filter(filterFunction(value));
-        setFilteredSuggetions(filter.slice(0, maxLength));
-    }, [suggestions]);
-    const renderSuggestion = renderSuggestionProps ||
-        ((props) => (jsxRuntime.jsx(DefaultSuggestionsRender, Object.assign({}, {
-            classes,
-            value: transformSuggestionValue(props),
-        }))));
-    const filterSuggestions = React.useCallback(({ value: inputValue }) => {
-        if (!inputValue) {
-            setFilteredSuggetions(suggestions);
-            return;
-        }
-        const filter = suggestions.filter(filterFunction(inputValue));
-        setFilteredSuggetions(filter.slice(0, maxLength));
-    }, [suggestions]);
-    const clearSuggestions = React.useCallback(() => {
-        setFilteredSuggetions(suggestions);
-    }, []);
-    const valueChanged = React.useCallback((e, { newValue }) => {
-        setValue(newValue || '');
-        onChange(newValue);
-    }, [onChange]);
-    const suggestionSelected = React.useCallback((_, newValue) => {
-        const { suggestionValue } = newValue;
-        setValue(suggestionValue);
-        onChange && onChange(suggestionValue);
-        onSelect && onSelect(newValue);
-    }, [onChange, onSelect]);
-    const setIsFocused = React.useCallback(() => setFocused(true), []);
-    const setIsNotFocused = React.useCallback(() => setFocused(false), []);
-    const inputProps = {
-        id,
-        name,
-        placeholder,
-        value,
-        onChange: valueChanged,
-        onFocus: setIsFocused,
-    };
-    return (jsxRuntime.jsx(ClickAwayListener__default["default"], Object.assign({ onClickAway: setIsNotFocused }, { children: jsxRuntime.jsx(Autosuggest__default["default"], Object.assign({ suggestions: filteredSuggestions, focusInputOnSuggestionClick: false, getSuggestionValue: getSuggestionValue, onSuggestionsClearRequested: clearSuggestions, onSuggestionsFetchRequested: filterSuggestions, shouldRenderSuggestions: () => true, renderSuggestion: renderSuggestion, theme: {
-                suggestionsList: 'ds-list-none ds-p-0 ds-m-0 overflow-auto',
-            }, renderSuggestionsContainer: (props) => {
-                const { containerProps, children } = props;
-                if (value && !filteredSuggestions.length && typeof renderNoSuggestion === 'function') {
-                    return renderNoSuggestion({ anchorElement: inputReference.current, open: focused });
-                }
-                return (jsxRuntime.jsx(SuggestionsContainer, Object.assign({}, {
-                    popperPlacement,
-                    containerProps,
-                    children,
-                }, { className: 'ds-max-w-[600px]', popperCustomClasses: {
-                        popper: `${classes === null || classes === void 0 ? void 0 : classes.popper}`,
-                        container: 'ds-overflow-auto ds-scrollbar ds-max-h-[400px]',
-                    }, anchorElement: inputReference.current })));
-            }, onSuggestionSelected: suggestionSelected, renderInputComponent: (_a) => {
-                var _b;
-                var { onChange, size } = _a, props = __rest(_a, ["onChange", "size"]);
-                return (jsxRuntime.jsx(TextField, Object.assign({}, props, other, { inputRef: inputReference, className: (_b = classes === null || classes === void 0 ? void 0 : classes.field) !== null && _b !== void 0 ? _b : '', onChange: onChange })));
-            } }, { inputProps })) })));
-}
 const SuggestionsContainer = ({ containerProps, popperPlacement, anchorElement, children, popperCustomClasses = {}, className, }) => {
     const lastChildrenRendered = React.useRef(children);
     React.useEffect(() => {
@@ -644,6 +638,134 @@ const SuggestionsContainer = ({ containerProps, popperPlacement, anchorElement, 
     return (jsxRuntime.jsx(PopperCard, Object.assign({ className: className, open: Boolean(children), popperProps: Object.assign({}, (popperPlacement && { placement: popperPlacement })), classes: popperCustomClasses }, { anchorElement, containerProps }, { children: children || lastChildrenRendered.current })));
 };
 const DefaultSuggestionsRender = ({ value }) => (jsxRuntime.jsx(ListItem, Object.assign({ className: 'ds-rounded-md', button: true }, { children: jsxRuntime.jsx(Typography, Object.assign({ color: "dark" }, { children: value })) }), `prediction_${value}`));
+const DefaultMultipleSuggestionsRender = ({ value, classes, selectedValues, }) => (jsxRuntime.jsxs(ListItem, Object.assign({ className: 'ds-rounded-md', button: true }, { children: [jsxRuntime.jsx(Checkbox, { className: 'ds-mr-2', checked: selectedValues.includes(value) }), jsxRuntime.jsx(Typography, Object.assign({ color: "dark", classes: { container: classes.predictionListItem } }, { children: value }))] }), `prediction_${value}`));
+const AutoCompleteComponent = (_a) => {
+    var { multiple, placeholder, suggestions, onChange = DEFAULT_FUNCTION, onSelect = DEFAULT_FUNCTION, getSuggestionValue = defaultGetSuggestionValue, renderSuggestion: renderSuggestionProps, renderSuggestionsContainer: renderSuggestionsContainerProps, renderInputComponent: renderInputComponentProps, filterFunction = defaultFilterSuggestion, renderNoSuggestion, maxLength = 10, value: propsValue = '', id, name, transformSuggestionValue = (props) => props && props.value, classes = {}, popperPlacement } = _a, other = __rest(_a, ["multiple", "placeholder", "suggestions", "onChange", "onSelect", "getSuggestionValue", "renderSuggestion", "renderSuggestionsContainer", "renderInputComponent", "filterFunction", "renderNoSuggestion", "maxLength", "value", "id", "name", "transformSuggestionValue", "classes", "popperPlacement"]);
+    const inputReference = React.useRef();
+    const [filteredSuggestions, setFilteredSuggetions] = React.useState([]);
+    const [value, setValue] = React.useState(propsValue || '');
+    const [focused, setFocused] = React.useState(false);
+    React.useEffect(() => {
+        setValue(propsValue);
+    }, [propsValue]);
+    React.useEffect(() => {
+        const filter = suggestions.filter(filterFunction(value));
+        setFilteredSuggetions(filter.slice(0, maxLength));
+    }, []);
+    const renderSuggestion = renderSuggestionProps ||
+        ((props) => (jsxRuntime.jsx(DefaultSuggestionsRender, Object.assign({}, {
+            classes,
+            value: transformSuggestionValue(props),
+        }))));
+    const renderSuggestionsContainer = renderSuggestionsContainerProps ||
+        ((props) => {
+            const { containerProps, children } = props;
+            if (value && !filteredSuggestions.length && typeof renderNoSuggestion === 'function') {
+                return renderNoSuggestion({ anchorElement: inputReference.current, open: focused });
+            }
+            return (jsxRuntime.jsx(SuggestionsContainer, Object.assign({}, {
+                popperPlacement,
+                containerProps,
+                children,
+            }, { className: 'ds-max-w-[600px]', popperCustomClasses: {
+                    popper: `${classes === null || classes === void 0 ? void 0 : classes.popper}`,
+                    container: 'ds-overflow-auto ds-scrollbar ds-max-h-[400px]',
+                }, anchorElement: inputReference.current })));
+        });
+    const renderInputComponent = renderInputComponentProps ||
+        ((_a) => {
+            var _b;
+            var { onChange, size } = _a, props = __rest(_a, ["onChange", "size"]);
+            return (jsxRuntime.jsx(TextField, Object.assign({}, props, other, { inputRef: inputReference, className: (_b = classes === null || classes === void 0 ? void 0 : classes.field) !== null && _b !== void 0 ? _b : '', onChange: onChange })));
+        });
+    const filterSuggestions = React.useCallback((data) => {
+        const { value: inputValue, reason } = data;
+        if (multiple && reason === "suggestion-selected") {
+            return;
+        }
+        if (!inputValue) {
+            setFilteredSuggetions(suggestions);
+            return;
+        }
+        const filter = suggestions.filter(filterFunction(inputValue));
+        setFilteredSuggetions(filter.slice(0, maxLength));
+    }, [suggestions, multiple]);
+    const clearSuggestions = React.useCallback(() => {
+        setFilteredSuggetions([]);
+    }, []);
+    const valueChanged = React.useCallback((e, data) => {
+        const { newValue, method } = data;
+        if (!multiple || (multiple && method === 'type')) {
+            setValue(newValue || '');
+            onChange(newValue);
+        }
+    }, [onChange, multiple]);
+    const [valueSelected, setValueSelected] = React.useState(false);
+    const suggestionSelected = React.useCallback((_, newValue) => {
+        const { suggestionValue } = newValue;
+        if (!multiple) {
+            setValue(suggestionValue);
+            onChange && onChange(suggestionValue);
+        }
+        onSelect && onSelect(newValue);
+        setValueSelected(true);
+    }, [onChange, onSelect, multiple]);
+    const setIsFocused = React.useCallback(() => setFocused(true), []);
+    const setIsNotFocused = React.useCallback(() => setFocused(false), []);
+    React.useEffect(() => {
+        if (!multiple) {
+            return;
+        }
+        if (valueSelected) {
+            inputReference.current && inputReference.current.focus();
+            setValueSelected(false);
+            setIsFocused();
+        }
+    }, [multiple, valueSelected, inputReference.current, setIsFocused]);
+    const inputProps = {
+        id,
+        name,
+        placeholder,
+        value,
+        onChange: valueChanged,
+        onFocus: setIsFocused,
+    };
+    return (jsxRuntime.jsx(ClickAwayListener__default["default"], Object.assign({ onClickAway: setIsNotFocused }, { children: jsxRuntime.jsx(Autosuggest__default["default"], Object.assign({ alwaysRenderSuggestions: multiple !== null && multiple !== void 0 ? multiple : false, suggestions: filteredSuggestions, focusInputOnSuggestionClick: multiple !== null && multiple !== void 0 ? multiple : false, getSuggestionValue: getSuggestionValue, onSuggestionsClearRequested: clearSuggestions, onSuggestionsFetchRequested: filterSuggestions, renderSuggestion: renderSuggestion, theme: {
+                suggestionsList: 'ds-list-none ds-p-0 ds-m-0 overflow-auto',
+            }, renderSuggestionsContainer: renderSuggestionsContainer, onSuggestionSelected: suggestionSelected, renderInputComponent: renderInputComponent }, { inputProps })) })));
+};
+const MultipleAutoComplete = (_a) => {
+    var { renderSuggestion: renderSuggestionProps, selectedSuggestions: selectedSuggestionsProps = [], classes = {}, transformSuggestionValue = (props) => props && props.value, onSelect: onSelectProps } = _a, other = __rest(_a, ["renderSuggestion", "selectedSuggestions", "classes", "transformSuggestionValue", "onSelect"]);
+    const [selectedSuggestions, setSelectedSuggestions] = React.useState([]);
+    React.useEffect(() => {
+        setSelectedSuggestions(selectedSuggestionsProps);
+    }, [selectedSuggestionsProps]);
+    const handleSelectSuggestion = React.useCallback((newValue) => {
+        const { suggestionValue } = newValue;
+        if (selectedSuggestions.includes(suggestionValue)) {
+            setSelectedSuggestions((selectedSuggestions) => selectedSuggestions.filter((selectedSuggestion) => selectedSuggestion !== suggestionValue));
+        }
+        else {
+            setSelectedSuggestions((selectedSuggestions) => [...selectedSuggestions, suggestionValue]);
+        }
+        onSelectProps && onSelectProps(newValue);
+    }, [selectedSuggestions, onSelectProps]);
+    const renderSuggestion = renderSuggestionProps ||
+        ((props) => (jsxRuntime.jsx(DefaultMultipleSuggestionsRender, Object.assign({}, {
+            classes,
+            value: transformSuggestionValue(props),
+            selectedValues: selectedSuggestions,
+        }))));
+    return jsxRuntime.jsx(AutoCompleteComponent, Object.assign({}, { renderSuggestion, onSelect: handleSelectSuggestion }, other));
+};
+const WithMultipleAutoComplete = (_a) => {
+    var { multiple = false } = _a, other = __rest(_a, ["multiple"]);
+    if (multiple) {
+        return jsxRuntime.jsx(MultipleAutoComplete, Object.assign({}, { multiple }, other));
+    }
+    return jsxRuntime.jsx(AutoCompleteComponent, Object.assign({}, other));
+};
+const AutoComplete = WithMultipleAutoComplete;
 
 const WarningIcon = ({ className }) => (jsxRuntime.jsxs("svg", Object.assign({ className: className, width: "30px", height: "25px", viewBox: "0 0 30 25", version: "1.1" }, { children: [jsxRuntime.jsx("title", { children: "Warning icon" }), jsxRuntime.jsx("desc", { children: "Warning - WeLoveDevs" }), jsxRuntime.jsx("g", Object.assign({ id: "Page-1", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "Company-Main-Card", transform: "translate(-69.000000, -60.000000)" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "Group-3", transform: "translate(49.000000, 46.000000)" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "Group-2", transform: "translate(19.000000, 11.000000)" }, { children: jsxRuntime.jsxs("g", Object.assign({ id: "warning-24px" }, { children: [jsxRuntime.jsx("polygon", { id: "Path", points: "0 0 32 0 32 32 0 32" }), jsxRuntime.jsx("path", { d: "M2.73141008,28 L29.2685899,28 C29.8208747,28 30.2685899,27.5522847 30.2685899,27 C30.2685899,26.824572 30.2224408,26.6522307 30.1347755,26.5002775 L16.8661856,3.50138835 C16.5901965,3.02300726 15.9786586,2.85893613 15.5002775,3.13492522 C15.348042,3.22275344 15.2216426,3.34915276 15.1338144,3.50138835 L1.86522449,26.5002775 C1.5892354,26.9786586 1.75330654,27.5901965 2.23168762,27.8661856 C2.38364083,27.9538509 2.55598208,28 2.73141008,28 Z M17.3636364,23.8947368 L14.6363636,23.8947368 L14.6363636,21.1578947 L17.3636364,21.1578947 L17.3636364,23.8947368 Z M17.3636364,18.4210526 L14.6363636,18.4210526 L14.6363636,12.9473684 L17.3636364,12.9473684 L17.3636364,18.4210526 Z", id: "Shape", fill: "currentcolor", fillRule: "nonzero" })] })) })) })) })) }))] })));
 
@@ -710,35 +832,45 @@ const Banner = ({ type = 'warning', className, icon: receivedIcon, classes = {},
 };
 
 const baseStyles$1 = {
-    container: 'ds-group ds-m-1 ds-w-fit ds-h-fit ds-rounded-md ds-relative ds-overflow-hidden ds-flex ds-items-center ds-justify-center focus:ds-outline',
-    typography: 'ds-flex ds-items-center ds-normal-case !ds-font-semibold !ds-tracking-[0.5px]',
+    container: 'ds-relative ds-group ds-m-1 ds-w-fit ds-h-fit ds-rounded-md ds-relative ds-overflow-hidden ds-flex ds-items-center ds-justify-center',
+    brightLayer: 'ds-absolute ds-h-full ds-w-full ds-top-0 ds-bottom-0 ds-left-0 ds-right-0 ds-opacity-0 ds-transition-all group-hover:ds-opacity-[0.25] ds-z-[1]',
+    typography: 'ds-flex ds-items-center ds-z-[2]',
     disabled: 'ds-cursor-not-allowed',
 };
 const sizeStyles$1 = {
-    regular: 'ds-px-1.5 ds-py-1 ds-text-base',
-    small: 'ds-px-1 ds-py-1 ds-text-sm',
-    xs: 'ds-px-1 ds-py-1/2 ds-text-xs',
+    regular: 'ds-p-1.5 ',
+    small: 'ds-p-1 ds-text-[12px]',
+    xs: 'ds-py-1/2 ds-px-1 ds-text-[11px]',
 };
-const typographySizeStyles = {
+const typographysizeStyles = {
     regular: '',
-    small: 'ds-text-sm',
-    xs: 'ds-text-xs',
+    small: 'ds-text-[12px]',
+    xs: 'ds-text-[11px]',
+};
+const variantStyles = {
+    contained: 'ds-bg-current',
+    raised: 'ds-bg-current',
+    outlined: 'ds-border-current ds-border ds-border-solid',
+    text: '',
+    default: 'ds-bg-current'
+};
+const layerVariantStyles = {
+    contained: 'ds-bg-light-500 ',
+    raised: 'ds-bg-light-500 ',
+    outlined: 'ds-bg-current',
+    text: 'ds-bg-current',
+};
+const textVariantStyles = {
+    contained: '',
+    raised: '',
+    outlined: '!ds-text-current',
+    text: '!ds-text-current',
 };
 
 const Button = React.forwardRef((_a, ref) => {
     var { component: Component = 'button', className, containerRef, disabled, size = 'regular', color, containerProps, 
     // @deprecated please use classes.typography
-    typographyClassName, variant = 'text', onClick, classes = {
-        container: '',
-        typography: '',
-    }, children, style: propsStyle, type } = _a, other = __rest(_a, ["component", "className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onClick", "classes", "children", "style", "type"]);
-    const [isHovered, setIsHovered] = React.useState(false);
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    };
+    typographyClassName, variant = 'text', onClick, classes = {}, children, style: propsStyle, type } = _a, other = __rest(_a, ["component", "className", "containerRef", "disabled", "size", "color", "containerProps", "typographyClassName", "variant", "onClick", "classes", "children", "style", "type"]);
     const hexColor = React.useMemo(() => {
         var _a, _b, _c, _d;
         if (disabled) {
@@ -753,141 +885,25 @@ const Button = React.forwardRef((_a, ref) => {
         }
         return null;
     }, [hexColor]);
-    const handleClick = React.useCallback((...parameters) => {
+    const handleClick = React.useCallback((...paramaters) => {
         if (disabled) {
             return;
         }
         if (typeof onClick === 'function') {
-            onClick(...parameters);
+            onClick(...paramaters);
         }
     }, [onClick, disabled]);
-    const buttonStyle = React.useMemo(() => {
-        var _a, _b, _c, _d;
-        const disabledColor = disabled && ((_b = (color && ((_a = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _a === void 0 ? void 0 : _a[100]))) !== null && _b !== void 0 ? _b : (_c = palette === null || palette === void 0 ? void 0 : palette['dark']) === null || _c === void 0 ? void 0 : _c[100]);
-        const paletteColor = color ? palette === null || palette === void 0 ? void 0 : palette[color] : palette === null || palette === void 0 ? void 0 : palette.indigo;
-        switch (variant) {
-            case 'text':
-                return {
-                    color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
-                    outlineColor: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[300],
-                };
-            case 'outlined':
-                return {
-                    color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
-                    outlineColor: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[300],
-                    backgroundColor: isHovered && !disabledColor ? (_d = paletteColor[100]) !== null && _d !== void 0 ? _d : palette === null || palette === void 0 ? void 0 : palette.indigo[100] : 'transparent',
-                };
-            case 'raised':
-            case 'contained':
-                return {
-                    color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[500],
-                    backgroundColor: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[400] : paletteColor[500],
-                    outlineColor: color && ['primary', 'secondary', 'tertiary', 'danger', 'safe'].includes(color)
-                        ? paletteColor[200]
-                        : paletteColor[300],
-                };
-            case 'soft':
-                return {
-                    color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : paletteColor[50],
-                    backgroundColor: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[100] : paletteColor[50],
-                    outlineColor: paletteColor[300],
-                };
+    const textColor = React.useMemo(() => {
+        if (variant === 'raised' || variant === 'contained') {
+            if (color === 'light') {
+                return 'primary';
+            }
+            return 'light';
         }
-    }, [color, variant, disabled, isHovered]);
-    const textStyle = React.useMemo(() => {
-        var _a, _b, _c, _d, _e, _f;
-        const disabledColor = disabled && ((_b = (color && ((_a = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _a === void 0 ? void 0 : _a[100]))) !== null && _b !== void 0 ? _b : (_c = palette === null || palette === void 0 ? void 0 : palette['dark']) === null || _c === void 0 ? void 0 : _c[100]);
-        const paletteColor = color ? palette === null || palette === void 0 ? void 0 : palette[color] : palette === null || palette === void 0 ? void 0 : palette.indigo;
-        switch (variant) {
-            case 'soft': {
-                return color === 'light'
-                    ? {
-                        color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : palette === null || palette === void 0 ? void 0 : palette['primary'][600],
-                    }
-                    : {
-                        color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
-                    };
-            }
-            case 'text':
-            case 'outlined': {
-                return {
-                    color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered) ? paletteColor[800] : paletteColor[600],
-                };
-            }
-            case 'raised':
-            case 'contained':
-            default: {
-                return color === 'light'
-                    ? {
-                        color: (disabledColor !== null && disabledColor !== void 0 ? disabledColor : isHovered)
-                            ? (_d = palette === null || palette === void 0 ? void 0 : palette['primary']) === null || _d === void 0 ? void 0 : _d[600]
-                            : (_e = palette === null || palette === void 0 ? void 0 : palette['primary']) === null || _e === void 0 ? void 0 : _e[500],
-                    }
-                    : {
-                        color: disabledColor !== null && disabledColor !== void 0 ? disabledColor : (_f = palette === null || palette === void 0 ? void 0 : palette['light']) === null || _f === void 0 ? void 0 : _f[500],
-                    };
-            }
-        }
-    }, [variant, color, disabled, isHovered]);
-    const variantStaticClasses = `${variant === 'outlined' && 'ds-border-current ds-border ds-border-solid'} ${variant === 'soft' && 'ds-shadow-sm'} ${variant === 'contained' || variant === 'raised' ? 'ds-outline-4' : 'ds-outline-2'}`;
-    return (jsxRuntime.jsx(Component, Object.assign({ ref: ref || containerRef }, containerProps, { type: type !== null && type !== void 0 ? type : 'button', onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave, className: cn__default["default"](baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, !disabled && shadow, variantStaticClasses, className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign(Object.assign({}, buttonStyle), propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"](baseStyles$1.typography, size && typographySizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", style: Object.assign({}, textStyle), ref: ref }, { children: children })) })));
+        return color;
+    }, [variant, color]);
+    return (jsxRuntime.jsxs(Component, Object.assign({ ref: ref || containerRef }, containerProps, { type: type !== null && type !== void 0 ? type : 'button', className: cn__default["default"](baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, !disabled && shadow, variantStyles[variant !== null && variant !== void 0 ? variant : 'default'], className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign({ color: hexColor }, propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: [!disabled && jsxRuntime.jsx("div", { className: cn__default["default"](baseStyles$1.brightLayer, variant && layerVariantStyles[variant]) }), jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"](baseStyles$1.typography, variant && textVariantStyles[variant], size && typographysizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", color: textColor }, { children: children }))] })));
 });
-
-const baseClasses = {
-    container: 'ds-relative ds-margin-1 ds-cursor-pointer ds-overflow-hidden ds-m-1 ds-flex ds-items-center ds-justify-center ds-group',
-    icon: 'ds-w-full ds-h-full ds-fill-current',
-    input: 'ds-h-full ds-w-full ds-absolute ds-top-0 ds-bottom-0 ds-right-0 ds-left-0 ds-cursor-[inherit] ds-p-0 ds-m-0 ds-z-10 ds-opacity-0',
-    layer: 'ds-w-full ds-w-full ds-absolute  ds-top-0 ds-bottom-0 ds-right-0 ds-left-0  ds-z-[5] ds-opacity-0 group-hover:ds-opacity-[.20] ds-transition-all',
-    size: {
-        regular: 'ds-w-3 ds-h-3 ds-min-w-3 ds-min-h-3 ds-p-1/2',
-        small: 'ds-w-2 ds-h-2 ds-min-w-2 ds-min-h-2 ds-p-[1.5px]',
-    },
-};
-const variantClasses = {
-    raised: 'ds-shadow-slim',
-    outlined: 'ds-border ds-border-solid ds-border-current',
-};
-const iconClasses = {
-    raised: 'ds-fill-[#fff] ',
-    outlined: '',
-    partial: 'ds-fill-current ',
-};
-const layerClasses = {
-    raised: 'ds-bg-[#fff]',
-    outlined: 'ds-bg-current',
-};
-
-const CheckboxComponent = React.forwardRef((_a, ref) => {
-    var _b, _c;
-    var { component: Component = 'div', checked, disabled, color, defaultColor: propsDefaultColor = palette === null || palette === void 0 ? void 0 : palette.primary[400], className, inputClassName, containerProps, onChange, variant = 'outlined', isRadio, classes = {}, partialCheck, size = 'regular' } = _a, other = __rest(_a, ["component", "checked", "disabled", "color", "defaultColor", "className", "inputClassName", "containerProps", "onChange", "variant", "isRadio", "classes", "partialCheck", "size"]);
-    const handleChange = React.useCallback((event) => {
-        if (disabled) {
-            return;
-        }
-        if (typeof onChange === 'function') {
-            onChange(event);
-        }
-    }, [disabled, onChange]);
-    return (jsxRuntime.jsxs(Component, Object.assign({ className: cn__default["default"](baseClasses.size[size], baseClasses.container, isRadio ? 'ds-rounded-full' : 'ds-rounded-md', disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]', checked && !disabled && variant === 'raised' && 'ds-bg-current', variant && variantClasses[variant], className), style: {
-            color: disabled ? palette === null || palette === void 0 ? void 0 : palette.dark[200] : (_c = (color && ((_b = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _b === void 0 ? void 0 : _b[500]))) !== null && _c !== void 0 ? _c : propsDefaultColor,
-        } }, containerProps, { ref }, { children: [jsxRuntime.jsx(CheckIcon, Object.assign({}, { checked, partialCheck: !!partialCheck }, { classes: {
-                    checkIcon: cn__default["default"](baseClasses.icon, checked && variant && iconClasses[variant], partialCheck && iconClasses['partial']),
-                } })), jsxRuntime.jsx("div", { className: cn__default["default"](baseClasses.layer, variant && layerClasses[variant]) }), jsxRuntime.jsx("input", Object.assign({ className: cn__default["default"](baseClasses.input, inputClassName), type: "checkbox", onChange: handleChange }, { checked }, other))] })));
-});
-const DEFAULT_ICON_PROPS = {
-    scale: 0.5,
-    opacity: 0,
-};
-const CHECKED_ICON_PROPS = {
-    scale: 1,
-    opacity: 1,
-};
-const CheckIcon = ({ checked: propsChecked, partialCheck, classes, }) => {
-    const checked = propsChecked || partialCheck;
-    React.useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
-    return (jsxRuntime.jsx("svg", Object.assign({ className: classes.checkIcon, viewBox: "0 0 24 24", fill: "#fff" }, { children: jsxRuntime.jsxs("g", { children: [propsChecked && jsxRuntime.jsx("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" }), !propsChecked && partialCheck && jsxRuntime.jsx("rect", { x: "4", y: "11", width: "17", height: "2" })] }) })));
-};
-const Checkbox = CheckboxComponent;
 
 const List = (_a) => {
     var { className, classes } = _a, other = __rest(_a, ["className", "classes"]);
@@ -1422,6 +1438,7 @@ exports.getComponentColor = getComponentColor;
 exports.getHexFromTheme = getHexFromTheme;
 exports.headingStyles = headingStyles;
 exports.indigo = indigo;
+exports.layerVariantStyles = layerVariantStyles;
 exports.light = light;
 exports.orange = orange;
 exports.palette = palette;
@@ -1431,7 +1448,9 @@ exports.safe = safe;
 exports.secondary = secondary;
 exports.sizeStyles = sizeStyles$1;
 exports.tertiary = tertiary;
-exports.typographySizeStyles = typographySizeStyles;
+exports.textVariantStyles = textVariantStyles;
+exports.typographysizeStyles = typographysizeStyles;
+exports.variantStyles = variantStyles;
 exports.warn = warn;
 exports.withCustomVerticalScrollbar = withCustomVerticalScrollbar;
 exports.wldStyles = wldStyles;

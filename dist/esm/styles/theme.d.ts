@@ -12,5 +12,6 @@ export declare const DEFAULT_THEME: {
         readonly indigo: any;
         readonly purple: any;
         readonly light: any;
+        readonly red: any;
     };
 };
