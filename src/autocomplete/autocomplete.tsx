@@ -31,7 +31,7 @@ interface Props {
     name?: string;
     transformSuggestionValue?: (value: any) => any;
     classes?: { popper?: string; field?: string };
-    popperProps: PopperProps;
+    popperProps?: Partial<PopperProps>;
 }
 
 const defaultGetSuggestionValue = ({ value }: { value: any }) => value;
@@ -42,7 +42,7 @@ const DEFAULT_FUNCTION = () => {};
 
 interface SuggestionContainerProps {
     containerProps?: any;
-    popperProps?: PopperProps;
+    popperProps?: Partial<PopperProps>;
     anchorElement: PopperProps['anchorEl'];
     popperCustomClasses?: PopperCustomClasses;
     className: string;
