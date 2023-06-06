@@ -22,8 +22,8 @@ export const sizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: str
 };
 export const typographysizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
     regular: '',
-    small: 'ds-text-[14px] ds-tracking-wider',
-    xs: 'ds-text-[12px] ds-tracking-wider',
+    small: 'ds-text-[14px] ds-tracking-wide',
+    xs: 'ds-text-[12px] ds-tracking-wide',
 };
 
 export const variantStyles: { [key in Exclude<ButtonProps['variant'], undefined> | 'default']: string } = {
