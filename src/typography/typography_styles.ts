@@ -21,7 +21,7 @@ export const bodyStyles = {
 
 export const componentStyles = {
     tag: 'ds-text-[11px] ds-uppercase ds-font-bold ds-tracking-[0.8px]',
-    button: 'ds-font-semibold',
+    button: 'ds-font-medium',
     helper: 'ds-text-[13px] ds-mt-2',
     label: `${bodyStyles.body2} ds-mb-1`,
 };

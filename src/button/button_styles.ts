@@ -16,14 +16,14 @@ export const baseStyles = {
     disabled: 'ds-cursor-not-allowed',
 };
 export const sizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
-    regular: 'ds-p-1.5 ',
-    small: 'ds-p-1 ds-text-[12px]',
-    xs: 'ds-py-1/2 ds-px-1 ds-text-[11px]',
+    regular: 'ds-p-[10px] ',
+    small: 'ds-p-1',
+    xs: 'ds-py-1/2 ds-px-1',
 };
 export const typographysizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
     regular: '',
-    small: 'ds-text-[12px]',
-    xs: 'ds-text-[11px]',
+    small: 'ds-text-[14px] ds-tracking-wider',
+    xs: 'ds-text-[12px] ds-tracking-wider',
 };
 
 export const variantStyles: { [key in Exclude<ButtonProps['variant'], undefined> | 'default']: string } = {
