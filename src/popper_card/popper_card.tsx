@@ -1,18 +1,16 @@
 import React, { useCallback, useMemo, useState, useRef } from 'react';
 
 import cn from 'classnames';
-import { ClassNameMap } from '@mui/styles';
-import makeStyles from '@mui/styles/makeStyles';
 
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Popper, { PopperProps } from '@mui/material/Popper';
 import { Card } from '../card/card';
 
-import { PopperCustomClasses, styles } from './popper_card_styles';
+import { PopperCustomClasses } from './popper_card_styles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
+import { PopperPlacementType } from "@mui/material";
 
-const useStyles = makeStyles(styles);
 
 interface Props {
     className?: string;
@@ -28,28 +26,25 @@ interface Props {
     containerProps?: any;
 }
 
-type ClassesRecord = ClassNameMap<
-    'container' | 'popper' | 'closedPopper' | 'arrowContainer' | 'structured' | 'wrapper'
->;
 export const PopperCard: React.FC<Props> = ({
-    className,
-    anchorElement,
-    open,
-    onClose,
-    popperProps,
-    structured,
-    onClickAway,
-    dismissArrow = false,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-    containerProps = {},
-    children,
-}) => {
+                                                className,
+                                                anchorElement,
+                                                open,
+                                                onClose,
+                                                popperProps,
+                                                structured,
+                                                onClickAway,
+                                                dismissArrow = false,
+                                                customClasses: oldCustomClasses = {},
+                                                classes: receivedClasses = {},
+                                                containerProps = {},
+                                                children,
+                                            }) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });
+    const classes = mergedClasses;
     const [arrowReference, setArrowReference] = useState(null);
     return (
         <Popper
@@ -57,8 +52,8 @@ export const PopperCard: React.FC<Props> = ({
             {...containerProps}
             {...popperProps}
             className={cn(
-                classes.popper,
-                !open && classes.closedPopper,
+                'ds-z-[100]',
+                !open && 'ds-pointer-events-none ds-top-0 ds-left-0',
                 receivedClasses.popper,
                 containerProps.className
             )}
@@ -76,6 +71,12 @@ export const PopperCard: React.FC<Props> = ({
                     },
                 },
                 {
+                    name: 'offset',
+                    options: {
+                        offset: [0, 16], // décaler le popper de 10px vers le bas
+                    },
+                },
+                {
                     name: 'arrow',
                     enabled: true,
                     options: {
@@ -85,18 +86,22 @@ export const PopperCard: React.FC<Props> = ({
                 ...((popperProps && popperProps.modifiers) || []),
             ]}
         >
-            <Content
-                {...{
-                    className,
-                    setArrowReference,
-                    structured,
-                    dismissArrow,
-                    onClickAway,
-                    classes,
-                }}
-            >
-                {children}
-            </Content>
+            {({placement}) => (
+                <Content
+                    {...{
+                        placement,
+                        className,
+                        setArrowReference,
+                        structured,
+                        dismissArrow,
+                        onClickAway,
+                        classes,
+                    }}
+                >
+                    {children}
+                </Content>
+            )}
+
         </Popper>
     );
 };
@@ -107,18 +112,20 @@ interface PopperContentProps {
     setArrowReference: (...parameters: any[]) => void;
     onClickAway?: (...parameters: any[]) => void;
     structured?: boolean;
-    classes: ClassesRecord;
+    classes: any;
+    placement: PopperPlacementType;
 }
 
 const Content: React.FC<PopperContentProps> = ({
-    className,
-    dismissArrow,
-    setArrowReference,
-    onClickAway,
-    structured,
-    classes,
-    children,
-}) => {
+                                                   className,
+                                                   dismissArrow,
+                                                   setArrowReference,
+                                                   placement,
+                                                   onClickAway,
+                                                   structured,
+                                                   classes,
+                                                   children,
+                                               }) => {
     const handleClickAway = useCallback(
         (...parameters) => {
             if (typeof onClickAway === 'function') {
@@ -129,13 +136,29 @@ const Content: React.FC<PopperContentProps> = ({
     );
 
     const content = (
-        <div className={classes.wrapper}>
+        <div>
             {!dismissArrow && (
-                <div className={cn(classes.arrowContainer)} ref={setArrowReference}>
-                    <SpeechBubbleArrow />
+
+                <div className={'ds-z-10'} ref={setArrowReference} style={{
+                    bottom: placement.includes("bottom") ? "calc(100% + 16px)" : placement.includes("top") ? 4 : undefined,
+                    right: placement.includes("left") ? 11 : placement.includes("right") ? "calc(100% + 23px)" : undefined
+                }}>
+                    <div style={{
+                        position: 'absolute',
+                        transform: placement.includes("bottom") ? "rotate(0deg)" :
+                            placement.includes("top") ? "rotate(180deg)" :
+                                placement.includes("right") ? "rotate(-90deg)" :
+                                    placement.includes("left") ? "rotate(90deg)" : undefined,
+                        left: placement.includes("bottom") ? -16 : undefined,
+                        top: placement.includes("right") ? -10 : undefined,
+                        bottom: placement.includes("left") ? -10 : undefined,
+                        right: placement.includes("top") ? -19 : undefined,
+                    }}>
+                        <SpeechBubbleArrow/>
+                    </div>
                 </div>
             )}
-            <Card className={cn(className, classes.container, structured && classes.structured)}>{children}</Card>
+            <Card className={cn(className, 'ds-relative', structured && 'ds-p-0')}>{children}</Card>
         </div>
     );
     if (onClickAway) {

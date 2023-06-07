@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SpeechBubbleArrow: React.FC<{ className?: string }> = ({ className }) => (
+export const SpeechBubbleArrow: React.FC<{ className?: string }> = ({className}) => (
     <svg
         className={className}
         width="34px"
@@ -10,15 +10,8 @@ export const SpeechBubbleArrow: React.FC<{ className?: string }> = ({ className 
         xmlns="http://www.w3.org/2000/svg"
     >
         <g id="Page-1">
-            <g id="Artboard" transform="translate(-157.000000, -56.000000)">
-                <g id="Rectangle" transform="translate(157.000000, 56.000000)">
-                    <g id="path-1">
-                        <path id="path-1" fill="none" stroke="#b3b3b3" d="M0.7,15.9c3.6,0,6.9-2,8.7-5.1l5.1-9.2c0.8-1.4,2.6-2,4.1-1.2c0.5,0.3,0.9,0.7,1.2,1.2
-					l5.1,9.2c1.7,3.2,5.1,5.1,8.7,5.1"/>
-                    </g>
-                </g>
-            </g>
-            <path fill="#FFFFFF" d="M24.9,10.8l-5.1-9.2c-0.3-0.5-0.7-0.9-1.2-1.2c-1.4-0.8-3.3-0.3-4.1,1.2l-5.1,9.2c-1.8,3.2-5.1,5.1-8.7,5.1
+
+            <path style={{filter:'drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3))'}} fill="#FFFFFF" d="M24.9,10.8l-5.1-9.2c-0.3-0.5-0.7-0.9-1.2-1.2c-1.4-0.8-3.3-0.3-4.1,1.2l-5.1,9.2c-1.8,3.2-5.1,5.1-8.7,5.1
 		v2.9h32.9v-2.9C30,15.9,26.6,13.9,24.9,10.8z"/>
         </g>
     </svg>
