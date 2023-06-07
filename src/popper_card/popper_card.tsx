@@ -143,7 +143,7 @@ const Content: React.FC<PopperContentProps> = ({
                     bottom: placement.includes("bottom") ? "calc(100% + 16px)" : placement.includes("top") ? 4 : undefined,
                     right: placement.includes("left") ? 11 : placement.includes("right") ? "calc(100% + 23px)" : undefined
                 }}>
-                    <div style={{
+                    <div className={"ds-leading-none"} style={{
                         position: 'absolute',
                         transform: placement.includes("bottom") ? "rotate(0deg)" :
                             placement.includes("top") ? "rotate(180deg)" :

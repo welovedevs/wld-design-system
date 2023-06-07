@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import makeStyles from '@mui/styles/makeStyles';
 
 import { Typography } from '../../../src/typography/typography';
 
@@ -9,10 +8,8 @@ import { Button, PopperCard } from '../../../src';
 import { Checkbox, ListItem, MenuItem } from '@mui/material';
 import { CheckBoxOutlineBlank, CheckBoxRounded } from '@mui/icons-material';
 
-const useStyles = makeStyles(styles);
 
 export const DefaultStory = ({}) => {
-    const classes = useStyles();
     const defaultSuggestions = [
         { value: 'Autocomplete' },
         { value: 'Butocomplete' },
@@ -56,7 +53,7 @@ export const DefaultStory = ({}) => {
         setValue(autocompleteValue);
     }, []);
     return (
-        <div className={classes.default}>
+        <div className={''}>
             <Typography component="h1" variant="h1">
                 Default behaviour
             </Typography>
