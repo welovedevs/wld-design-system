@@ -140,8 +140,8 @@ const Content: React.FC<PopperContentProps> = ({
             {!dismissArrow && (
 
                 <div className={'ds-z-10'} ref={setArrowReference} style={{
-                    bottom: placement.includes("bottom") ? "calc(100% + 16px)" : placement.includes("top") ? 4 : undefined,
-                    right: placement.includes("left") ? 11 : placement.includes("right") ? "calc(100% + 23px)" : undefined
+                    bottom: placement.includes("bottom") ? "calc(100% + 16px)" : placement.includes("top") ? 0 : undefined,
+                    right: placement.includes("left") ? 9 : placement.includes("right") ? "calc(100% + 25px)" : undefined
                 }}>
                     <div className={"ds-leading-none"} style={{
                         position: 'absolute',
@@ -154,7 +154,7 @@ const Content: React.FC<PopperContentProps> = ({
                         bottom: placement.includes("left") ? -10 : undefined,
                         right: placement.includes("top") ? -19 : undefined,
                     }}>
-                        <SpeechBubbleArrow/>
+                        <SpeechBubbleArrow className={"ds-block"}/>
                     </div>
                 </div>
             )}

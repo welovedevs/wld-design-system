@@ -5,7 +5,7 @@ export const SpeechBubbleArrow: React.FC<{ className?: string }> = ({className})
         className={className}
         width="34px"
         height="16px"
-        viewBox="0 0 34 16"
+        viewBox="0 -1 34 17"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
     >
