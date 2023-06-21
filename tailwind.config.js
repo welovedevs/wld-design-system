@@ -242,7 +242,7 @@ module.exports = {
             xs: { max: '400px' },
         },
         fontFamily: {
-            w3d: ['Plus Jakarta Sans', 'Avenir Next', 'open sans', 'Arial'],
+            w3d: ['var(--font-plus_jakarta_sans)', 'Plus Jakarta Sans', 'Avenir Next', 'open sans', 'Arial'],
         },
         extend: {
             spacing: sizes,
