@@ -27,6 +27,7 @@ export * from './technologies/technologies/technology';
 export * from './technologies/selected_technologies/selected_technologies';
 export * from './technologies/all_technologies_picker/all_technologies_picker';
 
+export * from './select/select';
 
 export * from './styles/theme';
 export * from './styles/palette';
