@@ -9,8 +9,7 @@ import { Card } from '../card/card';
 import { PopperCustomClasses } from './popper_card_styles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
-import { PopperPlacementType } from "@mui/material";
-
+import { PopperPlacementType } from '@mui/material';
 
 interface Props {
     className?: string;
@@ -27,19 +26,19 @@ interface Props {
 }
 
 export const PopperCard: React.FC<Props> = ({
-                                                className,
-                                                anchorElement,
-                                                open,
-                                                onClose,
-                                                popperProps,
-                                                structured,
-                                                onClickAway,
-                                                dismissArrow = false,
-                                                customClasses: oldCustomClasses = {},
-                                                classes: receivedClasses = {},
-                                                containerProps = {},
-                                                children,
-                                            }) => {
+    className,
+    anchorElement,
+    open,
+    onClose,
+    popperProps,
+    structured,
+    onClickAway,
+    dismissArrow = false,
+    customClasses: oldCustomClasses = {},
+    classes: receivedClasses = {},
+    containerProps = {},
+    children,
+}) => {
     const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
@@ -86,7 +85,7 @@ export const PopperCard: React.FC<Props> = ({
                 ...((popperProps && popperProps.modifiers) || []),
             ]}
         >
-            {({placement}) => (
+            {({ placement }) => (
                 <Content
                     {...{
                         placement,
@@ -101,7 +100,6 @@ export const PopperCard: React.FC<Props> = ({
                     {children}
                 </Content>
             )}
-
         </Popper>
     );
 };
@@ -117,15 +115,15 @@ interface PopperContentProps {
 }
 
 const Content: React.FC<PopperContentProps> = ({
-                                                   className,
-                                                   dismissArrow,
-                                                   setArrowReference,
-                                                   placement,
-                                                   onClickAway,
-                                                   structured,
-                                                   classes,
-                                                   children,
-                                               }) => {
+    className,
+    dismissArrow,
+    setArrowReference,
+    placement,
+    onClickAway,
+    structured,
+    classes,
+    children,
+}) => {
     const handleClickAway = useCallback(
         (...parameters) => {
             if (typeof onClickAway === 'function') {
@@ -138,27 +136,46 @@ const Content: React.FC<PopperContentProps> = ({
     const content = (
         <div>
             {!dismissArrow && (
-
-                <div className={'ds-z-10'} ref={setArrowReference} style={{
-                    bottom: placement.includes("bottom") ? "calc(100% + 16px)" : placement.includes("top") ? 0 : undefined,
-                    right: placement.includes("left") ? 9 : placement.includes("right") ? "calc(100% + 25px)" : undefined
-                }}>
-                    <div className={"ds-leading-none"} style={{
-                        position: 'absolute',
-                        transform: placement.includes("bottom") ? "rotate(0deg)" :
-                            placement.includes("top") ? "rotate(180deg)" :
-                                placement.includes("right") ? "rotate(-90deg)" :
-                                    placement.includes("left") ? "rotate(90deg)" : undefined,
-                        left: placement.includes("bottom") ? -16 : undefined,
-                        top: placement.includes("right") ? -10 : undefined,
-                        bottom: placement.includes("left") ? -10 : undefined,
-                        right: placement.includes("top") ? -19 : undefined,
-                    }}>
-                        <SpeechBubbleArrow className={"ds-block"}/>
+                <div
+                    className={`ds-z-10 `}
+                    ref={setArrowReference}
+                    style={{
+                        bottom: placement.includes('bottom')
+                            ? 'calc(100% + 16px)'
+                            : placement.includes('top')
+                            ? 0
+                            : undefined,
+                        right: placement.includes('left')
+                            ? 9
+                            : placement.includes('right')
+                            ? 'calc(100% + 25px)'
+                            : undefined,
+                    }}
+                >
+                    <div
+                        className={`ds-leading-none ds-text-light-500 ${classes.arrowContainer}`}
+                        style={{
+                            position: 'absolute',
+                            transform: placement.includes('bottom')
+                                ? 'rotate(0deg)'
+                                : placement.includes('top')
+                                ? 'rotate(180deg)'
+                                : placement.includes('right')
+                                ? 'rotate(-90deg)'
+                                : placement.includes('left')
+                                ? 'rotate(90deg)'
+                                : undefined,
+                            left: placement.includes('bottom') ? -16 : undefined,
+                            top: placement.includes('right') ? -10 : undefined,
+                            bottom: placement.includes('left') ? -10 : undefined,
+                            right: placement.includes('top') ? -19 : undefined,
+                        }}
+                    >
+                        <SpeechBubbleArrow className={'ds-block'} />
                     </div>
                 </div>
             )}
-            <Card className={cn(className, 'ds-relative', structured && 'ds-p-0')}>{children}</Card>
+            <Card className={cn(className, classes.container, 'ds-relative', structured && 'ds-p-0')}>{children}</Card>
         </div>
     );
     if (onClickAway) {
