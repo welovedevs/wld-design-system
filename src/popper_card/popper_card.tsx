@@ -10,6 +10,7 @@ import { PopperCustomClasses } from './popper_card_styles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
 import { PopperPlacementType } from '@mui/material';
+import uniqBy from 'lodash/uniqBy';
 
 interface Props {
     className?: string;
@@ -45,6 +46,40 @@ export const PopperCard: React.FC<Props> = ({
     ]);
     const classes = mergedClasses;
     const [arrowReference, setArrowReference] = useState(null);
+    let modifiers = useMemo(
+        () =>
+            uniqBy(
+                [
+                    ...((popperProps && popperProps.modifiers) || []),
+                    {
+                        name: 'flip',
+                        enabled: true,
+                    },
+                    {
+                        name: 'preventOverflow',
+                        enabled: true,
+                        options: {
+                            padding: 8,
+                        },
+                    },
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 16], // décaler le popper de 10px vers le bas
+                        },
+                    },
+                    {
+                        name: 'arrow',
+                        enabled: true,
+                        options: {
+                            element: arrowReference,
+                        },
+                    },
+                ],
+                'name'
+            ),
+        [popperProps?.modifiers, arrowReference]
+    );
     return (
         <Popper
             open={open}
@@ -57,33 +92,7 @@ export const PopperCard: React.FC<Props> = ({
                 containerProps.className
             )}
             anchorEl={anchorElement}
-            modifiers={[
-                {
-                    name: 'flip',
-                    enabled: true,
-                },
-                {
-                    name: 'preventOverflow',
-                    enabled: true,
-                    options: {
-                        padding: 8,
-                    },
-                },
-                {
-                    name: 'offset',
-                    options: {
-                        offset: [0, 16], // décaler le popper de 10px vers le bas
-                    },
-                },
-                {
-                    name: 'arrow',
-                    enabled: true,
-                    options: {
-                        element: arrowReference,
-                    },
-                },
-                ...((popperProps && popperProps.modifiers) || []),
-            ]}
+            modifiers={modifiers}
         >
             {({ placement }) => (
                 <Content
