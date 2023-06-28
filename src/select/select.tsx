@@ -61,7 +61,7 @@ export const Select: React.FC<
     classes = {},
     textFieldProps = null,
     placeholder = null,
-    avoidNative = false,
+    avoidNative = true,
     ...others
 }) => {
     return (
