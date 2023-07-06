@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import cn from 'classnames';
 
 import { Typography } from '../typography/typography';
 
-export const PopperCardTitle: React.FC<{ classes?: { container?: string } }> = ({ classes = {}, children }) => {
+export const PopperCardTitle: React.FC<PropsWithChildren<{ classes?: { container?: string } }>> = ({
+    classes = {},
+    children,
+}) => {
     return (
         <Typography
             className={cn(

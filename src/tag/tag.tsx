@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useState } from 'react';
+import React, { forwardRef, PropsWithChildren, useMemo, useState } from 'react';
 
 import { PaletteColors } from '../styles';
 
@@ -20,7 +20,7 @@ interface Props {
     size?: 'small' | 'xs' | 'regular';
 }
 
-export const Tag: React.FC<Props> = forwardRef(
+export const Tag: React.FC<PropsWithChildren<Props>> = forwardRef(
     (
         {
             component: Component = 'div',

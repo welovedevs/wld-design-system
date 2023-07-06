@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 
 import cn from 'classnames';
 
@@ -14,7 +14,8 @@ interface Props {
     classes?: { container?: string };
     size?: 'small';
 }
-export const Banner: React.FC<Props> = ({
+
+export const Banner: React.FC<PropsWithChildren<Props>> = ({
     type = 'warning',
     className,
     icon: receivedIcon,

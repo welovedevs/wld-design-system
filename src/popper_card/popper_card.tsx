@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, useRef } from 'react';
+import React, { useCallback, useMemo, useState, useRef, PropsWithChildren } from 'react';
 
 import cn from 'classnames';
 
@@ -26,7 +26,7 @@ interface Props {
     containerProps?: any;
 }
 
-export const PopperCard: React.FC<Props> = ({
+export const PopperCard: React.FC<PropsWithChildren<Props>> = ({
     className,
     anchorElement,
     open,
@@ -123,7 +123,7 @@ interface PopperContentProps {
     placement: PopperPlacementType;
 }
 
-const Content: React.FC<PopperContentProps> = ({
+const Content: React.FC<PropsWithChildren<PopperContentProps>> = ({
     className,
     dismissArrow,
     setArrowReference,
@@ -134,7 +134,7 @@ const Content: React.FC<PopperContentProps> = ({
     children,
 }) => {
     const handleClickAway = useCallback(
-        (...parameters) => {
+        (...parameters: any[]) => {
             if (typeof onClickAway === 'function') {
                 onClickAway(...parameters);
             }

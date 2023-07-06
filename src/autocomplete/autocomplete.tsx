@@ -1,6 +1,7 @@
 import React, { ChangeEvent, ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 
-import Autosuggest, { SuggestionSelectedEventData } from 'react-autosuggest';
+// @ts-ignore
+import Autosuggest from 'react-autosuggest';
 
 import { TextField, TextFieldProps } from '../text_field/text_field';
 import { PopperCard } from '../popper_card/popper_card';
@@ -11,6 +12,14 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { PopperProps } from '@mui/material/Popper';
 import { PopperCustomClasses } from '../popper_card/popper_card_styles';
 import { Checkbox } from '../checkbox/checkbox';
+
+interface SuggestionSelectedEventData<TSuggestion> {
+    suggestion: TSuggestion;
+    suggestionValue: string;
+    suggestionIndex: number;
+    sectionIndex: number | null;
+    method: 'click' | 'enter';
+}
 
 interface Props {
     multiple?: boolean;
@@ -48,7 +57,7 @@ interface SuggestionContainerProps {
     className: string;
 }
 
-const SuggestionsContainer: React.FC<SuggestionContainerProps> = ({
+const SuggestionsContainer: React.FC<React.PropsWithChildren<SuggestionContainerProps>> = ({
     containerProps,
     popperProps,
     children,
@@ -177,7 +186,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
         ));
 
     const filterSuggestions = useCallback(
-        (data) => {
+        (data: any) => {
             const { value: inputValue, reason } = data;
             if (multiple && reason === 'suggestion-selected') {
                 return;
@@ -197,7 +206,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     }, []);
 
     const valueChanged = useCallback(
-        (e: ChangeEvent, data) => {
+        (e: ChangeEvent, data: any) => {
             const { newValue, method } = data;
             if (!multiple || (multiple && method === 'type')) {
                 setValue(newValue || '');
@@ -209,7 +218,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
 
     const [valueSelected, setValueSelected] = useState(false);
     const suggestionSelected = useCallback(
-        (_, newValue: SuggestionSelectedEventData<any>) => {
+        (_: any, newValue: SuggestionSelectedEventData<any>) => {
             const { suggestionValue } = newValue;
             if (!multiple) {
                 setValue(suggestionValue);

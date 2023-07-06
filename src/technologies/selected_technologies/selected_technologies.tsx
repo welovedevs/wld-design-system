@@ -27,7 +27,7 @@ const TechnologyRow = ({
     onChange,
     itemsLength,
     technologyIndex,
-    hideSlider
+    hideSlider,
 }: {
     id: string;
     item: DevTechnology;
@@ -46,7 +46,7 @@ const TechnologyRow = ({
     const { technologies, translations } = useContext(TechnologiesPickerContext);
 
     const sliderChange = useCallback(
-        (e) => {
+        (e: any) => {
             onChange({ ...item, value: Number(e.target.value) });
         },
         [item, onChange]
@@ -85,16 +85,16 @@ const TechnologyRow = ({
                     {item.name}
                 </Typography>
                 {!hideSlider && (
-                <div className="ds-flex ds-items-center">
-                    <Typography
-                        classes={{
-                            container: 'ds-w-5 ds-mb-0',
-                        }}
-                        color="dark"
-                        variant="body3"
-                    >
-                        <span className="ds-font-medium">{item.value}</span>%
-                    </Typography>
+                    <div className="ds-flex ds-items-center">
+                        <Typography
+                            classes={{
+                                container: 'ds-w-5 ds-mb-0',
+                            }}
+                            color="dark"
+                            variant="body3"
+                        >
+                            <span className="ds-font-medium">{item.value}</span>%
+                        </Typography>
                         <Slider
                             color="primary"
                             name={`skill_value_${item.name}`}
@@ -110,8 +110,8 @@ const TechnologyRow = ({
                                 },
                             }}
                         />
-                </div>
-                    )}
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -125,7 +125,7 @@ const SortableTechnologies = ({
     className,
     itemsLength,
     onSortEnd,
-    hideSlider
+    hideSlider,
 }: Props & {
     itemsLength: number;
     onSortEnd: (props: { newIndex: any; oldIndex: any }) => any;
@@ -140,7 +140,7 @@ const SortableTechnologies = ({
 
     const itemsWithId = useMemo(() => items.map((item) => ({ ...item, id: item.name })), [items]);
     const handleDragEnd = useCallback(
-        (event) => {
+        (event: any) => {
             const { active, over } = event;
 
             if (active.id !== over.id) {
@@ -199,12 +199,12 @@ export const SelectedTechnologies: React.FC<Props> = ({
     className,
     onItemChange,
     classes = {},
-    hideSlider
+    hideSlider,
 }) => {
     const itemsLength = useMemo(() => items.length, [items]);
 
     const move = useCallback(
-        ({ oldIndex, newIndex }) => {
+        ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
             if (typeof onChange === 'function') {
                 onChange(arrayMove(items, oldIndex, newIndex).map((data, index) => ({ ...data, index })));
             }

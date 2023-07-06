@@ -141,7 +141,7 @@ export const AllTechnologiesPicker = ({
         [technologies, debouncedQuery, onlySelected]
     );
     const slicedItems = useMemo(() => displayedItems.slice(0, shownItems), [displayedItems, shownItems]);
-    const handleTextFieldChange = useCallback((event) => setQuery(event.target.value), []);
+    const handleTextFieldChange = useCallback((event: any) => setQuery(event.target.value), []);
     useEffect(() => {
         const { clientWidth: width, clientHeight: height } = containerRef?.current || {};
         if (!width || !height) {

@@ -74,7 +74,7 @@ export const Button = forwardRef<unknown, ButtonProps>(
         }, [hexColor]);
 
         const handleClick = useCallback(
-            (...paramaters) => {
+            (...paramaters: any[]) => {
                 if (disabled) {
                     return;
                 }
