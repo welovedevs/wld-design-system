@@ -16,7 +16,8 @@ interface Props {
     };
     style?: any;
 }
-export const ListItem: React.FC<Props & HTMLAttributes<any>> = ({
+
+export const ListItem: React.FC<Props & HTMLAttributes<HTMLLIElement>> = ({
     component: Component = 'li',
     className,
     typographyClassName,
