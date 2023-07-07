@@ -21,13 +21,13 @@ interface SuggestionSelectedEventData<TSuggestion> {
     method: 'click' | 'enter';
 }
 
-interface Props {
+interface Props<T> {
     multiple?: boolean;
     selectedSuggestions?: string[];
     placeholder?: string;
-    suggestions: any[];
+    suggestions: T[];
     onChange: (value: any) => void;
-    onSelect: (data: SuggestionSelectedEventData<any>) => void;
+    onSelect: (data: SuggestionSelectedEventData<T>) => void;
     getSuggestionValue: (value: any) => any;
     renderSuggestion?: (value: any) => 'string' | ReactElement | JSX.Element;
     renderSuggestionsContainer?: (value: any) => 'string' | ReactElement | JSX.Element;
@@ -104,7 +104,7 @@ const DefaultMultipleSuggestionsRender: React.FC<{ value: string; classes: any; 
     </ListItem>
 );
 
-const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props> = ({
+const AutoCompleteComponent = <T extends any>({
     multiple,
     placeholder,
     suggestions,
@@ -124,7 +124,7 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     classes = {},
     popperProps,
     ...other
-}) => {
+}: Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props<T>) => {
     const inputReference = useRef<any>();
 
     const [filteredSuggestions, setFilteredSuggetions] = useState<any[]>([]);
@@ -275,14 +275,14 @@ const AutoCompleteComponent: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChang
     );
 };
 
-const MultipleAutoComplete: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props> = ({
+const MultipleAutoComplete = <T extends any>({
     renderSuggestion: renderSuggestionProps,
     selectedSuggestions: selectedSuggestionsProps = [],
     classes = {},
     transformSuggestionValue = (props: any) => props && props.value,
     onSelect: onSelectProps,
     ...other
-}) => {
+}: Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props<T>) => {
     const [selectedSuggestions, setSelectedSuggestions] = useState<string[]>([]);
     useEffect(() => {
         setSelectedSuggestions(selectedSuggestionsProps);
@@ -318,10 +318,10 @@ const MultipleAutoComplete: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChange
     return <AutoCompleteComponent {...{ renderSuggestion, onSelect: handleSelectSuggestion }} {...other} />;
 };
 
-const WithMultipleAutoComplete: React.FC<Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props> = ({
+const WithMultipleAutoComplete = <T extends any>({
     multiple = false,
     ...other
-}) => {
+}: Omit<TextFieldProps, 'onSelect' | 'onChange' | 'multiple'> & Props<T>) => {
     if (multiple) {
         return <MultipleAutoComplete {...{ multiple }} {...other} />;
     }
