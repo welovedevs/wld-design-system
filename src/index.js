@@ -1,9 +1,9 @@
 export * from './autocomplete/autocomplete';
 export * from './banner/banner';
 export * from './button/button';
-export * from './button/button_styles';
+// export * from './button/button_styles';
 
-export * from './card/card_elevation_props'
+export * from './card/card_elevation_props';
 export * from './card/card';
 export * from './checkbox/checkbox';
 export * from './list/list';
@@ -20,7 +20,7 @@ export * from './text_field/text_field';
 export * from './text_field_icon/text_field_icon';
 export * from './tooltip/tooltip';
 export * from './typography/typography';
-export * from './typography/typography_styles';
+// export * from './typography/typography_styles';
 
 export * from './technologies/technologies_picker';
 export * from './technologies/technologies/technology';
@@ -39,6 +39,4 @@ import palette from './styles/palette';
 
 import './styles/styles.css';
 
-export {
-    palette,
-};
+export { palette };

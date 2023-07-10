@@ -13,7 +13,7 @@ import { PopperProps } from '@mui/material/Popper';
 import { PopperCustomClasses } from '../popper_card/popper_card_styles';
 import { Checkbox } from '../checkbox/checkbox';
 
-interface SuggestionSelectedEventData<TSuggestion> {
+export interface SuggestionSelectedEventData<TSuggestion> {
     suggestion: TSuggestion;
     suggestionValue: string;
     suggestionIndex: number;
