@@ -1,7 +1,7 @@
 export * from './autocomplete/autocomplete';
 export * from './banner/banner';
 export * from './button/button';
-// export * from './button/button_styles';
+export { ButtonVariants } from './button/button_styles';
 
 export * from './card/card_elevation_props';
 export * from './card/card';
@@ -20,8 +20,8 @@ export * from './text_field/text_field';
 export * from './text_field_icon/text_field_icon';
 export * from './tooltip/tooltip';
 export * from './typography/typography';
-// export * from './typography/typography_styles';
 export * from './tabs/tabs';
+export { TypographyVariants } from './typography/typography_styles';
 
 export * from './technologies/technologies_picker';
 export * from './technologies/technologies/technology';
