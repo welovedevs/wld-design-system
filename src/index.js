@@ -21,6 +21,7 @@ export * from './text_field_icon/text_field_icon';
 export * from './tooltip/tooltip';
 export * from './typography/typography';
 // export * from './typography/typography_styles';
+export * from './tabs/tabs';
 
 export * from './technologies/technologies_picker';
 export * from './technologies/technologies/technology';

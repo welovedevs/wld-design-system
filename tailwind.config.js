@@ -296,6 +296,7 @@ module.exports = {
         preflight: false,
     },
     plugins: [
+        require('@tailwindcss/forms'),
         function ({ addVariant, e }) {
             addVariant('children', ({ modifySelectors, separator }) => {
                 modifySelectors(({ className }) => {

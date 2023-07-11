@@ -21,6 +21,9 @@ module.exports = {
             },
         },
     ],
+    typescript: {
+        reactDocgen: 'react-docgen-typescript-plugin',
+    },
     babel: async (options) => ({
         ...options,
         plugins: ['@babel/plugin-proposal-export-default-from'],
