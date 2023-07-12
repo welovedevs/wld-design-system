@@ -5,6 +5,7 @@ interface TabsProps {
     tabs: { name: string; ref: string; current: boolean }[];
     setActiveTab: (ref: string) => void;
     classes?: {
+        container?: string;
         mobileContainer?: string;
         desktopContainer?: string;
         tab?: string;
@@ -14,8 +15,8 @@ interface TabsProps {
 
 export const Tabs: React.FC<TabsProps> = ({ tabs, setActiveTab, classes }) => {
     return (
-        <div>
-            <div className={`ds-hidden xs:ds-block ${classes?.mobileContainer}`}>
+        <div className={`ds-max-w-fit ds-w-full ${classes?.container}`}>
+            <div className={`ds-hidden xs:ds-block ds-w-full ${classes?.mobileContainer}`}>
                 <label htmlFor="tabs" className="ds-sr-only">
                     Select a tab
                 </label>
@@ -33,9 +34,9 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, setActiveTab, classes }) => {
                     ))}
                 </select>
             </div>
-            <div className={`ds-block xs:ds-hidden ${classes?.desktopContainer}`}>
+            <div className={`ds-flex xs:ds-hidden ds-w-full ${classes?.desktopContainer}`}>
                 <nav
-                    className="ds-isolate ds-flex ds-divide-x ds-divide-gray-200 ds-rounded-lg ds-shadow"
+                    className="ds-isolate ds-flex ds-divide-x ds-divide-gray-200 ds-rounded-lg ds-shadow ds-w-full"
                     aria-label="Tabs"
                 >
                     {tabs.map((tab, tabIdx) => (
@@ -45,7 +46,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, setActiveTab, classes }) => {
                                     ${tab.current ? 'ds-text-gray-900' : 'ds-text-gray-500 hover:ds-text-gray-700'}
                                     ${tabIdx === 0 ? 'ds-rounded-l-lg' : ''}
                                     ${tabIdx === tabs.length - 1 ? 'ds-rounded-r-lg' : ''}
-                                    ds-group ds-relative ds-min-w-0 ds-flex-1 ds-overflow-hidden ds-bg-white ds-py-2 ds-px-4 ds-text-center ds-text-sm ds-cursor-pointer ds-font-medium hover:ds-bg-gray-50 focus:ds-z-10
+                                    ds-group ds-relative ds-min-w-0 ds-flex ds-w-full ds-justify-center ds-bg-white ds-py-2 ds-px-5 ds-text-center ds-text-sm ds-cursor-pointer ds-font-medium hover:ds-bg-gray-50 focus:ds-z-10
                                     ${classes?.tab}
                                 `}
                             aria-current={tab.current ? 'page' : undefined}

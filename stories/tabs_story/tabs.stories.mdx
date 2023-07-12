@@ -17,7 +17,7 @@ export const Template = (args) => {
             current: false
         },
         {
-            name: 'Contact',
+            name: 'Contributions',
             ref: 'contact',
             current: false
         }
@@ -40,8 +40,11 @@ export const Template = (args) => {
       };
       console.log(tabs)
     return (
-        <div style={{width: '100%', display: 'flex', justifyContent: 'space-around'}}>
+        <div className="ds-flex ds-flex-col">
            <Tabs tabs={tabs} setActiveTab={handleTabClick} />
+           <Tabs tabs={tabs} setActiveTab={handleTabClick} classes={{
+            container: 'ds-mt-2 ds-max-w-none'
+           }} />
         </div>
     )
 }
