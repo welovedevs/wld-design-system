@@ -105,21 +105,23 @@ export const Tag: React.FC<PropsWithChildren<Props>> = forwardRef(
                 }}
                 {...other}
             >
-                <Typography
-                    style={{
-                        color: textColor,
-                    }}
-                    className={cn('ds-font-medium ds-flex ds-items-center', classes?.typography)}
-                    variant={typographyVariant[size] || typographyVariant.regular}
-                    onMouseLeave={() => {
-                        setHover(false);
-                    }}
-                >
-                    {children}
-                </Typography>
+                {children && (
+                    <Typography
+                        style={{
+                            color: textColor,
+                        }}
+                        className={cn('ds-font-medium ds-flex ds-items-center', classes?.typography)}
+                        variant={typographyVariant[size] || typographyVariant.regular}
+                        onMouseLeave={() => {
+                            setHover(false);
+                        }}
+                    >
+                        {children}
+                    </Typography>
+                )}
                 {onDelete && (
                     <Cancel
-                        className={`ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ds-cursor-pointer`}
+                        className={`ds-max-h-[14px] ds-max-w-[14px] ${children ? 'ds-ml-1' : ''} ds-cursor-pointer`}
                         style={{
                             color: textColor,
                         }}
