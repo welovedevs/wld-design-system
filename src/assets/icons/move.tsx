@@ -5,7 +5,7 @@ export const MoveIcon: React.FC<{ className?: string }> = ({ className }) => (
         <g
             transform="scale(1.6667)"
             fill="none"
-            stroke="#000"
+            stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="1.5"

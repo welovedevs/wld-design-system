@@ -162,19 +162,22 @@ export const AllTechnologiesPicker = ({
 
     return (
         <div className={`${classes?.container ?? ''} ds-overflow-hidden ds-flex ds-flex-col`} ref={containerRef}>
-            <TextField
-                classes={{
-                    container: 'ds-mb-3 ds-w-[400px] sm:ds-w-[unset] ds-min-h-[60px]',
-                }}
-                fullWidth={isMobile}
-                variant="flat"
-                value={query}
-                onChange={handleTextFieldChange}
-                placeholder="Mobile, Javascript, etc..."
-            />
-            {isMobile && additionalInformations}
-            {isMobile && (
-                <button className={cn('ds-flex ds-items-center ds-text-left')} type="button" onClick={toggleOtherPerk}>
+            <div className={'ds-flex ds-items-center ds-flex-wrap  ds-mb-3 '}>
+                <TextField
+                    classes={{
+                        container: 'ds-w-[400px] sm:ds-w-[unset] ds-min-h-[60px]',
+                    }}
+                    fullWidth={isMobile}
+                    variant="flat"
+                    value={query}
+                    onChange={handleTextFieldChange}
+                    placeholder="Mobile, Javascript, etc..."
+                />
+                <button
+                    className={cn('ds-m-1 ds-flex ds-items-center ds-text-left')}
+                    type="button"
+                    onClick={toggleOtherPerk}
+                >
                     <Checkbox
                         variant="outlined"
                         color="secondary"
@@ -184,7 +187,8 @@ export const AllTechnologiesPicker = ({
                     />
                     <Typography variant="body2">{translations.checkboxLabel}</Typography>
                 </button>
-            )}
+            </div>
+            {isMobile && additionalInformations}
             {!displayedItems.length && noResultsElement}
             <div id="allTechnologiesPicker" className={'ds-w-full ds-overflow-auto ds-scrollbar'}>
                 <InfiniteScroll

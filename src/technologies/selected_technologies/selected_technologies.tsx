@@ -60,24 +60,21 @@ const TechnologyRow = ({
         return `https://process.filestackapi.com/auto_image/${handle ?? '4A5N89okRPW50jRcmkuM'}`;
     }, [item, technologies]);
 
-    let divider = <div className="ds-bg-dark-50 ds-w-[1px] ds-h-6 ds-mx-2" />;
+    let divider = <div className="ds-bg-dark-50 ds-w-[1px] ds-h-5 ds-mx-1.5" />;
     return (
         <div
             ref={setNodeRef}
             className={'ds flex ds-flex ds-items-center ds-w-full ds-p-0 ds-my-2 ds-relative ds-z-[1400]'}
             style={{ ...style, zIndex: itemsLength - technologyIndex }}
         >
-            <button {...attributes} {...listeners} className="ds-flex" type="button">
-                <MoveIcon className="ds-w-2.5 ds-h-2.5" />
+            <button {...attributes} {...listeners} className="ds-flex ds-mr-1/2" type="button">
+                <MoveIcon className="ds-w-2.5 ds-h-2.5 ds-text-indigo-500" />
             </button>
+            <Typography color={'indigo'} variant="h3" className="ds-font-semibold">
+                {technologyIndex + 1}
+            </Typography>
             {divider}
-            <Tooltip title={translations.deleteLabel}>
-                <button className="ds-flex" type="button" onClick={() => onRemove(item.name)}>
-                    <TrashIcon className="ds-fill-danger-500 ds-w-3 ds-h-3" />
-                </button>
-            </Tooltip>
-            {divider}
-            <Card className="ds-w-5 ds-h-5 !ds-p-1 ds-mx-1">
+            <Card className="ds-w-5 ds-h-5 !ds-p-1 ds-mr-1">
                 <img className={'ds-object-contain ds-w-full ds-h-full'} alt={item.name} src={imgUrl} />
             </Card>
             <div className="ds-flex-1">
@@ -113,6 +110,12 @@ const TechnologyRow = ({
                     </div>
                 )}
             </div>
+            {divider}
+            <Tooltip title={translations.deleteLabel}>
+                <button className="ds-flex" type="button" onClick={() => onRemove(item.name)}>
+                    <TrashIcon className="ds-fill-danger-500 ds-w-3 ds-h-3" />
+                </button>
+            </Tooltip>
         </div>
     );
 };

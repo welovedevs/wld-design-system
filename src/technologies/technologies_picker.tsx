@@ -33,7 +33,7 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
     classes = {},
     translations,
     content,
-    hideSlider= false
+    hideSlider = false,
 }) => {
     // const classes = useStyles({ classes: receivedClasses, isMobile });
 
@@ -62,7 +62,7 @@ export const TechnologiesPicker: React.FC<TechnologiesPickerProps> = ({
                 />
                 {!isMobile && <div className={'ds-bg-dark-100 ds-mr-2 ds-ml-4 '} />}
                 {!isMobile && (
-                    <div className={'ds-flex-auto ds-flex ds-flex-col'}>
+                    <div className={'ds-flex-auto ds-flex ds-flex-col ds-min-w-[280px]'}>
                         {content?.additionalInformations}
                         <SelectedTechnologies
                             className={'ds-flex-1'}
