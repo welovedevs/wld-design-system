@@ -16,7 +16,7 @@ export const DefaultStory = ({}) => {
             <Typography component="h4" variant="h4">
                 {`Select value: ${value}`}
             </Typography>
-            <Select {...{ value }} onChange={(value) => setValue(value)}>
+            <Select variant={"flat"} {...{ value }} onChange={(value) => setValue(value)}>
                 <MenuItem value="allTime">{'Depuis le début'}</MenuItem>
                 <MenuItem value="currentSeason">{'Saison actuelle'}</MenuItem>
             </Select>

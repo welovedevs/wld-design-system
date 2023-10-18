@@ -4,7 +4,7 @@ import { InputBase, MenuItem, Select as MuiSelect, SelectProps } from '@mui/mate
 
 const variants = {
     flat: {
-        root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-[#f9f9f9] ds-rounded ds-border ds-border-solid ds-border-[#f0f0f0]',
+        root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-[#f9f9f9] ds-rounded ds-border ds-border-solid ds-border-dark-100',
         input: 'ds-font-w3d ds-w-full !ds-pr-4 ds-text-dark-500',
         icon: ''
     },
