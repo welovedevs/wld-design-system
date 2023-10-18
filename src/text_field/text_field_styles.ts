@@ -17,7 +17,7 @@ export const sizeStyles = {
 };
 
 export const variantStyles: { [key in TextFieldVariants | TextFieldDisabledVariants]: string } = {
-    flat: 'ds-border ds-border-solid ds-border-dark-50 ds-bg-[#f9f9f9]',
+    flat: 'ds-border ds-border-solid ds-border-dark-100 ds-bg-[#f9f9f9]',
     raised: 'ds-bg-light-500 ds-shadow-md hover:ds-shadow-lg',
     underlined: 'ds-bg-transparent ds-border-0 ds-border-b-2 ds-border-solid ds-border-[#e8e8e8] ds-rounded-none',
     flatDisabled: `ds-bg-[#f9f9f9] ds-text-dark-200`,
