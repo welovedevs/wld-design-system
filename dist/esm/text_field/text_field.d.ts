@@ -26,7 +26,7 @@ interface CustomProps {
         hide: string;
     };
 }
-export declare type TextFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'size'> & CustomProps;
+export type TextFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'size'> & CustomProps;
 export declare const TextField: React.ForwardRefExoticComponent<Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, "size"> & CustomProps & {
     children?: React.ReactNode;
 } & React.RefAttributes<HTMLElement>>;

@@ -13,5 +13,5 @@ interface Props {
     noResultsElement?: React.ReactElement | null;
     additionalInformations?: React.ReactElement | null;
 }
-export declare const AllTechnologiesPicker: ({ selectedItems, onAdd, onDelete, classes, isMobile, noResultsElement, additionalInformations, }: Props) => JSX.Element;
+export declare const AllTechnologiesPicker: ({ selectedItems, onAdd, onDelete, classes, isMobile, noResultsElement, additionalInformations, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

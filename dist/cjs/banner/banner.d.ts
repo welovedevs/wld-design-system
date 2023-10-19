@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { BannerType } from './banner_data';
 interface Props {
     type?: BannerType;
@@ -9,5 +9,5 @@ interface Props {
     };
     size?: 'small';
 }
-export declare const Banner: React.FC<Props>;
+export declare const Banner: React.FC<PropsWithChildren<Props>>;
 export {};

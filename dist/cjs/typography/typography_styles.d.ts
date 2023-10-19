@@ -53,4 +53,4 @@ export declare const VariantStyles: {
     readonly h5: string;
     readonly h6: string;
 };
-export declare type TypographyVariants = keyof typeof VariantStyles;
+export type TypographyVariants = keyof typeof VariantStyles;

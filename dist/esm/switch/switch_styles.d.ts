@@ -1,5 +1,5 @@
-declare type StylesKeys = 'container';
-export declare type Classes = {
+type StylesKeys = 'container';
+export type Classes = {
     [key in StylesKeys]?: string;
 };
 export declare const baseStyles: {
@@ -26,5 +26,4 @@ export declare const thumbPositionStyles: {
         right: string;
     };
 };
-export declare const styles: import("@mui/styles").StyleRules<{}, "container" | "disabled" | "thumbContainer" | "thumb" | "brightLayer" | "input">;
 export {};

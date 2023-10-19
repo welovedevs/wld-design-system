@@ -14,4 +14,4 @@ export declare const Typography: React.ForwardRefExoticComponent<{
         container?: string | undefined;
     } | undefined;
 } & Omit<React.HTMLAttributes<any>, "color"> & React.RefAttributes<unknown>>;
-export declare type TypographyProps = React.ComponentProps<typeof Typography>;
+export type TypographyProps = React.ComponentProps<typeof Typography>;

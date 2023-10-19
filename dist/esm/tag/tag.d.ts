@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { PaletteColors } from '../styles';
 interface Props {
     component?: string | React.ElementType;
@@ -15,5 +15,5 @@ interface Props {
     onDelete?: (e: any) => void;
     size?: 'small' | 'xs' | 'regular';
 }
-export declare const Tag: React.FC<Props>;
+export declare const Tag: React.FC<PropsWithChildren<Props>>;
 export {};

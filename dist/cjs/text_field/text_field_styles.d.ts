@@ -1,5 +1,5 @@
-export declare type TextFieldVariants = 'flat' | 'raised' | 'underlined';
-declare type TextFieldDisabledVariants = `${TextFieldVariants}Disabled`;
+export type TextFieldVariants = 'flat' | 'raised' | 'underlined';
+type TextFieldDisabledVariants = `${TextFieldVariants}Disabled`;
 export declare const baseStyles: {
     container: string;
     multilineContainer: string;

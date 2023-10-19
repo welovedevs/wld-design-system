@@ -1,14 +1,20 @@
-import React, { ReactElement } from 'react';
-import { SuggestionSelectedEventData } from 'react-autosuggest';
+import { ReactElement } from 'react';
 import { TextFieldProps } from '../text_field/text_field';
 import { PopperProps } from '@mui/material/Popper';
-interface Props {
+export interface SuggestionSelectedEventData<TSuggestion> {
+    suggestion: TSuggestion;
+    suggestionValue: string;
+    suggestionIndex: number;
+    sectionIndex: number | null;
+    method: 'click' | 'enter';
+}
+interface Props<T> {
     multiple?: boolean;
     selectedSuggestions?: string[];
     placeholder?: string;
-    suggestions: any[];
+    suggestions: T[];
     onChange: (value: any) => void;
-    onSelect: (data: SuggestionSelectedEventData<any>) => void;
+    onSelect: (data: SuggestionSelectedEventData<T>) => void;
     getSuggestionValue: (value: any) => any;
     renderSuggestion?: (value: any) => 'string' | ReactElement | JSX.Element;
     renderSuggestionsContainer?: (value: any) => 'string' | ReactElement | JSX.Element;
@@ -24,7 +30,7 @@ interface Props {
         popper?: string;
         field?: string;
     };
-    popperPlacement?: PopperProps['placement'];
+    popperProps?: Partial<PopperProps>;
 }
-export declare const AutoComplete: React.FC<Omit<TextFieldProps, "onChange" | "onSelect" | "multiple"> & Props>;
+export declare const AutoComplete: <T extends unknown>({ multiple, ...other }: Omit<TextFieldProps, "onChange" | "onSelect" | "multiple"> & Props<T>) => import("react/jsx-runtime").JSX.Element;
 export {};

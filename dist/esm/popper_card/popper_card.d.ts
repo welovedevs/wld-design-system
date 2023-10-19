@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { PopperProps } from '@mui/material/Popper';
 import { PopperCustomClasses } from './popper_card_styles';
 interface Props {
@@ -14,5 +14,5 @@ interface Props {
     customClasses?: PopperCustomClasses;
     containerProps?: any;
 }
-export declare const PopperCard: React.FC<Props>;
+export declare const PopperCard: React.FC<PropsWithChildren<Props>>;
 export {};

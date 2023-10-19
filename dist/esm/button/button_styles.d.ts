@@ -1,7 +1,7 @@
 import { ButtonProps } from './button';
-declare type StylesKeys = 'container' | 'typography';
-export declare type ButtonVariants = 'contained' | 'outlined' | 'text' | 'raised';
-export declare type Classes = {
+type StylesKeys = 'container' | 'typography';
+export type ButtonVariants = 'contained' | 'outlined' | 'text' | 'raised';
+export type Classes = {
     [key in StylesKeys]?: string;
 };
 export declare const baseStyles: {

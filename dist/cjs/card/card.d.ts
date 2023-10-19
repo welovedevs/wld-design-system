@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-export declare type CardVariant = 'flat';
+export type CardVariant = 'flat';
 interface Props {
     component?: string;
     className?: string;

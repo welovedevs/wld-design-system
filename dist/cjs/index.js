@@ -9,11 +9,10 @@ var cn = require('classnames');
 var IconButton = require('@mui/material/IconButton');
 var VisibilityOffIcon = require('@mui/icons-material/VisibilityOff');
 var VisibilityIcon = require('@mui/icons-material/Visibility');
-var makeStyles = require('@mui/styles/makeStyles');
 var ClickAwayListener = require('@mui/material/ClickAwayListener');
 var Popper = require('@mui/material/Popper');
 var merge = require('lodash/merge');
-var createStyles = require('@mui/styles/createStyles');
+var uniqBy = require('lodash/uniqBy');
 var CheckIcon$1 = require('@mui/icons-material/CheckCircle');
 var ErrorIcon = require('@mui/icons-material/Error');
 var InfoIcon = require('@mui/icons-material/Info');
@@ -24,6 +23,7 @@ var last = require('lodash/last');
 var InfiniteScroll = require('react-infinite-scroll-component');
 var core = require('@dnd-kit/core');
 var sortable = require('@dnd-kit/sortable');
+var material = require('@mui/material');
 var Cancel = require('@mui/icons-material/Cancel');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -34,11 +34,10 @@ var cn__default = /*#__PURE__*/_interopDefaultLegacy(cn);
 var IconButton__default = /*#__PURE__*/_interopDefaultLegacy(IconButton);
 var VisibilityOffIcon__default = /*#__PURE__*/_interopDefaultLegacy(VisibilityOffIcon);
 var VisibilityIcon__default = /*#__PURE__*/_interopDefaultLegacy(VisibilityIcon);
-var makeStyles__default = /*#__PURE__*/_interopDefaultLegacy(makeStyles);
 var ClickAwayListener__default = /*#__PURE__*/_interopDefaultLegacy(ClickAwayListener);
 var Popper__default = /*#__PURE__*/_interopDefaultLegacy(Popper);
 var merge__default = /*#__PURE__*/_interopDefaultLegacy(merge);
-var createStyles__default = /*#__PURE__*/_interopDefaultLegacy(createStyles);
+var uniqBy__default = /*#__PURE__*/_interopDefaultLegacy(uniqBy);
 var CheckIcon__default = /*#__PURE__*/_interopDefaultLegacy(CheckIcon$1);
 var ErrorIcon__default = /*#__PURE__*/_interopDefaultLegacy(ErrorIcon);
 var InfoIcon__default = /*#__PURE__*/_interopDefaultLegacy(InfoIcon);
@@ -88,7 +87,7 @@ const sizeStyles$2 = {
     regular: 'ds-px-1.5 ds-py-1.5 ds-min-h-[40px] ds-text-[16px] ds-leading-[24px] ',
 };
 const variantStyles$1 = {
-    flat: 'ds-border ds-border-solid ds-border-dark-50 ds-bg-[#f9f9f9]',
+    flat: 'ds-border ds-border-solid ds-border-dark-100 ds-bg-[#f9f9f9]',
     raised: 'ds-bg-light-500 ds-shadow-md hover:ds-shadow-lg',
     underlined: 'ds-bg-transparent ds-border-0 ds-border-b-2 ds-border-solid ds-border-[#e8e8e8] ds-rounded-none',
     flatDisabled: `ds-bg-[#f9f9f9] ds-text-dark-200`,
@@ -116,7 +115,7 @@ const TextField = React.forwardRef((_a, ref) => {
     return (jsxRuntime.jsxs(ContainerElement, Object.assign({ ref: ref || containerRef, className: cn__default["default"](className, baseStyles$4.container, fullWidth && 'w-full', multiline && baseStyles$4.multilineContainer, variant && variantStyles$1[variant], disabled && variant && variantStyles$1[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.container) }, (containerProps &&
         containerProps.style && {
         style: containerProps.style,
-    }), containerProps, { children: [beforeChildren, jsxRuntime.jsx(InputComponent, Object.assign({ ref: inputRef, className: cn__default["default"](inputClassName, baseStyles$4.input, multiline && baseStyles$4.multilineInput, size && sizeStyles$2[size], variant && inputStyles[variant], disabled && inputStyles.disabled, disabled && variant && inputStyles[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.input), type: showHidePassword ? 'text' : type }, { rows, disabled }, other)), isPassword && (jsxRuntime.jsx(IconButton__default["default"], Object.assign({ title: "Show/Hide password", className: "ds-w-5 ds-h-5 ds-ml-1", onClick: togglePasswordVisiblity, size: "large" }, { children: showHidePassword ? jsxRuntime.jsx(VisibilityOffIcon__default["default"], {}) : jsxRuntime.jsx(VisibilityIcon__default["default"], {}) }))), children] })));
+    }), containerProps, { children: [beforeChildren, jsxRuntime.jsx(InputComponent, Object.assign({ ref: inputRef, className: cn__default["default"](inputClassName, baseStyles$4.input, multiline && baseStyles$4.multilineInput, size && sizeStyles$2[size], variant && inputStyles[variant], disabled && inputStyles.disabled, disabled && variant && inputStyles[`${variant}Disabled`], classes === null || classes === void 0 ? void 0 : classes.input), type: showHidePassword ? 'text' : type, rows, disabled }, other)), isPassword && (jsxRuntime.jsx(IconButton__default["default"], { title: "Show/Hide password", className: "ds-w-5 ds-h-5 ds-ml-1", onClick: togglePasswordVisiblity, size: "large", children: showHidePassword ? jsxRuntime.jsx(VisibilityOffIcon__default["default"], {}) : jsxRuntime.jsx(VisibilityIcon__default["default"], {}) })), children] })));
 });
 
 const ELEVATION_PROPS = {
@@ -155,131 +154,85 @@ const CardComponent = React.forwardRef((_a, ref) => {
 });
 const Card = CardComponent;
 
-const styles = createStyles__default["default"]({
-    popper: {
-        zIndex: 100,
-        '&[data-popper-placement="bottom"] $container': {
-            top: 15,
-        },
-        '&[data-popper-placement="bottom"] $arrowContainer': {
-            top: 0,
-            '& > svg': {
-                top: 1,
-            },
-        },
-        '&[data-popper-placement="top"] $container': {
-            bottom: 15,
-        },
-        '&[data-popper-placement="top"] $arrowContainer': {
-            bottom: 0,
-            '& > svg': {
-                bottom: 1,
-                transform: 'scaleY(-1)',
-            },
-        },
-        '&[data-popper-placement="right"] $container': {
-            left: 15,
-        },
-        '&[data-popper-placement="right"] $arrowContainer': {
-            left: 0,
-            width: 20,
-            '& > svg': {
-                left: 1,
-                transform: 'rotate(-90deg)',
-            },
-        },
-        '&[data-popper-placement="left"] $container': {
-            right: 15,
-        },
-        '&[data-popper-placement="left"] $arrowContainer': {
-            right: 0,
-            width: 20,
-            '& > svg': {
-                right: 1,
-                transform: 'rotate(90deg)',
-            },
-        },
-    },
-    closedPopper: {
-        pointerEvents: 'none',
-        top: 0,
-        left: 0,
-    },
-    wrapper: {
-        willChange: 'transform',
-    },
-    container: {
-        position: 'relative',
-        border: 'none',
-    },
-    structured: {
-        padding: 0,
-    },
-    arrowContainer: {
-        position: 'absolute',
-        width: 'fit-content',
-        zIndex: 10,
-        display: 'flex',
-        '& > svg': {
-            height: 15,
-            width: 30,
-            position: 'relative',
-            zIndex: 1,
-            '& > g > path': {
-                fill: '#fff',
-            },
-        },
-    },
-});
+const SpeechBubbleArrow = ({ className }) => (jsxRuntime.jsx("svg", { className: className, width: "34px", height: "16px", viewBox: "0 -1 34 17", version: "1.1", xmlns: "http://www.w3.org/2000/svg", children: jsxRuntime.jsx("g", { id: "Page-1", children: jsxRuntime.jsx("path", { style: { filter: 'drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3))' }, fill: "currentColor", d: "M24.9,10.8l-5.1-9.2c-0.3-0.5-0.7-0.9-1.2-1.2c-1.4-0.8-3.3-0.3-4.1,1.2l-5.1,9.2c-1.8,3.2-5.1,5.1-8.7,5.1\n\t\tv2.9h32.9v-2.9C30,15.9,26.6,13.9,24.9,10.8z" }) }) }));
 
-const SpeechBubbleArrow = ({ className }) => (jsxRuntime.jsx("svg", Object.assign({ className: className, width: "34px", height: "16px", viewBox: "0 0 34 16", version: "1.1", xmlns: "http://www.w3.org/2000/svg" }, { children: jsxRuntime.jsxs("g", Object.assign({ id: "Page-1" }, { children: [jsxRuntime.jsx("g", Object.assign({ id: "Artboard", transform: "translate(-157.000000, -56.000000)" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "Rectangle", transform: "translate(157.000000, 56.000000)" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "path-1" }, { children: jsxRuntime.jsx("path", { id: "path-1", fill: "none", stroke: "#b3b3b3", d: "M0.7,15.9c3.6,0,6.9-2,8.7-5.1l5.1-9.2c0.8-1.4,2.6-2,4.1-1.2c0.5,0.3,0.9,0.7,1.2,1.2\n\t\t\t\t\tl5.1,9.2c1.7,3.2,5.1,5.1,8.7,5.1" }) })) })) })), jsxRuntime.jsx("path", { fill: "#FFFFFF", d: "M24.9,10.8l-5.1-9.2c-0.3-0.5-0.7-0.9-1.2-1.2c-1.4-0.8-3.3-0.3-4.1,1.2l-5.1,9.2c-1.8,3.2-5.1,5.1-8.7,5.1\n\t\tv2.9h32.9v-2.9C30,15.9,26.6,13.9,24.9,10.8z" })] })) })));
-
-const useStyles = makeStyles__default["default"](styles);
 const PopperCard = ({ className, anchorElement, open, onClose, popperProps, structured, onClickAway, dismissArrow = false, customClasses: oldCustomClasses = {}, classes: receivedClasses = {}, containerProps = {}, children, }) => {
     const mergedClasses = React.useMemo(() => merge__default["default"]({}, oldCustomClasses, receivedClasses), [
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });
+    const classes = mergedClasses;
     const [arrowReference, setArrowReference] = React.useState(null);
-    return (jsxRuntime.jsx(Popper__default["default"], Object.assign({ open: open }, containerProps, popperProps, { className: cn__default["default"](classes.popper, !open && classes.closedPopper, receivedClasses.popper, containerProps.className), anchorEl: anchorElement, modifiers: [
-            {
-                name: 'flip',
-                enabled: true,
+    let modifiers = React.useMemo(() => uniqBy__default["default"]([
+        ...((popperProps && popperProps.modifiers) || []),
+        {
+            name: 'flip',
+            enabled: true,
+        },
+        {
+            name: 'preventOverflow',
+            enabled: true,
+            options: {
+                padding: 8,
             },
-            {
-                name: 'preventOverflow',
-                enabled: true,
-                options: {
-                    padding: 8,
-                },
+        },
+        {
+            name: 'offset',
+            options: {
+                offset: [0, 16], // décaler le popper de 10px vers le bas
             },
-            {
-                name: 'arrow',
-                enabled: true,
-                options: {
-                    element: arrowReference,
-                },
+        },
+        {
+            name: 'arrow',
+            enabled: true,
+            options: {
+                element: arrowReference,
             },
-            ...((popperProps && popperProps.modifiers) || []),
-        ] }, { children: jsxRuntime.jsx(Content, Object.assign({}, {
+        },
+    ], 'name'), [popperProps === null || popperProps === void 0 ? void 0 : popperProps.modifiers, arrowReference]);
+    return (jsxRuntime.jsx(Popper__default["default"], Object.assign({ open: open }, containerProps, popperProps, { className: cn__default["default"]('ds-z-[100]', !open && 'ds-pointer-events-none ds-top-0 ds-left-0', receivedClasses.popper, containerProps.className), anchorEl: anchorElement, modifiers: modifiers, children: ({ placement }) => (jsxRuntime.jsx(Content, { placement,
             className,
             setArrowReference,
             structured,
             dismissArrow,
             onClickAway,
-            classes,
-        }, { children: children })) })));
+            classes, children: children })) })));
 };
-const Content = ({ className, dismissArrow, setArrowReference, onClickAway, structured, classes, children, }) => {
+const Content = ({ className, dismissArrow, setArrowReference, placement, onClickAway, structured, classes, children, }) => {
     const handleClickAway = React.useCallback((...parameters) => {
         if (typeof onClickAway === 'function') {
             onClickAway(...parameters);
         }
     }, [onClickAway]);
-    const content = (jsxRuntime.jsxs("div", Object.assign({ className: classes.wrapper }, { children: [!dismissArrow && (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"](classes.arrowContainer), ref: setArrowReference }, { children: jsxRuntime.jsx(SpeechBubbleArrow, {}) }))), jsxRuntime.jsx(Card, Object.assign({ className: cn__default["default"](className, classes.container, structured && classes.structured) }, { children: children }))] })));
+    const content = (jsxRuntime.jsxs("div", { children: [!dismissArrow && (jsxRuntime.jsx("div", { className: `ds-z-10 `, ref: setArrowReference, style: {
+                    bottom: placement.includes('bottom')
+                        ? 'calc(100% + 16px)'
+                        : placement.includes('top')
+                            ? 0
+                            : undefined,
+                    right: placement.includes('left')
+                        ? 9
+                        : placement.includes('right')
+                            ? 'calc(100% + 25px)'
+                            : undefined,
+                }, children: jsxRuntime.jsx("div", { className: `ds-leading-none ds-text-light-500 ${classes.arrowContainer}`, style: {
+                        position: 'absolute',
+                        transform: placement.includes('bottom')
+                            ? 'rotate(0deg)'
+                            : placement.includes('top')
+                                ? 'rotate(180deg)'
+                                : placement.includes('right')
+                                    ? 'rotate(-90deg)'
+                                    : placement.includes('left')
+                                        ? 'rotate(90deg)'
+                                        : undefined,
+                        left: placement.includes('bottom') ? -16 : undefined,
+                        top: placement.includes('right') ? -10 : undefined,
+                        bottom: placement.includes('left') ? -10 : undefined,
+                        right: placement.includes('top') ? -19 : undefined,
+                    }, children: jsxRuntime.jsx(SpeechBubbleArrow, { className: 'ds-block' }) }) })), jsxRuntime.jsx(Card, { className: cn__default["default"](className, classes.container, 'ds-relative', structured && 'ds-p-0'), children: children })] }));
     if (onClickAway) {
-        return jsxRuntime.jsx(ClickAwayListener__default["default"], Object.assign({ onClickAway: handleClickAway }, { children: content }));
+        return jsxRuntime.jsx(ClickAwayListener__default["default"], { onClickAway: handleClickAway, children: content });
     }
     return content;
 };
@@ -304,7 +257,7 @@ const bodyStyles = {
 };
 const componentStyles = {
     tag: 'ds-text-[11px] ds-uppercase ds-font-bold ds-tracking-[0.8px]',
-    button: 'ds-font-semibold',
+    button: 'ds-font-medium',
     helper: 'ds-text-[13px] ds-mt-2',
     label: `${bodyStyles.body2} ds-mb-1`,
 };
@@ -566,7 +519,7 @@ const ListItem = (_a) => {
     var { component: Component = 'li', className, typographyClassName, button, style, children, classes } = _a, other = __rest(_a, ["component", "className", "typographyClassName", "button", "style", "children", "classes"]);
     return (jsxRuntime.jsx(Component, Object.assign({ className: cn__default["default"]('ds-px-2 ds-py-2 ds-rounded-md ds-flex ds-items-center ds-transition-all ds-bg-transparent hover:ds-bg-dark-50', button && 'ds-cursor-pointer', button && (classes === null || classes === void 0 ? void 0 : classes.button), classes === null || classes === void 0 ? void 0 : classes.container, className) }, style, (button && {
         role: 'button',
-    }), other, { children: jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"]('ds-flex ds-items-center', classes === null || classes === void 0 ? void 0 : classes.typography, typographyClassName), color: "dark" }, { children: children })) })));
+    }), other, { children: jsxRuntime.jsx(Typography, { className: cn__default["default"]('ds-flex ds-items-center', classes === null || classes === void 0 ? void 0 : classes.typography, typographyClassName), color: "dark", children: children }) })));
 };
 
 const baseClasses = {
@@ -606,9 +559,9 @@ const CheckboxComponent = React.forwardRef((_a, ref) => {
     }, [disabled, onChange]);
     return (jsxRuntime.jsxs(Component, Object.assign({ className: cn__default["default"](baseClasses.size[size], baseClasses.container, isRadio ? 'ds-rounded-full' : 'ds-rounded-md', disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]', checked && !disabled && variant === 'raised' && 'ds-bg-current', variant && variantClasses[variant], className), style: {
             color: disabled ? palette === null || palette === void 0 ? void 0 : palette.dark[200] : (_c = (color && ((_b = palette === null || palette === void 0 ? void 0 : palette[color]) === null || _b === void 0 ? void 0 : _b[500]))) !== null && _c !== void 0 ? _c : propsDefaultColor,
-        } }, containerProps, { ref }, { children: [jsxRuntime.jsx(CheckIcon, Object.assign({}, { checked, partialCheck: !!partialCheck }, { classes: {
+        } }, containerProps, { ref, children: [jsxRuntime.jsx(CheckIcon, { checked, partialCheck: !!partialCheck, classes: {
                     checkIcon: cn__default["default"](baseClasses.icon, checked && variant && iconClasses[variant], partialCheck && iconClasses['partial']),
-                } })), jsxRuntime.jsx("div", { className: cn__default["default"](baseClasses.layer, variant && layerClasses[variant]) }), jsxRuntime.jsx("input", Object.assign({ className: cn__default["default"](baseClasses.input, inputClassName), type: "checkbox", onChange: handleChange }, { checked }, other))] })));
+                } }), jsxRuntime.jsx("div", { className: cn__default["default"](baseClasses.layer, variant && layerClasses[variant]) }), jsxRuntime.jsx("input", Object.assign({ className: cn__default["default"](baseClasses.input, inputClassName), type: "checkbox", onChange: handleChange, checked }, other))] })));
 });
 const DEFAULT_ICON_PROPS = {
     scale: 0.5,
@@ -621,26 +574,26 @@ const CHECKED_ICON_PROPS = {
 const CheckIcon = ({ checked: propsChecked, partialCheck, classes, }) => {
     const checked = propsChecked || partialCheck;
     React.useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
-    return (jsxRuntime.jsx("svg", Object.assign({ className: classes.checkIcon, viewBox: "0 0 24 24", fill: "#fff" }, { children: jsxRuntime.jsxs("g", { children: [propsChecked && jsxRuntime.jsx("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" }), !propsChecked && partialCheck && jsxRuntime.jsx("rect", { x: "4", y: "11", width: "17", height: "2" })] }) })));
+    return (jsxRuntime.jsx("svg", { className: classes.checkIcon, viewBox: "0 0 24 24", fill: "#fff", children: jsxRuntime.jsxs("g", { children: [propsChecked && jsxRuntime.jsx("path", { d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" }), !propsChecked && partialCheck && jsxRuntime.jsx("rect", { x: "4", y: "11", width: "17", height: "2" })] }) }));
 };
 const Checkbox = CheckboxComponent;
 
 const defaultGetSuggestionValue = ({ value }) => value;
 const defaultFilterSuggestion = (inputValue) => ({ value }) => inputValue && value && value.toLowerCase().includes(inputValue.toLowerCase());
 const DEFAULT_FUNCTION = () => { };
-const SuggestionsContainer = ({ containerProps, popperPlacement, anchorElement, children, popperCustomClasses = {}, className, }) => {
+const SuggestionsContainer = ({ containerProps, popperProps, children, anchorElement, popperCustomClasses = {}, className, }) => {
     const lastChildrenRendered = React.useRef(children);
     React.useEffect(() => {
         if (children) {
             lastChildrenRendered.current = children;
         }
     }, [children]);
-    return (jsxRuntime.jsx(PopperCard, Object.assign({ className: className, open: Boolean(children), popperProps: Object.assign({}, (popperPlacement && { placement: popperPlacement })), classes: popperCustomClasses }, { anchorElement, containerProps }, { children: children || lastChildrenRendered.current })));
+    return (jsxRuntime.jsx(PopperCard, { className: className, open: Boolean(children), popperProps: popperProps, classes: popperCustomClasses, anchorElement: anchorElement, containerProps, children: children || lastChildrenRendered.current }));
 };
-const DefaultSuggestionsRender = ({ value }) => (jsxRuntime.jsx(ListItem, Object.assign({ className: 'ds-rounded-md', button: true }, { children: jsxRuntime.jsx(Typography, Object.assign({ color: "dark" }, { children: value })) }), `prediction_${value}`));
-const DefaultMultipleSuggestionsRender = ({ value, classes, selectedValues, }) => (jsxRuntime.jsxs(ListItem, Object.assign({ className: 'ds-rounded-md', button: true }, { children: [jsxRuntime.jsx(Checkbox, { className: 'ds-mr-2', checked: selectedValues.includes(value) }), jsxRuntime.jsx(Typography, Object.assign({ color: "dark", classes: { container: classes.predictionListItem } }, { children: value }))] }), `prediction_${value}`));
+const DefaultSuggestionsRender = ({ value }) => (jsxRuntime.jsx(ListItem, { className: 'ds-rounded-md', button: true, children: jsxRuntime.jsx(Typography, { color: "dark", children: value }) }, `prediction_${value}`));
+const DefaultMultipleSuggestionsRender = ({ value, classes, selectedValues, }) => (jsxRuntime.jsxs(ListItem, { className: 'ds-rounded-md', button: true, children: [jsxRuntime.jsx(Checkbox, { className: 'ds-mr-2', checked: selectedValues.includes(value) }), jsxRuntime.jsx(Typography, { color: "dark", classes: { container: classes.predictionListItem }, children: value })] }, `prediction_${value}`));
 const AutoCompleteComponent = (_a) => {
-    var { multiple, placeholder, suggestions, onChange = DEFAULT_FUNCTION, onSelect = DEFAULT_FUNCTION, getSuggestionValue = defaultGetSuggestionValue, renderSuggestion: renderSuggestionProps, renderSuggestionsContainer: renderSuggestionsContainerProps, renderInputComponent: renderInputComponentProps, filterFunction = defaultFilterSuggestion, renderNoSuggestion, maxLength = 10, value: propsValue = '', id, name, transformSuggestionValue = (props) => props && props.value, classes = {}, popperPlacement } = _a, other = __rest(_a, ["multiple", "placeholder", "suggestions", "onChange", "onSelect", "getSuggestionValue", "renderSuggestion", "renderSuggestionsContainer", "renderInputComponent", "filterFunction", "renderNoSuggestion", "maxLength", "value", "id", "name", "transformSuggestionValue", "classes", "popperPlacement"]);
+    var { multiple, placeholder, suggestions, onChange = DEFAULT_FUNCTION, onSelect = DEFAULT_FUNCTION, getSuggestionValue = defaultGetSuggestionValue, renderSuggestion: renderSuggestionProps, renderSuggestionsContainer: renderSuggestionsContainerProps, renderInputComponent: renderInputComponentProps, filterFunction = defaultFilterSuggestion, renderNoSuggestion, maxLength = 10, value: propsValue = '', id, name, transformSuggestionValue = (props) => props && props.value, classes = {}, popperProps } = _a, other = __rest(_a, ["multiple", "placeholder", "suggestions", "onChange", "onSelect", "getSuggestionValue", "renderSuggestion", "renderSuggestionsContainer", "renderInputComponent", "filterFunction", "renderNoSuggestion", "maxLength", "value", "id", "name", "transformSuggestionValue", "classes", "popperProps"]);
     const inputReference = React.useRef();
     const [filteredSuggestions, setFilteredSuggetions] = React.useState([]);
     const [value, setValue] = React.useState(propsValue || '');
@@ -653,24 +606,19 @@ const AutoCompleteComponent = (_a) => {
         setFilteredSuggetions(filter.slice(0, maxLength));
     }, []);
     const renderSuggestion = renderSuggestionProps ||
-        ((props) => (jsxRuntime.jsx(DefaultSuggestionsRender, Object.assign({}, {
-            classes,
-            value: transformSuggestionValue(props),
-        }))));
+        ((props) => (jsxRuntime.jsx(DefaultSuggestionsRender, { classes,
+            value: transformSuggestionValue(props) })));
     const renderSuggestionsContainer = renderSuggestionsContainerProps ||
         ((props) => {
             const { containerProps, children } = props;
             if (value && !filteredSuggestions.length && typeof renderNoSuggestion === 'function') {
                 return renderNoSuggestion({ anchorElement: inputReference.current, open: focused });
             }
-            return (jsxRuntime.jsx(SuggestionsContainer, Object.assign({}, {
-                popperPlacement,
-                containerProps,
-                children,
-            }, { className: 'ds-max-w-[600px]', popperCustomClasses: {
+            return (jsxRuntime.jsx(SuggestionsContainer, { anchorElement: inputReference.current, popperProps: Object.assign({}, popperProps), containerProps,
+                children, className: 'ds-max-w-[600px]', popperCustomClasses: {
                     popper: `${classes === null || classes === void 0 ? void 0 : classes.popper}`,
                     container: 'ds-overflow-auto ds-scrollbar ds-max-h-[400px]',
-                }, anchorElement: inputReference.current })));
+                } }));
         });
     const renderInputComponent = renderInputComponentProps ||
         ((_a) => {
@@ -680,7 +628,7 @@ const AutoCompleteComponent = (_a) => {
         });
     const filterSuggestions = React.useCallback((data) => {
         const { value: inputValue, reason } = data;
-        if (multiple && reason === "suggestion-selected") {
+        if (multiple && reason === 'suggestion-selected') {
             return;
         }
         if (!inputValue) {
@@ -730,9 +678,9 @@ const AutoCompleteComponent = (_a) => {
         onChange: valueChanged,
         onFocus: setIsFocused,
     };
-    return (jsxRuntime.jsx(ClickAwayListener__default["default"], Object.assign({ onClickAway: setIsNotFocused }, { children: jsxRuntime.jsx(Autosuggest__default["default"], Object.assign({ alwaysRenderSuggestions: multiple !== null && multiple !== void 0 ? multiple : false, suggestions: filteredSuggestions, focusInputOnSuggestionClick: multiple !== null && multiple !== void 0 ? multiple : false, getSuggestionValue: getSuggestionValue, onSuggestionsClearRequested: clearSuggestions, onSuggestionsFetchRequested: filterSuggestions, renderSuggestion: renderSuggestion, theme: {
+    return (jsxRuntime.jsx(ClickAwayListener__default["default"], { onClickAway: setIsNotFocused, children: jsxRuntime.jsx(Autosuggest__default["default"], { alwaysRenderSuggestions: multiple !== null && multiple !== void 0 ? multiple : false, suggestions: filteredSuggestions, focusInputOnSuggestionClick: multiple !== null && multiple !== void 0 ? multiple : false, getSuggestionValue: getSuggestionValue, onSuggestionsClearRequested: clearSuggestions, onSuggestionsFetchRequested: filterSuggestions, renderSuggestion: renderSuggestion, theme: {
                 suggestionsList: 'ds-list-none ds-p-0 ds-m-0 overflow-auto',
-            }, renderSuggestionsContainer: renderSuggestionsContainer, onSuggestionSelected: suggestionSelected, renderInputComponent: renderInputComponent }, { inputProps })) })));
+            }, renderSuggestionsContainer: renderSuggestionsContainer, onSuggestionSelected: suggestionSelected, renderInputComponent: renderInputComponent, inputProps }) }));
 };
 const MultipleAutoComplete = (_a) => {
     var { renderSuggestion: renderSuggestionProps, selectedSuggestions: selectedSuggestionsProps = [], classes = {}, transformSuggestionValue = (props) => props && props.value, onSelect: onSelectProps } = _a, other = __rest(_a, ["renderSuggestion", "selectedSuggestions", "classes", "transformSuggestionValue", "onSelect"]);
@@ -751,23 +699,21 @@ const MultipleAutoComplete = (_a) => {
         onSelectProps && onSelectProps(newValue);
     }, [selectedSuggestions, onSelectProps]);
     const renderSuggestion = renderSuggestionProps ||
-        ((props) => (jsxRuntime.jsx(DefaultMultipleSuggestionsRender, Object.assign({}, {
-            classes,
+        ((props) => (jsxRuntime.jsx(DefaultMultipleSuggestionsRender, { classes,
             value: transformSuggestionValue(props),
-            selectedValues: selectedSuggestions,
-        }))));
-    return jsxRuntime.jsx(AutoCompleteComponent, Object.assign({}, { renderSuggestion, onSelect: handleSelectSuggestion }, other));
+            selectedValues: selectedSuggestions })));
+    return jsxRuntime.jsx(AutoCompleteComponent, Object.assign({ renderSuggestion, onSelect: handleSelectSuggestion }, other));
 };
 const WithMultipleAutoComplete = (_a) => {
     var { multiple = false } = _a, other = __rest(_a, ["multiple"]);
     if (multiple) {
-        return jsxRuntime.jsx(MultipleAutoComplete, Object.assign({}, { multiple }, other));
+        return jsxRuntime.jsx(MultipleAutoComplete, Object.assign({ multiple }, other));
     }
     return jsxRuntime.jsx(AutoCompleteComponent, Object.assign({}, other));
 };
 const AutoComplete = WithMultipleAutoComplete;
 
-const WarningIcon = ({ className }) => (jsxRuntime.jsxs("svg", Object.assign({ className: className, width: "30px", height: "25px", viewBox: "0 0 30 25", version: "1.1" }, { children: [jsxRuntime.jsx("title", { children: "Warning icon" }), jsxRuntime.jsx("desc", { children: "Warning - WeLoveDevs" }), jsxRuntime.jsx("g", Object.assign({ id: "Page-1", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "Company-Main-Card", transform: "translate(-69.000000, -60.000000)" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "Group-3", transform: "translate(49.000000, 46.000000)" }, { children: jsxRuntime.jsx("g", Object.assign({ id: "Group-2", transform: "translate(19.000000, 11.000000)" }, { children: jsxRuntime.jsxs("g", Object.assign({ id: "warning-24px" }, { children: [jsxRuntime.jsx("polygon", { id: "Path", points: "0 0 32 0 32 32 0 32" }), jsxRuntime.jsx("path", { d: "M2.73141008,28 L29.2685899,28 C29.8208747,28 30.2685899,27.5522847 30.2685899,27 C30.2685899,26.824572 30.2224408,26.6522307 30.1347755,26.5002775 L16.8661856,3.50138835 C16.5901965,3.02300726 15.9786586,2.85893613 15.5002775,3.13492522 C15.348042,3.22275344 15.2216426,3.34915276 15.1338144,3.50138835 L1.86522449,26.5002775 C1.5892354,26.9786586 1.75330654,27.5901965 2.23168762,27.8661856 C2.38364083,27.9538509 2.55598208,28 2.73141008,28 Z M17.3636364,23.8947368 L14.6363636,23.8947368 L14.6363636,21.1578947 L17.3636364,21.1578947 L17.3636364,23.8947368 Z M17.3636364,18.4210526 L14.6363636,18.4210526 L14.6363636,12.9473684 L17.3636364,12.9473684 L17.3636364,18.4210526 Z", id: "Shape", fill: "currentcolor", fillRule: "nonzero" })] })) })) })) })) }))] })));
+const WarningIcon = ({ className }) => (jsxRuntime.jsxs("svg", { className: className, width: "30px", height: "25px", viewBox: "0 0 30 25", version: "1.1", children: [jsxRuntime.jsx("title", { children: "Warning icon" }), jsxRuntime.jsx("desc", { children: "Warning - WeLoveDevs" }), jsxRuntime.jsx("g", { id: "Page-1", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd", children: jsxRuntime.jsx("g", { id: "Company-Main-Card", transform: "translate(-69.000000, -60.000000)", children: jsxRuntime.jsx("g", { id: "Group-3", transform: "translate(49.000000, 46.000000)", children: jsxRuntime.jsx("g", { id: "Group-2", transform: "translate(19.000000, 11.000000)", children: jsxRuntime.jsxs("g", { id: "warning-24px", children: [jsxRuntime.jsx("polygon", { id: "Path", points: "0 0 32 0 32 32 0 32" }), jsxRuntime.jsx("path", { d: "M2.73141008,28 L29.2685899,28 C29.8208747,28 30.2685899,27.5522847 30.2685899,27 C30.2685899,26.824572 30.2224408,26.6522307 30.1347755,26.5002775 L16.8661856,3.50138835 C16.5901965,3.02300726 15.9786586,2.85893613 15.5002775,3.13492522 C15.348042,3.22275344 15.2216426,3.34915276 15.1338144,3.50138835 L1.86522449,26.5002775 C1.5892354,26.9786586 1.75330654,27.5901965 2.23168762,27.8661856 C2.38364083,27.9538509 2.55598208,28 2.73141008,28 Z M17.3636364,23.8947368 L14.6363636,23.8947368 L14.6363636,21.1578947 L17.3636364,21.1578947 L17.3636364,23.8947368 Z M17.3636364,18.4210526 L14.6363636,18.4210526 L14.6363636,12.9473684 L17.3636364,12.9473684 L17.3636364,18.4210526 Z", id: "Shape", fill: "currentcolor", fillRule: "nonzero" })] }) }) }) }) })] }));
 
 const BANNER_DATA = Object.freeze({
     warning: {
@@ -828,7 +774,7 @@ const Banner = ({ type = 'warning', className, icon: receivedIcon, classes = {},
         return Object.assign(Object.assign({}, typeConfig), { color: (_a = palette[typeConfig.color]) === null || _a === void 0 ? void 0 : _a[500] });
     }, [type]);
     const Icon = receivedIcon || icon;
-    return (jsxRuntime.jsxs("div", Object.assign({ className: cn__default["default"](className !== null && className !== void 0 ? className : '', classes === null || classes === void 0 ? void 0 : classes.container, (_a = baseStyles$2.container[size || 'regular']) !== null && _a !== void 0 ? _a : baseStyles$2.container.regular, (_b = baseStyles$2.background[size || 'regular']) !== null && _b !== void 0 ? _b : baseStyles$2.background.regular), style: { color } }, { children: [Icon && (jsxRuntime.jsx("span", Object.assign({ className: (_c = iconStyles.container[size || 'regular']) !== null && _c !== void 0 ? _c : iconStyles.container.regular }, { children: jsxRuntime.jsx(Icon, { className: (_d = iconStyles.icon[size || 'regular']) !== null && _d !== void 0 ? _d : iconStyles.icon.regular }) }))), children] })));
+    return (jsxRuntime.jsxs("div", { className: cn__default["default"](className !== null && className !== void 0 ? className : '', classes === null || classes === void 0 ? void 0 : classes.container, (_a = baseStyles$2.container[size || 'regular']) !== null && _a !== void 0 ? _a : baseStyles$2.container.regular, (_b = baseStyles$2.background[size || 'regular']) !== null && _b !== void 0 ? _b : baseStyles$2.background.regular), style: { color }, children: [Icon && (jsxRuntime.jsx("span", { className: (_c = iconStyles.container[size || 'regular']) !== null && _c !== void 0 ? _c : iconStyles.container.regular, children: jsxRuntime.jsx(Icon, { className: (_d = iconStyles.icon[size || 'regular']) !== null && _d !== void 0 ? _d : iconStyles.icon.regular }) })), children] }));
 };
 
 const baseStyles$1 = {
@@ -838,14 +784,14 @@ const baseStyles$1 = {
     disabled: 'ds-cursor-not-allowed',
 };
 const sizeStyles$1 = {
-    regular: 'ds-p-1.5 ',
-    small: 'ds-p-1 ds-text-[12px]',
-    xs: 'ds-py-1/2 ds-px-1 ds-text-[11px]',
+    regular: 'ds-p-[10px] ',
+    small: 'ds-p-1',
+    xs: 'ds-py-1/2 ds-px-1',
 };
 const typographysizeStyles = {
     regular: '',
-    small: 'ds-text-[12px]',
-    xs: 'ds-text-[11px]',
+    small: 'ds-text-[14px] ds-tracking-wide',
+    xs: 'ds-text-[12px] ds-tracking-wide',
 };
 const variantStyles = {
     contained: 'ds-bg-current',
@@ -902,7 +848,7 @@ const Button = React.forwardRef((_a, ref) => {
         }
         return color;
     }, [variant, color]);
-    return (jsxRuntime.jsxs(Component, Object.assign({ ref: ref || containerRef }, containerProps, { type: type !== null && type !== void 0 ? type : 'button', className: cn__default["default"](baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, !disabled && shadow, variantStyles[variant !== null && variant !== void 0 ? variant : 'default'], className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign({ color: hexColor }, propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: [!disabled && jsxRuntime.jsx("div", { className: cn__default["default"](baseStyles$1.brightLayer, variant && layerVariantStyles[variant]) }), jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"](baseStyles$1.typography, variant && textVariantStyles[variant], size && typographysizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", color: textColor }, { children: children }))] })));
+    return (jsxRuntime.jsxs(Component, Object.assign({ ref: ref || containerRef }, containerProps, { type: type !== null && type !== void 0 ? type : 'button', className: cn__default["default"](baseStyles$1.container, (size && sizeStyles$1[size]) || sizeStyles$1.regular, disabled && baseStyles$1.disabled, !disabled && shadow, variantStyles[variant !== null && variant !== void 0 ? variant : 'default'], className, classes === null || classes === void 0 ? void 0 : classes.container), style: Object.assign(Object.assign({ color: hexColor }, propsStyle), (containerProps && containerProps.style)), onClick: handleClick }, other, { children: [!disabled && jsxRuntime.jsx("div", { className: cn__default["default"](baseStyles$1.brightLayer, variant && layerVariantStyles[variant]) }), jsxRuntime.jsx(Typography, { className: cn__default["default"](baseStyles$1.typography, variant && textVariantStyles[variant], size && typographysizeStyles[size], classes === null || classes === void 0 ? void 0 : classes.typography), variant: "button", color: textColor, children: children })] })));
 });
 
 const List = (_a) => {
@@ -910,21 +856,21 @@ const List = (_a) => {
     return jsxRuntime.jsx("ul", Object.assign({ className: cn__default["default"](classes === null || classes === void 0 ? void 0 : classes.container, 'ds-p-0 ds-m-0 ds-list-none', className) }, other));
 };
 
-const PopperCardActions = ({ children, classes = {} }) => {
-    return (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"]('ds-w-full ds-flex ds-items-center ds-justify-end ds-p-1', classes === null || classes === void 0 ? void 0 : classes.container) }, { children: children })));
+const PopperCardActions = ({ children, classes = {}, }) => {
+    return (jsxRuntime.jsx("div", { className: cn__default["default"]('ds-w-full ds-flex ds-items-center ds-justify-end ds-p-1', classes === null || classes === void 0 ? void 0 : classes.container), children: children }));
 };
 
-const PopperCardContent = ({ classes = {}, children }) => {
-    return jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"]('ds-w-full ds-px-1 ds-py-3 ds-overflow-auto', classes === null || classes === void 0 ? void 0 : classes.container) }, { children: children }));
+const PopperCardContent = ({ classes = {}, children, }) => {
+    return jsxRuntime.jsx("div", { className: cn__default["default"]('ds-w-full ds-px-1 ds-py-3 ds-overflow-auto', classes === null || classes === void 0 ? void 0 : classes.container), children: children });
 };
 
-const PopperCardTitle = ({ classes = {}, children }) => {
-    return (jsxRuntime.jsx(Typography, Object.assign({ className: cn__default["default"]('ds-w-full ds-p-3 !ds-text-[20px] !ds-leading-[1.6] ds-font-medium ds-tracking-[unset]', classes === null || classes === void 0 ? void 0 : classes.container), variant: "body1", component: "h2", color: "dark" }, { children: children })));
+const PopperCardTitle = ({ classes = {}, children, }) => {
+    return (jsxRuntime.jsx(Typography, { className: cn__default["default"]('ds-w-full ds-p-3 !ds-text-[20px] !ds-leading-[1.6] ds-font-medium ds-tracking-[unset]', classes === null || classes === void 0 ? void 0 : classes.container), variant: "body1", component: "h2", color: "dark", children: children }));
 };
 
 const ProgressBar = ({ value: progressValue = 0, color = 'primary', className, classes = {}, }) => {
     var _a, _b;
-    return (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"](className, classes === null || classes === void 0 ? void 0 : classes.container, 'ds-w-full ds-h-[6px] ds-rounded-full ds-overflow-hidden ds-bg-lightGray ds-flex ds-items-center') }, { children: jsxRuntime.jsx("div", { className: cn__default["default"](`ds-block ds-h-full ds-rounded-full ds-bg-current ds-transition-all`, classes === null || classes === void 0 ? void 0 : classes.bar), style: { width: `${progressValue}%`, color: (_b = (_a = palette[color]) === null || _a === void 0 ? void 0 : _a[500]) !== null && _b !== void 0 ? _b : palette.dark[200] } }) })));
+    return (jsxRuntime.jsx("div", { className: cn__default["default"](className, classes === null || classes === void 0 ? void 0 : classes.container, 'ds-w-full ds-h-[6px] ds-rounded-full ds-overflow-hidden ds-bg-lightGray ds-flex ds-items-center'), children: jsxRuntime.jsx("div", { className: cn__default["default"](`ds-block ds-h-full ds-rounded-full ds-bg-current ds-transition-all`, classes === null || classes === void 0 ? void 0 : classes.bar), style: { width: `${progressValue}%`, color: (_b = (_a = palette[color]) === null || _a === void 0 ? void 0 : _a[500]) !== null && _b !== void 0 ? _b : palette.dark[200] } }) }));
 };
 
 const Slider = (_a) => {
@@ -963,56 +909,6 @@ const thumbPositionStyles = {
         right: 'ds-left-[calc(100%-20px-2px)]',
     },
 };
-createStyles__default["default"]({
-    container: {
-        minHeight: 30,
-        height: 'fit-content',
-        width: 80,
-        position: 'relative',
-        backgroundColor: 'currentColor',
-        borderRadius: 150,
-        display: 'flex',
-        alignItems: 'center',
-        cursor: 'pointer',
-    },
-    disabled: {
-        cursor: 'not-allowed',
-    },
-    thumbContainer: {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'flex-end',
-    },
-    thumb: {
-        height: 25,
-        width: 25,
-        margin: 6,
-        backgroundColor: '#f7f7f7',
-        boxShadow: '0 2px 8px rgba(0, 0, 0,.15)',
-        borderRadius: '50%',
-    },
-    brightLayer: {
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        backgroundColor: '#fff',
-        zIndex: 1,
-    },
-    input: {
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        opacity: 0,
-        padding: 0,
-        margin: 0,
-        cursor: 'inherit',
-        zIndex: 2,
-    },
-});
 
 const Switch = (_a) => {
     var _b;
@@ -1029,7 +925,7 @@ const Switch = (_a) => {
             onChange(...parameters);
         }
     }, [disabled, onChange]);
-    return (jsxRuntime.jsxs("div", Object.assign({ ref: containerRef, className: cn__default["default"](className, baseStyles.container, disabled && baseStyles.disabled, size && sizeStyles[`size_${size}`]), style: Object.assign(Object.assign({}, containerStyleProps), get__default["default"](containerProps, 'style')) }, containerProps, { children: [jsxRuntime.jsx("div", Object.assign({ className: `${baseStyles.thumbContainer} ${checked ? thumbPositionStyles[size].right : thumbPositionStyles[size].left}` }, { children: jsxRuntime.jsx("div", { className: cn__default["default"](baseStyles.thumb, size && sizeStyles[`thumb_size_${size}`]) }) })), jsxRuntime.jsx("div", { className: baseStyles.brightLayer }), jsxRuntime.jsx("input", Object.assign({ className: cn__default["default"](baseStyles.input, inputClassName, disabled && baseStyles.disabled), type: "checkbox", onChange: handleChange }, { checked }, other))] })));
+    return (jsxRuntime.jsxs("div", Object.assign({ ref: containerRef, className: cn__default["default"](className, baseStyles.container, disabled && baseStyles.disabled, size && sizeStyles[`size_${size}`]), style: Object.assign(Object.assign({}, containerStyleProps), get__default["default"](containerProps, 'style')) }, containerProps, { children: [jsxRuntime.jsx("div", { className: `${baseStyles.thumbContainer} ${checked ? thumbPositionStyles[size].right : thumbPositionStyles[size].left}`, children: jsxRuntime.jsx("div", { className: cn__default["default"](baseStyles.thumb, size && sizeStyles[`thumb_size_${size}`]) }) }), jsxRuntime.jsx("div", { className: baseStyles.brightLayer }), jsxRuntime.jsx("input", Object.assign({ className: cn__default["default"](baseStyles.input, inputClassName, disabled && baseStyles.disabled), type: "checkbox", onChange: handleChange, checked }, other))] })));
 };
 
 const Tag = React.forwardRef((_a, ref) => {
@@ -1084,25 +980,36 @@ const Tag = React.forwardRef((_a, ref) => {
             setHover(true);
         }, onMouseLeave: () => {
             setHover(false);
-        }, onClick: onClick, style: Object.assign(Object.assign({}, style), { background: hover && isClickable ? bgColor.hover : bgColor.normal }) }, other, { children: [jsxRuntime.jsx(Typography, Object.assign({ style: {
+        }, onClick: onClick, style: Object.assign(Object.assign({}, style), { background: hover && isClickable ? bgColor.hover : bgColor.normal }) }, other, { children: [children && (jsxRuntime.jsx(Typography, { style: {
                     color: textColor,
                 }, className: cn__default["default"]('ds-font-medium ds-flex ds-items-center', classes === null || classes === void 0 ? void 0 : classes.typography), variant: typographyVariant[size] || typographyVariant.regular, onMouseLeave: () => {
                     setHover(false);
-                } }, { children: children })), onDelete && (jsxRuntime.jsx(Cancel__default["default"], { className: `ds-max-h-[14px] ds-max-w-[14px] ds-ml-1 ds-cursor-pointer`, style: {
+                }, children: children })), onDelete && (jsxRuntime.jsx(Cancel__default["default"], { className: `ds-max-h-[14px] ds-max-w-[14px] ${children ? 'ds-ml-1' : ''} ds-cursor-pointer`, style: {
                     color: textColor,
                 }, onClick: onDelete }))] })));
 });
 
 const TextFieldIcon = React.forwardRef((_a, ref) => {
     var { className, classes } = _a, other = __rest(_a, ["className", "classes"]);
-    return (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"]('ds-px-1 ds-py-2 ds-flex child-svg:ds-h-3 child-svg:ds-w-3', className, classes === null || classes === void 0 ? void 0 : classes.container) }, { ref }, other)));
+    return (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"]('ds-px-1 ds-py-2 ds-flex child-svg:ds-h-3 child-svg:ds-w-3', className, classes === null || classes === void 0 ? void 0 : classes.container), ref }, other)));
 });
 
 const Tooltip = React.forwardRef((_a, ref) => {
     var _b, _c;
     var { children, classes } = _a, other = __rest(_a, ["children", "classes"]);
-    return (jsxRuntime.jsx(MuiTooltip__default["default"], Object.assign({ ref: ref }, other, { classes: Object.assign(Object.assign({}, classes), { tooltip: `${(_b = classes === null || classes === void 0 ? void 0 : classes.tooltip) !== null && _b !== void 0 ? _b : ''} ds-leading-[1.5] ds-text-[13px] ds-px-[12px] ds-py-2 ds-bg-[black]/[0.85] ds-text-light-500 ds-font-medium ds-max-w-[375px]`, popper: `${(_c = classes === null || classes === void 0 ? void 0 : classes.popper) !== null && _c !== void 0 ? _c : ''} z-[10000]` }) }, { children: children })));
+    return (jsxRuntime.jsx(MuiTooltip__default["default"], Object.assign({ ref: ref }, other, { classes: Object.assign(Object.assign({}, classes), { tooltip: `${(_b = classes === null || classes === void 0 ? void 0 : classes.tooltip) !== null && _b !== void 0 ? _b : ''} ds-leading-[1.5] ds-text-[13px] ds-px-[12px] ds-py-2 ds-bg-[black]/[0.85] ds-text-light-500 ds-font-medium ds-max-w-[375px]`, popper: `${(_c = classes === null || classes === void 0 ? void 0 : classes.popper) !== null && _c !== void 0 ? _c : ''} z-[10000]` }), children: children })));
 });
+
+const Tabs = ({ tabs, setActiveTab, classes }) => {
+    var _a;
+    return (jsxRuntime.jsxs("div", { className: `ds-max-w-fit ds-w-full ${classes === null || classes === void 0 ? void 0 : classes.container}`, children: [jsxRuntime.jsxs("div", { className: `ds-hidden xs:ds-block ds-w-full ${classes === null || classes === void 0 ? void 0 : classes.mobileContainer}`, children: [jsxRuntime.jsx("label", { htmlFor: "tabs", className: "ds-sr-only", children: "Select a tab" }), jsxRuntime.jsx("select", { id: "tabs", name: "tabs", className: "ds-block ds-w-full ds-rounded-md ds-border-gray-300 focus:ds-border-indigo-500 focus:ds-ring-indigo-500", defaultValue: (_a = tabs.find((tab) => tab.current)) === null || _a === void 0 ? void 0 : _a.name, onChange: (e) => setActiveTab(e.target.value), children: tabs.map((tab) => (jsxRuntime.jsx("option", { className: classes === null || classes === void 0 ? void 0 : classes.typography, children: tab.name }, tab.name))) })] }), jsxRuntime.jsx("div", { className: `ds-flex xs:ds-hidden ds-w-full ${classes === null || classes === void 0 ? void 0 : classes.desktopContainer}`, children: jsxRuntime.jsx("nav", { className: "ds-isolate ds-flex ds-divide-x ds-divide-gray-200 ds-rounded-lg ds-shadow ds-w-full", "aria-label": "Tabs", children: tabs.map((tab, tabIdx) => (jsxRuntime.jsxs("div", { className: `
+                                    ${tab.current ? 'ds-text-gray-900' : 'ds-text-gray-500 hover:ds-text-gray-700'}
+                                    ${tabIdx === 0 ? 'ds-rounded-l-lg' : ''}
+                                    ${tabIdx === tabs.length - 1 ? 'ds-rounded-r-lg' : ''}
+                                    ds-group ds-relative ds-min-w-0 ds-flex ds-w-full ds-overflow-hidden ds-justify-center ds-bg-white ds-py-2 ds-px-5 ds-text-center ds-text-sm ds-cursor-pointer ds-font-medium hover:ds-bg-gray-50 focus:ds-z-10
+                                    ${classes === null || classes === void 0 ? void 0 : classes.tab}
+                                `, "aria-current": tab.current ? 'page' : undefined, onClick: () => setActiveTab(tab.ref), children: [jsxRuntime.jsx(Typography, { className: `ds-whitespace-nowrap ${classes === null || classes === void 0 ? void 0 : classes.typography}`, children: tab.name }), jsxRuntime.jsx("span", { "aria-hidden": "true", className: `${tab.current ? 'ds-bg-indigo-500' : 'ds-bg-transparent'} ds-absolute ds-inset-x-0 ds-bottom-0 ds-h-0.5` })] }, tab.name))) }) })] }));
+};
 
 const useDebouncedValue = (value, duration = 500) => {
     const timerRef = React.useRef(null);
@@ -1158,11 +1065,11 @@ const TechnologyItem = ({ item, selectedItems = [], onAdd, onDelete, isMobile, }
         const handle = last__default["default"](matchingItem === null || matchingItem === void 0 ? void 0 : matchingItem.url.split('/'));
         return `https://process.filestackapi.com/auto_image/${handle !== null && handle !== void 0 ? handle : '4A5N89okRPW50jRcmkuM'}`;
     }, [item, technologies]);
-    return (jsxRuntime.jsxs("button", Object.assign({ className: `${isMobile ? 'ds-w-7 ds-max-w-7 ds-m-1' : 'ds-w-10 ds-max-w-10 ds-m-1.5'} ds-flex ds-flex-col ds-items-center`, type: "button", onClick: onClick }, { children: [jsxRuntime.jsxs(Card, Object.assign({ classes: {
+    return (jsxRuntime.jsxs("button", { className: `${isMobile ? 'ds-w-7 ds-max-w-7 ds-m-1' : 'ds-w-10 ds-max-w-10 ds-m-1.5'} ds-flex ds-flex-col ds-items-center`, type: "button", onClick: onClick, children: [jsxRuntime.jsxs(Card, { classes: {
                     container: `${isMobile ? '  ds-h-7 ds-max-h-7 !ds-p-1 ' : 'ds-h-10 ds-max-h-10 !ds-p-2'} !ds-w-full ds-overflow-hidden ds-mb-2 ds-relative`,
-                } }, { children: [jsxRuntime.jsx("img", { src: imgUrl, alt: item.name, className: `ds-w-full ds-h-full ds-object-contain` }), selectedItem && (jsxRuntime.jsx("div", Object.assign({ className: 'ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center' }, { children: jsxRuntime.jsx(Typography, Object.assign({ color: "light", variant: "h3" }, { children: (selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.index) + 1 })) }), `selected_item_layer_${selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.name}`))] })), jsxRuntime.jsx(Typography, Object.assign({ variant: "body3", classes: {
+                }, children: [jsxRuntime.jsx("img", { src: imgUrl, alt: item.name, className: `ds-w-full ds-h-full ds-object-contain` }), selectedItem && (jsxRuntime.jsx("div", { className: 'ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center', children: jsxRuntime.jsx(Typography, { color: "light", variant: "h3", children: (selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.index) + 1 }) }, `selected_item_layer_${selectedItem === null || selectedItem === void 0 ? void 0 : selectedItem.name}`))] }), jsxRuntime.jsx(Typography, { variant: "body3", classes: {
                     container: 'ds-text-center ds-break-all',
-                } }, { children: item.name }))] })));
+                }, children: item.name })] }));
 };
 const DISPLAYED_ITEMS = 30;
 const AllTechnologiesPicker = ({ selectedItems, onAdd, onDelete, classes = {}, isMobile, noResultsElement = null, additionalInformations = null, }) => {
@@ -1198,11 +1105,11 @@ const AllTechnologiesPicker = ({ selectedItems, onAdd, onDelete, classes = {}, i
     const toggleOtherPerk = React.useCallback(() => {
         setOnlySelected(!onlySelected);
     }, [onlySelected]);
-    return (jsxRuntime.jsxs("div", Object.assign({ className: `${(_a = classes === null || classes === void 0 ? void 0 : classes.container) !== null && _a !== void 0 ? _a : ''} ds-overflow-hidden ds-flex ds-flex-col`, ref: containerRef }, { children: [jsxRuntime.jsx(TextField, { classes: {
-                    container: 'ds-mb-3 ds-w-[400px] sm:ds-w-[unset] ds-min-h-[60px]',
-                }, fullWidth: isMobile, variant: "flat", value: query, onChange: handleTextFieldChange, placeholder: "Mobile, Javascript, etc..." }), isMobile && additionalInformations, isMobile && (jsxRuntime.jsxs("button", Object.assign({ className: cn__default["default"]('ds-flex ds-items-center ds-text-left'), type: "button", onClick: toggleOtherPerk }, { children: [jsxRuntime.jsx(Checkbox, { variant: "outlined", color: "secondary", checked: !!onlySelected, onChange: toggleOtherPerk, className: 'ds-mr-1' }), jsxRuntime.jsx(Typography, Object.assign({ variant: "body2" }, { children: translations.checkboxLabel }))] }))), !displayedItems.length && noResultsElement, jsxRuntime.jsx("div", Object.assign({ id: "allTechnologiesPicker", className: 'ds-w-full ds-overflow-auto ds-scrollbar' }, { children: jsxRuntime.jsx(InfiniteScroll__default["default"], Object.assign({ className: `ds-pr-0 ds-flex ds-justify-center ds-flex-wrap sm:ds-ml-[unset]  ${(_b = classes === null || classes === void 0 ? void 0 : classes.technologiesList) !== null && _b !== void 0 ? _b : ''}`, dataLength: slicedItems.length, next: () => {
+    return (jsxRuntime.jsxs("div", { className: `${(_a = classes === null || classes === void 0 ? void 0 : classes.container) !== null && _a !== void 0 ? _a : ''} ds-overflow-hidden ds-flex ds-flex-col`, ref: containerRef, children: [jsxRuntime.jsxs("div", { className: 'ds-flex ds-items-center ds-flex-wrap  ds-mb-3 ', children: [jsxRuntime.jsx(TextField, { classes: {
+                            container: 'ds-w-[400px] sm:ds-w-[unset] ds-min-h-[60px]',
+                        }, fullWidth: isMobile, variant: "flat", value: query, onChange: handleTextFieldChange, placeholder: "Mobile, Javascript, etc..." }), jsxRuntime.jsxs("button", { className: cn__default["default"]('ds-m-1 ds-flex ds-items-center ds-text-left'), type: "button", onClick: toggleOtherPerk, children: [jsxRuntime.jsx(Checkbox, { variant: "outlined", color: "secondary", checked: !!onlySelected, onChange: toggleOtherPerk, className: 'ds-mr-1' }), jsxRuntime.jsx(Typography, { variant: "body2", children: translations.checkboxLabel })] })] }), isMobile && additionalInformations, !displayedItems.length && noResultsElement, jsxRuntime.jsx("div", { id: "allTechnologiesPicker", className: 'ds-w-full ds-overflow-auto ds-scrollbar', children: jsxRuntime.jsx(InfiniteScroll__default["default"], { className: `ds-pr-0 ds-flex ds-justify-center ds-flex-wrap sm:ds-ml-[unset]  ${(_b = classes === null || classes === void 0 ? void 0 : classes.technologiesList) !== null && _b !== void 0 ? _b : ''}`, dataLength: slicedItems.length, next: () => {
                         setShownItems(shownItems + DISPLAYED_ITEMS);
-                    }, hasMore: displayedItems.length > shownItems, loader: null, scrollableTarget: "allTechnologiesPicker" }, { children: slicedItems.map((item, index) => (jsxRuntime.jsx(TechnologyItem, { selectedItems: selectedItems, item: item, onAdd: onAdd, onDelete: onDelete, isMobile: !!isMobile }, `technology_${item.name}_${index}`))) })) }))] })));
+                    }, hasMore: displayedItems.length > shownItems, loader: null, scrollableTarget: "allTechnologiesPicker", children: slicedItems.map((item, index) => (jsxRuntime.jsx(TechnologyItem, { selectedItems: selectedItems, item: item, onAdd: onAdd, onDelete: onDelete, isMobile: !!isMobile }, `technology_${item.name}_${index}`))) }) })] }));
 };
 
 const CSS = /*#__PURE__*/Object.freeze({
@@ -1256,11 +1163,11 @@ const CSS = /*#__PURE__*/Object.freeze({
   }
 });
 
-const TrashIcon = ({ className }) => (jsxRuntime.jsx("svg", Object.assign({ className: className, width: "33", height: "32", viewBox: "0 0 33 32", fill: "#fff", xmlns: "http://www.w3.org/2000/svg" }, { children: jsxRuntime.jsx("path", { d: "M8.27667 25.3335C8.27667 26.8001 9.4981 28.0001 10.991 28.0001H21.8481C23.341 28.0001 24.5624 26.8001 24.5624 25.3335V9.33346H8.27667V25.3335ZM25.9195 5.33346H21.1695L19.8124 4.00012H13.0267L11.6695 5.33346H6.91953V8.00012H25.9195V5.33346Z" }) })));
+const TrashIcon = ({ className }) => (jsxRuntime.jsx("svg", { className: className, width: "33", height: "32", viewBox: "0 0 33 32", fill: "#fff", xmlns: "http://www.w3.org/2000/svg", children: jsxRuntime.jsx("path", { d: "M8.27667 25.3335C8.27667 26.8001 9.4981 28.0001 10.991 28.0001H21.8481C23.341 28.0001 24.5624 26.8001 24.5624 25.3335V9.33346H8.27667V25.3335ZM25.9195 5.33346H21.1695L19.8124 4.00012H13.0267L11.6695 5.33346H6.91953V8.00012H25.9195V5.33346Z" }) }));
 
-const MoveIcon = ({ className }) => (jsxRuntime.jsx("svg", Object.assign({ className: className, version: "1.1", viewBox: "0 0 40 40", xmlns: "http://www.w3.org/2000/svg" }, { children: jsxRuntime.jsxs("g", Object.assign({ transform: "scale(1.6667)", fill: "none", stroke: "#000", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5" }, { children: [jsxRuntime.jsx("path", { d: "m9 3.748 3-3 3 3" }), jsxRuntime.jsx("path", { d: "m15 20.248-3 3-3-3" }), jsxRuntime.jsx("path", { d: "m12 0.748v22.5" }), jsxRuntime.jsx("path", { d: "m3.75 14.998-3-3 3-3" }), jsxRuntime.jsx("path", { d: "m20.25 8.998 3 3-3 3" }), jsxRuntime.jsx("path", { d: "m0.75 11.998h22.5" })] })) })));
+const MoveIcon = ({ className }) => (jsxRuntime.jsx("svg", { className: className, version: "1.1", viewBox: "0 0 40 40", xmlns: "http://www.w3.org/2000/svg", children: jsxRuntime.jsxs("g", { transform: "scale(1.6667)", fill: "none", stroke: "currentColor", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", children: [jsxRuntime.jsx("path", { d: "m9 3.748 3-3 3 3" }), jsxRuntime.jsx("path", { d: "m15 20.248-3 3-3-3" }), jsxRuntime.jsx("path", { d: "m12 0.748v22.5" }), jsxRuntime.jsx("path", { d: "m3.75 14.998-3-3 3-3" }), jsxRuntime.jsx("path", { d: "m20.25 8.998 3 3-3 3" }), jsxRuntime.jsx("path", { d: "m0.75 11.998h22.5" })] }) }));
 
-const TechnologyRow = ({ id, item, onDelete: onRemove, onChange, itemsLength, technologyIndex, hideSlider }) => {
+const TechnologyRow = ({ id, item, onDelete: onRemove, onChange, itemsLength, technologyIndex, hideSlider, }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = sortable.useSortable({ id });
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -1279,16 +1186,16 @@ const TechnologyRow = ({ id, item, onDelete: onRemove, onChange, itemsLength, te
         const handle = last__default["default"](matchingItem === null || matchingItem === void 0 ? void 0 : matchingItem.url.split('/'));
         return `https://process.filestackapi.com/auto_image/${handle !== null && handle !== void 0 ? handle : '4A5N89okRPW50jRcmkuM'}`;
     }, [item, technologies]);
-    let divider = jsxRuntime.jsx("div", { className: "ds-bg-dark-50 ds-w-[1px] ds-h-6 ds-mx-2" });
-    return (jsxRuntime.jsxs("div", Object.assign({ ref: setNodeRef, className: 'ds flex ds-flex ds-items-center ds-w-full ds-p-0 ds-my-2 ds-relative ds-z-[1400]', style: Object.assign(Object.assign({}, style), { zIndex: itemsLength - technologyIndex }) }, { children: [jsxRuntime.jsx("button", Object.assign({}, attributes, listeners, { className: "ds-flex", type: "button" }, { children: jsxRuntime.jsx(MoveIcon, { className: "ds-w-2.5 ds-h-2.5" }) })), divider, jsxRuntime.jsx(Tooltip, Object.assign({ title: translations.deleteLabel }, { children: jsxRuntime.jsx("button", Object.assign({ className: "ds-flex", type: "button", onClick: () => onRemove(item.name) }, { children: jsxRuntime.jsx(TrashIcon, { className: "ds-fill-danger-500 ds-w-3 ds-h-3" }) })) })), divider, jsxRuntime.jsx(Card, Object.assign({ className: "ds-w-5 ds-h-5 !ds-p-1 ds-mx-1" }, { children: jsxRuntime.jsx("img", { className: 'ds-object-contain ds-w-full ds-h-full', alt: item.name, src: imgUrl }) })), jsxRuntime.jsxs("div", Object.assign({ className: "ds-flex-1" }, { children: [jsxRuntime.jsx(Typography, Object.assign({ color: "dark", variant: "label" }, { children: item.name })), !hideSlider && (jsxRuntime.jsxs("div", Object.assign({ className: "ds-flex ds-items-center" }, { children: [jsxRuntime.jsxs(Typography, Object.assign({ classes: {
+    let divider = jsxRuntime.jsx("div", { className: "ds-bg-dark-50 ds-w-[1px] ds-h-5 ds-mx-1.5" });
+    return (jsxRuntime.jsxs("div", { ref: setNodeRef, className: 'ds flex ds-flex ds-items-center ds-w-full ds-p-0 ds-my-2 ds-relative ds-z-[1400]', style: Object.assign(Object.assign({}, style), { zIndex: itemsLength - technologyIndex }), children: [jsxRuntime.jsx("button", Object.assign({}, attributes, listeners, { className: "ds-flex ds-mr-1/2", type: "button", children: jsxRuntime.jsx(MoveIcon, { className: "ds-w-2.5 ds-h-2.5 ds-text-indigo-500" }) })), jsxRuntime.jsx(Typography, { color: 'indigo', variant: "h3", className: "ds-font-semibold", children: technologyIndex + 1 }), divider, jsxRuntime.jsx(Card, { className: "ds-w-5 ds-h-5 !ds-p-1 ds-mr-1", children: jsxRuntime.jsx("img", { className: 'ds-object-contain ds-w-full ds-h-full', alt: item.name, src: imgUrl }) }), jsxRuntime.jsxs("div", { className: "ds-flex-1", children: [jsxRuntime.jsx(Typography, { color: "dark", variant: "label", children: item.name }), !hideSlider && (jsxRuntime.jsxs("div", { className: "ds-flex ds-items-center", children: [jsxRuntime.jsxs(Typography, { classes: {
                                     container: 'ds-w-5 ds-mb-0',
-                                }, color: "dark", variant: "body3" }, { children: [jsxRuntime.jsx("span", Object.assign({ className: "ds-font-medium" }, { children: item.value })), "%"] })), jsxRuntime.jsx(Slider, { color: "primary", name: `skill_value_${item.name}`, value: item.value, onChange: sliderChange, min: 0, max: 100, step: 5, classes: { container: 'ds-w-12 ds-mr-1' }, popperCardProps: {
+                                }, color: "dark", variant: "body3", children: [jsxRuntime.jsx("span", { className: "ds-font-medium", children: item.value }), "%"] }), jsxRuntime.jsx(Slider, { color: "primary", name: `skill_value_${item.name}`, value: item.value, onChange: sliderChange, min: 0, max: 100, step: 5, classes: { container: 'ds-w-12 ds-mr-1' }, popperCardProps: {
                                     classes: {
                                         popper: 'ds-z-[1302]',
                                     },
-                                } })] })))] }))] })));
+                                } })] }))] }), divider, jsxRuntime.jsx(Tooltip, { title: translations.deleteLabel, children: jsxRuntime.jsx("button", { className: "ds-flex", type: "button", onClick: () => onRemove(item.name), children: jsxRuntime.jsx(TrashIcon, { className: "ds-fill-danger-500 ds-w-3 ds-h-3" }) }) })] }));
 };
-const SortableTechnologies = ({ items, onDelete, onItemChange, classes, className, itemsLength, onSortEnd, hideSlider }) => {
+const SortableTechnologies = ({ items, onDelete, onItemChange, classes, className, itemsLength, onSortEnd, hideSlider, }) => {
     const sensors = core.useSensors(core.useSensor(core.PointerSensor), core.useSensor(core.KeyboardSensor, {
         coordinateGetter: sortable.sortableKeyboardCoordinates,
     }));
@@ -1303,9 +1210,9 @@ const SortableTechnologies = ({ items, onDelete, onItemChange, classes, classNam
             return onSortEnd({ oldIndex, newIndex });
         }
     }, [items]);
-    return (jsxRuntime.jsx("div", Object.assign({ className: cn__default["default"](classes === null || classes === void 0 ? void 0 : classes.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto !ds-z-[1301]', className) }, { children: jsxRuntime.jsx(core.DndContext, Object.assign({ sensors: sensors, collisionDetection: core.closestCenter, onDragEnd: handleDragEnd }, { children: jsxRuntime.jsx(sortable.SortableContext, Object.assign({ items: itemsWithId, strategy: sortable.verticalListSortingStrategy }, { children: itemsWithId.map((item, index) => (jsxRuntime.jsx(TechnologyRow, { onDelete: onDelete, id: item.id, onChange: onItemChange, technologyIndex: index, item: item, itemsLength: itemsLength, hideSlider: hideSlider }, `selected_technology_row_${item.name}_${index}`))) })) })) })));
+    return (jsxRuntime.jsx("div", { className: cn__default["default"](classes === null || classes === void 0 ? void 0 : classes.container, 'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto !ds-z-[1301]', className), children: jsxRuntime.jsx(core.DndContext, { sensors: sensors, collisionDetection: core.closestCenter, onDragEnd: handleDragEnd, children: jsxRuntime.jsx(sortable.SortableContext, { items: itemsWithId, strategy: sortable.verticalListSortingStrategy, children: itemsWithId.map((item, index) => (jsxRuntime.jsx(TechnologyRow, { onDelete: onDelete, id: item.id, onChange: onItemChange, technologyIndex: index, item: item, itemsLength: itemsLength, hideSlider: hideSlider }, `selected_technology_row_${item.name}_${index}`))) }) }) }));
 };
-const SelectedTechnologies = ({ items, onChange, onDelete, className, onItemChange, classes = {}, hideSlider }) => {
+const SelectedTechnologies = ({ items, onChange, onDelete, className, onItemChange, classes = {}, hideSlider, }) => {
     const itemsLength = React.useMemo(() => items.length, [items]);
     const move = React.useCallback(({ oldIndex, newIndex }) => {
         if (typeof onChange === 'function') {
@@ -1315,17 +1222,65 @@ const SelectedTechnologies = ({ items, onChange, onDelete, className, onItemChan
     return (jsxRuntime.jsx(SortableTechnologies, { className: className !== null && className !== void 0 ? className : '', items: items, onSortEnd: move, onItemChange: onItemChange, onDelete: onDelete, itemsLength: itemsLength, onChange: onChange, classes: classes, hideSlider: hideSlider }));
 };
 
-const TechnologiesPicker = ({ isMobile, selectedValues = [], onAddItem, onDeleteItem, onArrayChange, onArrayItemChange, technologies, classes = {}, translations, content, hideSlider = false }) => {
+const TechnologiesPicker = ({ isMobile, selectedValues = [], onAddItem, onDeleteItem, onArrayChange, onArrayItemChange, technologies, classes = {}, translations, content, hideSlider = false, }) => {
     // const classes = useStyles({ classes: receivedClasses, isMobile });
     var _a;
     const technoPickerContext = React.useMemo(() => ({
         technologies,
         translations,
     }), [technologies, translations]);
-    return (jsxRuntime.jsx(TechnologiesPickerContext.Provider, Object.assign({ value: technoPickerContext }, { children: jsxRuntime.jsxs("div", Object.assign({ className: `ds-flex ds-h-full ${(_a = classes === null || classes === void 0 ? void 0 : classes.container) !== null && _a !== void 0 ? _a : ''}` }, { children: [jsxRuntime.jsx(AllTechnologiesPicker, { isMobile: isMobile, technologies: technologies, selectedItems: selectedValues, onAdd: onAddItem, onDelete: onDeleteItem, noResultsElement: content === null || content === void 0 ? void 0 : content.noResults, additionalInformations: content === null || content === void 0 ? void 0 : content.additionalInformations, classes: {
+    return (jsxRuntime.jsx(TechnologiesPickerContext.Provider, { value: technoPickerContext, children: jsxRuntime.jsxs("div", { className: `ds-flex ds-h-full ${(_a = classes === null || classes === void 0 ? void 0 : classes.container) !== null && _a !== void 0 ? _a : ''}`, children: [jsxRuntime.jsx(AllTechnologiesPicker, { isMobile: isMobile, technologies: technologies, selectedItems: selectedValues, onAdd: onAddItem, onDelete: onDeleteItem, noResultsElement: content === null || content === void 0 ? void 0 : content.noResults, additionalInformations: content === null || content === void 0 ? void 0 : content.additionalInformations, classes: {
                         container: `ds-flex-[125%] ${isMobile ? '' : 'ds-ml-2'} sm:ds-w-full`,
                         technologiesList: 'ds-scrollbar ds-overflow-x-hidden ds-overflow-y-auto',
-                    } }), !isMobile && jsxRuntime.jsx("div", { className: 'ds-bg-dark-100 ds-mr-2 ds-ml-4 ' }), !isMobile && (jsxRuntime.jsxs("div", Object.assign({ className: 'ds-flex-auto ds-flex ds-flex-col' }, { children: [content === null || content === void 0 ? void 0 : content.additionalInformations, jsxRuntime.jsx(SelectedTechnologies, { className: 'ds-flex-1', items: selectedValues, onDelete: onDeleteItem, onChange: onArrayChange, onItemChange: onArrayItemChange, hideSlider: hideSlider })] })))] })) })));
+                    } }), !isMobile && jsxRuntime.jsx("div", { className: 'ds-bg-dark-100 ds-mr-2 ds-ml-4 ' }), !isMobile && (jsxRuntime.jsxs("div", { className: 'ds-flex-auto ds-flex ds-flex-col ds-min-w-[280px]', children: [content === null || content === void 0 ? void 0 : content.additionalInformations, jsxRuntime.jsx(SelectedTechnologies, { className: 'ds-flex-1', items: selectedValues, onDelete: onDeleteItem, onChange: onArrayChange, onItemChange: onArrayItemChange, hideSlider: hideSlider })] }))] }) }));
+};
+
+const variants = {
+    flat: {
+        root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-[#f9f9f9] ds-rounded ds-border ds-border-solid ds-border-dark-100',
+        input: 'ds-font-w3d ds-w-full !ds-pr-4 ds-text-dark-500',
+        icon: ''
+    },
+    raised: {
+        root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-light-500 ds-shadow-w3d ds-rounded ds-border ds-border-solid ds-border-[#f0f0f0]',
+        input: 'ds-font-w3d ds-w-full !ds-pr-4 ds-text-dark-500',
+        icon: ''
+    },
+    outlined: {
+        root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-transparent ds-border ds-border-solid ds-border-current',
+        input: 'ds-font-w3d ds-w-full !ds-pr-4 ds-text-current',
+        icon: 'ds-text-current'
+    }
+};
+const sizes = {
+    regular: {
+        input: 'ds-p-1'
+    },
+    small: {
+        input: ''
+    }
+};
+const Select = (_a) => {
+    var _b, _c, _d, _e, _f, _g, _h;
+    var { value, onChange, children, className = null, variant = 'raised', size = 'regular', classes = {}, textFieldProps = null, placeholder = null, avoidNative = true } = _a, others = __rest(_a, ["value", "onChange", "children", "className", "variant", "size", "classes", "textFieldProps", "placeholder", "avoidNative"]);
+    return (jsxRuntime.jsxs(material.Select, Object.assign({ MenuProps: {
+            classes: {
+                paper: 'ds-max-h-[300px] ds-border ds-border-1 ds-border-gray-100'
+            }
+        }, className: `ds-min-w-[150px] ds-max-h-[300px] ds-rounded ds-flex ${className}`, classes: {
+            icon: `${(_b = classes.icon) !== null && _b !== void 0 ? _b : ''} ${((_c = variants[variant]) !== null && _c !== void 0 ? _c : variants === null || variants === void 0 ? void 0 : variants.raised).icon}`
+        }, native: !avoidNative, value: value !== null && value !== void 0 ? value : null, inputProps: textFieldProps, input: jsxRuntime.jsx(material.InputBase, { classes: {
+                root: `${((_d = variants[variant]) !== null && _d !== void 0 ? _d : variants === null || variants === void 0 ? void 0 : variants.raised).root} ${(_e = classes === null || classes === void 0 ? void 0 : classes.root) !== null && _e !== void 0 ? _e : ''}`,
+                input: `${((_f = variants[variant]) !== null && _f !== void 0 ? _f : variants === null || variants === void 0 ? void 0 : variants.raised).input} ${((_g = sizes[size]) !== null && _g !== void 0 ? _g : sizes === null || sizes === void 0 ? void 0 : sizes.regular).input} ${(_h = classes === null || classes === void 0 ? void 0 : classes.input) !== null && _h !== void 0 ? _h : ''}`
+            } }), onChange: (e) => onChange === null || onChange === void 0 ? void 0 : onChange(e.target.value) }, others, { children: [avoidNative && placeholder && (jsxRuntime.jsx(material.MenuItem, { disabled: true, value: "", children: placeholder })), !avoidNative && (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [placeholder && (jsxRuntime.jsx("option", { disabled: true, value: "", children: placeholder })), React__default["default"].Children.toArray(children)
+                        .filter(Boolean)
+                        .map((child, index) => {
+                        var _a;
+                        if (!child) {
+                            return null;
+                        }
+                        return (jsxRuntime.jsx("option", { value: (_a = child.props.value) !== null && _a !== void 0 ? _a : null, children: child.props.label || child.props.children }, (child === null || child === void 0 ? void 0 : child.key) || child.props.value || `select_child_${index}`));
+                    })] })), avoidNative && children] })));
 };
 
 const DEFAULT_THEME = {
@@ -1418,27 +1373,24 @@ exports.PopperCardActions = PopperCardActions;
 exports.PopperCardContent = PopperCardContent;
 exports.PopperCardTitle = PopperCardTitle;
 exports.ProgressBar = ProgressBar;
+exports.Select = Select;
 exports.SelectedTechnologies = SelectedTechnologies;
 exports.Slider = Slider;
 exports.Switch = Switch;
+exports.Tabs = Tabs;
 exports.Tag = Tag;
 exports.TechnologiesPicker = TechnologiesPicker;
 exports.TextField = TextField;
 exports.TextFieldIcon = TextFieldIcon;
 exports.Tooltip = Tooltip;
 exports.Typography = Typography;
-exports.VariantStyles = VariantStyles;
-exports.bodyStyles = bodyStyles;
-exports.componentStyles = componentStyles;
 exports.danger = danger;
 exports.dark = dark;
 exports.darkblue = darkblue;
 exports.flexUtils = flexUtils;
 exports.getComponentColor = getComponentColor;
 exports.getHexFromTheme = getHexFromTheme;
-exports.headingStyles = headingStyles;
 exports.indigo = indigo;
-exports.layerVariantStyles = layerVariantStyles;
 exports.light = light;
 exports.orange = orange;
 exports.palette = palette;
@@ -1446,12 +1398,7 @@ exports.primary = primary;
 exports.purple = purple;
 exports.safe = safe;
 exports.secondary = secondary;
-exports.sizeStyles = sizeStyles$1;
 exports.tertiary = tertiary;
-exports.textVariantStyles = textVariantStyles;
-exports.typographysizeStyles = typographysizeStyles;
-exports.variantStyles = variantStyles;
 exports.warn = warn;
 exports.withCustomVerticalScrollbar = withCustomVerticalScrollbar;
-exports.wldStyles = wldStyles;
 //# sourceMappingURL=index.js.map

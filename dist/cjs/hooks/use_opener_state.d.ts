@@ -1,4 +1,4 @@
-declare type Handlers = {
+type Handlers = {
     onClick?: (...parameters: any) => void;
     onMouseEnter?: (...parameters: any) => void;
     onMouseLeave?: (...parameters: any) => void;

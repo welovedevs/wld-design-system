@@ -18,7 +18,7 @@ interface Props {
         input?: string;
     };
 }
-export declare type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color' | 'size'> & Props>;
+export type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color' | 'size'> & Props>;
 export declare const Checkbox: React.ForwardRefExoticComponent<Omit<React.InputHTMLAttributes<any>, "color" | "size"> & Props & {
     children?: React.ReactNode;
 } & React.RefAttributes<any>>;

@@ -173,8 +173,8 @@ export declare const purple: {
     900: string;
     contrastDefaultColor: string;
 };
-export declare type PaletteColors = 'primary' | 'secondary' | 'tertiary' | 'dark' | 'danger' | 'safe' | 'warn' | 'orange' | 'darkblue' | 'indigo' | 'purple' | 'light' | 'red';
-export declare type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+export type PaletteColors = 'primary' | 'secondary' | 'tertiary' | 'dark' | 'danger' | 'safe' | 'warn' | 'orange' | 'darkblue' | 'indigo' | 'purple' | 'light' | 'red';
+export type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 declare const palette: {
     [color in PaletteColors]: any;
 };
