@@ -31,7 +31,7 @@ export const Slider: React.FC<
                     'ds-bg-light-500 ds-rounded-sm ds-text-dark-500 ds-font-w3d ds-shadow-lg ds-border ds-border-solid ds-border-dark-50',
             }}
             style={{
-                color: !other.disabled && palette?.[color]?.[500],
+                color: !other.disabled ? palette?.[color]?.[500] : undefined,
             }}
             valueLabelDisplay={valueLabelDisplay ?? 'auto'}
             {...other}

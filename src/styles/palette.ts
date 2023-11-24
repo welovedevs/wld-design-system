@@ -201,25 +201,36 @@ const red = {
     900: '#7f1d1d',
     contrastDefaultColor: 'light',
 };
-
-export type PaletteColors =
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'dark'
-    | 'danger'
-    | 'safe'
-    | 'warn'
-    | 'orange'
-    | 'darkblue'
-    | 'indigo'
-    | 'purple'
-    | 'light'
-    | 'red';
+const codersTestsRed = {
+    50: '#f6eae8',
+    100: '#edd4d2',
+    200: '#dba9a5',
+    300: '#ca7e77',
+    400: '#b8534a',
+    500: '#a6281d',
+    600: '#852017',
+    700: '#641811',
+    800: '#42100c',
+    900: '#210806',
+    contrastDefaultColor: 'light',
+};
+const codersTestsOrange = {
+    50: '#fcf2e9',
+    100: '#fae4d3',
+    200: '#f5c9a6',
+    300: '#efaf7a',
+    400: '#ea944d',
+    500: '#e57921',
+    600: '#b7611a',
+    700: '#894914',
+    800: '#5c300d',
+    900: '#2e1807',
+    contrastDefaultColor: 'light',
+};
 
 export type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
-const palette: { [color in PaletteColors]: any } = {
+const palette = {
     primary,
     secondary,
     tertiary,
@@ -233,5 +244,7 @@ const palette: { [color in PaletteColors]: any } = {
     indigo,
     purple,
     red,
-};
+} as const;
+
+export type PaletteColors = keyof typeof palette;
 export default palette;
