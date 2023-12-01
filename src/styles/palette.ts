@@ -201,30 +201,30 @@ const red = {
     900: '#7f1d1d',
     contrastDefaultColor: 'light',
 };
-export const codersTestsRed = {
-    50: '#f6eae8',
-    100: '#edd4d2',
-    200: '#dba9a5',
-    300: '#ca7e77',
-    400: '#b8534a',
-    500: '#a6281d',
-    600: '#852017',
-    700: '#641811',
-    800: '#42100c',
-    900: '#210806',
+export const codersTestPrimary = {
+    50: '#eaf1f3',
+    100: '#d6e3e7',
+    200: '#adc8d0',
+    300: '#83acb8',
+    400: '#5a91a1',
+    500: '#317589',
+    600: '#275e6e',
+    700: '#1d4652',
+    800: '#142f37',
+    900: '#0a171b',
     contrastDefaultColor: 'light',
 };
-export const codersTestsOrange = {
-    50: '#fcf2e9',
-    100: '#fae4d3',
-    200: '#f5c9a6',
-    300: '#efaf7a',
-    400: '#ea944d',
-    500: '#e57921',
-    600: '#b7611a',
-    700: '#894914',
-    800: '#5c300d',
-    900: '#2e1807',
+export const codersTestSecondary = {
+    50: '#fbf0e9',
+    100: '#f7e0d2',
+    200: '#efc2a6',
+    300: '#e6a379',
+    400: '#de854d',
+    500: '#d66620',
+    600: '#ab521a',
+    700: '#803d13',
+    800: '#56290d',
+    900: '#2b1406',
     contrastDefaultColor: 'light',
 };
 
@@ -244,8 +244,8 @@ const palette = {
     indigo,
     purple,
     red,
-    codersTestsRed,
-    codersTestsOrange,
+    codersTestPrimary,
+    codersTestSecondary,
 } as const;
 
 export type PaletteColors = keyof typeof palette;
