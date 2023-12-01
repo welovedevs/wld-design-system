@@ -201,7 +201,7 @@ const red = {
     900: '#7f1d1d',
     contrastDefaultColor: 'light',
 };
-export const codersTestPrimary = {
+export const codersTestsPrimary = {
     50: '#eaf1f3',
     100: '#d6e3e7',
     200: '#adc8d0',
@@ -214,7 +214,7 @@ export const codersTestPrimary = {
     900: '#0a171b',
     contrastDefaultColor: 'light',
 };
-export const codersTestSecondary = {
+export const codersTestsSecondary = {
     50: '#fbf0e9',
     100: '#f7e0d2',
     200: '#efc2a6',
@@ -244,8 +244,8 @@ const palette = {
     indigo,
     purple,
     red,
-    codersTestPrimary,
-    codersTestSecondary,
+    codersTestsPrimary,
+    codersTestsSecondary,
 } as const;
 
 export type PaletteColors = keyof typeof palette;
