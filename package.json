@@ -30,8 +30,8 @@
     "peerDependencies": {
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",
-        "@mui/icons-material": "^5.10.16",
-        "@mui/material": "^5.10.17",
+        "@mui/icons-material": "5.15.3",
+        "@mui/material": "5.15.3",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
     },
@@ -51,8 +51,8 @@
         "@babel/plugin-proposal-export-default-from": "^7.10.4",
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",
-        "@mui/icons-material": "^5.10.16",
-        "@mui/material": "^5.10.17",
+        "@mui/icons-material": "5.15.3",
+        "@mui/material": "5.15.3",
         "@rollup/plugin-commonjs": "^21.0.1",
         "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-node-resolve": "^13.1.3",
