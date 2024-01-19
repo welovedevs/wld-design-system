@@ -28,8 +28,6 @@
     },
     "homepage": "https://github.com/welovedevs/wld-design-system#readme",
     "peerDependencies": {
-        "@mui/icons-material": "5.15.3",
-        "@mui/material": "5.15.3",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
     },
