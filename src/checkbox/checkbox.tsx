@@ -1,11 +1,11 @@
-import React, { ChangeEvent, ElementType, forwardRef, PropsWithChildren, useCallback, useMemo } from 'react';
+import React, { ChangeEvent, ElementType, forwardRef, PropsWithChildren, useCallback } from 'react';
 
 import cn from 'classnames';
 
 import { PaletteColors } from '../styles';
 
-import { baseClasses, iconClasses, layerClasses, variantClasses } from './checkbox_styles';
 import { palette } from '../index';
+import { baseClasses, checkedLayerClasses, iconClasses, layerClasses, variantClasses } from './checkbox_styles';
 
 interface Props {
     component?: string | ElementType;
@@ -17,7 +17,7 @@ interface Props {
     className?: string;
     inputClassName?: string;
     containerProps?: any;
-    variant?: 'raised' | 'outlined';
+    variant?: 'contained' | 'raised' | 'outlined';
     isRadio?: Boolean;
     size?: 'regular' | 'small';
     classes?: {
@@ -39,7 +39,7 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
             inputClassName,
             containerProps,
             onChange,
-            variant = 'outlined',
+            variant = 'contained',
             isRadio,
             classes = {},
             partialCheck,
@@ -65,9 +65,9 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                 className={cn(
                     baseClasses.size[size as 'regular' | 'small'],
                     baseClasses.container,
-                    isRadio ? 'ds-rounded-full' : 'ds-rounded-md',
+                    isRadio && '!ds-rounded-full',
                     disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]',
-                    checked && !disabled && variant === 'raised' && 'ds-bg-current',
+                    checked && !disabled && variant !== 'outlined' && 'ds-bg-current',
                     variant && variantClasses[variant],
                     className
                 )}
@@ -82,12 +82,18 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
                     classes={{
                         checkIcon: cn(
                             baseClasses.icon,
-                            checked && variant && iconClasses[variant],
+                            checked && variant && !disabled && iconClasses[variant],
                             partialCheck && iconClasses['partial']
                         ),
                     }}
                 />
-                <div className={cn(baseClasses.layer, variant && layerClasses[variant])} />
+                <div
+                    className={cn(
+                        baseClasses.layer,
+                        variant && checked && checkedLayerClasses[variant],
+                        variant && !checked && layerClasses[variant]
+                    )}
+                />
                 <input
                     className={cn(baseClasses.input, inputClassName)}
                     type="checkbox"
@@ -100,23 +106,11 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
     }
 );
 
-const DEFAULT_ICON_PROPS = {
-    scale: 0.5,
-    opacity: 0,
-};
-
-const CHECKED_ICON_PROPS = {
-    scale: 1,
-    opacity: 1,
-};
-
 const CheckIcon: React.FC<{ checked: boolean; partialCheck: boolean; classes: { checkIcon: string } }> = ({
     checked: propsChecked,
     partialCheck,
     classes,
 }) => {
-    const checked = propsChecked || partialCheck;
-    const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
     return (
         <svg className={classes.checkIcon} viewBox="0 0 24 24" fill="#fff">
             <g>

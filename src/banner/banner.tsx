@@ -4,14 +4,15 @@ import cn from 'classnames';
 
 import { BANNER_DATA, BannerType } from './banner_data';
 
+import { PaletteColors, palette } from '../index';
 import { baseStyles, iconStyles } from './banner_styles';
-import { palette } from '../index';
 
 interface Props {
     type?: BannerType;
     icon?: any;
     className?: string;
     classes?: { container?: string };
+    color?: PaletteColors;
     size?: 'small';
 }
 
@@ -21,6 +22,7 @@ export const Banner: React.FC<PropsWithChildren<Props>> = ({
     icon: receivedIcon,
     classes = {},
     children,
+    color: receivedColor,
     size,
 }) => {
     const { icon, color } = useMemo(() => {
@@ -30,9 +32,9 @@ export const Banner: React.FC<PropsWithChildren<Props>> = ({
         }
         return {
             ...typeConfig,
-            color: palette[typeConfig.color]?.[500],
+            color: palette[receivedColor || typeConfig.color]?.[500],
         };
-    }, [type]);
+    }, [type, receivedColor]);
     const Icon = receivedIcon || icon;
 
     return (

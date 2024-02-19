@@ -2,10 +2,10 @@ import React, { forwardRef, PropsWithChildren, useMemo, useState } from 'react';
 
 import { PaletteColors } from '../styles';
 
-import { Typography } from '../typography/typography';
-import { palette } from '../index';
 import Cancel from '@mui/icons-material/Cancel';
 import cn from 'classnames';
+import { palette } from '../index';
+import { Typography } from '../typography/typography';
 
 interface Props {
     component?: string | React.ElementType;

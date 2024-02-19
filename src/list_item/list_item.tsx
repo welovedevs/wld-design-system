@@ -30,7 +30,7 @@ export const ListItem: React.FC<Props & HTMLAttributes<HTMLLIElement>> = ({
     return (
         <Component
             className={cn(
-                'ds-px-2 ds-py-2 ds-rounded-md ds-flex ds-items-center ds-transition-all ds-bg-transparent hover:ds-bg-dark-50',
+                'ds-px-2 ds-py-1 ds-rounded-md ds-flex ds-items-center ds-transition-all ds-bg-transparent hover:ds-bg-dark-50',
                 button && 'ds-cursor-pointer',
                 button && classes?.button,
                 classes?.container,

@@ -10,7 +10,7 @@ import { useState } from 'react';
             options: ['primary', 'secondary', 'tertiary'],
         },
         variant: {
-            options: ['raised', 'outlined']
+            options: ['raised', 'outlined'],
         },
     }}
 />
@@ -53,6 +53,7 @@ export const Template = (args) => {
         name="Secondary"
         args={{
             color: 'secondary',
+            variant: 'raised',
             checked: true,
         }}
     >

@@ -10,7 +10,6 @@ import { Button } from '../../src/button/button';
 Buttons are elements users interacts frequently with.
 It is important to choose the right props for any given application.
 
-
 ## Props
 
 <Props of={Button} />
@@ -24,60 +23,49 @@ The button's colors will be based on this value.
 Different variants exists for different situations.
 This component have three main variants.
 
-#### ↳ _``text (default)``_
+#### ↳ _`text (default)`_
 
 Used by default, this variant should be used for less-pronounced actions.
 Usage example:
 
-- Dialog Actions.
-- Card Actions (including PopperCard).
+-   Dialog Actions.
+-   Card Actions (including PopperCard).
 
 <Preview withSource="none">
     <Story name="text">
-      <ButtonExamples variant="text" />
+        <ButtonExamples variant="text" />
     </Story>
 </Preview>
 
-#### ↳ _``outlined``_
+#### ↳ _`outlined`_
 
-This variant is more pronounced than ``text`` but less than ``contained``.
+This variant is more pronounced than `text` but less than `contained`.
 Use it when its background is not plain or if displayed on shadowed surfaces.
 
 <Preview withSource="none">
     <Story name="outlined">
-      <ButtonExamples variant="outlined" />
+        <ButtonExamples variant="outlined" />
     </Story>
 </Preview>
 
-#### ↳ _``contained``_
+#### ↳ _`contained`_
 
 This variant is more pronounced than any other.
 Use it for important actions which might require user's attention.
 
 <Preview withSource="none">
     <Story name="contained">
-      <ButtonExamples variant="contained" />
+        <ButtonExamples variant="contained" />
     </Story>
 </Preview>
 
-#### ↳ _``raised``_
+#### ↳ _`raised`_
 
 This variant is more pronounced than any other.
 Use it for important actions which might require user's attention.
 
 <Preview withSource="none">
     <Story name="raised">
-      <ButtonExamples variant="raised" />
-    </Story>
-</Preview>
-
-#### ↳ _``soft``_
-
-This variant is less pronounced than the contained one.
-Use it for less important actions which might still require user's attention.
-
-<Preview withSource="none">
-    <Story name="soft">
-      <ButtonExamples variant="soft" />
+        <ButtonExamples variant="raised" />
     </Story>
 </Preview>

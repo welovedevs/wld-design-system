@@ -44,9 +44,9 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, setActiveTab, classes }) => {
                             key={tab.name}
                             className={`
                                     ${tab.current ? 'ds-text-gray-900' : 'ds-text-gray-500 hover:ds-text-gray-700'}
-                                    ${tabIdx === 0 ? 'ds-rounded-l-lg' : ''}
-                                    ${tabIdx === tabs.length - 1 ? 'ds-rounded-r-lg' : ''}
-                                    ds-group ds-relative ds-min-w-0 ds-flex ds-w-full ds-overflow-hidden ds-justify-center ds-bg-white ds-py-2 ds-px-5 ds-text-center ds-text-sm ds-cursor-pointer ds-font-medium hover:ds-bg-gray-50 focus:ds-z-10
+                                    ${tabIdx === 0 ? 'ds-rounded-tl-md' : ''}
+                                    ${tabIdx === tabs.length - 1 ? 'ds-rounded-tr-md' : ''}
+                                    ds-group ds-relative ds-min-w-0 ds-flex ds-w-full ds-overflow-hidden ds-justify-center ds-bg-white ds-py-1.5 ds-px-4 ds-text-center ds-text-sm ds-cursor-pointer ds-font-medium hover:ds-bg-gray-50 focus:ds-z-10
                                     ${classes?.tab}
                                 `}
                             aria-current={tab.current ? 'page' : undefined}

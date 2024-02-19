@@ -28,7 +28,7 @@
     },
     "homepage": "https://github.com/welovedevs/wld-design-system#readme",
     "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.2.0",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
         "@emotion/react": "11.11.0",
         "@emotion/styled": "11.11.0",

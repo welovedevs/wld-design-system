@@ -5,10 +5,11 @@ import { ELEVATION_PROPS } from './card_elevation_props';
 
 import merge from 'lodash/merge';
 
-export type CardVariant = 'flat';
+export type CardVariant = 'flat' | 'regular';
 
 const variantClasses = {
-    variant_flat: 'ds-bg-[#f9f9f9] ds-border ds-border-solid ds-border-[#f0f0f0]',
+    regular: '',
+    flat: 'ds-bg-[#f9f9f9] ds-border ds-border-solid ds-border-[#f0f0f0]',
 };
 interface Props {
     component?: string;
@@ -30,7 +31,7 @@ const CardComponent = forwardRef<any, HTMLAttributes<any> & Props>(
             style,
             customClasses: oldCustomClasses = {},
             classes: receivedClasses = {},
-            variant,
+            variant = 'regular',
             ...other
         },
         ref
@@ -39,26 +40,16 @@ const CardComponent = forwardRef<any, HTMLAttributes<any> & Props>(
             JSON.stringify(oldCustomClasses),
             JSON.stringify(receivedClasses),
         ]);
-        const stylePropsFromVariant = useMemo(() => {
-            if (!variant) {
-                return ELEVATION_PROPS.regular;
-            }
-            return ELEVATION_PROPS?.[variant];
-        }, [variant]);
-        const styleProps = {
-            ...stylePropsFromVariant?.[elevation],
-        };
-        const variantClass = variant && variantClasses[`variant_${variant}` as const];
         return React.createElement(Component || 'div', {
             ref: containerRef || ref,
             className: cn(
-                'ds-w-fit ds-bg-white ds-rounded ds-p-2.5 ds-font-w3d',
+                'ds-w-fit ds-bg-white ds-rounded-md ds-px-2 ds-py-1.5 ds-font-w3d',
                 mergedClasses.container,
-                variantClass,
+                variantClasses[variant],
                 className
             ),
             style: {
-                ...(stylePropsFromVariant && styleProps),
+                ...ELEVATION_PROPS[variant]?.[elevation],
                 ...style,
             } as any,
             ...other,

@@ -1,7 +1,6 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { Slider } from '../../src/slider/slider';
 import { useState } from 'react';
-import { ReactComponent as WarningIcon } from '../../src/assets/icons/warning.svg';
 
 <Meta title="Components/Slider" component={Slider} />
 
@@ -9,7 +8,7 @@ export const Template = (args) => {
     const [value, setValue] = useState(10);
     return (
         <div className="ds-w-[200px]">
-            <Slider {...args} value={value} onChange={(_,newValue) => setValue(newValue)} />
+            <Slider {...args} value={value} onChange={(_, newValue) => setValue(newValue)} />
         </div>
     );
 };

@@ -1,10 +1,11 @@
-import React, { ButtonHTMLAttributes, forwardRef, useCallback, useMemo } from 'react';
+import { ButtonHTMLAttributes, forwardRef, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
 import { Typography } from '../typography/typography';
 
 import { PaletteColors } from '../styles';
 
+import { palette } from '../index';
 import {
     baseStyles,
     ButtonVariants,
@@ -14,7 +15,6 @@ import {
     typographysizeStyles,
     variantStyles,
 } from './button_styles';
-import { palette } from '../index';
 
 interface CustomProps {
     component?: string;
@@ -60,26 +60,25 @@ export const Button = forwardRef<unknown, ButtonProps>(
     ) => {
         const hexColor = useMemo(() => {
             if (disabled) {
-                return (color && palette?.[color]?.[100]) ?? palette?.['dark']?.[100];
+                return color ? palette?.[color]?.[100] : palette?.['dark']?.[100];
             }
-            const paletteColor = color && palette?.[color]?.[500];
-            return paletteColor || palette?.primary[300];
+            return color ? palette?.[color]?.[500] : palette?.primary[300];
         }, [disabled, color]);
 
         const shadow = useMemo(() => {
             if (variant === 'raised') {
-                return hexColor ? 'ds-shadow-[0_5px_15px_0]' : 'ds-shadow-[0_10px_20px_0]';
+                return 'ds-shadow-[0_4px_10px_0]';
             }
             return null;
-        }, [hexColor]);
+        }, [variant]);
 
         const handleClick = useCallback(
-            (...paramaters: any[]) => {
+            (...params: any[]) => {
                 if (disabled) {
                     return;
                 }
                 if (typeof onClick === 'function') {
-                    onClick(...paramaters);
+                    onClick(...params);
                 }
             },
             [onClick, disabled]
@@ -111,7 +110,6 @@ export const Button = forwardRef<unknown, ButtonProps>(
                 style={{
                     color: hexColor,
                     ...propsStyle,
-                    // ...(withColor && { }),
                     ...(containerProps && containerProps.style),
                 }}
                 onClick={handleClick}
