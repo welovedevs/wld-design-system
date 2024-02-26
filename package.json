@@ -1,6 +1,6 @@
 {
     "name": "@welovedevs/ui",
-    "version": "1.4.75",
+    "version": "1.4.76",
     "description": "WeLoveDevs.com UI components",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
