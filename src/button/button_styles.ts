@@ -9,16 +9,16 @@ export type Classes = {
 
 export const baseStyles = {
     container:
-        'ds-relative ds-group ds-m-1/2 ds-w-fit ds-h-fit ds-relative ds-overflow-hidden ds-flex ds-items-center ds-justify-center',
+        'ds-relative ds-group ds-m-1/2 ds-w-fit ds-h-full ds-relative ds-overflow-hidden ds-flex ds-items-center ds-justify-center',
     brightLayer:
         'ds-absolute ds-h-full ds-w-full ds-top-0 ds-bottom-0 ds-left-0 ds-right-0 ds-opacity-0 ds-transition-all group-hover:ds-opacity-[0.25] ds-z-10',
     typography: 'ds-flex ds-items-center ds-z-20',
     disabled: 'ds-cursor-not-allowed',
 };
 export const sizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
-    regular: 'ds-px-1.5 ds-py-[6px] ds-rounded-md',
-    small: 'ds-px-1 ds-py-1/2 ds-rounded',
-    xs: 'ds-px-1/2 ds-py-[2px] ds-rounded',
+    regular: 'ds-px-1.5 ds-h-4 ds-rounded-md',
+    small: 'ds-px-1 ds-h-3.5 ds-rounded',
+    xs: 'ds-px-1/2 ds-h-3 ds-rounded',
 };
 export const typographysizeStyles: { [key in Exclude<ButtonProps['size'], undefined>]: string } = {
     regular: '',

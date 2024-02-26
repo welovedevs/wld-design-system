@@ -2,10 +2,17 @@ import React, { ExoticComponent, forwardRef, PropsWithChildren, ReactNode, useSt
 
 import cn from 'classnames';
 
-import { baseStyles, inputStyles, sizeStyles, TextFieldVariants, variantStyles } from './text_field_styles';
-import IconButton from '@mui/material/IconButton';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import {
+    baseStyles,
+    containedSizeStyles,
+    inputStyles,
+    sizeStyles,
+    TextFieldVariants,
+    variantStyles,
+} from './text_field_styles';
 
 interface CustomProps {
     containerElement?: string | ExoticComponent;
@@ -22,7 +29,7 @@ interface CustomProps {
     type?: HTMLInputElement['type'];
     disabled?: boolean;
     classes?: { container?: string; input?: string };
-    size?: 'small' | 'regular';
+    size?: 'xs' | 'small' | 'regular';
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
     passwordLabels?: {
@@ -70,16 +77,16 @@ export const TextField = forwardRef<HTMLElement, PropsWithChildren<TextFieldProp
                 className={cn(
                     className,
                     baseStyles.container,
+                    containedSizeStyles[size],
                     fullWidth && 'w-full',
                     multiline && baseStyles.multilineContainer,
                     variant && variantStyles[variant],
                     disabled && variant && variantStyles[`${variant}Disabled`],
                     classes?.container
                 )}
-                {...(containerProps &&
-                    containerProps.style && {
-                        style: containerProps.style,
-                    })}
+                style={{
+                    ...(containerProps && containerProps.style),
+                }}
                 {...containerProps}
             >
                 {beforeChildren}
