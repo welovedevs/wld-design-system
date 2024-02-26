@@ -4,28 +4,36 @@ import { InputBase, MenuItem, Select as MuiSelect, SelectProps } from '@mui/mate
 
 const variants = {
     flat: {
-        root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-[#f9f9f9] ds-rounded ds-border ds-border-solid ds-border-dark-100',
+        root:
+            'ds-font-w3d ds-w-auto ds-inline-block ds-bg-[#f9f9f9] ds-rounded ds-border ds-border-solid ds-border-dark-100',
         input: 'ds-font-w3d ds-w-full !ds-pr-4 ds-text-dark-500',
-        icon: ''
+        icon: '',
     },
     raised: {
-        root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-light-500 ds-shadow-w3d ds-rounded ds-border ds-border-solid ds-border-[#f0f0f0]',
+        root:
+            'ds-font-w3d ds-w-auto ds-inline-block ds-bg-light-500 ds-shadow-w3d ds-rounded ds-border ds-border-solid ds-border-[#f0f0f0]',
         input: 'ds-font-w3d ds-w-full !ds-pr-4 ds-text-dark-500',
-        icon: ''
+        icon: '',
     },
     outlined: {
         root: 'ds-font-w3d ds-w-auto ds-inline-block ds-bg-transparent ds-border ds-border-solid ds-border-current',
         input: 'ds-font-w3d ds-w-full !ds-pr-4 ds-text-current',
-        icon: 'ds-text-current'
-    }
+        icon: 'ds-text-current',
+    },
 };
 const sizes = {
     regular: {
-        input: 'ds-p-1'
+        container: 'ds-h-4',
+        input: 'ds-p-1',
     },
     small: {
-        input: ''
-    }
+        container: 'ds-h-3.5',
+        input: '',
+    },
+    xs: {
+        container: 'ds-h-3',
+        input: '',
+    },
 } as const;
 
 export const Select: React.FC<
@@ -40,7 +48,7 @@ export const Select: React.FC<
             onChange: (newValue: any) => any;
             className?: string;
             variant?: 'flat' | 'raised' | 'outlined';
-            size?: 'regular' | 'small';
+            size?: 'regular' | 'small' | 'xs';
             classes?: {
                 icon?: string;
                 root?: string;
@@ -68,12 +76,12 @@ export const Select: React.FC<
         <MuiSelect
             MenuProps={{
                 classes: {
-                    paper: 'ds-max-h-[300px] ds-border ds-border-1 ds-border-gray-100'
-                }
+                    paper: 'ds-max-h-[300px] ds-border ds-border-1 ds-border-gray-100',
+                },
             }}
-            className={`ds-min-w-[150px] ds-max-h-[300px] ds-rounded ds-flex ${className}`}
+            className={`ds-min-w-[150px] ds-max-h-[300px] ds-rounded ds-flex ${className} ${sizes[size].container}`}
             classes={{
-                icon: `${classes.icon ?? ''} ${(variants[variant] ?? variants?.raised).icon}`
+                icon: `${classes.icon ?? ''} ${(variants[variant] ?? variants?.raised).icon}`,
             }}
             native={!avoidNative}
             value={value ?? null}
@@ -84,7 +92,7 @@ export const Select: React.FC<
                         root: `${(variants[variant] ?? variants?.raised).root} ${classes?.root ?? ''}`,
                         input: `${(variants[variant] ?? variants?.raised).input} ${
                             (sizes[size] ?? sizes?.regular).input
-                        } ${classes?.input ?? ''}`
+                        } ${classes?.input ?? ''}`,
                     }}
                 />
             }

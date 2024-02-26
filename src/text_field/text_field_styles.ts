@@ -7,7 +7,7 @@ export const baseStyles = {
     multilineContainer: '',
     input:
         'ds-bg-transparent ds-w-full ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center focus-visible:ds-outline-none focus-visible:ds-ring-0 focus-visible:ds-border-0',
-    multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar',
+    multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar ds-max-h-16',
     disabled: 'ds-cursor-not-allowed ',
 };
 

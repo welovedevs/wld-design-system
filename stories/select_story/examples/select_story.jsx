@@ -16,10 +16,21 @@ export const DefaultStory = ({}) => {
             <Typography component="h4" variant="h4">
                 {`Select value: ${value}`}
             </Typography>
-            <Select variant={"flat"} {...{ value }} onChange={(value) => setValue(value)}>
+            <Select size="regular" variant={"flat"} {...{ value }} onChange={(value) => setValue(value)}>
                 <MenuItem value="allTime">{'Depuis le début'}</MenuItem>
                 <MenuItem value="currentSeason">{'Saison actuelle'}</MenuItem>
             </Select>
+
+            <Select size="small" variant={"flat"} {...{ value }} onChange={(value) => setValue(value)}>
+                <MenuItem value="allTime">{'Depuis le début'}</MenuItem>
+                <MenuItem value="currentSeason">{'Saison actuelle'}</MenuItem>
+            </Select>
+
+            <Select size="xs" variant={"flat"} {...{ value }} onChange={(value) => setValue(value)}>
+                <MenuItem value="allTime">{'Depuis le début'}</MenuItem>
+                <MenuItem value="currentSeason">{'Saison actuelle'}</MenuItem>
+            </Select>
+
             <MuiSelect {...{ value }} onChange={(event) => setValue(event.target.value)}>
                 <MenuItem value="allTime">{'Depuis le début'}</MenuItem>
                 <MenuItem value="currentSeason">{'Saison actuelle'}</MenuItem>
