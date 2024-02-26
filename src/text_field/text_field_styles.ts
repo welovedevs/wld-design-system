@@ -3,17 +3,24 @@ type TextFieldDisabledVariants = `${TextFieldVariants}Disabled`;
 
 export const baseStyles = {
     container:
-        'ds-w-fit ds-rounded-md ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-dark-100 focus-within:ds-border-indigo-500 focus-within:ds-ring-2',
+        'ds-w-fit ds-flex ds-items-center ds-p-0 ds-overflow-hidden ds-border ds-border-solid ds-border-dark-100 focus-within:ds-border-indigo-500 focus-within:ds-ring-2',
     multilineContainer: '',
     input:
-        'ds-bg-transparent ds-w-full  ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center focus-visible:ds-outline-none focus-visible:ds-ring-0 focus-visible:ds-border-0',
+        'ds-bg-transparent ds-w-full ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center focus-visible:ds-outline-none focus-visible:ds-ring-0 focus-visible:ds-border-0',
     multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar',
     disabled: 'ds-cursor-not-allowed ',
 };
 
+export const containedSizeStyles = {
+    xs: "ds-rounded",
+    small: 'ds-rounded',
+    regular: 'ds-rounded-md',
+};
+
 export const sizeStyles = {
-    small: 'ds-px-1 ds-py-1/2 ds-min-h-3 ds-leading-[16px] ds-text-[12px]',
-    regular: 'ds-px-1.5 ds-py-1.5 ds-min-h-[40px] ds-text-[16px] ds-leading-[24px] ',
+    xs: 'ds-px-1/2 ds-h-3 ds-leading-[16px] ds-text-xs',
+    small: 'ds-px-1 ds-h-3.5 ds-leading-[16px] ds-text-sm',
+    regular: 'ds-px-1.5 ds-h-4 ds-leading-[24px] ds-text-base',
 };
 
 export const variantStyles: { [key in TextFieldVariants | TextFieldDisabledVariants]: string } = {
