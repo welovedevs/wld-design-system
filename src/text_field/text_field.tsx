@@ -109,7 +109,7 @@ export const TextField = forwardRef<HTMLElement, PropsWithChildren<TextFieldProp
                 {isPassword && (
                     <IconButton
                         title="Show/Hide password"
-                        className="ds-w-5 ds-h-5 ds-ml-1"
+                        className="ds-w-4 ds-h-4 ds-ml-1"
                         onClick={togglePasswordVisiblity}
                         size="large"
                     >
