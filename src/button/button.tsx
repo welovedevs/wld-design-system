@@ -120,7 +120,7 @@ export const Button = forwardRef<unknown, ButtonProps>(
                     className={cn(
                         baseStyles.typography,
                         variant && textVariantStyles[variant],
-                        size && typographysizeStyles[size],
+                        (size && typographysizeStyles[size]) || typographysizeStyles.regular,
                         classes?.typography
                     )}
                     variant="button"
