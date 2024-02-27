@@ -5,10 +5,10 @@ export const MoveIcon: React.FC<{ className?: string }> = ({ className }) => (
         <g
             transform="scale(1.6667)"
             fill="none"
-            stroke="#000"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
         >
             <path d="m9 3.748 3-3 3 3" />
             <path d="m15 20.248-3 3-3-3" />

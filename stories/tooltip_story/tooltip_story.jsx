@@ -8,12 +8,12 @@ const POSSIBLE_PLACEMENT = Object.freeze({
     Top: 'top',
     Right: 'right',
     Bottom: 'bottom',
-    Left: 'left'
+    Left: 'left',
 });
 
 const DEFAULT_TITLE = 'Hello there!';
 
-const TooltipStory = () => {
+export const TooltipStory = () => {
     const placement = select('Placement', POSSIBLE_PLACEMENT, POSSIBLE_PLACEMENT.Top);
     const title = text('Title', DEFAULT_TITLE);
     const handleInteraction = useCallback(() => {
@@ -21,9 +21,10 @@ const TooltipStory = () => {
     }, []);
     return (
         <Tooltip
+            open
             {...{
                 placement,
-                title
+                title,
             }}
         >
             <button
@@ -40,4 +41,3 @@ const TooltipStory = () => {
     );
 };
 
-export default TooltipStory;

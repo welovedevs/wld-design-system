@@ -43,7 +43,8 @@ const yellow = {
     700: '#F6E014',
     800: '#F5DD11',
     900: '#F3D709',
-    contrastDefaultColor: 'dark',
+    1000: '#713e12',
+    contrastDefaultColor: 'primary',
 };
 
 export const tertiary = yellow;
@@ -59,6 +60,7 @@ export const safe = {
     700: '#50ad6f',
     800: '#46a565',
     900: '#349752',
+    1000: '#166534',
     A100: '#e1ffea',
     A200: '#aeffc5',
     A400: '#7bffa1',
@@ -94,6 +96,7 @@ export const warn = {
     700: '#f57c00',
     800: '#ef6c00',
     900: '#e65100',
+    2000: '#451A03',
     A100: '#ffd180',
     A200: '#ffab40',
     A400: '#ff9100',
@@ -116,7 +119,15 @@ export const orange = {
 };
 
 export const light = {
+    50: '#fff',
+    100: '#fff',
+    200: '#fff',
+    300: '#fff',
+    400: '#fff',
     500: '#fff',
+    600: '#fff',
+    700: '#fff',
+    800: '#fff',
     900: '#fff',
     contrastDefaultColor: 'dark',
 };
@@ -135,27 +146,107 @@ export const dark = {
     contrastDefaultColor: 'light',
 };
 
-export type PaletteColors =
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'dark'
-    | 'danger'
-    | 'safe'
-    | 'warn'
-    | 'orange'
-    | 'light';
+export const darkblue = {
+    50: '#0c0380',
+    100: '#0a0273',
+    200: '#090266',
+    300: '#080259',
+    400: '#07014c',
+    500: '#060140',
+    600: '#040133',
+    700: '#030026',
+    800: '#020019',
+    900: '#01000c',
+    contrastDefaultColor: 'light',
+};
+
+export const indigo = {
+    50: '#eef2ff',
+    100: '#e0e7ff',
+    200: '#c7d2fe',
+    300: '#a5b3fc',
+    400: '#818df8',
+    500: '#6365f1',
+    600: '#4e46e5',
+    700: '#4438ca',
+    800: '#3830a3',
+    900: '#312e81',
+    contrastDefaultColor: 'light',
+};
+
+export const purple = {
+    50: '#faf5ff',
+    100: '#f3e8ff',
+    200: '#e9d5ff',
+    300: '#d8b4fe',
+    400: '#c084fc',
+    500: '#a955f7',
+    600: '#9333ea',
+    700: '#7e22ce',
+    800: '#6b21a8',
+    900: '#591c87',
+    contrastDefaultColor: 'light',
+};
+
+const red = {
+    50: '#fef2f2',
+    100: '#fee2e2',
+    200: '#fecaca',
+    300: '#fca5a5',
+    400: '#f87171',
+    500: '#ef4444',
+    600: '#dc2626',
+    700: '#b91c1c',
+    800: '#991b1b',
+    900: '#7f1d1d',
+    contrastDefaultColor: 'light',
+};
+export const codersTestsPrimary = {
+    50: '#e7edee',
+    100: '#cfdbdd',
+    200: '#a0b8ba',
+    300: '#709498',
+    400: '#417175',
+    500: '#114d53',
+    600: '#0e3e42',
+    700: '#0a2e32',
+    800: '#071f21',
+    900: '#020808',
+    contrastDefaultColor: 'light',
+};
+export const codersTestsSecondary = {
+    50: '#feefe7',
+    100: '#fcdece',
+    200: '#f9bd9d',
+    300: '#f69c6c',
+    400: '#f37b3b',
+    500: '#f05a0a',
+    600: '#c04808',
+    700: '#903606',
+    800: '#602404',
+    900: '#301202',
+    contrastDefaultColor: 'light',
+};
+
 export type PaletteShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
-let palette: { [color in PaletteColors]: any } = {
+const palette = {
     primary,
     secondary,
     tertiary,
     dark,
     danger,
     safe,
+    darkblue,
     warn,
     orange,
     light,
-};
+    indigo,
+    purple,
+    red,
+    codersTestsPrimary,
+    codersTestsSecondary,
+} as const;
+
+export type PaletteColors = keyof typeof palette;
 export default palette;

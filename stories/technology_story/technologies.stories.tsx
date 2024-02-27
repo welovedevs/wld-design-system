@@ -3,26 +3,46 @@ import { TechnologiesPicker, TechnologiesPickerProps } from '../../src/technolog
 import { technologies } from './technology_data';
 import { useState } from 'react';
 import { DevTechnology, Technology } from '../../src/technologies/technologies/technology';
-import { Card } from '@material-ui/core';
+import { Card } from '../../src/card/card';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
+const content = {
+    noResults: <Card>Pas de contenu</Card>,
+    additionalInformations: <Card>Info Supplémentaire</Card>,
+};
 const Template = (args) => {
-    const [items, setItems] = useState<Array<DevTechnology>>([]);
+    const [items, setItems] = useState<Array<DevTechnology>>([
+        { name: 'Akka', index: 0, value: 50, id: 1 },
+        { name: 'Angular', index: 1, value: 50, id: 2 },
+        { name: 'Drupal', index: 2, value: 50, id: 3 },
+        { name: 'Erlang', index: 3, value: 50, id: 4 },
+        { name: 'Git', index: 4, value: 50, id: 5 },
+        { name: 'Gitlab', index: 5, value: 50, id: 6 },
+        { name: 'Gradle', index: 6, value: 50, id: 7 },
+        { name: 'Gulp', index: 7, value: 50, id: 8 },
+        { name: 'Java', index: 8, value: 50, id: 9 },
+        { name: 'Jeet', index: 9, value: 50, id: 10 },
+    ]);
     console.log({ items });
     return (
-        <div style={{ height: '98vh' }}>
+        <div style={{ height: '95vh' }}>
             <TechnologiesPicker
                 {...args}
                 selectedValues={items}
-                onAddItem={(id) =>
-                    setItems([...items, { name: id, value: 50, index: items.length, id: items.length + id }])
-                }
-                onDeleteItem={(id) => setItems(items.filter((item) => item.id !== id))}
-                onArrayChange={(newArray) => setItems(newArray)}
-                content={{
-                    noResults: <Card>Pas de contenu</Card>,
-                    additionalInformations: <Card>Info Supplémentaire</Card>,
+                onAddItem={(id) => {
+                    console.log('Item added');
+                    setItems([...items, { name: id, value: 50, index: items.length, id: items.length + id }]);
                 }}
+                onDeleteItem={(name) => {
+                    setItems(items.filter((item) => item.name !== name));
+                }}
+                onArrayChange={(newArray) => setItems(newArray)}
+                onArrayItemChange={(item) => {
+                    const itemIndex = items.findIndex(({ name }) => item.name === name);
+                    items[itemIndex] = item;
+                    setItems([...items]);
+                }}
+                content={content}
             />
         </div>
     );
@@ -49,7 +69,7 @@ MobilePicker.args = {
 } as Partial<TechnologiesPickerProps>;
 
 export default {
-    title: 'Picker',
+    title: 'Components/Picker',
     component: TechnologiesPicker,
     viewport: {
         //👇 The viewports you want to use

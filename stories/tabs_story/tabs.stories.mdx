@@ -1,0 +1,56 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { Tabs } from '../../src/tabs/tabs';
+import { useState } from 'react';
+
+<Meta title="Components/Tabs" component={Tabs} />
+
+export const Template = (args) => {
+    const [tabs, setTabs] = useState([
+        {
+            name: 'Accueil',
+            ref: 'home',
+            current: true
+        },
+        {
+            name: 'A propos',
+            ref: 'about',
+            current: false
+        },
+        {
+            name: 'Contributions',
+            ref: 'contact',
+            current: false
+        }
+    ])
+    const handleTabClick = (ref) => {
+        const updatedTabs = tabs.map((tab) => {
+          if (tab.ref === ref) {
+            return {
+              ...tab,
+              current: true
+            };
+          } else {
+            return {
+              ...tab,
+              current: false
+            };
+          }
+        });
+        setTabs(updatedTabs);
+      };
+      console.log(tabs)
+    return (
+        <div className="ds-flex ds-flex-col">
+           <Tabs tabs={tabs} setActiveTab={handleTabClick} />
+           <Tabs tabs={tabs} setActiveTab={handleTabClick} classes={{
+            container: 'ds-mt-2 ds-max-w-none'
+           }} />
+        </div>
+    )
+}
+
+# Tabs
+
+<Canvas>
+    <Story name="Regular">{Template.bind({})}</Story>
+</Canvas>

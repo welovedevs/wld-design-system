@@ -1,83 +1,53 @@
-import React, {
-    ChangeEvent,
-    ElementType,
-    FocusEvent,
-    forwardRef,
-    MouseEvent,
-    PropsWithChildren,
-    useCallback,
-    useMemo,
-    useState,
-} from 'react';
+import React, { ChangeEvent, ElementType, forwardRef, PropsWithChildren, useCallback } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { motion } from 'framer-motion';
 
-import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
+import { PaletteColors } from '../styles';
 
-import { Classes, styles } from './checkbox_styles';
-import { ClassNameMap } from '@material-ui/styles';
-import merge from 'lodash/merge';
-
-const useStyles = makeStyles(styles);
+import { palette } from '../index';
+import { baseClasses, checkedLayerClasses, iconClasses, layerClasses, variantClasses } from './checkbox_styles';
 
 interface Props {
     component?: string | ElementType;
     checked: boolean;
+    partialCheck?: boolean;
     disabled?: boolean;
     color?: PaletteColors;
     defaultColor?: string;
     className?: string;
     inputClassName?: string;
     containerProps?: any;
-    variant?: 'raised' | 'outlined';
+    variant?: 'contained' | 'raised' | 'outlined';
     isRadio?: Boolean;
-    classes?: Classes;
-    customClasses?: Classes;
+    size?: 'regular' | 'small';
+    classes?: {
+        container?: string;
+        input?: string;
+    };
 }
 
-type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color'> & Props>;
-type StyleKeys = ClassNameMap<
-    'container' | 'input' | 'outlined' | 'brightLayer' | 'raised' | 'disabled' | 'isRadio' | 'checkIcon'
->;
+export type CheckboxProps = PropsWithChildren<Omit<React.InputHTMLAttributes<any>, 'color' | 'size'> & Props>;
 const CheckboxComponent = forwardRef<any, CheckboxProps>(
     (
         {
-            component: Component = motion.div,
+            component: Component = 'div',
             checked,
             disabled,
             color,
-            defaultColor: propsDefaultColor,
+            defaultColor: propsDefaultColor = palette?.primary[400],
             className,
             inputClassName,
             containerProps,
             onChange,
-            variant,
+            variant = 'contained',
             isRadio,
-            customClasses: oldCustomClasses = {},
-            classes: receivedClasses = {},
-
+            classes = {},
+            partialCheck,
+            size = 'regular',
             ...other
         },
         ref
     ) => {
-        const theme = useTheme();
-        const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-            JSON.stringify(oldCustomClasses),
-            JSON.stringify(receivedClasses),
-        ]);
-        const classes = useStyles({ classes: mergedClasses });
-        const hexColor = useMemo(() => getHexFromTheme(theme, color as any), [theme, color]);
-        const defaultColor = useMemo(
-            () => propsDefaultColor || (variant === 'raised' && '#fff') || getHexFromTheme(theme, 'dark', 500),
-            [propsDefaultColor, theme]
-        );
-
-        const { color: colorMotion } = {
-            color: getComponentColor(checked, hexColor ?? null, disabled, defaultColor),
-        } as any;
-
         const handleChange = useCallback(
             (event: ChangeEvent) => {
                 if (disabled) {
@@ -93,28 +63,39 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
         return (
             <Component
                 className={cn(
-                    classes.container,
-                    disabled && classes.disabled,
-                    isRadio && classes.isRadio,
-                    variant && classes[variant],
+                    baseClasses.size[size as 'regular' | 'small'],
+                    baseClasses.container,
+                    isRadio && '!ds-rounded-full',
+                    disabled && 'ds-cursor-not-allowed ds-bg-dark-50/[0.75]',
+                    checked && !disabled && variant !== 'outlined' && 'ds-bg-current',
+                    variant && variantClasses[variant],
                     className
                 )}
-                {...containerProps}
                 style={{
-                    ...(containerProps && containerProps.style),
+                    color: disabled ? palette?.dark[200] : (color && palette?.[color]?.[500]) ?? propsDefaultColor,
                 }}
-                animate={{ color: colorMotion }}
-                initial="initial"
-                whileHover="hover"
+                {...containerProps}
                 {...{ ref }}
             >
-                <CheckIcon {...{ checked, classes }} />
-                <motion.div
-                    className={classes.brightLayer}
-                    variants={{ initial: { opacity: 0 }, hover: { opacity: 0.3 } }}
+                <CheckIcon
+                    {...{ checked, partialCheck: !!partialCheck }}
+                    classes={{
+                        checkIcon: cn(
+                            baseClasses.icon,
+                            checked && variant && !disabled && iconClasses[variant],
+                            partialCheck && iconClasses['partial']
+                        ),
+                    }}
+                />
+                <div
+                    className={cn(
+                        baseClasses.layer,
+                        variant && checked && checkedLayerClasses[variant],
+                        variant && !checked && layerClasses[variant]
+                    )}
                 />
                 <input
-                    className={cn(classes.input, inputClassName)}
+                    className={cn(baseClasses.input, inputClassName)}
                     type="checkbox"
                     onChange={handleChange}
                     {...{ checked }}
@@ -125,30 +106,18 @@ const CheckboxComponent = forwardRef<any, CheckboxProps>(
     }
 );
 
-const DEFAULT_ICON_PROPS = {
-    scale: 0.5,
-    opacity: 0,
-};
-
-const CHECKED_ICON_PROPS = {
-    scale: 1,
-    opacity: 1,
-};
-
-const CheckIcon: React.FC<{ checked: boolean; classes: StyleKeys }> = ({ checked, classes }) => {
-    const spring = useMemo(() => (checked ? CHECKED_ICON_PROPS : DEFAULT_ICON_PROPS), [checked]);
+const CheckIcon: React.FC<{ checked: boolean; partialCheck: boolean; classes: { checkIcon: string } }> = ({
+    checked: propsChecked,
+    partialCheck,
+    classes,
+}) => {
     return (
-        <motion.svg
-            className={classes.checkIcon}
-            viewBox="0 0 24 24"
-            fill="#fff"
-            animate={spring}
-            transition={{ type: 'spring', bounce: 0.6 }}
-        >
+        <svg className={classes.checkIcon} viewBox="0 0 24 24" fill="#fff">
             <g>
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                {propsChecked && <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />}
+                {!propsChecked && partialCheck && <rect x="4" y="11" width="17" height="2" />}
             </g>
-        </motion.svg>
+        </svg>
     );
 };
 
