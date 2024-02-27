@@ -7,7 +7,7 @@ export const baseStyles = {
     multilineContainer: '',
     input:
         'ds-bg-transparent ds-w-full ds-border-0 ds-font-w3d ds-text-dark-400 ds-flex ds-items-center focus-visible:ds-outline-none focus-visible:ds-ring-0 focus-visible:ds-border-0',
-    multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar ds-max-h-16',
+    multilineInput: 'ds-px-2 ds-py-1 ds-scrollbar !ds-h-16',
     disabled: 'ds-cursor-not-allowed ',
 };
 
@@ -18,9 +18,9 @@ export const containedSizeStyles = {
 };
 
 export const sizeStyles = {
-    xs: 'ds-px-1/2 ds-h-full ds-max-h-3 ds-leading-[16px] ds-text-xs',
-    small: 'ds-px-1 ds-h-full ds-max-h-3.5 ds-leading-[16px] ds-text-sm',
-    regular: 'ds-px-1.5 ds-h-full ds-max-h-4 ds-leading-[24px] ds-text-base',
+    xs: 'ds-px-1/2 ds-h-3 ds-leading-[16px] ds-text-xs',
+    small: 'ds-px-1 ds-h-3.5 ds-leading-[16px] ds-text-sm',
+    regular: 'ds-px-1.5 ds-h-4 ds-leading-[24px] ds-text-base',
 };
 
 export const variantStyles: { [key in TextFieldVariants | TextFieldDisabledVariants]: string } = {

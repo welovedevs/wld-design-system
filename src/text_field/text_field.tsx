@@ -95,8 +95,8 @@ export const TextField = forwardRef<HTMLElement, PropsWithChildren<TextFieldProp
                     className={cn(
                         inputClassName,
                         baseStyles.input,
-                        multiline && baseStyles.multilineInput,
                         size && sizeStyles[size],
+                        multiline && baseStyles.multilineInput,
                         variant && inputStyles[variant],
                         disabled && inputStyles.disabled,
                         disabled && variant && inputStyles[`${variant}Disabled`],

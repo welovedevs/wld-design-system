@@ -23,16 +23,16 @@ const variants = {
 };
 const sizes = {
     regular: {
-        container: 'ds-h-4',
-        input: 'ds-p-1',
+        container: 'ds-h-4 ds-p-1',
+        input: 'ds-p-1/2',
     },
     small: {
-        container: 'ds-h-3.5',
-        input: '',
+        container: 'ds-h-3.5 ds-p-1',
+        input: '!ds-text-sm',
     },
     xs: {
-        container: 'ds-h-3',
-        input: '',
+        container: 'ds-h-3 ds-p-1 ds-text-sm',
+        input: '!ds-text-xs',
     },
 } as const;
 
