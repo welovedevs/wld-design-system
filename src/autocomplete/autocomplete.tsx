@@ -1,10 +1,16 @@
 import React, { useMemo } from 'react';
 
-import { AutocompleteOwnerState, AutocompleteRenderOptionState, Box } from '@mui/material';
+import { AutocompleteOwnerState, AutocompleteRenderOptionState, Box, ChipTypeMap } from '@mui/material';
 import Autocomplete, { AutocompleteProps, AutocompleteRenderInputParams } from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-const AutoCompleteComponent = <T extends any>({
+const AutoCompleteComponent = <
+    T,
+    Multiple extends boolean | undefined = false,
+    DisableClearable extends boolean | undefined = false,
+    FreeSolo extends boolean | undefined = false,
+    ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent']
+>({
     options,
     className,
     classes,
@@ -13,7 +19,7 @@ const AutoCompleteComponent = <T extends any>({
     renderOption,
     color = 'primary',
     ...props
-}: Omit<AutocompleteProps<T, boolean | undefined, boolean | undefined, boolean | undefined, any>, 'renderInput'> & {
+}: Omit<AutocompleteProps<T, Multiple, DisableClearable, FreeSolo, ChipComponent>, 'renderInput'> & {
     renderInput?: (params: AutocompleteRenderInputParams) => React.ReactNode;
 }) => {
     const renderOptionDefault = useMemo(
@@ -21,7 +27,7 @@ const AutoCompleteComponent = <T extends any>({
             props: React.HTMLAttributes<HTMLLIElement>,
             option: T,
             state: AutocompleteRenderOptionState,
-            ownerState: AutocompleteOwnerState<T, boolean, boolean, boolean, any>
+            ownerState: AutocompleteOwnerState<T, Multiple, DisableClearable, FreeSolo, ChipComponent>
         ) => (
             <Box component="li" key={state.index} {...props}>
                 {getOptionLabel ? getOptionLabel(option) : (option as any).toString()}
