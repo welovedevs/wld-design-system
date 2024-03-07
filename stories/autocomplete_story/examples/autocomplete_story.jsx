@@ -3,11 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { Typography } from '../../../src/typography/typography';
 
 import { AutoComplete } from '../../../src/autocomplete/autocomplete';
-import styles from './autocomplete_story_styles';
-import { Button, PopperCard } from '../../../src';
-import { Checkbox, ListItem, MenuItem } from '@mui/material';
-import { CheckBoxOutlineBlank, CheckBoxRounded } from '@mui/icons-material';
-
 
 export const DefaultStory = ({}) => {
     const defaultSuggestions = [
@@ -15,43 +10,12 @@ export const DefaultStory = ({}) => {
         { value: 'Butocomplete' },
         { value: 'Batocomplete' },
         { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
-        { value: 'Autocomplete' },
-        { value: 'Butocomplete' },
-        { value: 'Batocomplete' },
-        { value: 'Cutocomplete' },
     ];
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback((autocompleteValue) => {
-        setValue(autocompleteValue);
+    const handleInputChange = useCallback((_, option) => {
+        setValue(option.value);
     }, []);
+
     return (
         <div className={''}>
             <Typography component="h1" variant="h1">
@@ -61,17 +25,16 @@ export const DefaultStory = ({}) => {
                 {`Autocomplete value: ${value}`}
             </Typography>
             <AutoComplete
-                {...{ value }}
+                className="ds-w-[500px]"
+                options={defaultSuggestions}
+                getOptionLabel={(option) => option?.value || ''}
                 onChange={handleInputChange}
-                suggestions={defaultSuggestions}
-                alwaysRenderSuggestions
             />
         </div>
     );
 };
 
 export const MultipleStory = ({}) => {
-    const classes = useStyles();
     const defaultSuggestions = [
         { value: 'Autocomplete' },
         { value: 'Butocomplete' },
@@ -80,25 +43,19 @@ export const MultipleStory = ({}) => {
     ];
     const [value, setValue] = useState('');
     const [selectedSuggestions, setSelectedSuggestions] = useState([]);
-    const handleInputChange = useCallback((autocompleteValue) => {
-        setValue(autocompleteValue);
+    const handleInputChange = useCallback((_, inputValue) => {
+        setValue(inputValue);
     }, []);
 
     const handleSelect = useCallback(
-        ({ suggestionValue }) => {
-            if (selectedSuggestions.includes(suggestionValue)) {
-                setSelectedSuggestions((selectedSuggestions) =>
-                    selectedSuggestions.filter((selectedSuggestion) => selectedSuggestion !== suggestionValue)
-                );
-            } else {
-                setSelectedSuggestions((selectedSuggestions) => [...selectedSuggestions, suggestionValue]);
-            }
+        (_, options) => {
+            setSelectedSuggestions(options);
         },
         [selectedSuggestions]
     );
 
     return (
-        <div className={classes.default}>
+        <div>
             <Typography component="h1" variant="h1">
                 Multiple behaviour
             </Typography>
@@ -109,19 +66,17 @@ export const MultipleStory = ({}) => {
                 {`Selected values: ${JSON.stringify(selectedSuggestions)}`}
             </Typography>
             <AutoComplete
-                {...{ value }}
-                onChange={handleInputChange}
-                suggestions={defaultSuggestions}
-                onSelect={handleSelect}
                 multiple
-                selectedSuggestions={selectedSuggestions}
+                options={defaultSuggestions}
+                getOptionLabel={(option) => option?.value || ''}
+                onChange={handleSelect}
+                onInputChange={handleInputChange}
             />
         </div>
     );
 };
 
 export const CustomDataStory = ({}) => {
-    const classes = useStyles();
     const defaultSuggestions = [
         { name: 'Autocomplete' },
         { name: 'Butocomplete' },
@@ -129,8 +84,8 @@ export const CustomDataStory = ({}) => {
         { name: 'Cutocomplete' },
     ];
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback((autocompleteValue) => {
-        setValue(autocompleteValue);
+    const handleInputChange = useCallback((_, option) => {
+        setValue(option.name);
     }, []);
     return (
         <>
@@ -141,29 +96,18 @@ export const CustomDataStory = ({}) => {
                 {`Autocomplete value: ${value}`}
             </Typography>
             <AutoComplete
-                alwaysRenderSuggestions
-                value={value}
+                options={defaultSuggestions}
+                getOptionLabel={(option) => option?.name || ''}
                 onChange={handleInputChange}
-                suggestions={defaultSuggestions}
-                getSuggestionValue={({ name }) => name}
-                renderSuggestion={({ name }) => <div className={classes.suggestionEntry}>{name}</div>}
-                filterFunction={(needle) => ({ name }) =>
-                    needle && name && name.toLowerCase().includes(needle.toLowerCase())}
             />
         </>
     );
 };
 export const NoResultsStory = ({}) => {
-    const classes = useStyles();
-    const defaultSuggestions = [
-        { name: 'Autocomplete' },
-        { name: 'Butocomplete' },
-        { name: 'Batocomplete' },
-        { name: 'Cutocomplete' },
-    ];
+    const defaultSuggestions = [];
     const [value, setValue] = useState('');
-    const handleInputChange = useCallback((autocompleteValue) => {
-        setValue(autocompleteValue);
+    const handleInputChange = useCallback((_, option) => {
+        setValue(option);
     }, []);
     return (
         <>
@@ -173,31 +117,7 @@ export const NoResultsStory = ({}) => {
             <Typography component="h4" variant="h4">
                 {`Autocomplete value: ${value}`}
             </Typography>
-            <AutoComplete
-                value={value}
-                onChange={handleInputChange}
-                suggestions={defaultSuggestions}
-                getSuggestionValue={({ name }) => name}
-                renderNoSuggestion={({ open, anchorElement }) => (
-                    <PopperCard open={open} {...{ anchorElement }}>
-                        <Button
-                            color="primary"
-                            onClick={() => {
-                                alert('ok');
-                            }}
-                        >
-                            No Results
-                        </Button>
-                    </PopperCard>
-                )}
-                renderSuggestion={({ name }) => <div className={classes.suggestionEntry}>{name}</div>}
-                filterFunction={(needle) => ({ name }) => {
-                    if (!needle) {
-                        return true;
-                    }
-                    return needle && name && name.toLowerCase().includes(needle.toLowerCase());
-                }}
-            />
+            <AutoComplete options={defaultSuggestions} onChange={handleInputChange} />
         </>
     );
 };
