@@ -1,24 +1,28 @@
-import React, { ButtonHTMLAttributes, useCallback, useMemo } from 'react';
+import { ButtonHTMLAttributes, forwardRef, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { motion } from 'framer-motion';
 import { Typography } from '../typography/typography';
 
-import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
+import { PaletteColors } from '../styles';
 
-import { ButtonVariants, Classes, styles } from './button_styles';
-import merge from 'lodash/merge';
-
-const useStyles = makeStyles(styles);
+import { palette } from '../index';
+import {
+    baseStyles,
+    ButtonVariants,
+    layerVariantStyles,
+    sizeStyles,
+    textVariantStyles,
+    typographysizeStyles,
+    variantStyles,
+} from './button_styles';
 
 interface CustomProps {
     component?: string;
     className?: string;
     containerRef?: any;
     disabled?: boolean;
-    size?: 'small' | 'xs';
-    color?: PaletteColors | 'default';
+    size?: 'small' | 'xs' | 'regular';
+    color?: PaletteColors;
     containerProps?: any;
     typographyClassName?: any;
     variant?: ButtonVariants;
@@ -27,107 +31,104 @@ interface CustomProps {
     onFocus?: any;
     onBlur?: any;
     onClick?: any;
-    customClasses?: Classes;
-    classes?: Classes;
+    classes?: { container?: string; typography?: string };
     style?: any;
 }
 
 export type ButtonProps = CustomProps & ButtonHTMLAttributes<HTMLButtonElement>;
-const ButtonComponent: React.FC<ButtonProps> = ({
-    component: Component = motion.button,
-    className,
-    containerRef,
-    disabled,
-    size,
-    color = 'default',
-    containerProps,
-    // @deprecated please use classes.typography
-    typographyClassName,
-    variant,
-    onMouseEnter,
-    onMouseLeave,
-    onFocus,
-    onBlur,
-    onClick,
-    children,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
-    style: propsStyle,
-    ...other
-}) => {
-    const theme = useTheme();
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });
-    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
-    const withColor = useMemo(() => disabled || (color && color !== 'default' && hexColor), [disabled, hexColor]);
-    const colorMotion = { color: getComponentColor(true, hexColor, disabled) };
-
-    const handleClick = useCallback(
-        (...paramaters) => {
-            if (disabled) {
-                return;
-            }
-            if (typeof onClick === 'function') {
-                onClick(...paramaters);
-            }
+export const Button = forwardRef<unknown, ButtonProps>(
+    (
+        {
+            component: Component = 'button',
+            className,
+            containerRef,
+            disabled,
+            size = 'regular',
+            color,
+            containerProps,
+            // @deprecated please use classes.typography
+            typographyClassName,
+            variant = 'text',
+            onClick,
+            classes = {},
+            children,
+            style: propsStyle,
+            type,
+            ...other
         },
-        [onClick, disabled]
-    );
-    const classesSizes: any = size && `size_${size}`;
-    return (
-        <Component
-            ref={containerRef}
-            className={cn(
-                className,
-                classes.container,
-                disabled && classes.disabled,
-                withColor && classes.withColor,
-                variant && classes[variant],
-                // @ts-ignore
-                classesSizes && classes[classesSizes],
-                oldCustomClasses.container
-            )}
-            {...containerProps}
-            style={{
-                ...propsStyle,
-                ...(withColor && colorMotion),
-                ...(containerProps && containerProps.style),
-            }}
-            onClick={handleClick}
-            {...other}
-        >
-            <motion.div
-                className={classes.brightLayer}
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: variant !== 'contained' ? 0.1 : 0.2 }}
-            />
-            <Typography className={cn(classes.typography, oldCustomClasses.typography)} variant="button">
-                {children}
-            </Typography>
-        </Component>
-    );
-};
+        ref
+    ) => {
+        const hexColor = useMemo(() => {
+            if (disabled) {
+                return color ? palette?.[color]?.[100] : palette?.['dark']?.[100];
+            }
+            return color ? palette?.[color]?.[500] : palette?.primary[300];
+        }, [disabled, color]);
 
-const RaisedButton: React.FC<ButtonProps> = (props) => {
-    const theme = useTheme();
-    const { disabled, color } = props;
-    const motionProps = {
-        boxShadow: `0 ${color ? 5 : 10}px ${color ? 15 : 20}px 0 ${getComponentColor(
-            Boolean(color),
-            getHexFromTheme(theme, color, 200),
-            disabled
-        )}`,
-    };
-    return <ButtonComponent {...props} {...(!disabled && { animate: motionProps })} />;
-};
+        const shadow = useMemo(() => {
+            if (variant === 'raised') {
+                return 'ds-shadow-[0_4px_10px_0]';
+            }
+            return null;
+        }, [variant]);
 
-export const Button: React.FC<ButtonProps> = (props, containerRef) => {
-    const { variant = 'text', ...other } = props;
-    if (variant === 'raised') {
-        return <RaisedButton {...{ variant, containerRef }} {...other} />;
+        const handleClick = useCallback(
+            (...params: any[]) => {
+                if (disabled) {
+                    return;
+                }
+                if (typeof onClick === 'function') {
+                    onClick(...params);
+                }
+            },
+            [onClick, disabled]
+        );
+
+        const textColor: PaletteColors | undefined = useMemo(() => {
+            if (variant === 'raised' || variant === 'contained') {
+                if (color === 'light') {
+                    return 'primary';
+                }
+                return 'light';
+            }
+            return color;
+        }, [variant, color]);
+        return (
+            <Component
+                ref={ref || containerRef}
+                {...containerProps}
+                type={type ?? 'button'}
+                className={cn(
+                    baseStyles.container,
+                    (size && sizeStyles[size]) || sizeStyles.regular,
+                    disabled && baseStyles.disabled,
+                    !disabled && shadow,
+                    variantStyles[variant ?? 'default'],
+                    className,
+                    classes?.container
+                )}
+                style={{
+                    color: hexColor,
+                    ...propsStyle,
+                    ...(containerProps && containerProps.style),
+                }}
+                onClick={handleClick}
+                {...other}
+            >
+                {!disabled && <div className={cn(baseStyles.brightLayer, variant && layerVariantStyles[variant])} />}
+                <Typography
+                    className={cn(
+                        baseStyles.typography,
+                        variant && textVariantStyles[variant],
+                        (size && typographysizeStyles[size]) || typographysizeStyles.regular,
+                        classes?.typography
+                    )}
+                    variant="button"
+                    color={textColor}
+                >
+                    {children}
+                </Typography>
+            </Component>
+        );
     }
-    return <ButtonComponent {...{ variant, containerRef }} {...other} />;
-};
+);

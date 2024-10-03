@@ -1,0 +1,70 @@
+import { Meta, Story, Canvas, Props } from '@storybook/addon-docs/blocks';
+
+import { Banner } from '../../src/banner/banner';
+
+<Meta title="Components/Banner" />
+
+export const Template = (args) => {
+    return (
+        <div className="ds-flex ds-flex-col">
+            Regular
+            <Banner {...args} className="ds-w-full ds-mb-3">
+                This is the banner content !This is the banner content !This is the banner content !This is the banner
+                content !This is the banner content !This is the banner content !This is the banner content !This is the
+                banner content !This is the banner content !
+            </Banner>
+            Small
+            <Banner {...args} className="ds-w-full " size="small">
+                This is the banner content !This is the banner content !This is the banner content !This is the banner
+                content !This is the banner content !This is the banner content !This is the banner content !This is the
+                banner content !This is the banner content !
+            </Banner>
+        </div>
+    );
+};
+
+# Banner
+
+<Canvas>
+    <Story name="regular">{Template.bind({})}</Story>
+    <Story
+        name="warning"
+        args={{
+            type: 'warning',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="error"
+        args={{
+            type: 'error',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="success"
+        args={{
+            type: 'success',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="info"
+        args={{
+            type: 'info',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="default"
+        args={{
+            type: 'default',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

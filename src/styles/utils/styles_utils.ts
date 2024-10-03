@@ -1,7 +1,7 @@
 // Material Design's box-shadows (see: https://codepen.io/sdthornton/pen/wBZdXq)
 import { PaletteColors, PaletteShade } from '../palette';
 import { DEFAULT_THEME } from '../theme';
-import { Theme } from '@material-ui/core';
+import { Theme } from '@mui/material/styles';
 
 // Flex utils
 export const flexUtils = {
@@ -14,16 +14,16 @@ export const flexUtils = {
 
 export const withCustomVerticalScrollbar = (color = '#c1c1c1') => ({
     '&::-webkit-scrollbar-track': {
-        border: 0
+        border: 0,
     },
     '&::-webkit-scrollbar': {
-        width: '6px'
+        width: '6px',
     },
     '&::-webkit-scrollbar-thumb': {
-        backgroundColor: color
+        backgroundColor: color,
     },
     scrollbarWidth: 'thin',
-    scrollbarColor: `${color} transparent`
+    scrollbarColor: `${color} transparent`,
 });
 
 export const getHexFromTheme = (

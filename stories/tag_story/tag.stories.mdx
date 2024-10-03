@@ -1,0 +1,48 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import { TagExamples } from './examples/tag_examples';
+import { Tag } from '../../src/tag/tag';
+
+<Meta title="Components/Tag" />
+
+# Tag
+
+Tags are elements that display key data.
+It is important to choose the right props for any given application.
+
+
+## Props
+
+<Props of={Tag} />
+
+- basic tags
+
+<Preview withSource="none">
+    <Story name="Basic">
+      <TagExamples />
+    </Story>
+</Preview>
+
+- blank tag
+
+<Preview withSource="none">
+    <Story name="Blank with on onDelete">
+      <Tag onDelete={() => {}} size="small" />
+    </Story>
+</Preview>
+
+- onClick tags
+
+<Preview withSource="none">
+    <Story name="onClick">
+      <TagExamples onClick={() => alert('clicked !')} />
+    </Story>
+</Preview>
+
+- onDelete tags
+
+<Preview withSource="none">
+    <Story name="onDelete">
+      <TagExamples onDelete={() => alert('clicked !')} />
+    </Story>
+</Preview>

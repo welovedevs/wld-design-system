@@ -1,23 +1,19 @@
-import React, { ExoticComponent, ReactChildren, useCallback, useMemo, useState } from 'react';
+import React, { ExoticComponent, forwardRef, PropsWithChildren, ReactNode, useState } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from '@material-ui/core/styles';
 
-import { Classes, styles } from './text_field_styles';
-import { ClassNameMap } from '@material-ui/styles';
-import merge from 'lodash/merge';
-import { IconButton } from '@material-ui/core';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import { Tooltip } from '../index';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import {
+    baseStyles,
+    containedSizeStyles,
+    inputStyles,
+    sizeStyles,
+    TextFieldVariants,
+    variantStyles,
+} from './text_field_styles';
 
-const useStyles = makeStyles(styles);
-
-const DEFAULT_STYLE_PROPS = {
-    boxShadow: '0 7.5px 15px 0 #e4e4e4',
-};
-
-// Variant should be one of the following : ['raised', 'flat', 'underlined'].
 interface CustomProps {
     containerElement?: string | ExoticComponent;
     containerProps?: any;
@@ -26,15 +22,14 @@ interface CustomProps {
     fullWidth?: boolean;
     inputRef?: any;
     containerRef?: any;
-    beforeChildren?: ReactChildren;
+    beforeChildren?: ReactNode;
     multiline?: boolean;
     rows?: number;
-    variant?: 'raised' | 'flat' | 'underlined';
+    variant?: TextFieldVariants;
     type?: HTMLInputElement['type'];
     disabled?: boolean;
-    classes?: Classes;
-    customClasses?: Classes;
-    size?: 'small';
+    classes?: { container?: string; input?: string };
+    size?: 'xs' | 'small' | 'regular';
     onFocus?: (...args: any[]) => void;
     onBlur?: (...args: any[]) => void;
     passwordLabels?: {
@@ -45,119 +40,84 @@ interface CustomProps {
 
 export type TextFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>, 'size'> &
     CustomProps;
-const TextFieldComponent: React.FC<TextFieldProps> = ({
-    containerElement: ContainerElement = 'div',
-    containerProps,
-    className,
-    inputClassName,
-    fullWidth,
-    inputRef,
-    containerRef,
-    beforeChildren = null,
-    multiline,
-    rows,
-    children,
-    variant = 'raised',
-    type = 'text',
-    disabled,
-    customClasses: oldCustomClasses = {},
-    size,
-    classes: receivedClasses = {},
-    ...other
-}) => {
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });
-    const InputComponent = multiline ? 'textarea' : 'input';
-    const isPassword = type === 'password';
-
-    const [showHidePassword, changeShowHidePassword] = useState(false);
-    const togglePasswordVisiblity = () => {
-        changeShowHidePassword(!showHidePassword);
-    };
-
-    return (
-        <ContainerElement
-            ref={containerRef}
-            className={cn(
-                className,
-                classes.container,
-                fullWidth && classes.fullWidth,
-                multiline && classes.multilineContainer,
-                classes[variant],
-                // @ts-ignore
-                disabled && classes[`${variant}Disabled` as any]
-            )}
-            {...(containerProps &&
-                containerProps.style && {
-                    style: containerProps.style,
-                })}
-            {...containerProps}
-        >
-            {beforeChildren}
-            <InputComponent
-                ref={inputRef}
-                className={cn(inputClassName, classes.input, multiline && classes.multiline, size && classes[size])}
-                type={showHidePassword ? 'text' : type}
-                {...{ rows, disabled }}
-                {...other}
-            />
-            {isPassword && (
-                <IconButton title="Show/Hide password" className={classes.icon} onClick={togglePasswordVisiblity}>
-                    {showHidePassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-            )}
-            {children}
-        </ContainerElement>
-    );
-};
-
-const RaisedTextField: React.FC<TextFieldProps> = ({ onFocus, onBlur, containerProps, ...other }) => {
-    const [styleProps, setStyleProps] = useState(DEFAULT_STYLE_PROPS);
-
-    const handleFocus = useCallback(
-        (...parameters) => {
-            if (typeof onFocus === 'function') {
-                onFocus(...parameters);
-            }
-            setStyleProps({ boxShadow: '0 10px 20px 0 #dadada' });
+export const TextField = forwardRef<HTMLElement, PropsWithChildren<TextFieldProps>>(
+    (
+        {
+            containerElement: ContainerElement = 'div',
+            containerProps,
+            className,
+            inputClassName,
+            fullWidth,
+            inputRef,
+            containerRef,
+            beforeChildren = null,
+            multiline,
+            rows,
+            children,
+            variant = 'raised',
+            type = 'text',
+            disabled,
+            size = 'regular',
+            classes = {},
+            ...other
         },
-        [onFocus]
-    );
-    const handleBlur = useCallback(
-        (...parameters) => {
-            if (typeof onBlur === 'function') {
-                onBlur(...parameters);
-            }
-            setStyleProps(DEFAULT_STYLE_PROPS);
-        },
-        [onBlur]
-    );
-    return (
-        <TextFieldComponent
-            containerElement="div"
-            containerProps={{
-                ...containerProps,
-                style: {
+        ref
+    ) => {
+        const InputComponent = multiline ? 'textarea' : 'input';
+        const isPassword = type === 'password';
+
+        const [showHidePassword, changeShowHidePassword] = useState(false);
+        const togglePasswordVisiblity = () => {
+            changeShowHidePassword(!showHidePassword);
+        };
+
+        return (
+            <ContainerElement
+                ref={ref || containerRef}
+                className={cn(
+                    className,
+                    baseStyles.container,
+                    containedSizeStyles[size],
+                    fullWidth && 'w-full',
+                    multiline && baseStyles.multilineContainer,
+                    variant && variantStyles[variant],
+                    disabled && variant && variantStyles[`${variant}Disabled`],
+                    classes?.container
+                )}
+                style={{
                     ...(containerProps && containerProps.style),
-                    ...styleProps,
-                },
-            }}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            {...other}
-        />
-    );
-};
-
-const WithVariantTextField: React.FC<TextFieldProps> = ({ variant = 'raised', ...other }) => {
-    if (variant === 'raised') {
-        return <RaisedTextField {...{ variant }} {...other} />;
+                }}
+                {...containerProps}
+            >
+                {beforeChildren}
+                <InputComponent
+                    ref={inputRef}
+                    className={cn(
+                        inputClassName,
+                        baseStyles.input,
+                        size && sizeStyles[size],
+                        multiline && baseStyles.multilineInput,
+                        variant && inputStyles[variant],
+                        disabled && inputStyles.disabled,
+                        disabled && variant && inputStyles[`${variant}Disabled`],
+                        classes?.input
+                    )}
+                    type={showHidePassword ? 'text' : type}
+                    {...{ rows, disabled }}
+                    {...other}
+                />
+                {isPassword && (
+                    <IconButton
+                        title="Show/Hide password"
+                        className="ds-w-4 ds-h-4 ds-ml-1"
+                        onClick={togglePasswordVisiblity}
+                        size="large"
+                    >
+                        {showHidePassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                )}
+                {children}
+            </ContainerElement>
+        );
     }
-
-    return <TextFieldComponent {...{ variant }} {...other} />;
-};
-
-export const TextField = WithVariantTextField;
+);

@@ -1,0 +1,21 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { PopperCardStory } from './popper_card_story';
+import { PopperCardContent } from '../../src/popper_card_content/popper_card_content';
+import { Button } from '../../src/button/button';
+
+<Meta title="Components/PopperCard" component={PopperCardContent} />
+
+export const Template = (args) => {
+    return (
+        <PopperCardContent>
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+        </PopperCardContent>
+    );
+};
+
+# PopperCardActions
+
+<Canvas>
+    <Story name="Content">{Template.bind({})}</Story>
+</Canvas>

@@ -1,0 +1,36 @@
+import { useRef, useState, useEffect } from 'react';
+import { Button } from '../../src/button/button';
+import { PopperCard } from '../../src/popper_card/popper_card';
+
+<Meta title="Components/PopperCard" component={PopperCard} />
+
+export const Template = (args) => {
+    const ref = useRef();
+    const [open, setOpen] = useState(false);
+    useEffect(() => {
+        setTimeout(() => setOpen(true), 100);
+    }, []);
+    return (
+        <div className="ds-m-8">
+            <PopperCard
+                classes={{
+                    container: 'ds-bg-danger-400',
+                    arrowContainer: 'ds-text-danger-400 ',
+                }}
+                open={open}
+                anchorElement={ref.current}
+            >
+                Popper
+            </PopperCard>
+            <Button ref={ref} className="ds-p-2 bg-i">
+                Diz button
+            </Button>
+        </div>
+    );
+};
+
+# Regular
+
+<Canvas>
+    <Story name="Stylised">{Template.bind({})}</Story>
+</Canvas>

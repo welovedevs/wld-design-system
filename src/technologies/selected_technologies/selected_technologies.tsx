@@ -2,80 +2,95 @@ import React, { useCallback, useContext, useMemo } from 'react';
 
 // @ts-ignore
 import cn from 'classnames';
-import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { styles } from './selected_technologies_styles';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    useSortable,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
 import last from 'lodash/last';
-import { makeStyles } from '@material-ui/core/styles';
-import { Classes } from '../technologies_picker_styles';
 import { DevTechnology } from '../technologies/technology';
 import { TechnologiesPickerContext } from '../technologies_picker_context';
-import { Card, List, Slider, Tooltip, Typography } from '../../index';
+import { Card, Slider, Tooltip, Typography } from '../../index';
 import { TrashIcon } from '../../assets/icons/trash';
 import { MoveIcon } from '../../assets/icons/move';
 
-const useStyles = makeStyles(styles);
+const TechnologyRow = ({
+    id,
+    item,
+    onDelete: onRemove,
+    onChange,
+    itemsLength,
+    technologyIndex,
+    hideSlider,
+}: {
+    id: string;
+    item: DevTechnology;
+    onDelete: (name: string) => void;
+    onChange: (id: DevTechnology) => void;
+    technologyIndex: number;
+    itemsLength: number;
+    hideSlider?: boolean;
+}) => {
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
 
-const TechnologyRow = SortableElement(
-    ({
-        item,
-        onDelete: onRemove,
-        onChange,
-        itemsLength,
-        technologyIndex,
-    }: {
-        id: string;
-        item: DevTechnology;
-        onDelete: (name: string) => void;
-        onChange: (id: DevTechnology) => void;
-        technologyIndex: number;
-        itemsLength: number;
-    }) => {
-        const classes = useStyles();
-        const { technologies, translations } = useContext(TechnologiesPickerContext);
+    const { technologies, translations } = useContext(TechnologiesPickerContext);
 
-        const sliderChange = useCallback(
-            (e) => {
-                onChange({ ...item, value: Number(e.target.value) });
-            },
-            [item, onChange]
-        );
-        const imgUrl = useMemo(() => {
-            const matchingItem = technologies.find((techno) => techno.name === item.name);
-            if (matchingItem?.handle) {
-                return `https://process.filestackapi.com/auto_image/${matchingItem?.handle ?? '4A5N89okRPW50jRcmkuM'}`;
-            }
-            const handle = last(matchingItem?.url.split('/'));
-            return `https://process.filestackapi.com/auto_image/${handle ?? '4A5N89okRPW50jRcmkuM'}`;
-        }, [item, technologies]);
+    const sliderChange = useCallback(
+        (e: any) => {
+            onChange({ ...item, value: Number(e.target.value) });
+        },
+        [item, onChange]
+    );
+    const imgUrl = useMemo(() => {
+        const matchingItem = technologies.find((techno) => techno.name === item.name);
+        if (matchingItem?.handle) {
+            return `https://process.filestackapi.com/auto_image/${matchingItem?.handle ?? '4A5N89okRPW50jRcmkuM'}`;
+        }
+        const handle = last(matchingItem?.url.split('/'));
+        return `https://process.filestackapi.com/auto_image/${handle ?? '4A5N89okRPW50jRcmkuM'}`;
+    }, [item, technologies]);
 
-
-        return (
-            <li className={classes.listItem} style={{ zIndex: itemsLength - technologyIndex }}>
-                <DragHandle classes={classes} />
-                <div className={classes.divider} />
-                <Tooltip title={translations.deleteLabel}>
-                    <button className={classes.removeButton} type="button" onClick={() => onRemove(item.name)}>
-                        <TrashIcon className={classes.removeIcon} />
-                    </button>
-                </Tooltip>
-                <div className={classes.divider} />
-                <Card className={classes.logo}>
-                    <img className={classes.logoImage} alt={item.name} src={imgUrl} />
-                </Card>
-                <div className={classes.textWrapper}>
-                    <Typography color="dark" variant="label">
-                        {item.name}
-                    </Typography>
-                    <div className={classes.sliderValueContainer}>
+    let divider = <div className="ds-bg-dark-50 ds-w-[1px] ds-h-5 ds-mx-1.5" />;
+    return (
+        <div
+            ref={setNodeRef}
+            className={'ds flex ds-flex ds-items-center ds-w-full ds-p-0 ds-my-2 ds-relative ds-z-[1400]'}
+            style={{ ...style, zIndex: itemsLength - technologyIndex }}
+        >
+            <button {...attributes} {...listeners} className="ds-flex ds-mr-1/2" type="button">
+                <MoveIcon className="ds-w-2.5 ds-h-2.5 ds-text-indigo-500" />
+            </button>
+            <Typography color={'indigo'} variant="h3" className="ds-font-semibold">
+                {technologyIndex + 1}
+            </Typography>
+            {divider}
+            <Card className="ds-w-5 ds-h-5 !ds-p-1 ds-mr-1">
+                <img className={'ds-object-contain ds-w-full ds-h-full'} alt={item.name} src={imgUrl} />
+            </Card>
+            <div className="ds-flex-1">
+                <Typography color="dark" variant="label">
+                    {item.name}
+                </Typography>
+                {!hideSlider && (
+                    <div className="ds-flex ds-items-center">
                         <Typography
                             classes={{
-                                container: classes.sliderValue,
+                                container: 'ds-w-5 ds-mb-0',
                             }}
                             color="dark"
-                            variant="label"
+                            variant="body3"
                         >
-                            <span className={classes.bolden}>{item.value}</span>%
+                            <span className="ds-font-medium">{item.value}</span>%
                         </Typography>
                         <Slider
                             color="primary"
@@ -85,58 +100,90 @@ const TechnologyRow = SortableElement(
                             min={0}
                             max={100}
                             step={5}
-                            debounce={50}
-                            classes={{ container: classes.slider }}
+                            classes={{ container: 'ds-w-12 ds-mr-1' }}
                             popperCardProps={{
                                 classes: {
-                                    popper: classes.popper,
+                                    popper: 'ds-z-[1302]',
                                 },
                             }}
                         />
                     </div>
-                </div>
-            </li>
-        );
-    }
-);
+                )}
+            </div>
+            {divider}
+            <Tooltip title={translations.deleteLabel}>
+                <button className="ds-flex" type="button" onClick={() => onRemove(item.name)}>
+                    <TrashIcon className="ds-fill-danger-500 ds-w-3 ds-h-3" />
+                </button>
+            </Tooltip>
+        </div>
+    );
+};
 
-const SortableTechnologies = SortableContainer(
-    ({
-        items,
-        onDelete,
-        onItemChange,
-        classes: receivedClasses,
-        className,
-        itemsLength,
-    }: Props & {
-        itemsLength: number;
-    }) => {
-        const classes = useStyles({ classes: receivedClasses });
+const SortableTechnologies = ({
+    items,
+    onDelete,
+    onItemChange,
+    classes,
+    className,
+    itemsLength,
+    onSortEnd,
+    hideSlider,
+}: Props & {
+    itemsLength: number;
+    onSortEnd: (props: { newIndex: any; oldIndex: any }) => any;
+    hideSlider?: boolean;
+}) => {
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
 
-        return (
-            <List className={cn(classes.container, className)}>
-                {items.map((item, index) => (
-                    <TechnologyRow
-                        key={`selected_technology_row_${item.name}`}
-                        onDelete={onDelete}
-                        id={item.name}
-                        onChange={onItemChange}
-                        technologyIndex={index}
-                        index={index}
-                        item={item}
-                        itemsLength={itemsLength}
-                    />
-                ))}
-            </List>
-        );
-    }
-);
+    const itemsWithId = useMemo(() => items.map((item) => ({ ...item, id: item.name })), [items]);
+    const handleDragEnd = useCallback(
+        (event: any) => {
+            const { active, over } = event;
 
-const DragHandle = SortableHandle(({ classes }: { classes: any }) => (
-    <button className={classes.dragHandleButton} type="button">
-        <MoveIcon className={classes.dragHandle} />
-    </button>
-));
+            if (active.id !== over.id) {
+                const oldItem = items.find(({ name }) => name === active.id);
+                const newItem = items.find(({ name }) => name === over.id);
+                const oldIndex = oldItem && items.indexOf(oldItem);
+                const newIndex = newItem && items.indexOf(newItem);
+                return onSortEnd({ oldIndex, newIndex });
+            }
+        },
+        [items]
+    );
+
+    return (
+        <div
+            className={cn(
+                classes?.container,
+                'ds-pr-2 ds-h-full ds-scrollbar ds-overflow-auto !ds-z-[1301]',
+                className
+            )}
+        >
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext items={itemsWithId} strategy={verticalListSortingStrategy}>
+                    {itemsWithId.map((item, index) => (
+                        <TechnologyRow
+                            key={`selected_technology_row_${item.name}_${index}`}
+                            onDelete={onDelete}
+                            id={item.id}
+                            onChange={onItemChange}
+                            technologyIndex={index}
+                            item={item}
+                            itemsLength={itemsLength}
+                            hideSlider={hideSlider}
+                        />
+                    ))}
+                </SortableContext>
+            </DndContext>
+        </div>
+    );
+};
 
 interface Props {
     items: Array<DevTechnology>;
@@ -144,44 +191,41 @@ interface Props {
     onDelete: (id: string) => void;
     className?: string;
     onItemChange: (technology: DevTechnology) => void;
-    classes?: Classes;
+    classes?: { container?: string };
+    hideSlider?: boolean;
 }
-const SelectedTechnologiesComponent: React.FC<Props> = ({
+
+export const SelectedTechnologies: React.FC<Props> = ({
     items,
     onChange,
     onDelete,
     className,
     onItemChange,
-    classes: receivedClasses = {},
+    classes = {},
+    hideSlider,
 }) => {
-    const classes = useStyles({ classes: receivedClasses });
-
     const itemsLength = useMemo(() => items.length, [items]);
 
     const move = useCallback(
-        ({ oldIndex, newIndex }) => {
-            onChange(arrayMove(items, oldIndex, newIndex).map((data, index) => ({ ...data, index })));
+        ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+            if (typeof onChange === 'function') {
+                onChange(arrayMove(items, oldIndex, newIndex).map((data, index) => ({ ...data, index })));
+            }
         },
         [items, onChange]
     );
 
     return (
         <SortableTechnologies
-            lockToContainerEdges
-            className={className}
-            helperClass={classes.sortableHelper}
+            className={className ?? ''}
             items={items}
             onSortEnd={move}
-            distance={20}
-            useDragHandle
-            lockAxis="y"
             onItemChange={onItemChange}
             onDelete={onDelete}
             itemsLength={itemsLength}
             onChange={onChange}
-            classes={receivedClasses}
+            classes={classes}
+            hideSlider={hideSlider}
         />
     );
 };
-
-export const SelectedTechnologies = SelectedTechnologiesComponent;

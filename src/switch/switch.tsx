@@ -1,17 +1,12 @@
-import React, { DOMAttributes, useCallback, useMemo, useState } from 'react';
+import React, { DOMAttributes, useCallback } from 'react';
 
 import cn from 'classnames';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { motion } from 'framer-motion';
 import get from 'lodash/get';
-import Measure from 'react-measure';
 
-import { getComponentColor, getHexFromTheme, PaletteColors } from '../styles';
+import { PaletteColors } from '../styles';
 
-import { Classes, styles } from './switch_styles';
-import merge from 'lodash/merge';
-
-const useStyles = makeStyles(styles);
+import { baseStyles, sizeStyles, thumbPositionStyles } from './switch_styles';
+import { palette } from '../index';
 
 interface Props {
     containerRef?: any;
@@ -22,9 +17,8 @@ interface Props {
     inputClassName?: string;
     containerProps?: any;
     onChange?: (...params: any[]) => void;
-    size?: 'small';
-    classes?: Classes;
-    customClasses?: Classes;
+    size?: 'small' | 'regular';
+    classes?: { container?: string };
 }
 export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     containerRef,
@@ -35,27 +29,18 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
     inputClassName,
     containerProps,
     onChange,
-    size,
-    customClasses: oldCustomClasses = {},
-    classes: receivedClasses = {},
+    size = 'regular',
+    classes = {},
 
     ...other
 }) => {
-    const theme = useTheme();
-    const mergedClasses = useMemo(() => merge({}, oldCustomClasses, receivedClasses), [
-        JSON.stringify(oldCustomClasses),
-        JSON.stringify(receivedClasses),
-    ]);
-    const classes = useStyles({ classes: mergedClasses });
-    const hexColor = useMemo(() => getHexFromTheme(theme, color), [theme, color]);
+    const hexColor = disabled ? palette?.dark[50] : (color && palette[color]?.[500]) || palette?.dark[100];
 
     const containerStyleProps = {
-        color: getComponentColor(true, hexColor, disabled, getHexFromTheme(theme, 'dark', 50)),
+        color: hexColor,
     };
-    const [thumbWidth, setThumbWidth] = useState(null);
-
     const handleChange = useCallback(
-        (...parameters) => {
+        (...parameters: any[]) => {
             if (disabled) {
                 return;
             }
@@ -66,61 +51,36 @@ export const Switch: React.FC<Props & DOMAttributes<any>> = ({
         [disabled, onChange]
     );
 
-    const handleThumbResize = useCallback(
-        ({ bounds: { width } }) => {
-            if (width !== thumbWidth) {
-                setThumbWidth(width);
-            }
-        },
-        [thumbWidth]
-    );
-
-    const sizeClasses: 'size_small' | undefined = size && (`size_${size}` as 'size_small');
-
     return (
-        <motion.div
+        <div
             ref={containerRef}
             className={cn(
                 className,
-                classes.container,
-                disabled && classes.disabled,
-                sizeClasses && classes[sizeClasses]
+                baseStyles.container,
+                disabled && baseStyles.disabled,
+                size && sizeStyles[`size_${size}`]
             )}
             style={{
+                ...containerStyleProps,
                 ...get(containerProps, 'style'),
             }}
-            animate={{ ...containerStyleProps }}
             {...containerProps}
-            initial="initial"
-            whileHover="hover"
         >
-            <motion.div
-                className={classes.thumbContainer}
-                animate={{
-                    x: `calc(${checked ? 0 : -100}% + ${thumbWidth}px)`,
-                    width: `calc(100% - ${thumbWidth}px)`,
-                }}
-                transition={{ type: 'tween' }}
+            <div
+                className={`${baseStyles.thumbContainer} ${
+                    checked ? thumbPositionStyles[size].right : thumbPositionStyles[size].left
+                }`}
             >
-                <Measure bounds onResize={handleThumbResize}>
-                    {({ measureRef }) => (
-                        <span ref={measureRef}>
-                            <div className={classes.thumb} />
-                        </span>
-                    )}
-                </Measure>
-            </motion.div>
-            <motion.div
-                className={classes.brightLayer}
-                variants={{ initial: { opacity: 0 }, hover: { opacity: 0.3 } }}
-            />
+                <div className={cn(baseStyles.thumb, size && sizeStyles[`thumb_size_${size}`])} />
+            </div>
+            <div className={baseStyles.brightLayer} />
             <input
-                className={cn(classes.input, inputClassName)}
+                className={cn(baseStyles.input, inputClassName, disabled && baseStyles.disabled)}
                 type="checkbox"
                 onChange={handleChange}
                 {...{ checked }}
                 {...other}
             />
-        </motion.div>
+        </div>
     );
 };

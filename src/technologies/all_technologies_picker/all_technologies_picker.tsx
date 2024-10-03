@@ -1,14 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 
-import {
-    ALL_TECHNOLOGIES_TRANSITIONS_PROPS,
-    SELECTED_ITEM_LAYER_TRANSITIONS_PROPS,
-} from './all_technologies_picker_props';
-
-import { Classes, styles, technoCardsSizes } from './all_technologies_picker_styles';
 import { DevTechnology, Technology } from '../technologies/technology';
-import { makeStyles } from '@material-ui/core/styles';
 import last from 'lodash/last';
 import { useDebouncedValue } from '../../hooks/use_debounced_value';
 import { TechnologiesPickerContext } from '../technologies_picker_context';
@@ -16,12 +8,16 @@ import cn from 'classnames';
 import { Card, Checkbox, TextField, Typography } from '../../index';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const DEFAULT_SPRING_TYPE = {
-    type: 'spring',
-    damping: 18,
-};
-
-const useStyles = makeStyles(styles);
+const technoCardsSizes = {
+    mobile: {
+        width: 56 + 2 * 1 * 8,
+        height: 80 + 2 * 1 * 8,
+    },
+    other: {
+        width: 80 + 2 * 1.5 * 8,
+        height: 120 + 2 * 1.5 * 8,
+    },
+} as const;
 
 const TechnologyItem = ({
     item,
@@ -36,7 +32,6 @@ const TechnologyItem = ({
     onDelete: (name: string) => void;
     isMobile?: boolean;
 }) => {
-    const classes = useStyles({ isMobile });
     const { technologies } = useContext(TechnologiesPickerContext);
     const selectedItem = useMemo(() => selectedItems.find(({ name }) => name === item.name), [selectedItems, item]);
 
@@ -58,35 +53,38 @@ const TechnologyItem = ({
     }, [item, technologies]);
 
     return (
-        <button className={classes.technologyItem} type="button" onClick={onClick}>
+        <button
+            className={`${
+                isMobile ? 'ds-w-7 ds-max-w-7 ds-m-1' : 'ds-w-10 ds-max-w-10 ds-m-1.5'
+            } ds-flex ds-flex-col ds-items-center`}
+            type="button"
+            onClick={onClick}
+        >
             <Card
                 classes={{
-                    container: classes.technologyImageContainer,
+                    container: `${
+                        isMobile ? '  ds-h-7 ds-max-h-7 !ds-p-1 ' : 'ds-h-10 ds-max-h-10 !ds-p-2'
+                    } !ds-w-full ds-overflow-hidden ds-mb-2 ds-relative`,
                 }}
             >
-                <img src={imgUrl} alt={item.name} className={classes.technologyImage} />
-                <AnimatePresence>
-                    {selectedItem && (
-                        <motion.div
-                            key={`selected_item_layer_${selectedItem?.name}`}
-                            className={classes.selectedTechnologyLayer}
-                            variants={SELECTED_ITEM_LAYER_TRANSITIONS_PROPS}
-                            initial="initial"
-                            animate="animate"
-                            exit="exit"
-                            transition={DEFAULT_SPRING_TYPE}
-                        >
-                            <Typography color="light" variant="h3">
-                                {selectedItem?.index + 1}
-                            </Typography>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <img src={imgUrl} alt={item.name} className={`ds-w-full ds-h-full ds-object-contain`} />
+                {selectedItem && (
+                    <div
+                        key={`selected_item_layer_${selectedItem?.name}`}
+                        className={
+                            'ds-z-[2] ds-absolute ds-top-0 ds-left-0 ds-w-full ds-h-full ds-bg-primary-500 ds-text-light-500 ds-text-center ds-flex ds-items-center ds-justify-center'
+                        }
+                    >
+                        <Typography color="light" variant="h3">
+                            {selectedItem?.index + 1}
+                        </Typography>
+                    </div>
+                )}
             </Card>
             <Typography
-                variant="body2"
+                variant="body3"
                 classes={{
-                    container: classes.typography,
+                    container: 'ds-text-center ds-break-all',
                 }}
             >
                 {item.name}
@@ -98,7 +96,10 @@ const TechnologyItem = ({
 interface Props {
     technologies: Technology[];
     onDelete: (name: string) => void;
-    classes?: Classes;
+    classes?: {
+        container?: string;
+        technologiesList?: string;
+    };
     onAdd: (name: string) => void;
     selectedItems: Array<DevTechnology>;
     isMobile?: boolean;
@@ -111,12 +112,11 @@ export const AllTechnologiesPicker = ({
     selectedItems,
     onAdd,
     onDelete,
-    classes: receivedClasses = {},
+    classes = {},
     isMobile,
     noResultsElement = null,
     additionalInformations = null,
 }: Props) => {
-    const classes = useStyles({ classes: receivedClasses, isMobile } as any);
     const [onlySelected, setOnlySelected] = useState<boolean>();
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [query, setQuery] = useState<string>('');
@@ -141,7 +141,7 @@ export const AllTechnologiesPicker = ({
         [technologies, debouncedQuery, onlySelected]
     );
     const slicedItems = useMemo(() => displayedItems.slice(0, shownItems), [displayedItems, shownItems]);
-    const handleTextFieldChange = useCallback((event) => setQuery(event.target.value), []);
+    const handleTextFieldChange = useCallback((event: any) => setQuery(event.target.value), []);
     useEffect(() => {
         const { clientWidth: width, clientHeight: height } = containerRef?.current || {};
         if (!width || !height) {
@@ -150,10 +150,9 @@ export const AllTechnologiesPicker = ({
 
         const sizes = isMobile ? technoCardsSizes['mobile'] : technoCardsSizes['other'];
         const itemsPerRow = Math.floor(width / sizes.width);
-        const rowsCount = Math.floor(height / sizes.height);
+        const rowsCount = Math.ceil(height / sizes.height);
 
         let itemsCount = Math.round(itemsPerRow * rowsCount);
-        console.log({ width, height, itemsPerRow, rowsCount, itemsCount });
         setShownItems(itemsCount);
     }, [containerRef.current]);
 
@@ -162,34 +161,40 @@ export const AllTechnologiesPicker = ({
     }, [onlySelected]);
 
     return (
-        <div className={classes.container} ref={containerRef}>
-            <TextField
-                classes={{
-                    container: classes.textField,
-                }}
-                fullWidth={isMobile}
-                variant="flat"
-                value={query}
-                onChange={handleTextFieldChange}
-                placeholder="Mobile, Javascript, etc..."
-            />
-            {isMobile && additionalInformations}
-            {isMobile && (
-                <button className={cn(classes.checkboxButton)} type="button" onClick={toggleOtherPerk}>
+        <div className={`${classes?.container ?? ''} ds-overflow-hidden ds-flex ds-flex-col`} ref={containerRef}>
+            <div className={'ds-flex ds-items-center ds-flex-wrap  ds-mb-3 '}>
+                <TextField
+                    classes={{
+                        container: 'ds-w-[400px] sm:ds-w-[unset] ds-min-h-[60px]',
+                    }}
+                    fullWidth={isMobile}
+                    variant="flat"
+                    value={query}
+                    onChange={handleTextFieldChange}
+                    placeholder="Mobile, Javascript, etc..."
+                />
+                <button
+                    className={cn('ds-m-1 ds-flex ds-items-center ds-text-left')}
+                    type="button"
+                    onClick={toggleOtherPerk}
+                >
                     <Checkbox
-                        className={classes.checkbox}
                         variant="outlined"
                         color="secondary"
                         checked={!!onlySelected}
                         onChange={toggleOtherPerk}
+                        className={'ds-mr-1'}
                     />
-                    <Typography>{translations.checkboxLabel}</Typography>
+                    <Typography variant="body2">{translations.checkboxLabel}</Typography>
                 </button>
-            )}
+            </div>
+            {isMobile && additionalInformations}
             {!displayedItems.length && noResultsElement}
-            <div id="allTechnologiesPicker" className={classes.technologiesListWrapper}>
+            <div id="allTechnologiesPicker" className={'ds-w-full ds-overflow-auto ds-scrollbar'}>
                 <InfiniteScroll
-                    className={classes.technologiesList}
+                    className={`ds-pr-0 ds-flex ds-justify-center ds-flex-wrap sm:ds-ml-[unset]  ${
+                        classes?.technologiesList ?? ''
+                    }`}
                     dataLength={slicedItems.length}
                     next={() => {
                         setShownItems(shownItems + DISPLAYED_ITEMS);
@@ -205,7 +210,7 @@ export const AllTechnologiesPicker = ({
                             item={item}
                             onAdd={onAdd}
                             onDelete={onDelete}
-                            isMobile={isMobile}
+                            isMobile={!!isMobile}
                         />
                     ))}
                 </InfiniteScroll>

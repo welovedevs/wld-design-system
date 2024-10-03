@@ -1,18 +1,16 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useRef, PropsWithChildren } from 'react';
 
 import cn from 'classnames';
-import { makeStyles } from '@material-ui/core/styles';
-import { motion } from 'framer-motion';
 
-import { ClickAwayListener, Popper, PopperProps } from '@material-ui/core';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Popper, { PopperProps } from '@mui/material/Popper';
 import { Card } from '../card/card';
 
-import { PopperCustomClasses, styles } from './popper_card_styles';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
+import { PopperCustomClasses } from './popper_card_styles';
 import { SpeechBubbleArrow } from '../assets/icons/speech_bubble_arrow_component';
 import merge from 'lodash/merge';
-
-const useStyles = makeStyles(styles);
+import { PopperPlacementType } from '@mui/material';
+import uniqBy from 'lodash/uniqBy';
 
 interface Props {
     className?: string;
@@ -28,10 +26,7 @@ interface Props {
     containerProps?: any;
 }
 
-type ClassesRecord = ClassNameMap<
-    'container' | 'popper' | 'closedPopper' | 'arrowContainer' | 'structured' | 'wrapper'
->;
-export const PopperCard: React.FC<Props> = ({
+export const PopperCard: React.FC<PropsWithChildren<Props>> = ({
     className,
     anchorElement,
     open,
@@ -49,103 +44,72 @@ export const PopperCard: React.FC<Props> = ({
         JSON.stringify(oldCustomClasses),
         JSON.stringify(receivedClasses),
     ]);
-    const classes = useStyles({ classes: mergedClasses });
+    const classes = mergedClasses;
     const [arrowReference, setArrowReference] = useState(null);
+    let modifiers = useMemo(
+        () =>
+            uniqBy(
+                [
+                    ...((popperProps && popperProps.modifiers) || []),
+                    {
+                        name: 'flip',
+                        enabled: true,
+                    },
+                    {
+                        name: 'preventOverflow',
+                        enabled: true,
+                        options: {
+                            padding: 8,
+                        },
+                    },
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 16], // décaler le popper de 10px vers le bas
+                        },
+                    },
+                    {
+                        name: 'arrow',
+                        enabled: true,
+                        options: {
+                            element: arrowReference,
+                        },
+                    },
+                ],
+                'name'
+            ),
+        [popperProps?.modifiers, arrowReference]
+    );
     return (
         <Popper
-            {...{ open }}
+            open={open}
             {...containerProps}
+            {...popperProps}
             className={cn(
-                classes.popper,
-                !open && classes.closedPopper,
+                'ds-z-[100]',
+                !open && 'ds-pointer-events-none ds-top-0 ds-left-0',
                 receivedClasses.popper,
                 containerProps.className
             )}
             anchorEl={anchorElement}
-            {...popperProps}
-            modifiers={{
-                flip: {
-                    enabled: true,
-                },
-                preventOverflow: {
-                    enabled: true,
-                    boundariesElement: 'scrollParent',
-                },
-                arrow: {
-                    enabled: !dismissArrow,
-                    element: arrowReference,
-                },
-                ...(popperProps && popperProps.modifiers),
-            }}
-            transition
+            modifiers={modifiers}
         >
-            {({ TransitionProps }) => (
-                <Fade {...TransitionProps} {...popperProps}>
-                    <Content
-                        {...{
-                            className,
-                            setArrowReference,
-                            structured,
-                            dismissArrow,
-                            onClickAway,
-                            classes,
-                        }}
-                    >
-                        {children}
-                    </Content>
-                </Fade>
+            {({ placement }) => (
+                <Content
+                    {...{
+                        placement,
+                        className,
+                        setArrowReference,
+                        structured,
+                        dismissArrow,
+                        onClickAway,
+                        classes,
+                    }}
+                >
+                    {children}
+                </Content>
             )}
         </Popper>
-    );
-};
-
-const Fade: React.FC<{
-    in?: boolean;
-    onEnter?: () => void;
-    onExited?: () => void;
-    popperProps?: Omit<PopperProps, 'open' | 'children' | 'anchorElement'>;
-    TransitionProps?: any;
-}> = (props, ref) => {
-    const { in: open, children, onEnter, onExited, popperProps, ...other } = props;
-    const getTranslationFromPlacement = useCallback((value) => {
-        const placement = (popperProps && popperProps.placement) || 'bottom';
-        if (['top', 'bottom'].some((key) => placement === key)) {
-            return `translate3d(0, ${value}px, 0)`;
-        }
-        return `translate3d(-${value}px, 0, 0)`;
-    }, []);
-    const motionConfig = {
-        onStart: () => {
-            // This cause the following error: Cannot update a component from inside the function body of a different component.
-            // It is a pattern documented in the Transition section of Material-UI docs, waiting for a possible update.
-            if (open && onEnter) {
-                onEnter();
-            }
-        },
-        onRest: () => {
-            if (!open && onExited) {
-                onExited();
-            }
-        },
-    };
-
-    return (
-        <motion.div
-            {...{ ref: ref as any, motionConfig }}
-            style={{ pointerEvents: open ? 'all' : 'none' }}
-            initial={{
-                opacity: 0,
-                transform: getTranslationFromPlacement(20),
-            }}
-            animate={{
-                opacity: open ? 1 : 0,
-                transform: getTranslationFromPlacement(open ? 0 : 20),
-            }}
-            transition={{ type: 'spring' }}
-            {...other}
-        >
-            {children}
-        </motion.div>
     );
 };
 
@@ -155,19 +119,22 @@ interface PopperContentProps {
     setArrowReference: (...parameters: any[]) => void;
     onClickAway?: (...parameters: any[]) => void;
     structured?: boolean;
-    classes: ClassesRecord;
+    classes: any;
+    placement: PopperPlacementType;
 }
-const Content: React.FC<PopperContentProps> = ({
+
+const Content: React.FC<PropsWithChildren<PopperContentProps>> = ({
     className,
     dismissArrow,
     setArrowReference,
+    placement,
     onClickAway,
     structured,
     classes,
     children,
 }) => {
     const handleClickAway = useCallback(
-        (...parameters) => {
+        (...parameters: any[]) => {
             if (typeof onClickAway === 'function') {
                 onClickAway(...parameters);
             }
@@ -176,13 +143,48 @@ const Content: React.FC<PopperContentProps> = ({
     );
 
     const content = (
-        <div className={classes.wrapper}>
+        <div>
             {!dismissArrow && (
-                <div className={cn(classes.arrowContainer)} ref={setArrowReference}>
-                    <SpeechBubbleArrow />
+                <div
+                    className={`ds-z-10 `}
+                    ref={setArrowReference}
+                    style={{
+                        bottom: placement.includes('bottom')
+                            ? 'calc(100% + 16px)'
+                            : placement.includes('top')
+                            ? 0
+                            : undefined,
+                        right: placement.includes('left')
+                            ? 9
+                            : placement.includes('right')
+                            ? 'calc(100% + 25px)'
+                            : undefined,
+                    }}
+                >
+                    <div
+                        className={`ds-leading-none ds-text-light-500 ${classes.arrowContainer}`}
+                        style={{
+                            position: 'absolute',
+                            transform: placement.includes('bottom')
+                                ? 'rotate(0deg)'
+                                : placement.includes('top')
+                                ? 'rotate(180deg)'
+                                : placement.includes('right')
+                                ? 'rotate(-90deg)'
+                                : placement.includes('left')
+                                ? 'rotate(90deg)'
+                                : undefined,
+                            left: placement.includes('bottom') ? -16 : undefined,
+                            top: placement.includes('right') ? -10 : undefined,
+                            bottom: placement.includes('left') ? -10 : undefined,
+                            right: placement.includes('top') ? -19 : undefined,
+                        }}
+                    >
+                        <SpeechBubbleArrow className={'ds-block'} />
+                    </div>
                 </div>
             )}
-            <Card className={cn(className, classes.container, structured && classes.structured)}>{children}</Card>
+            <Card className={cn(className, classes.container, 'ds-relative', structured && 'ds-p-0')}>{children}</Card>
         </div>
     );
     if (onClickAway) {

@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { PopperCardActions } from '../../src/popper_card_actions/popper_card_actions';
+import { Button } from '../../src/button/button';
+
+<Meta title="Components/ButtonApp" component={PopperCardActions} />
+
+export const Template = (args) => {
+    return <div className="ds-p-4 ds-bg-lightGray"><Button {...args}>Le bouton buggé</Button></div>;
+};
+
+# PopperCardActions
+
+<Canvas>
+    <Story
+        name="Already included"
+        args={{
+            variant: 'contained',
+            color: 'light',
+            disabled: true,
+            classes: {
+                typography: '!ds-text-light-500',
+            },
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Color in styles"
+        args={{
+            variant: 'contained',
+            style: {
+                color: '#f00',
+            },
+            classes: {
+                typography: '!ds-text-light-500',
+            },
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="Color in styles/2"
+        args={{
+            variant: 'outlined',
+            style: {
+                color: '#fff',
+            },
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

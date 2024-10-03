@@ -1,18 +1,10 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
 import cn from 'classnames';
-
-import { makeStyles } from '@material-ui/core/styles';
-
-import { Classes, styles } from './list_styles';
-
-const useStyles = makeStyles(styles);
-
-export const List: React.FC<{ className?: string; classes?: Classes }> = ({
+export const List: React.FC<{ classes?: { container?: string } } & HTMLAttributes<HTMLUListElement>> = ({
     className,
-    classes: receivedClasses = {},
+    classes,
     ...other
 }) => {
-    const classes = useStyles({ classes: receivedClasses });
-    return <ul className={cn(classes.container, className)} {...other} />;
+    return <ul className={cn(classes?.container, 'ds-p-0 ds-m-0 ds-list-none', className)} {...other} />;
 };

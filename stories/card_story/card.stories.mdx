@@ -1,6 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
-import { Spacing } from '../stories_helpers/spacing/spacing';
 import { Card } from '../../src';
 
 <Meta title="Components/Card" />
@@ -8,8 +7,6 @@ import { Card } from '../../src';
 # Card
 
 Use card to wrap your content in a nice container
-
-<Spacing value={4} />
 
 ## Props
 
@@ -20,7 +17,7 @@ Use card to wrap your content in a nice container
 Different variants exists for different situations.
 This component have three main variants.
 
-#### ↳ _`text (default)`_
+#### ↳ _`regular (default)`_
 
 Used by default, this variant should be used for less-pronounced actions.
 Usage example:
@@ -30,16 +27,13 @@ Usage example:
 
 <Preview withSource="none">
     <Story name="regular">
-        <Card >Regular Card</Card>
+        <Card>Regular Card</Card>
     </Story>
     <Story name="elevation 0">
         <Card elevation={0}>Regular Card</Card>
     </Story>
-    <Story name="elevation 1">
-        <Card elevation={1}>Regular Card</Card>
-    </Story>
     <Story name="drawer">
-        <Card elevation='drawer'>Regular Card</Card>
+        <Card elevation="drawer">Regular Card</Card>
     </Story>
 </Preview>
 
@@ -53,4 +47,3 @@ Use it when its background is not plain or if displayed on shadowed surfaces.
         <Card variant="flat">Flat Card</Card>
     </Story>
 </Preview>
-
